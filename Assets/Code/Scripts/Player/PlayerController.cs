@@ -15,22 +15,32 @@ namespace Code.Scripts.Player
         // States
         private IdleState<string> idleState;
         private MoveState<string> moveState;
+        private JumpStartState<string> jumpStartState;
         
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
+
+        private bool jumpPressed;
         
         private void Awake()
         {
             idleState = new IdleState<string>("Idle");
             moveState = new MoveState<string>("Move", stateSettings[0], rb);
+            jumpStartState = new JumpStartState<string>("JumpStart", stateSettings[1], this, rb);
             
             fsm = new FiniteStateMachine<string>();
             
             fsm.AddState(idleState);
             fsm.AddState(moveState);
+            fsm.AddState(jumpStartState);
             
             fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
+            fsm.AddTransition(idleState, jumpStartState, () => jumpPressed);
+            
             fsm.AddTransition(moveState, idleState, () => rb.velocity.x == 0);
+            fsm.AddTransition(moveState, jumpStartState, () => jumpPressed);
+            
+            fsm.AddTransition(jumpStartState, idleState, () => rb.velocity.y == 0);
             
             fsm.SetCurrentState(idleState);
             
@@ -39,12 +49,16 @@ namespace Code.Scripts.Player
 
         private void OnEnable()
         {
-            InputManager.Move += UpdateInput;
+            jumpStartState.onEnter += OnEnterJumpHandler;
+            InputManager.Move += OnMoveHandler;
+            InputManager.Jump += OnJumpPressedHandler;
         }
         
         private void OnDisable()
         {
-            InputManager.Move -= UpdateInput;
+            jumpStartState.onEnter -= OnEnterJumpHandler;
+            InputManager.Move -= OnMoveHandler;
+            InputManager.Jump -= OnJumpPressedHandler;
         }
 
         private void Update()
@@ -58,12 +72,28 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
-        /// Update player input on movement states
+        /// Handle player move action
         /// </summary>
         /// <param name="input">Input value</param>
-        private void UpdateInput(Vector2 input)
+        private void OnMoveHandler(Vector2 input)
         {
             moveState.UpdateInput(input.x);
+        }
+        
+        /// <summary>
+        /// Handle player jump action
+        /// </summary>
+        private void OnJumpPressedHandler()
+        {
+            jumpPressed = true;
+        }
+        
+        /// <summary>
+        /// Handle player HAS jumped
+        /// </summary>
+        private void OnEnterJumpHandler()
+        {
+            jumpPressed = false;
         }
     }
 }

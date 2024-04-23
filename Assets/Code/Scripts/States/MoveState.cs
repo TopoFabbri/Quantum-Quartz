@@ -8,7 +8,7 @@ namespace Code.Scripts.States
     {
         private MoveSettings MoveSettings => settings as MoveSettings;
         
-        private readonly Rigidbody2D rb;
+        protected readonly Rigidbody2D rb;
 
         public float Input { get; private set; }
 
