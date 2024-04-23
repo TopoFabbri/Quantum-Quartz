@@ -6,7 +6,7 @@ namespace Code.Scripts.States
 {
     public class MoveState<T> : BaseState<T>
     {
-        private MoveSettings MoveSettings => settings as MoveSettings;
+        protected MoveSettings moveSettings;
         
         protected readonly Rigidbody2D rb;
 
@@ -15,6 +15,7 @@ namespace Code.Scripts.States
         public MoveState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb) : base(id, stateSettings)
         {
             settings = stateSettings;
+            moveSettings = settings as MoveSettings;
             
             this.rb = rb;
         }
@@ -26,9 +27,9 @@ namespace Code.Scripts.States
         
         public override void OnFixedUpdate()
         {
-            rb.AddForce(Input * MoveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
+            rb.AddForce(Input * moveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
             
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -MoveSettings.maxSpeed, MoveSettings.maxSpeed), rb.velocity.y);
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -moveSettings.maxSpeed, moveSettings.maxSpeed), rb.velocity.y);
         }
     }
 }

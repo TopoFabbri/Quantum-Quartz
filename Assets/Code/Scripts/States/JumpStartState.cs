@@ -14,6 +14,7 @@ namespace Code.Scripts.States
         public JumpStartState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb) : base(id, stateSettings, rb)
         {
             settings = stateSettings;
+            moveSettings = JumpSettings.moveSettings;
             
             this.mb = mb;
         }

@@ -40,7 +40,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, idleState, () => rb.velocity.x == 0);
             fsm.AddTransition(moveState, jumpStartState, () => jumpPressed);
             
-            fsm.AddTransition(jumpStartState, idleState, () => rb.velocity.y == 0);
+            fsm.AddTransition(jumpStartState, idleState, () => rb.velocity.y <= 0);
             
             fsm.SetCurrentState(idleState);
             
