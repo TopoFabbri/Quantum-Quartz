@@ -29,7 +29,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             
-            if (!GroundCheck())
+            if (!IsGrounded())
                 return;
             
             mb.StartCoroutine(JumpOnFU());

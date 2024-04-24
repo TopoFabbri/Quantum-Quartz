@@ -42,7 +42,7 @@ namespace Code.Scripts.States
         /// Check if player is on ground
         /// </summary>
         /// <returns>True if on ground</returns>
-        protected bool GroundCheck()
+        public bool IsGrounded()
         {
             return Physics2D.OverlapCircle((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
         }

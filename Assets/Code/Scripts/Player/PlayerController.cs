@@ -80,6 +80,9 @@ namespace Code.Scripts.Player
         private void FixedUpdate()
         {
             fsm.FixedUpdate();
+            
+            if (moveState.IsGrounded() && rb.velocity.y <= 0)
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -97,6 +100,8 @@ namespace Code.Scripts.Player
         private void OnMoveHandler(Vector2 input)
         {
             moveState.SetInput(input.x);
+            jumpState.SetInput(input.x);
+            fallState.SetInput(input.x);
         }
         
         /// <summary>
