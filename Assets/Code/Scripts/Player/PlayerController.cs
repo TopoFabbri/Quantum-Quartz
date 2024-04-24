@@ -81,7 +81,7 @@ namespace Code.Scripts.Player
         {
             fsm.FixedUpdate();
             
-            if (moveState.IsGrounded() && rb.velocity.y <= 0)
+            if (moveState.IsGrounded() && rb.velocity.y < 0f)
                 rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
 

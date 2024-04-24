@@ -36,6 +36,9 @@ namespace Code.Scripts.States
             rb.AddForce(Input * moveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
             
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -moveSettings.maxSpeed, moveSettings.maxSpeed), rb.velocity.y);
+            
+            if (!IsGrounded() && Input == 0)
+                rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
         }
         
         /// <summary>
@@ -44,6 +47,9 @@ namespace Code.Scripts.States
         /// <returns>True if on ground</returns>
         public bool IsGrounded()
         {
+            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.right * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.right * moveSettings.groundCheckRadius, Color.red);
+            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.up * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.up * moveSettings.groundCheckRadius, Color.red);
+            
             return Physics2D.OverlapCircle((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
         }
     }
