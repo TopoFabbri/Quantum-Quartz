@@ -20,7 +20,7 @@ namespace Code.Scripts.States
             this.rb = rb;
         }
         
-        public void UpdateInput(float input)
+        public void SetInput(float input)
         {
             Input = input;
         }

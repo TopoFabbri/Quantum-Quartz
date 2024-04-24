@@ -15,7 +15,7 @@ namespace Code.Scripts.Player
         // States
         private IdleState<string> idleState;
         private MoveState<string> moveState;
-        private JumpStartState<string> jumpStartState;
+        private JumpState<string> jumpState;
         
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -26,21 +26,21 @@ namespace Code.Scripts.Player
         {
             idleState = new IdleState<string>("Idle");
             moveState = new MoveState<string>("Move", stateSettings[0], rb);
-            jumpStartState = new JumpStartState<string>("JumpStart", stateSettings[1], this, rb);
+            jumpState = new JumpState<string>("JumpStart", stateSettings[1], this, rb, transform);
             
             fsm = new FiniteStateMachine<string>();
             
             fsm.AddState(idleState);
             fsm.AddState(moveState);
-            fsm.AddState(jumpStartState);
+            fsm.AddState(jumpState);
             
             fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
-            fsm.AddTransition(idleState, jumpStartState, () => jumpPressed);
+            fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             
             fsm.AddTransition(moveState, idleState, () => rb.velocity.x == 0);
-            fsm.AddTransition(moveState, jumpStartState, () => jumpPressed);
+            fsm.AddTransition(moveState, jumpState, () => jumpPressed);
             
-            fsm.AddTransition(jumpStartState, idleState, () => rb.velocity.y <= 0);
+            fsm.AddTransition(jumpState, idleState, () => rb.velocity.y <= 0);
             
             fsm.SetCurrentState(idleState);
             
@@ -49,14 +49,14 @@ namespace Code.Scripts.Player
 
         private void OnEnable()
         {
-            jumpStartState.onEnter += OnEnterJumpHandler;
+            jumpState.onEnter += OnEnterJumpHandler;
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
         }
         
         private void OnDisable()
         {
-            jumpStartState.onEnter -= OnEnterJumpHandler;
+            jumpState.onEnter -= OnEnterJumpHandler;
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
         }
@@ -77,7 +77,7 @@ namespace Code.Scripts.Player
         /// <param name="input">Input value</param>
         private void OnMoveHandler(Vector2 input)
         {
-            moveState.UpdateInput(input.x);
+            moveState.SetInput(input.x);
         }
         
         /// <summary>
