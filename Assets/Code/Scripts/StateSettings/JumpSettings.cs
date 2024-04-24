@@ -2,7 +2,7 @@
 
 namespace Code.Scripts.StateSettings
 {
-    [CreateAssetMenu(menuName = "StateSettings/JumpStart", fileName = "JumpStartSettings", order = 0)]
+    [CreateAssetMenu(menuName = "StateSettings/Jump", fileName = "JumpSettings", order = 0)]
     public class JumpSettings : StateSettings
     {
         public MoveSettings moveSettings;

@@ -1,3 +1,4 @@
+using System;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.States;
@@ -16,31 +17,39 @@ namespace Code.Scripts.Player
         private IdleState<string> idleState;
         private MoveState<string> moveState;
         private JumpState<string> jumpState;
+        private FallState<string> fallState;
         
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
 
         private bool jumpPressed;
+        private bool falling;
         
         private void Awake()
         {
             idleState = new IdleState<string>("Idle");
             moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
             jumpState = new JumpState<string>("JumpStart", stateSettings[1], this, rb, transform);
+            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
             
             fsm = new FiniteStateMachine<string>();
             
             fsm.AddState(idleState);
             fsm.AddState(moveState);
             fsm.AddState(jumpState);
+            fsm.AddState(fallState);
             
             fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
+            fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
             
             fsm.AddTransition(moveState, idleState, () => rb.velocity.x == 0);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed);
+            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
+
+            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y <= 0);
             
-            fsm.AddTransition(jumpState, idleState, () => rb.velocity.y <= 0);
+            fsm.AddTransition(fallState, idleState, () => !falling);
             
             fsm.SetCurrentState(idleState);
             
@@ -50,6 +59,7 @@ namespace Code.Scripts.Player
         private void OnEnable()
         {
             jumpState.onEnter += OnEnterJumpHandler;
+            fallState.onEnter += OnEnterFallHandler;
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
         }
@@ -57,6 +67,7 @@ namespace Code.Scripts.Player
         private void OnDisable()
         {
             jumpState.onEnter -= OnEnterJumpHandler;
+            fallState.onEnter -= OnEnterFallHandler;
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
         }
@@ -69,6 +80,14 @@ namespace Code.Scripts.Player
         private void FixedUpdate()
         {
             fsm.FixedUpdate();
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            falling = false;
+            
+            if (other.gameObject.CompareTag("Floor"))
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
 
         /// <summary>
@@ -94,6 +113,14 @@ namespace Code.Scripts.Player
         private void OnEnterJumpHandler()
         {
             jumpPressed = false;
+        }
+        
+        /// <summary>
+        /// Handle player started falling
+        /// </summary>
+        private void OnEnterFallHandler()
+        {
+            falling = true;
         }
     }
 }

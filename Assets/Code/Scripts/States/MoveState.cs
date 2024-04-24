@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
+    /// <summary>
+    /// Movement state
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MoveState<T> : BaseState<T>
     {
         protected MoveSettings moveSettings;
