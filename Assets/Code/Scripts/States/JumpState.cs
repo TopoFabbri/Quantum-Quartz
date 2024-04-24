@@ -16,7 +16,7 @@ namespace Code.Scripts.States
         private readonly MonoBehaviour mb;
         private readonly Transform transform;
         
-        public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb, Transform transform) : base(id, stateSettings, rb)
+        public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb, Transform transform) : base(id, stateSettings, rb, transform)
         {
             settings = stateSettings;
             moveSettings = JumpSettings.moveSettings;
@@ -44,15 +44,6 @@ namespace Code.Scripts.States
             yield return new WaitForFixedUpdate();
             
             rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
-        }
-
-        /// <summary>
-        /// Check if player is on ground
-        /// </summary>
-        /// <returns>True if on ground</returns>
-        private bool GroundCheck()
-        {
-            return Physics2D.OverlapCircle((Vector2)transform.position + JumpSettings.groundCheckOffset, JumpSettings.groundCheckRadius, JumpSettings.groundLayer);
         }
     }
 }

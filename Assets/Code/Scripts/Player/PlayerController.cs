@@ -25,7 +25,7 @@ namespace Code.Scripts.Player
         private void Awake()
         {
             idleState = new IdleState<string>("Idle");
-            moveState = new MoveState<string>("Move", stateSettings[0], rb);
+            moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
             jumpState = new JumpState<string>("JumpStart", stateSettings[1], this, rb, transform);
             
             fsm = new FiniteStateMachine<string>();

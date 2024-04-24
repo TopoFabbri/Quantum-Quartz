@@ -8,8 +8,5 @@ namespace Code.Scripts.StateSettings
         public MoveSettings moveSettings;
         
         public float jumpForce = 10f;
-        public Vector2 groundCheckOffset;
-        public float groundCheckRadius;
-        public LayerMask groundLayer;
     }
 }
