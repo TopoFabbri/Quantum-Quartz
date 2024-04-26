@@ -2,6 +2,7 @@ using System;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.States;
+using TMPro;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -21,7 +22,8 @@ namespace Code.Scripts.Player
         
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
-
+        [SerializeField] private TextMeshProUGUI stateTxt;
+                
         private bool jumpPressed;
         private bool falling;
         
@@ -39,6 +41,15 @@ namespace Code.Scripts.Player
             fsm.AddState(jumpState);
             fsm.AddState(fallState);
             
+            FsmTransitions();
+
+            fsm.SetCurrentState(idleState);
+            
+            fsm.Init();
+        }
+
+        private void FsmTransitions()
+        {
             fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
@@ -47,13 +58,9 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, jumpState, () => jumpPressed);
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
 
-            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y <= 0);
+            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
             
             fsm.AddTransition(fallState, idleState, () => !falling);
-            
-            fsm.SetCurrentState(idleState);
-            
-            fsm.Init();
         }
 
         private void OnEnable()
@@ -75,6 +82,8 @@ namespace Code.Scripts.Player
         private void Update()
         {
             fsm.Update();
+            
+            stateTxt.text = fsm.GetCurrentState().ID;
         }
 
         private void FixedUpdate()

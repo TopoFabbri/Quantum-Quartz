@@ -7,6 +7,8 @@ namespace Code.Scripts.StateSettings
     {
         public float accel = 5f;
         public float maxSpeed = 5f;
+        public float groundFriction = 1f;
+        public float airFriction;
         
         public Vector2 groundCheckOffset;
         public float groundCheckRadius;

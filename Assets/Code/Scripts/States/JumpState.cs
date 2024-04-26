@@ -33,6 +33,8 @@ namespace Code.Scripts.States
                 return;
             
             mb.StartCoroutine(JumpOnFU());
+            
+            rb.sharedMaterial.friction = JumpSettings.moveSettings.airFriction;
         }
         
         /// <summary>
