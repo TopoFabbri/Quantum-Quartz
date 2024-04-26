@@ -46,7 +46,7 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Call when change to color 1 input
         /// </summary>
-        private static void OnColor1()
+        private void OnColor1()
         {
             Color1?.Invoke();
         }
@@ -54,7 +54,7 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Call when change to color 2 input
         /// </summary>
-        private static void OnColor2()
+        private void OnColor2()
         {
             Color2?.Invoke();
         }
@@ -62,7 +62,7 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Call when change to color 3 input
         /// </summary>
-        private static void OnColor3()
+        private void OnColor3()
         {
             Color3?.Invoke();
         }
@@ -70,7 +70,7 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Call when change to color 4 input
         /// </summary>
-        private static void OnColor4()
+        private void OnColor4()
         {
             Color4?.Invoke();
         }
