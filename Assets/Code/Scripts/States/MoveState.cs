@@ -14,6 +14,8 @@ namespace Code.Scripts.States
         
         protected readonly Rigidbody2D rb;
         private readonly Transform transform;
+        
+        private float speed = 0f;
 
         public float Input { get; private set; }
 
@@ -30,15 +32,24 @@ namespace Code.Scripts.States
         {
             Input = input;
         }
-        
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            speed = Input * moveSettings.maxSpeed * Time.deltaTime;
+            
+            transform.Translate(Vector2.right * speed);
+        }
+
         public override void OnFixedUpdate()
         {
-            rb.AddForce(Input * moveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
-            
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -moveSettings.maxSpeed, moveSettings.maxSpeed), rb.velocity.y);
-            
-            if (!IsGrounded() && Input == 0)
-                rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
+            // rb.AddForce(Input * moveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
+            //
+            // rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -moveSettings.maxSpeed, moveSettings.maxSpeed), rb.velocity.y);
+            //
+            // if (!IsGrounded() && Input == 0)
+            //     rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
         }
         
         /// <summary>

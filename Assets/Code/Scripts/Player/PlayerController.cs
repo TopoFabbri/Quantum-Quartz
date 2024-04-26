@@ -54,7 +54,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
 
-            fsm.AddTransition(moveState, idleState, () => rb.velocity.x == 0);
+            fsm.AddTransition(moveState, idleState, () => moveState.Input == 0);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed);
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
 
@@ -90,9 +90,6 @@ namespace Code.Scripts.Player
         {
             fsm.FixedUpdate();
 
-            if (moveState.IsGrounded() && rb.velocity.y < 0f)
-                rb.velocity = new Vector2(rb.velocity.x, 0f);
-            
             if (falling && rb.velocity.y == 0f)
                 falling = false;
         }
@@ -125,7 +122,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler()
         {
-            if (!falling)
+            if (moveState.IsGrounded())
                 jumpPressed = true;
         }
 
