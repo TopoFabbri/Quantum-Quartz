@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -14,13 +13,11 @@ namespace Code.Scripts.States
         private JumpSettings JumpSettings => settings as JumpSettings;
 
         private readonly MonoBehaviour mb;
-        private readonly Transform transform;
         
         public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb, Transform transform) : base(id, stateSettings, rb, transform)
         {
             settings = stateSettings;
             moveSettings = JumpSettings.moveSettings;
-            this.transform = transform;
             
             this.mb = mb;
         }
