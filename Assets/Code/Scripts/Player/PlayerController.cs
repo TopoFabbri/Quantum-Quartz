@@ -59,6 +59,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded());
 
             fsm.AddTransition(fallState, idleState, () => !falling);
         }

@@ -10,6 +10,8 @@ public class PlatformsController : MonoBehaviour
     [SerializeField] private GameObject[] BluePlatforms;
     [SerializeField] private GameObject[] GreenPlatforms;
     [SerializeField] private GameObject[] YellowPlatforms;
+    
+    [SerializeField] private float deactivatedAlpha = 0.05f;
 
     private int currentColor = 0;
 
@@ -119,7 +121,7 @@ public class PlatformsController : MonoBehaviour
         var spriteRenderer = platform.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.05f);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, deactivatedAlpha);
         }
         
         var collider = platform.GetComponent<Collider2D>();
