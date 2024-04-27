@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Code.Scripts.Input;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlatformsController : MonoBehaviour
 {
@@ -56,22 +54,15 @@ public class PlatformsController : MonoBehaviour
         {
             case 1:
                 TurnOnPlatforms(RedPlatforms);
-                Debug.Log("Current color: Red");
                 break;
             case 2:
                 TurnOnPlatforms(BluePlatforms);
-                Debug.Log("Current color: Blue");
                 break;
             case 3:
                 TurnOnPlatforms(GreenPlatforms);
-                Debug.Log("Current color: Green");
                 break;
             case 4:
                 TurnOnPlatforms(YellowPlatforms);
-                Debug.Log("Current color: Yellow");
-                break;
-            default:
-                Debug.LogError($"Invalid color: {currentColor}");
                 break;
         }
     }
@@ -82,35 +73,38 @@ public class PlatformsController : MonoBehaviour
         {
             platform.SetActive(true);
             // Set alpha to 1 (fully visible)
-            var spriteRenderer = platform.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = platform.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
             }
             // Enable collider
-            var collider = platform.GetComponent<Collider2D>();
+            Collider2D collider = platform.GetComponent<Collider2D>();
             if (collider != null)
             {
                 collider.enabled = true;
             }
+            
+            if (platform.TryGetComponent(out ShadowCaster2D shadowCaster2D))
+                shadowCaster2D.enabled = true;
         }
     }
     
     private void TurnOffAllPlatforms()
     {
-        foreach (var platform in RedPlatforms)
+        foreach (GameObject platform in RedPlatforms)
         {
             DeactivatePlatform(platform);
         }
-        foreach (var platform in BluePlatforms)
+        foreach (GameObject platform in BluePlatforms)
         {
             DeactivatePlatform(platform);
         }
-        foreach (var platform in GreenPlatforms)
+        foreach (GameObject platform in GreenPlatforms)
         {
             DeactivatePlatform(platform);
         }
-        foreach (var platform in YellowPlatforms)
+        foreach (GameObject platform in YellowPlatforms)
         {
             DeactivatePlatform(platform);
         }
@@ -118,17 +112,20 @@ public class PlatformsController : MonoBehaviour
     
     private void DeactivatePlatform(GameObject platform)
     {
-        var spriteRenderer = platform.GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRenderer = platform.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, deactivatedAlpha);
         }
         
-        var collider = platform.GetComponent<Collider2D>();
+        Collider2D collider = platform.GetComponent<Collider2D>();
         if (collider != null)
         {
             collider.enabled = false;
         }
+        
+        if (platform.TryGetComponent(out ShadowCaster2D shadowCaster2D))
+            shadowCaster2D.enabled = false;
     }
 
     private void OnDestroy()

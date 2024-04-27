@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Code.Scripts.Player
 {
@@ -23,6 +25,11 @@ namespace Code.Scripts.Player
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private TextMeshProUGUI stateTxt;
+        [SerializeField] private List<Color> type = new();
+
+        [SerializeField] private Light2D spotLight;
+        
+        private int colorIndex;
 
         private bool jumpPressed;
         private bool falling;
@@ -48,36 +55,29 @@ namespace Code.Scripts.Player
             fsm.Init();
         }
 
-        private void FsmTransitions()
-        {
-            fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
-            fsm.AddTransition(idleState, jumpState, () => jumpPressed);
-            fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
-
-            fsm.AddTransition(moveState, idleState, () => moveState.Input == 0);
-            fsm.AddTransition(moveState, jumpState, () => jumpPressed);
-            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
-
-            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded());
-
-            fsm.AddTransition(fallState, idleState, () => !falling);
-        }
-
         private void OnEnable()
         {
             jumpState.onEnter += OnEnterJumpHandler;
             fallState.onEnter += OnEnterFallHandler;
+            
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
+            InputManager.Color1 += SetColor1;
+            InputManager.Color2 += SetColor2;
+            InputManager.Color3 += SetColor3;
+            InputManager.Color4 += SetColor4;
         }
-
+        
         private void OnDisable()
         {
             jumpState.onEnter -= OnEnterJumpHandler;
             fallState.onEnter -= OnEnterFallHandler;
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
+            InputManager.Color1 -= SetColor1;
+            InputManager.Color2 -= SetColor2;
+            InputManager.Color3 -= SetColor3;
+            InputManager.Color4 -= SetColor4;
         }
 
         private void Update()
@@ -105,6 +105,45 @@ namespace Code.Scripts.Player
 
             falling = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
+        }
+
+        private void SetColor1()
+        {
+            spotLight.color = type[0];
+        }
+
+        private void SetColor2()
+        {
+            spotLight.color = type[1];
+        }
+        
+        private void SetColor3()
+        {
+            spotLight.color = type[2];
+        }
+        
+        private void SetColor4()
+        {
+            spotLight.color = type[3];
+        }
+
+        /// <summary>
+        /// Add fsm transitions
+        /// </summary>
+        private void FsmTransitions()
+        {
+            fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
+            fsm.AddTransition(idleState, jumpState, () => jumpPressed);
+            fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
+
+            fsm.AddTransition(moveState, idleState, () => moveState.Input == 0);
+            fsm.AddTransition(moveState, jumpState, () => jumpPressed);
+            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
+
+            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded());
+
+            fsm.AddTransition(fallState, idleState, () => !falling);
         }
 
         /// <summary>
