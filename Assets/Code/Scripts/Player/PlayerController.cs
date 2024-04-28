@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
@@ -28,8 +29,6 @@ namespace Code.Scripts.Player
         [SerializeField] private List<Color> type = new();
 
         [SerializeField] private Light2D spotLight;
-        
-        private int colorIndex;
 
         private bool jumpPressed;
         private bool falling;
@@ -62,10 +61,7 @@ namespace Code.Scripts.Player
             
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
-            InputManager.Color1 += SetColor1;
-            InputManager.Color2 += SetColor2;
-            InputManager.Color3 += SetColor3;
-            InputManager.Color4 += SetColor4;
+            ColorSwitcher.ColorChanged += OnChangedColorHandler;
         }
         
         private void OnDisable()
@@ -74,10 +70,7 @@ namespace Code.Scripts.Player
             fallState.onEnter -= OnEnterFallHandler;
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
-            InputManager.Color1 -= SetColor1;
-            InputManager.Color2 -= SetColor2;
-            InputManager.Color3 -= SetColor3;
-            InputManager.Color4 -= SetColor4;
+            ColorSwitcher.ColorChanged -= OnChangedColorHandler;
         }
 
         private void Update()
@@ -107,26 +100,6 @@ namespace Code.Scripts.Player
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
 
-        private void SetColor1()
-        {
-            spotLight.color = type[0];
-        }
-
-        private void SetColor2()
-        {
-            spotLight.color = type[1];
-        }
-        
-        private void SetColor3()
-        {
-            spotLight.color = type[2];
-        }
-        
-        private void SetColor4()
-        {
-            spotLight.color = type[3];
-        }
-
         /// <summary>
         /// Add fsm transitions
         /// </summary>
@@ -144,6 +117,15 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded());
 
             fsm.AddTransition(fallState, idleState, () => !falling);
+        }
+
+        /// <summary>
+        /// Manage player actions when color is changed
+        /// </summary>
+        /// <param name="color">New color</param>
+        private void OnChangedColorHandler(ColorSwitcher.QColors color)
+        {
+            spotLight.color = type[(int)color];
         }
 
         /// <summary>
