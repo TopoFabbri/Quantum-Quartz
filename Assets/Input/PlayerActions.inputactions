@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ColorModifier",
+                    "type": "Value",
+                    "id": "bcd19f4f-bfdc-4e77-8059-3bc00dbbb7ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -225,37 +234,15 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "LB South",
-                    "id": "68656274-ebd8-4f5b-af68-fe2cbd87a205",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color3",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "9808e6d6-8e04-41ca-ba19-3514a15ea1c8",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color3",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "5e04f184-c9d3-4584-866c-726c7cf405be",
+                    "name": "",
+                    "id": "aecb6517-3134-41f2-a046-27f476161ae8",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Color3",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -302,39 +289,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "LB North",
-                    "id": "69ce3435-d866-491f-9619-ac3c5e70b960",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color4",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "b77019c8-a88f-4600-b0aa-65babf4dde00",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color4",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "19ccb6e3-2fd9-4c3e-969b-3f023ede88c5",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color4",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "L1 Triangle",
                     "id": "e9356c50-4fb4-4bda-b96f-dd0bb2220da5",
                     "path": "OneModifier",
@@ -368,37 +322,15 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "LB West",
-                    "id": "3610173d-f6f0-43cf-acfe-9fcede78f9d4",
-                    "path": "OneModifier",
+                    "name": "",
+                    "id": "452ca643-88db-40fc-888b-05817ac9e52d",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Color2",
-                    "isComposite": true,
+                    "action": "Color4",
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "c4f47b36-5733-408c-a59b-d851edd00fcf",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "813cb322-48be-460b-af7b-206b5cf5a1d6",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color2",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "L1 Quad",
@@ -434,37 +366,15 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "LB East",
-                    "id": "4d2d42a1-5cc5-4fef-9a34-50ebfa7d5549",
-                    "path": "OneModifier",
+                    "name": "",
+                    "id": "95ca006d-4805-419d-8e30-9cab37043e95",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Color1",
-                    "isComposite": true,
+                    "action": "Color2",
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "5f425463-b442-4a08-a61c-42aa4fa0ab8d",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "8f68982f-551d-4a75-843a-e14e0983ab03",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Color1",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "L1 Circle",
@@ -498,6 +408,28 @@
                     "action": "Color1",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "09e4a5c5-4446-4b83-bd25-88a8084a065f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Color1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71e8f9c5-5d91-4f6c-af33-561b57ad8781",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ColorModifier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

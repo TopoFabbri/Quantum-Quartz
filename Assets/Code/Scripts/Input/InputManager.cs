@@ -11,11 +11,12 @@ namespace Code.Scripts.Input
     {
         public static event Action<Vector2> Move;
         public static event Action Jump;
-        public static event Action<float> ChangeColor;
         public static event Action Color1;
         public static event Action Color2;
         public static event Action Color3;
         public static event Action Color4;
+
+        private static bool _colorModifierPressed;
 
         /// <summary>
         /// Called when input move is pressed
@@ -31,16 +32,8 @@ namespace Code.Scripts.Input
         /// </summary>
         protected void OnJump()
         {
-            Jump?.Invoke();
-        }
-
-        /// <summary>
-        /// Call when color changer input is pressed
-        /// </summary>
-        /// <param name="obj">Button value</param>
-        private static void OnChangeColor(float obj)
-        {
-            ChangeColor?.Invoke(obj);
+            if (!_colorModifierPressed)
+                Jump?.Invoke();
         }
         
         /// <summary>
@@ -48,7 +41,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor1()
         {
-            Color1?.Invoke();
+            if (_colorModifierPressed)
+                Color1?.Invoke();
         }
 
         /// <summary>
@@ -56,7 +50,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor2()
         {
-            Color2?.Invoke();
+            if (_colorModifierPressed)
+                Color2?.Invoke();
         }
 
         /// <summary>
@@ -64,7 +59,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor3()
         {
-            Color3?.Invoke();
+            if (_colorModifierPressed)
+                Color3?.Invoke();
         }
 
         /// <summary>
@@ -72,7 +68,17 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor4()
         {
-            Color4?.Invoke();
+            if (_colorModifierPressed)
+                Color4?.Invoke();
+        }
+        
+        /// <summary>
+        /// Set modifier pressed state
+        /// </summary>
+        /// <param name="input"></param>
+        private void OnColorModifier(InputValue input)
+        {
+            _colorModifierPressed = input.isPressed;
         }
     }
 }
