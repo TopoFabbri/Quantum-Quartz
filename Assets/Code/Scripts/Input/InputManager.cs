@@ -15,6 +15,7 @@ namespace Code.Scripts.Input
         public static event Action Color2;
         public static event Action Color3;
         public static event Action Color4;
+        public static event Action Restart;
 
         private static bool _colorModifierPressed;
 
@@ -79,6 +80,14 @@ namespace Code.Scripts.Input
         private void OnColorModifier(InputValue input)
         {
             _colorModifierPressed = input.isPressed;
+        }
+
+        /// <summary>
+        /// Called when input reset is pressed
+        /// </summary>
+        private void OnRestart()
+        {
+            Restart?.Invoke();
         }
     }
 }

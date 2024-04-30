@@ -7,6 +7,7 @@ using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Player
 {
@@ -61,6 +62,7 @@ namespace Code.Scripts.Player
             
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
+            InputManager.Restart += OnRestartHandler;
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
         }
         
@@ -68,8 +70,10 @@ namespace Code.Scripts.Player
         {
             jumpState.onEnter -= OnEnterJumpHandler;
             fallState.onEnter -= OnEnterFallHandler;
+            
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
+            InputManager.Restart -= OnRestartHandler;
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
         }
 
@@ -109,14 +113,14 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
 
-            fsm.AddTransition(moveState, idleState, () => moveState.Input == 0);
+            fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed);
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded());
 
-            fsm.AddTransition(fallState, idleState, () => !falling);
+            fsm.AddTransition(fallState, moveState, () => !falling);
         }
 
         /// <summary>
@@ -162,6 +166,14 @@ namespace Code.Scripts.Player
         private void OnEnterFallHandler()
         {
             falling = true;
+        }
+
+        /// <summary>
+        /// Handle restart input
+        /// </summary>
+        private static void OnRestartHandler()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

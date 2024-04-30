@@ -15,7 +15,7 @@ namespace Code.Scripts.States
         protected readonly Rigidbody2D rb;
         private readonly Transform transform;
         
-        private float speed = 0f;
+        private static float _speed;
 
         public float Input { get; private set; }
 
@@ -36,10 +36,13 @@ namespace Code.Scripts.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-
-            speed = Input * moveSettings.maxSpeed * Time.deltaTime;
             
-            transform.Translate(Vector2.right * speed);
+            if (Input != 0)
+                _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
+            else
+                _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
+            
+            transform.Translate(Vector2.right * _speed);
         }
 
         public override void OnFixedUpdate()
@@ -62,6 +65,15 @@ namespace Code.Scripts.States
             Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.up * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.up * moveSettings.groundCheckRadius, Color.red);
             
             return Physics2D.OverlapCircle((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+        }
+
+        /// <summary>
+        /// Check if player is moving
+        /// </summary>
+        /// <returns>True if not moving</returns>
+        public bool StoppedMoving()
+        {
+            return _speed == 0;
         }
     }
 }
