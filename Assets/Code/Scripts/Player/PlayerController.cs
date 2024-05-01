@@ -28,13 +28,15 @@ namespace Code.Scripts.Player
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<Color> type = new();
+        [SerializeField] private List<GameObject> flipObjects = new();
 
         [SerializeField] private Light2D spotLight;
+        [SerializeField] private SpriteRenderer sprite;
 
+        private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
         private bool falling;
-        private float gravScale = 1f;
 
         private void Awake()
         {
@@ -57,9 +59,6 @@ namespace Code.Scripts.Player
             fsm.SetCurrentState(idleState);
 
             fsm.Init();
-
-            if (rb)
-                gravScale = rb.gravityScale;
         }
 
         private void OnEnable()
@@ -67,21 +66,21 @@ namespace Code.Scripts.Player
             jumpState.onEnter += OnEnterJumpHandler;
             fallState.onEnter += OnEnterFallHandler;
             dashState.onEnter += OnEnterDashHandler;
-            
+
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.Dash += OnDashHandler;
             InputManager.Restart += OnRestartHandler;
-            
+
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
         }
-        
+
         private void OnDisable()
         {
             jumpState.onEnter -= OnEnterJumpHandler;
             fallState.onEnter -= OnEnterFallHandler;
             dashState.onEnter -= OnEnterDashHandler;
-            
+
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
@@ -102,13 +101,16 @@ namespace Code.Scripts.Player
 
             if (falling && rb.velocity.y == 0f)
                 falling = false;
+
+            if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
+                Flip();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (!other.gameObject.CompareTag("Floor"))
                 return;
-            
+
             if (!moveState.IsGrounded())
                 return;
 
@@ -137,8 +139,24 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(fallState, moveState, () => !falling);
             fsm.AddTransition(fallState, dashState, () => dashPressed);
-            
+
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
+        }
+
+        /// <summary>
+        /// Flip character
+        /// </summary>
+        private void Flip()
+        {
+            facingRight = !facingRight;
+            sprite.flipX = !sprite.flipX;
+            dashState.Flip();
+
+            foreach (GameObject flipObject in flipObjects)
+            {
+                flipObject.transform.Rotate(0f, 0f, 180f);
+                flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x, flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
+            }
         }
 
         /// <summary>
@@ -148,7 +166,7 @@ namespace Code.Scripts.Player
         private void OnChangedColorHandler(ColorSwitcher.QColors color)
         {
             spotLight.color = type[(int)color];
-            
+
             if (color != ColorSwitcher.QColors.Red)
                 dashState.Reset();
         }
@@ -182,7 +200,7 @@ namespace Code.Scripts.Player
             if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Red)
                 dashPressed = true;
         }
-        
+
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>
@@ -206,7 +224,7 @@ namespace Code.Scripts.Player
         {
             dashPressed = false;
         }
-        
+
         /// <summary>
         /// Handle restart input
         /// </summary>

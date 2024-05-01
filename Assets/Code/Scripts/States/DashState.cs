@@ -19,6 +19,7 @@ namespace Code.Scripts.States
         private readonly Rigidbody2D rb;
         private readonly MonoBehaviour mb;
 
+        private bool facingRight;
         private float gravScale;
         
         public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, MonoBehaviour mb) : base(id, settings)
@@ -50,7 +51,7 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
             
-            rb.velocity = new Vector2(DashSettings.speed * Time.fixedDeltaTime, 0f);
+            rb.velocity = new Vector2( ( facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime, 0f);
         }
 
         /// <summary>
@@ -69,6 +70,14 @@ namespace Code.Scripts.States
         public void Reset()
         {
             DashAvailable = true;
+        }
+
+        /// <summary>
+        /// Flip dash direction
+        /// </summary>
+        public void Flip()
+        {
+            facingRight = !facingRight;
         }
     }
 }

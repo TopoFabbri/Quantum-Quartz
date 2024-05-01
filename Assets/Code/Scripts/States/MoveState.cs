@@ -42,7 +42,7 @@ namespace Code.Scripts.States
             else
                 _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
             
-            transform.Translate(Vector2.right * _speed);
+            transform.Translate(Vector2.right * (_speed * Time.deltaTime));
         }
 
         public override void OnFixedUpdate()
