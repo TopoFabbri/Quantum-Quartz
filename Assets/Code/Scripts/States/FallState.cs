@@ -30,5 +30,13 @@ namespace Code.Scripts.States
             
             rb.sharedMaterial.friction = FallSettings.moveSettings.groundFriction;
         }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if (Input != 0)
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
     }
 }

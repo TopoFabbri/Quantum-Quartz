@@ -1,0 +1,74 @@
+﻿using System.Collections;
+using Code.Scripts.FSM;
+using Code.Scripts.StateSettings;
+using UnityEngine;
+
+namespace Code.Scripts.States
+{
+    /// <summary>
+    /// Manage player dash state
+    /// </summary>
+    /// <typeparam name="T">Id</typeparam>
+    public class DashState<T> : BaseState<T>
+    {
+        private DashSettings DashSettings => settings as DashSettings;
+        
+        public bool Ended { get; private set; }
+        public bool DashAvailable { get; private set; }
+
+        private readonly Rigidbody2D rb;
+        private readonly MonoBehaviour mb;
+
+        private float gravScale;
+        
+        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, MonoBehaviour mb) : base(id, settings)
+        {
+            DashAvailable = true;
+            this.rb = rb;
+            this.mb = mb;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            gravScale = rb.gravityScale;
+            rb.gravityScale = 0f;
+            
+            mb.StartCoroutine(EndDash());
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+
+            rb.velocity = new Vector2(DashSettings.speed * Time.fixedDeltaTime / 2f, 0f);
+            rb.gravityScale = gravScale;
+        }
+        
+        public override void OnFixedUpdate()
+        {
+            base.OnUpdate();
+            
+            rb.velocity = new Vector2(DashSettings.speed * Time.fixedDeltaTime, 0f);
+        }
+
+        /// <summary>
+        /// Wait dash duration and set as ended
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator EndDash()
+        {
+            DashAvailable = false;
+            Ended = false;
+            
+            yield return new WaitForSeconds(DashSettings.duration);
+            Ended = true;
+        }
+
+        public void Reset()
+        {
+            DashAvailable = true;
+        }
+    }
+}

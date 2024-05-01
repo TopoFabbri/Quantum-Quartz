@@ -16,6 +16,7 @@ namespace Code.Scripts.Input
         public static event Action Color3;
         public static event Action Color4;
         public static event Action Restart;
+        public static event Action Dash;
 
         private static bool _colorModifierPressed;
 
@@ -88,6 +89,15 @@ namespace Code.Scripts.Input
         private void OnRestart()
         {
             Restart?.Invoke();
+        }
+
+        /// <summary>
+        /// Called when input dash is pressed
+        /// </summary>
+        private void OnDash()
+        {
+            if (!_colorModifierPressed)
+                Dash?.Invoke();
         }
     }
 }
