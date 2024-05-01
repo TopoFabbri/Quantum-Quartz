@@ -3,18 +3,20 @@ using UnityEngine;
 public class Follow : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float maxRotationSpeed = 200f;
     [SerializeField] private float stopDistance = 1f;
 
     private void Update()
     {
-        
-        Vector2 direction = target.position + Vector3.up * 2f - transform.position;
-        
-        transform.rotation = Quaternion.Euler(0f, 0f, direction.x > 0f ? -90f : 90f);
-        
-        direction = direction.normalized * (direction.magnitude - stopDistance);
-        transform.position = Vector2.Lerp(transform.position, (Vector2)transform.position + direction,
-            speed * Time.deltaTime);
+        Vector2 direction = (target.position - transform.position).normalized;
+
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, target.position) > stopDistance)
+            transform.position = Vector2.MoveTowards(transform.position, target.position, maxSpeed * Time.deltaTime);
     }
 }
