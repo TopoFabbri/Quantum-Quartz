@@ -43,7 +43,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            rb.velocity = new Vector2(DashSettings.speed * Time.fixedDeltaTime / 2f, 0f);
+            rb.velocity = new Vector2(facingRight ? DashSettings.speed : -DashSettings.speed * Time.fixedDeltaTime / 2f, 0f);
             rb.gravityScale = gravScale;
         }
         
