@@ -23,6 +23,7 @@ namespace Code.Scripts.Player
         private JumpState<string> jumpState;
         private FallState<string> fallState;
         private DashState<string> dashState;
+        private DjmpState<string> djmpState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -36,6 +37,7 @@ namespace Code.Scripts.Player
         private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
+        private bool djmpPressed;
         private bool falling;
 
         private void Awake()
@@ -45,6 +47,7 @@ namespace Code.Scripts.Player
             jumpState = new JumpState<string>("JumpStart", stateSettings[1], this, rb, transform);
             fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
             dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
+            djmpState = new DjmpState<string>("MiniJump", stateSettings[4], this, rb, transform);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -53,6 +56,7 @@ namespace Code.Scripts.Player
             fsm.AddState(jumpState);
             fsm.AddState(fallState);
             fsm.AddState(dashState);
+            fsm.AddState(djmpState);
 
             FsmTransitions();
 
@@ -66,10 +70,12 @@ namespace Code.Scripts.Player
             jumpState.onEnter += OnEnterJumpHandler;
             fallState.onEnter += OnEnterFallHandler;
             dashState.onEnter += OnEnterDashHandler;
+            djmpState.onEnter += OnEnterDjmpHandler;
 
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.Dash += OnDashHandler;
+            InputManager.Djmp += OnDjmpHandler;
             InputManager.Restart += OnRestartHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
@@ -80,10 +86,12 @@ namespace Code.Scripts.Player
             jumpState.onEnter -= OnEnterJumpHandler;
             fallState.onEnter -= OnEnterFallHandler;
             dashState.onEnter -= OnEnterDashHandler;
+            djmpState.onEnter -= OnEnterDjmpHandler;
 
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
+            InputManager.Djmp -= OnDjmpHandler;
             InputManager.Restart -= OnRestartHandler;
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
         }
@@ -127,20 +135,26 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(idleState, dashState, () => dashPressed);
+            fsm.AddTransition(idleState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed);
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(moveState, dashState, () => dashPressed);
+            fsm.AddTransition(moveState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(jumpState, idleState, moveState.IsGrounded);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
+            fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(fallState, moveState, () => !falling);
             fsm.AddTransition(fallState, dashState, () => dashPressed);
+            fsm.AddTransition(fallState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
+            
+            fsm.AddTransition(djmpState, fallState, () => !djmpState.JumpAvailable);
         }
 
         /// <summary>
@@ -148,6 +162,9 @@ namespace Code.Scripts.Player
         /// </summary>
         private void Flip()
         {
+            if (fsm.GetCurrentState() == dashState)
+                return;
+            
             facingRight = !facingRight;
             sprite.flipX = !sprite.flipX;
             dashState.Flip();
@@ -169,6 +186,9 @@ namespace Code.Scripts.Player
 
             if (color != ColorSwitcher.QColors.Red)
                 dashState.Reset();
+            
+            if (color != ColorSwitcher.QColors.Blue)
+                djmpState.Reset();
         }
 
         /// <summary>
@@ -200,6 +220,15 @@ namespace Code.Scripts.Player
             if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Red)
                 dashPressed = true;
         }
+        
+        /// <summary>
+        /// Handle player MiniJump input
+        /// </summary>
+        private void OnDjmpHandler()
+        {
+            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Blue)
+                djmpPressed = true;
+        }
 
         /// <summary>
         /// Handle player HAS jumped
@@ -223,6 +252,14 @@ namespace Code.Scripts.Player
         private void OnEnterDashHandler()
         {
             dashPressed = false;
+        }
+        
+        /// <summary>
+        /// Handle player started Djump
+        /// </summary>
+        private void OnEnterDjmpHandler()
+        {
+            djmpPressed = false;
         }
 
         /// <summary>

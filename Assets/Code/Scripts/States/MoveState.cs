@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -64,7 +65,15 @@ namespace Code.Scripts.States
             Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.right * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.right * moveSettings.groundCheckRadius, Color.red);
             Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.up * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.up * moveSettings.groundCheckRadius, Color.red);
             
-            return Physics2D.OverlapCircle((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+            
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("Floor") || collider.gameObject.CompareTag("Platform"))
+                    return true;
+            }
+            
+            return false;
         }
 
         /// <summary>

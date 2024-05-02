@@ -17,6 +17,7 @@ namespace Code.Scripts.Input
         public static event Action Color4;
         public static event Action Restart;
         public static event Action Dash;
+        public static event Action Djmp;
 
         private static bool _colorModifierPressed;
 
@@ -26,7 +27,9 @@ namespace Code.Scripts.Input
         /// <param name="input">Input value</param>
         protected void OnMove(InputValue input)
         {
-            Move?.Invoke(input.Get<Vector2>());
+            Vector2 vec = input.Get<Vector2>();
+            
+            Move?.Invoke(vec);
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace Code.Scripts.Input
             if (!_colorModifierPressed)
                 Jump?.Invoke();
         }
-        
+
         /// <summary>
         /// Call when change to color 1 input
         /// </summary>
@@ -73,7 +76,7 @@ namespace Code.Scripts.Input
             if (_colorModifierPressed)
                 Color4?.Invoke();
         }
-        
+
         /// <summary>
         /// Set modifier pressed state
         /// </summary>
@@ -98,6 +101,15 @@ namespace Code.Scripts.Input
         {
             if (!_colorModifierPressed)
                 Dash?.Invoke();
+        }
+
+        /// <summary>
+        /// Called when input MiniJump is pressed
+        /// </summary>
+        private void OnDjmp()
+        {
+            if (!_colorModifierPressed)
+                Djmp?.Invoke();
         }
     }
 }
