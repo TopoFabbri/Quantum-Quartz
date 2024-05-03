@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ChangeColor",
-                    "type": "Value",
-                    "id": "6d5dc2b5-f899-44fc-bd52-2aaee86e9a87",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Color1",
                     "type": "Button",
                     "id": "ed0de1c9-d21b-4520-abe5-46a17f5a1b3a",
@@ -94,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Djmp",
+                    "type": "Button",
+                    "id": "0de2ee3e-576a-4509-b41f-a2cc204c7075",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -101,6 +101,17 @@
                     "name": "",
                     "id": "6242346f-f3e6-456c-852d-f0537946cbd3",
                     "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67eba2bd-b91d-4414-a00d-66b0c3622854",
+                    "path": "<DualShockGamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -154,8 +165,8 @@
                 },
                 {
                     "name": "",
-                    "id": "f34c2a97-b07b-49a0-9c4b-c3f8926164cf",
-                    "path": "<Keyboard>/space",
+                    "id": "be2ecab6-16a3-472d-b6d5-ff213fa858ec",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -165,12 +176,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8f9ce46a-6e60-406d-b503-c632646bb7a0",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "f34c2a97-b07b-49a0-9c4b-c3f8926164cf",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangeColor",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -232,7 +243,7 @@
                 {
                     "name": "",
                     "id": "f18b4171-30f3-489e-9253-71aba646dbce",
-                    "path": "<DualShockGamepad>/buttonWest",
+                    "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -385,8 +396,41 @@
                 },
                 {
                     "name": "",
+                    "id": "e7620380-dbd3-4f60-a5a2-18bf89ba527a",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ColorModifier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9cc61947-d432-427c-9a97-0fea240e4bc7",
+                    "path": "<DualShockGamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ColorModifier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c60a5df1-f2e4-40c4-b11f-3b2a1bd5af9e",
                     "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "480a5b2d-33b0-4ac4-9c87-c31a8ec04f82",
+                    "path": "<DualShockGamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -424,6 +468,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df69cca2-1848-4390-af3f-755c5a15c9f8",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60c30da3-e6fb-4fb6-9621-e454cd2c0832",
+                    "path": "<DualShockGamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Djmp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "239e32ac-1a2c-41aa-8563-bd8948a0a5d2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Djmp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f235b397-0b51-451d-b1f5-1b94df18456e",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Djmp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3c2e4ab-584d-492e-bded-29d056a208b4",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Djmp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

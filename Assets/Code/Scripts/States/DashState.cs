@@ -12,7 +12,7 @@ namespace Code.Scripts.States
     public class DashState<T> : BaseState<T>
     {
         private DashSettings DashSettings => settings as DashSettings;
-        
+
         public bool Ended { get; private set; }
         public bool DashAvailable { get; private set; }
 
@@ -21,8 +21,9 @@ namespace Code.Scripts.States
 
         private bool facingRight;
         private float gravScale;
-        
-        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, MonoBehaviour mb) : base(id, settings)
+
+        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, MonoBehaviour mb) : base(id,
+            settings)
         {
             DashAvailable = true;
             this.rb = rb;
@@ -35,7 +36,7 @@ namespace Code.Scripts.States
 
             gravScale = rb.gravityScale;
             rb.gravityScale = 0f;
-            
+
             mb.StartCoroutine(EndDash());
         }
 
@@ -43,15 +44,17 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            rb.velocity = new Vector2(facingRight ? DashSettings.speed : -DashSettings.speed * Time.fixedDeltaTime / 2f, 0f);
+            rb.velocity =
+                new Vector2((facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime / 2f, 0f);
             rb.gravityScale = gravScale;
         }
-        
+
         public override void OnFixedUpdate()
         {
             base.OnUpdate();
-            
-            rb.velocity = new Vector2( ( facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime, 0f);
+
+            rb.velocity = new Vector2((facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime,
+                0f);
         }
 
         /// <summary>
@@ -62,7 +65,7 @@ namespace Code.Scripts.States
         {
             DashAvailable = false;
             Ended = false;
-            
+
             yield return new WaitForSeconds(DashSettings.duration);
             Ended = true;
         }
