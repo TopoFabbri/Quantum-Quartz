@@ -44,8 +44,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            rb.velocity =
-                new Vector2((facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime / 2f, 0f);
+            rb.velocity = new Vector2(rb.velocity.x / 2f, 0f);
             rb.gravityScale = gravScale;
         }
 
@@ -55,6 +54,12 @@ namespace Code.Scripts.States
 
             rb.velocity = new Vector2((facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime,
                 0f);
+            
+            if (WallCheck())
+            {
+                Ended = true;
+                rb.velocity = Vector2.zero;
+            }
         }
 
         /// <summary>
@@ -81,6 +86,24 @@ namespace Code.Scripts.States
         public void Flip()
         {
             facingRight = !facingRight;
+        }
+
+        public bool WallCheck()
+        {
+            Vector2 pos = (Vector2)rb.gameObject.transform.position +
+                          Vector2.right * (DashSettings.wallCheckDis * (facingRight ? 1 : -1));
+
+            Collider2D[] colliders =
+                Physics2D.OverlapBoxAll(pos, DashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
+
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Platform") ||
+                    collider.gameObject.CompareTag("Floor"))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
