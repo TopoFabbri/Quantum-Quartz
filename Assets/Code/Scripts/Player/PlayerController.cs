@@ -97,6 +97,8 @@ namespace Code.Scripts.Player
 
         private void Update()
         {
+            moveState.IsGrounded();
+            
             fsm.Update();
 
             if (stateTxt)
@@ -131,7 +133,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void FsmTransitions()
         {
-            fsm.AddTransition(idleState, moveState, () => moveState.Input != 0);
+            fsm.AddTransition(idleState, moveState, ShouldEnterMove);
             fsm.AddTransition(idleState, jumpState, () => jumpPressed);
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(idleState, dashState, () => dashPressed);
@@ -177,6 +179,11 @@ namespace Code.Scripts.Player
             }
         }
 
+        private bool ShouldEnterMove()
+        {
+            return moveState.Input != 0 && !moveState.WallCheck();
+        }
+        
         /// <summary>
         /// Manage player actions when color is changed
         /// </summary>

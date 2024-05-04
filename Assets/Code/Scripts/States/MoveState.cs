@@ -42,8 +42,9 @@ namespace Code.Scripts.States
                 _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
                 _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
-            
-            WallCheck();
+
+            if (WallCheck())
+                _speed = 0f;
             
             transform.Translate(Vector2.right * (_speed * Time.deltaTime));
         }
@@ -90,19 +91,19 @@ namespace Code.Scripts.States
         /// <summary>
         /// Check if player is touching a wall
         /// </summary>
-        private void WallCheck()
+        public bool WallCheck()
         {
             Vector2 pos = (Vector2)transform.position + Vector2.right * (moveSettings.wallCheckDis * Input);
-            
-            Debug.DrawLine(pos - moveSettings.wallCheckSize, pos + moveSettings.wallCheckSize, Color.red);
             
             Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Platform") || collider.gameObject.CompareTag("Floor"))
-                    _speed = 0;
+                    return true;
             }
+            
+            return false;
         }
     }
 }
