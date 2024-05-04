@@ -2,7 +2,7 @@
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 
-namespace Code.Scripts.Platforms
+namespace Code.Scripts.Colors
 {
     public class ColorSwitcher : MonoBehaviourSingleton<ColorSwitcher>
     {

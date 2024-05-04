@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.Platforms;
@@ -28,10 +29,8 @@ namespace Code.Scripts.Player
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private TextMeshProUGUI stateTxt;
-        [SerializeField] private List<Color> type = new();
         [SerializeField] private List<GameObject> flipObjects = new();
 
-        [SerializeField] private Light2D spotLight;
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -100,7 +99,8 @@ namespace Code.Scripts.Player
         {
             fsm.Update();
 
-            stateTxt.text = fsm.GetCurrentState().ID;
+            if (stateTxt)
+                stateTxt.text = fsm.GetCurrentState().ID;
         }
 
         private void FixedUpdate()
@@ -153,7 +153,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
-            
+
             fsm.AddTransition(djmpState, fallState, () => !djmpState.JumpAvailable);
         }
 
@@ -164,7 +164,7 @@ namespace Code.Scripts.Player
         {
             if (fsm.GetCurrentState() == dashState)
                 return;
-            
+
             facingRight = !facingRight;
             sprite.flipX = !sprite.flipX;
             dashState.Flip();
@@ -172,7 +172,8 @@ namespace Code.Scripts.Player
             foreach (GameObject flipObject in flipObjects)
             {
                 flipObject.transform.Rotate(0f, 0f, 180f);
-                flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x, flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
+                flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
+                    flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
         }
 
@@ -182,11 +183,9 @@ namespace Code.Scripts.Player
         /// <param name="color">New color</param>
         private void OnChangedColorHandler(ColorSwitcher.QColors color)
         {
-            spotLight.color = type[(int)color];
-
             if (color != ColorSwitcher.QColors.Red)
                 dashState.Reset();
-            
+
             if (color != ColorSwitcher.QColors.Blue)
                 djmpState.Reset();
         }
@@ -220,7 +219,7 @@ namespace Code.Scripts.Player
             if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Red)
                 dashPressed = true;
         }
-        
+
         /// <summary>
         /// Handle player MiniJump input
         /// </summary>
@@ -253,7 +252,7 @@ namespace Code.Scripts.Player
         {
             dashPressed = false;
         }
-        
+
         /// <summary>
         /// Handle player started Djump
         /// </summary>
