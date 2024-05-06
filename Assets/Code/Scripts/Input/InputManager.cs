@@ -10,6 +10,7 @@ namespace Code.Scripts.Input
     public class InputManager : MonoBehaviour
     {
         public static event Action<Vector2> Move;
+        public static event Action<Vector2> MoveCam;
         public static event Action Jump;
         public static event Action Color1;
         public static event Action Color2;
@@ -27,9 +28,16 @@ namespace Code.Scripts.Input
         /// <param name="input">Input value</param>
         protected void OnMove(InputValue input)
         {
-            Vector2 vec = input.Get<Vector2>();
-            
-            Move?.Invoke(vec);
+            Move?.Invoke(input.Get<Vector2>());
+        }
+
+        /// <summary>
+        /// Called when camera movement is changed
+        /// </summary>
+        /// <param name="input">Input value</param>
+        private void OnMoveCam(InputValue input)
+        {
+            MoveCam?.Invoke(input.Get<Vector2>());
         }
 
         /// <summary>

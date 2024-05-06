@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "MoveCam",
+                    "type": "Value",
+                    "id": "15569883-61c7-4bf0-9b64-607e99ff7a75",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "fa169036-169c-4e86-b5fe-605858c3163d",
@@ -523,6 +532,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Djmp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91d2177b-d755-4d7d-ad04-ce6d7bd7716d",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27c16131-1775-4b69-b5a1-2a6a0c22ffa2",
+                    "path": "<DualShockGamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveCam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

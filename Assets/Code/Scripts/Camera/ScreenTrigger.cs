@@ -1,20 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenTrigger : MonoBehaviour
+namespace Code.Scripts.Camera
 {
-    [SerializeField] private Transform cameraPosition;
-    [SerializeField] private CameraManager camera;
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
+    /// <summary>
+    /// Switch screen trigger
+    /// </summary>
+    public class ScreenTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        [SerializeField] private Transform cameraPosition;
+        [SerializeField] private new CameraController camera;
+
+        private void Start()
         {
-            camera.CameraPosition = cameraPosition.position;
+            if (UnityEngine.Camera.main != null)
+                camera = UnityEngine.Camera.main.GetComponent<CameraController>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+                camera.MoveTo(cameraPosition.position);
         }
     }
-    
 }
