@@ -75,7 +75,6 @@ namespace Code.Scripts.Player
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.Dash += OnDashHandler;
             InputManager.Djmp += OnDjmpHandler;
-            InputManager.Restart += OnRestartHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
         }
@@ -91,7 +90,7 @@ namespace Code.Scripts.Player
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
             InputManager.Djmp -= OnDjmpHandler;
-            InputManager.Restart -= OnRestartHandler;
+            
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
         }
 
@@ -266,14 +265,6 @@ namespace Code.Scripts.Player
         private void OnEnterDjmpHandler()
         {
             djmpPressed = false;
-        }
-
-        /// <summary>
-        /// Handle restart input
-        /// </summary>
-        private static void OnRestartHandler()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

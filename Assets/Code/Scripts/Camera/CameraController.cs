@@ -37,16 +37,17 @@ namespace Code.Scripts.Camera
         
         private void LateUpdate()
         {
-            if (offsetByInput.magnitude > 0)
-                currentDis = Mathf.Clamp01(currentDis + Time.deltaTime * inputSpeed);
-            else
-                currentDis = 0;
+            if (!isMoving)
+            {
+                if (offsetByInput.magnitude > 0)
+                    currentDis = Mathf.Clamp01(currentDis + Time.deltaTime * inputSpeed);
+                else
+                    currentDis = 0;
             
-            transform.position = Vector3.Lerp(cameraPosition, cameraPosition + (Vector3)offsetByInput, currentDis);
-
-            Debug.Log("currentDis: " + currentDis);
+                transform.position = Vector3.Lerp(cameraPosition, cameraPosition + (Vector3)offsetByInput, currentDis);
+                return;
+            }
             
-            if (!isMoving) return;
             transform.position = Vector3.MoveTowards(transform.position, cameraPosition, Time.deltaTime * speed);
 
             if (transform.position == cameraPosition)

@@ -1,3 +1,4 @@
+using Code.Scripts.Level;
 using UnityEngine;
 
 namespace Code.Scripts.Camera
@@ -9,7 +10,8 @@ namespace Code.Scripts.Camera
     {
         [SerializeField] private Transform cameraPosition;
         [SerializeField] private new CameraController camera;
-
+        [SerializeField] private bool last;
+        
         private void Start()
         {
             if (UnityEngine.Camera.main != null)
@@ -18,8 +20,16 @@ namespace Code.Scripts.Camera
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
-                camera.MoveTo(cameraPosition.position);
+            if (!other.CompareTag("Player"))
+                return;
+
+            if (last)
+                TimeCounter.Stop();
+            
+            camera.MoveTo(cameraPosition.position);
+            
+            if (other.TryGetComponent(out DeathController deathController))
+                deathController.CheckPoint(transform.position);
         }
     }
 }

@@ -48,16 +48,6 @@ namespace Code.Scripts.States
             
             transform.Translate(Vector2.right * (_speed * Time.deltaTime));
         }
-
-        public override void OnFixedUpdate()
-        {
-            // rb.AddForce(Input * moveSettings.accel * Time.fixedDeltaTime * Vector2.right, ForceMode2D.Force);
-            //
-            // rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -moveSettings.maxSpeed, moveSettings.maxSpeed), rb.velocity.y);
-            //
-            // if (!IsGrounded() && Input == 0)
-            //     rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
-        }
         
         /// <summary>
         /// Check if player is on ground
@@ -99,7 +89,7 @@ namespace Code.Scripts.States
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Platform") || collider.gameObject.CompareTag("Floor"))
+                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
                     return true;
             }
             
