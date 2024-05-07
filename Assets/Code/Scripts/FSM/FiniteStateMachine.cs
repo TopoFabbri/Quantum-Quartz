@@ -16,6 +16,8 @@ namespace Code.Scripts.FSM
 
         private bool initialized;
 
+        public event Action<T> StateChanged; 
+        
         public void Init()
         {
             if (!initialized)
@@ -24,7 +26,7 @@ namespace Code.Scripts.FSM
 
         public void Update()
         {
-            var transition = GetTransition();
+            Transition<T> transition = GetTransition();
  
             if (transition != null)
                 SetCurrentState(transition.To);
@@ -35,7 +37,7 @@ namespace Code.Scripts.FSM
             }
             else
             {
-                throw new System.Exception("FSM not initialized");
+                throw new Exception("FSM not initialized");
             }
         }
 
@@ -47,7 +49,7 @@ namespace Code.Scripts.FSM
             }
             else
             {
-                throw new System.Exception("FSM not initialized");
+                throw new Exception("FSM not initialized");
             }
         }
 
@@ -97,15 +99,17 @@ namespace Code.Scripts.FSM
             currentState = state;
 
             transitions.TryGetValue(currentState.GetType(), out currentTransitions);
-            if (currentTransitions == null)
-                currentTransitions = EmptyTransitions;
+            
+            currentTransitions ??= EmptyTransitions;
 
+            StateChanged?.Invoke(currentState.ID);
+            
             currentState?.OnEnter();
         }
 
         public void AddTransition(BaseState<T> from, BaseState<T> to, Func<bool> condition)
         {
-            if (this.transitions.TryGetValue(from.GetType(), out var transitions) == false)
+            if (this.transitions.TryGetValue(from.GetType(), out List<Transition<T>> transitions) == false)
             {
                 transitions = new List<Transition<T>>();
                 this.transitions[from.GetType()] = transitions;

@@ -1,13 +1,12 @@
+using System;
 using System.Collections.Generic;
+using Code.Scripts.Animation;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
-using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Player
 {
@@ -30,7 +29,8 @@ namespace Code.Scripts.Player
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<GameObject> flipObjects = new();
-
+        [SerializeField] private FsmAnimationController fsmAnimController;
+        
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -39,14 +39,21 @@ namespace Code.Scripts.Player
         private bool djmpPressed;
         private bool falling;
 
+        private event Action<bool> OnFlip; 
+
         private void Awake()
+        {
+            InitFsm();
+        }
+
+        private void InitFsm()
         {
             idleState = new IdleState<string>("Idle");
             moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
-            jumpState = new JumpState<string>("JumpStart", stateSettings[1], this, rb, transform);
+            jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
             fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
             dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
-            djmpState = new DjmpState<string>("MiniJump", stateSettings[4], this, rb, transform);
+            djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -62,6 +69,15 @@ namespace Code.Scripts.Player
             fsm.SetCurrentState(idleState);
 
             fsm.Init();
+
+            if (!fsmAnimController) return;
+            
+            fsmAnimController.AddState(idleState.ID, 0);
+            fsmAnimController.AddState(moveState.ID, 1);
+            fsmAnimController.AddState(jumpState.ID, 2);
+            fsmAnimController.AddState(fallState.ID, 3);
+            fsmAnimController.AddState(dashState.ID, 4);
+            fsmAnimController.AddState(djmpState.ID, 5);
         }
 
         private void OnEnable()
@@ -77,6 +93,12 @@ namespace Code.Scripts.Player
             InputManager.Djmp += OnDjmpHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
+            
+            if (fsmAnimController)
+            {
+                fsm.StateChanged += fsmAnimController.OnStateChangedHandler;
+                OnFlip += fsmAnimController.OnFlipHandler;
+            }
         }
 
         private void OnDisable()
@@ -92,6 +114,12 @@ namespace Code.Scripts.Player
             InputManager.Djmp -= OnDjmpHandler;
             
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
+            
+            if (fsmAnimController)
+            {
+                fsm.StateChanged -= fsmAnimController.OnStateChangedHandler;
+                OnFlip -= fsmAnimController.OnFlipHandler;
+            }
         }
 
         private void Update()
@@ -99,6 +127,9 @@ namespace Code.Scripts.Player
             moveState.IsGrounded();
             
             fsm.Update();
+
+            if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
+                Flip();
 
             if (stateTxt)
                 stateTxt.text = fsm.GetCurrentState().ID;
@@ -110,9 +141,6 @@ namespace Code.Scripts.Player
 
             if (falling && rb.velocity.y == 0f)
                 falling = false;
-
-            if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
-                Flip();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -167,7 +195,6 @@ namespace Code.Scripts.Player
                 return;
 
             facingRight = !facingRight;
-            sprite.flipX = !sprite.flipX;
             dashState.Flip();
 
             foreach (GameObject flipObject in flipObjects)
@@ -176,8 +203,14 @@ namespace Code.Scripts.Player
                 flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
                     flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
+            
+            OnFlip?.Invoke(facingRight);
         }
 
+        /// <summary>
+        /// Check if player should move
+        /// </summary>
+        /// <returns>True if player should move</returns>
         private bool ShouldEnterMove()
         {
             return moveState.Input != 0 && !moveState.WallCheck();

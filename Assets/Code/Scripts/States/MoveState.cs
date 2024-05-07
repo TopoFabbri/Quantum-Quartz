@@ -43,6 +43,9 @@ namespace Code.Scripts.States
             else
                 _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
 
+            if (_speed is <= 0.1f and >= -0.1f)
+                _speed = 0f;
+            
             if (WallCheck())
                 _speed = 0f;
             
