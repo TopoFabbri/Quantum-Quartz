@@ -78,7 +78,7 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            return _speed == 0;
+            return Mathf.Abs(_speed) < 3f && Input == 0f;
         }
 
         /// <summary>

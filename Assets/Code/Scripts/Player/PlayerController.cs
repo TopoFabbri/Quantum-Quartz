@@ -46,40 +46,6 @@ namespace Code.Scripts.Player
             InitFsm();
         }
 
-        private void InitFsm()
-        {
-            idleState = new IdleState<string>("Idle");
-            moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
-            jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
-            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
-            dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
-            djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
-
-            fsm = new FiniteStateMachine<string>();
-
-            fsm.AddState(idleState);
-            fsm.AddState(moveState);
-            fsm.AddState(jumpState);
-            fsm.AddState(fallState);
-            fsm.AddState(dashState);
-            fsm.AddState(djmpState);
-
-            FsmTransitions();
-
-            fsm.SetCurrentState(idleState);
-
-            fsm.Init();
-
-            if (!fsmAnimController) return;
-            
-            fsmAnimController.AddState(idleState.ID, 0);
-            fsmAnimController.AddState(moveState.ID, 1);
-            fsmAnimController.AddState(jumpState.ID, 2);
-            fsmAnimController.AddState(fallState.ID, 3);
-            fsmAnimController.AddState(dashState.ID, 4);
-            fsmAnimController.AddState(djmpState.ID, 5);
-        }
-
         private void OnEnable()
         {
             jumpState.onEnter += OnEnterJumpHandler;
@@ -156,6 +122,43 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Initialize the finite state machine
+        /// </summary>
+        private void InitFsm()
+        {
+            idleState = new IdleState<string>("Idle");
+            moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
+            jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
+            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
+            dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
+            djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
+
+            fsm = new FiniteStateMachine<string>();
+
+            fsm.AddState(idleState);
+            fsm.AddState(moveState);
+            fsm.AddState(jumpState);
+            fsm.AddState(fallState);
+            fsm.AddState(dashState);
+            fsm.AddState(djmpState);
+
+            FsmTransitions();
+
+            fsm.SetCurrentState(idleState);
+
+            fsm.Init();
+
+            if (!fsmAnimController) return;
+            
+            fsmAnimController.AddState(idleState.ID, 0);
+            fsmAnimController.AddState(moveState.ID, 1);
+            fsmAnimController.AddState(jumpState.ID, 2);
+            fsmAnimController.AddState(fallState.ID, 3);
+            fsmAnimController.AddState(dashState.ID, 4);
+            fsmAnimController.AddState(djmpState.ID, 5);
+        }
+
+        /// <summary>
         /// Add fsm transitions
         /// </summary>
         private void FsmTransitions()
@@ -177,7 +180,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
 
-            fsm.AddTransition(fallState, moveState, () => !falling);
+            fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove());
+            fsm.AddTransition(fallState, idleState, () => !falling);
             fsm.AddTransition(fallState, dashState, () => dashPressed);
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
 
