@@ -14,6 +14,8 @@ namespace Code.Scripts.States
 
         private readonly MonoBehaviour mb;
 
+        public bool HasJumped { get; private set; }
+        
         public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, rb, transform)
         {
@@ -30,6 +32,21 @@ namespace Code.Scripts.States
             mb.StartCoroutine(JumpOnFU());
 
             rb.sharedMaterial.friction = JumpSettings.moveSettings.airFriction;
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            
+            HasJumped = false;
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            if (!IsGrounded())
+                HasJumped = true;
         }
 
         /// <summary>
