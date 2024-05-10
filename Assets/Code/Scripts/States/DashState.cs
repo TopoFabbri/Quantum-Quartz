@@ -46,6 +46,8 @@ namespace Code.Scripts.States
 
             rb.velocity = new Vector2(rb.velocity.x / 2f, 0f);
             rb.gravityScale = gravScale;
+            
+            mb.StartCoroutine(StartCoolDown());
         }
 
         public override void OnFixedUpdate()
@@ -75,6 +77,20 @@ namespace Code.Scripts.States
             Ended = true;
         }
 
+        /// <summary>
+        /// Wait cooldown and reset
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator StartCoolDown()
+        {
+            yield return new WaitForSeconds(DashSettings.cooldown);
+            
+            Reset();
+        }
+
+        /// <summary>
+        /// Reset dash
+        /// </summary>
         public void Reset()
         {
             DashAvailable = true;

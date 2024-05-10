@@ -91,10 +91,7 @@ namespace Code.Scripts.Player
         private void Update()
         {
             if (moveState.IsGrounded())
-            {
                 djmpState.Reset();
-                dashState.Reset();
-            }
             
             fsm.Update();
 
@@ -247,6 +244,7 @@ namespace Code.Scripts.Player
             moveState.SetInput(input.x);
             jumpState.SetInput(input.x);
             fallState.SetInput(input.x);
+            djmpState.SetInput(input.x);
         }
 
         /// <summary>

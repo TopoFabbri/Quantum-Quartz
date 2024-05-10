@@ -12,7 +12,7 @@ namespace Code.Scripts.States
     {
         protected JumpSettings JumpSettings => settings as JumpSettings;
 
-        private readonly MonoBehaviour mb;
+        protected readonly MonoBehaviour mb;
 
         public bool HasJumped { get; protected set; }
         

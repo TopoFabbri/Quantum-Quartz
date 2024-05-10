@@ -8,6 +8,7 @@ namespace Code.Scripts.StateSettings
         [Header("Dash:")]
         public float speed = 10f;
         public float duration = 0.5f;
+        public float cooldown = 3f;
         
         [Header("Wall Check:")]
         public float wallCheckDis;

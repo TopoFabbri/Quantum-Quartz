@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using Code.Scripts.StateSettings;
 using UnityEngine;
 
 namespace Code.Scripts.States
 {
     public class DjmpState<T> : JumpState<T>
     {
+        private bool DjmpSettings => settings as DjmpSettings;
+        
         public bool JumpAvailable { get; private set; }
 
         public DjmpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
@@ -42,7 +45,7 @@ namespace Code.Scripts.States
             rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
             JumpAvailable = false;
         }
-
+        
         /// <summary>
         /// Set jump available
         /// </summary>
