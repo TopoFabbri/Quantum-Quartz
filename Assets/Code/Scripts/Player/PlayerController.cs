@@ -90,7 +90,11 @@ namespace Code.Scripts.Player
 
         private void Update()
         {
-            moveState.IsGrounded();
+            if (moveState.IsGrounded())
+            {
+                djmpState.Reset();
+                dashState.Reset();
+            }
             
             fsm.Update();
 
