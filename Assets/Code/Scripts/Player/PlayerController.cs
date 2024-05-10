@@ -90,7 +90,8 @@ namespace Code.Scripts.Player
 
         private void Update()
         {
-            moveState.IsGrounded();
+            if (moveState.IsGrounded())
+                djmpState.Reset();
             
             fsm.Update();
 
@@ -229,8 +230,8 @@ namespace Code.Scripts.Player
             if (color != ColorSwitcher.QColors.Red)
                 dashState.Reset();
 
-            if (color != ColorSwitcher.QColors.Blue)
-                djmpState.Reset();
+            // if (color != ColorSwitcher.QColors.Blue)
+            //     djmpState.Reset();
         }
 
         /// <summary>
