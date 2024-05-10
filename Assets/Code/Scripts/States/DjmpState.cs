@@ -20,10 +20,25 @@ namespace Code.Scripts.States
             rb.velocity = new Vector2(0f, 0f);
         }
 
+        public override void OnExit()
+        {
+            base.OnExit();
+            
+            HasJumped = false;
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            if (!IsGrounded())
+                HasJumped = true;
+        }
+
         protected override IEnumerator JumpOnFU()
         {
             yield return new WaitForFixedUpdate();
-
+            
             rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
             JumpAvailable = false;
         }
@@ -33,6 +48,9 @@ namespace Code.Scripts.States
         /// </summary>
         public void Reset()
         {
+            if (HasJumped)
+                return;
+            
             JumpAvailable = true;
         }
     }

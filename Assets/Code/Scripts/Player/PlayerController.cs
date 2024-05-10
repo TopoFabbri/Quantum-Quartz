@@ -191,7 +191,8 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
 
-            fsm.AddTransition(djmpState, fallState, () => !djmpState.JumpAvailable);
+            fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
+            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped);
         }
 
         /// <summary>
