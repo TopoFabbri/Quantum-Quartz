@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Code.Scripts.Animation;
 using Code.Scripts.Colors;
@@ -30,7 +31,7 @@ namespace Code.Scripts.Player
         [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<GameObject> flipObjects = new();
         [SerializeField] private FsmAnimationController fsmAnimController;
-        
+
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -39,7 +40,7 @@ namespace Code.Scripts.Player
         private bool djmpPressed;
         private bool falling;
 
-        private event Action<bool> OnFlip; 
+        private event Action<bool> OnFlip;
 
         private void Awake()
         {
@@ -59,7 +60,7 @@ namespace Code.Scripts.Player
             InputManager.Djmp += OnDjmpHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
-            
+
             if (fsmAnimController)
             {
                 fsm.StateChanged += fsmAnimController.OnStateChangedHandler;
@@ -78,9 +79,9 @@ namespace Code.Scripts.Player
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
             InputManager.Djmp -= OnDjmpHandler;
-            
+
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
-            
+
             if (fsmAnimController)
             {
                 fsm.StateChanged -= fsmAnimController.OnStateChangedHandler;
@@ -92,7 +93,7 @@ namespace Code.Scripts.Player
         {
             if (moveState.IsGrounded())
                 djmpState.Reset();
-            
+
             fsm.Update();
 
             if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
@@ -150,7 +151,7 @@ namespace Code.Scripts.Player
             fsm.Init();
 
             if (!fsmAnimController) return;
-            
+
             fsmAnimController.AddState(idleState.ID, 0);
             fsmAnimController.AddState(moveState.ID, 1);
             fsmAnimController.AddState(jumpState.ID, 2);
@@ -165,19 +166,20 @@ namespace Code.Scripts.Player
         private void FsmTransitions()
         {
             fsm.AddTransition(idleState, moveState, ShouldEnterMove);
-            fsm.AddTransition(idleState, jumpState, () => jumpPressed);
+            fsm.AddTransition(idleState, jumpState, () => jumpPressed && moveState.IsGrounded());
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded());
             fsm.AddTransition(idleState, dashState, () => dashPressed);
             fsm.AddTransition(idleState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
-            fsm.AddTransition(moveState, jumpState, () => jumpPressed);
+            fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(moveState, dashState, () => dashPressed);
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped);
+            fsm.AddTransition(jumpState, idleState,
+                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
 
@@ -209,8 +211,19 @@ namespace Code.Scripts.Player
                 flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
                     flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
-            
+
             OnFlip?.Invoke(facingRight);
+        }
+
+        /// <summary>
+        /// Count and end jump buffer time
+        /// </summary>
+        /// <param name="jumpBufferTime">Time to count</param>
+        /// <returns></returns>
+        private IEnumerator EndJumpBufferTime(float jumpBufferTime)
+        {
+            yield return new WaitForSeconds(jumpBufferTime);
+            jumpPressed = false;
         }
 
         /// <summary>
@@ -221,7 +234,7 @@ namespace Code.Scripts.Player
         {
             return moveState.Input != 0 && !moveState.WallCheck();
         }
-        
+
         /// <summary>
         /// Manage player actions when color is changed
         /// </summary>
@@ -252,8 +265,8 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler()
         {
-            if (moveState.IsGrounded())
-                jumpPressed = true;
+            jumpPressed = true;
+            StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
         }
 
         /// <summary>

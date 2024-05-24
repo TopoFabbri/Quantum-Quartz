@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -15,7 +16,8 @@ namespace Code.Scripts.States
         protected readonly MonoBehaviour mb;
 
         public bool HasJumped { get; protected set; }
-        
+        public float JumpBufferTime => JumpSettings.bufferTime;
+
         public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, rb, transform)
         {
@@ -37,14 +39,14 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-            
+
             HasJumped = false;
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-            
+
             if (!IsGrounded())
                 HasJumped = true;
         }

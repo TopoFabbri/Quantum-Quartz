@@ -8,5 +8,6 @@ namespace Code.Scripts.StateSettings
         public MoveSettings moveSettings;
         
         public float jumpForce = 10f;
+        public float bufferTime = 0.1f;
     }
 }

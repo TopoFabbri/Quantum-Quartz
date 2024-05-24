@@ -14,7 +14,7 @@ namespace Code.Scripts.States
         protected MoveSettings moveSettings;
         
         protected readonly Rigidbody2D rb;
-        private readonly Transform transform;
+        protected readonly Transform transform;
         
         private static float _speed;
 
