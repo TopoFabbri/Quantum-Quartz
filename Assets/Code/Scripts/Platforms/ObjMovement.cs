@@ -18,6 +18,7 @@ namespace Code.Scripts.Platforms
         
         private int curPoint;
         private Position initPos;
+        private Transform player;
 
         private void Start()
         {
@@ -88,6 +89,23 @@ namespace Code.Scripts.Platforms
             
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 0.1f);
+        }
+
+        public void AddPlayer(Transform player)
+        {
+            this.player = player;
+            this.player.parent = transform;
+        }
+        
+        private void OnDisable()
+        {
+            if (!player)
+                return;
+            
+            if (player.parent)
+                player.parent = null;
+            
+            player = null;
         }
     }
 }

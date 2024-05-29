@@ -5,6 +5,7 @@ using Code.Scripts.Animation;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
@@ -45,6 +46,11 @@ namespace Code.Scripts.Player
         private void Awake()
         {
             InitFsm();
+        }
+
+        private void Start()
+        {
+            FaceRight();
         }
 
         private void OnEnable()
@@ -113,7 +119,7 @@ namespace Code.Scripts.Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Floor"))
+            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
 
             if (!moveState.IsGrounded())
@@ -121,6 +127,15 @@ namespace Code.Scripts.Player
 
             falling = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
+            
+            if (other.gameObject.TryGetComponent(out ObjMovement obj))
+                obj.AddPlayer(transform);
+        }
+        
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Platform"))
+                transform.parent = null;
         }
 
         /// <summary>
@@ -194,6 +209,15 @@ namespace Code.Scripts.Player
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped);
         }
 
+        /// <summary>
+        /// Force character to face right
+        /// </summary>
+        private void FaceRight()
+        {
+            if (!facingRight)
+                Flip();
+        }
+        
         /// <summary>
         /// Flip character
         /// </summary>

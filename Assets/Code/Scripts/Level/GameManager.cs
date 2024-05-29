@@ -1,4 +1,3 @@
-using System;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using TMPro;
@@ -15,6 +14,9 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
+            
             TimeCounter.Start();
         }
 
