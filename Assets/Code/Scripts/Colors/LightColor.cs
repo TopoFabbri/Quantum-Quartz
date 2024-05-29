@@ -37,7 +37,7 @@ namespace Code.Scripts.Colors
             ColorSwitcher.ColorChanged -= OnColorSwitch;
         }
 
-        private void OnColorSwitch(ColorSwitcher.QColors color)
+        private void OnColorSwitch(ColorSwitcher.QColor color)
         {
             light.color = colors[(int) color];
         }

@@ -39,28 +39,28 @@ namespace Code.Scripts.Platforms
             ColorSwitcher.ColorChanged -= TogglePlatforms;
         }
 
-        private void TogglePlatforms(ColorSwitcher.QColors color)
+        private void TogglePlatforms(ColorSwitcher.QColor color)
         {
             TurnOffAllPlatforms();
 
             switch (color)
             {
-                case ColorSwitcher.QColors.None:
+                case ColorSwitcher.QColor.None:
                     break;
 
-                case ColorSwitcher.QColors.Red:
+                case ColorSwitcher.QColor.Red:
                     ActivatePlatforms(redPlatforms);
                     break;
 
-                case ColorSwitcher.QColors.Blue:
+                case ColorSwitcher.QColor.Blue:
                     ActivatePlatforms(bluePlatforms);
                     break;
 
-                case ColorSwitcher.QColors.Green:
+                case ColorSwitcher.QColor.Green:
                     ActivatePlatforms(greenPlatforms);
                     break;
 
-                case ColorSwitcher.QColors.Yellow:
+                case ColorSwitcher.QColor.Yellow:
                     ActivatePlatforms(yellowPlatforms);
                     break;
 

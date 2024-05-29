@@ -263,12 +263,12 @@ namespace Code.Scripts.Player
         /// Manage player actions when color is changed
         /// </summary>
         /// <param name="color">New color</param>
-        private void OnChangedColorHandler(ColorSwitcher.QColors color)
+        private void OnChangedColorHandler(ColorSwitcher.QColor color)
         {
-            if (color != ColorSwitcher.QColors.Red)
+            if (color != ColorSwitcher.QColor.Red)
                 dashState.Reset();
 
-            if (color != ColorSwitcher.QColors.Blue)
+            if (color != ColorSwitcher.QColor.Blue)
                 djmpState.Reset();
         }
 
@@ -299,7 +299,7 @@ namespace Code.Scripts.Player
         /// <returns>True if player can dash</returns>
         private void OnDashHandler()
         {
-            if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Red)
+            if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
                 dashPressed = true;
         }
 
@@ -308,7 +308,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnDjmpHandler()
         {
-            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColors.Blue)
+            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
 

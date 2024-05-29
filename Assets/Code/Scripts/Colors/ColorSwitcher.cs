@@ -6,7 +6,7 @@ namespace Code.Scripts.Colors
 {
     public class ColorSwitcher : MonoBehaviourSingleton<ColorSwitcher>
     {
-        public enum QColors
+        public enum QColor
         {
             None,
             Red,
@@ -15,9 +15,9 @@ namespace Code.Scripts.Colors
             Yellow
         }
 
-        public QColors CurrentColor { get; private set; }
+        public QColor CurrentColor { get; private set; }
         
-        public static event Action<QColors> ColorChanged;
+        public static event Action<QColor> ColorChanged;
 
         private void OnEnable()
         {
@@ -37,25 +37,25 @@ namespace Code.Scripts.Colors
 
         private void OnColor1()
         {
-           SetColor(CurrentColor == QColors.Red ? QColors.None : QColors.Red);
+           SetColor(CurrentColor == QColor.Red ? QColor.None : QColor.Red);
         }
 
         private void OnColor2()
         {
-            SetColor(CurrentColor == QColors.Blue ? QColors.None : QColors.Blue);
+            SetColor(CurrentColor == QColor.Blue ? QColor.None : QColor.Blue);
         }
 
         private void OnColor3()
         {
-            SetColor(CurrentColor == QColors.Green ? QColors.None : QColors.Green);
+            SetColor(CurrentColor == QColor.Green ? QColor.None : QColor.Green);
         }
 
         private void OnColor4()
         {
-            SetColor(CurrentColor == QColors.Yellow ? QColors.None : QColors.Yellow);
+            SetColor(CurrentColor == QColor.Yellow ? QColor.None : QColor.Yellow);
         }
 
-        private void SetColor(QColors color)
+        private void SetColor(QColor color)
         {
             ColorChanged?.Invoke(color);
             
