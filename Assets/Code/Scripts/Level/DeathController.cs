@@ -13,16 +13,6 @@ namespace Code.Scripts.Level
         {
             checkPoint = transform.position;
         }
-
-        private void OnEnable()
-        {
-            DeathTrigger.Death += OnDeathHandler;
-        }
-        
-        private void OnDisable()
-        {
-            DeathTrigger.Death -= OnDeathHandler;
-        }
         
         public void CheckPoint(Vector2 position)
         {
@@ -32,7 +22,7 @@ namespace Code.Scripts.Level
         /// <summary>
         /// Respawn player position on death
         /// </summary>
-        private void OnDeathHandler()
+        public void Die()
         {
             transform.position = checkPoint;
         }

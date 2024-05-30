@@ -1,7 +1,11 @@
+using Code.Scripts.Level;
 using UnityEngine;
 
 namespace Code.Scripts.Obstacles
 {
+    /// <summary>
+    /// Manage laser actions
+    /// </summary>
     public class LaserController : MonoBehaviour
     {
         [SerializeField] private float maxDis = 20f;
@@ -32,6 +36,9 @@ namespace Code.Scripts.Obstacles
             
             end.position = hit.point;
             end.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            
+            if (hit.collider.TryGetComponent(out DeathController deathController))
+                deathController.Die();
         }
     }
 }
