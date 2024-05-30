@@ -32,7 +32,9 @@ namespace Code.Scripts.Player
         [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<GameObject> flipObjects = new();
         [SerializeField] private FsmAnimationController fsmAnimController;
-
+        [SerializeField] private ParticleSystem dashPs;
+        [SerializeField] private ParticleSystem djmpPs;
+        
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -334,6 +336,8 @@ namespace Code.Scripts.Player
         private void OnEnterDashHandler()
         {
             dashPressed = false;
+            
+            dashPs.Play();
         }
 
         /// <summary>
@@ -342,6 +346,8 @@ namespace Code.Scripts.Player
         private void OnEnterDjmpHandler()
         {
             djmpPressed = false;
+            
+            djmpPs.Play();
         }
     }
 }
