@@ -9,7 +9,7 @@ namespace Code.Scripts.Level
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (TryGetComponent(out DeathController deathController))
+            if (other.TryGetComponent(out DeathController deathController))
                 deathController.Die();
         }
     }
