@@ -10,6 +10,11 @@ namespace Code.Scripts.Platforms
         
         private static readonly int On = Animator.StringToHash("On");
 
+        private void Start()
+        {
+            ToggleColor(ColorSwitcher.QColor.None);
+        }
+
         private void OnEnable()
         {
             ColorSwitcher.ColorChanged += ToggleColor;
