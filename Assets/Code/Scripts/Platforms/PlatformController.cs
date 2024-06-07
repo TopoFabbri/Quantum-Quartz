@@ -19,6 +19,11 @@ namespace Code.Scripts.Platforms
         {
             ColorSwitcher.ColorChanged += ToggleColor;
         }
+        
+        private void OnDisable()
+        {
+            ColorSwitcher.ColorChanged -= ToggleColor;
+        }
 
         private void ToggleColor(ColorSwitcher.QColor obj)
         {
