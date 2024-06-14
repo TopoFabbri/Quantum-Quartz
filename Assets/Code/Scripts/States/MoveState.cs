@@ -42,9 +42,6 @@ namespace Code.Scripts.States
                 _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
                 _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
-
-            if (_speed is <= 0.1f and >= -0.1f)
-                _speed = 0f;
             
             if (WallCheck())
                 _speed = 0f;
@@ -78,7 +75,12 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            return Mathf.Abs(_speed) < 3f && Input == 0f;
+            Debug.Log(_speed * Time.deltaTime);
+
+            if (!(Mathf.Abs(_speed * Time.deltaTime) < moveSettings.minSpeed) || Input != 0f) return false;
+            
+            _speed = 0f;
+            return true;
         }
 
         /// <summary>
