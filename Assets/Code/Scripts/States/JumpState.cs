@@ -14,7 +14,7 @@ namespace Code.Scripts.States
         protected JumpSettings JumpSettings => settings as JumpSettings;
 
         protected readonly MonoBehaviour mb;
-        
+
         public bool HasJumped { get; protected set; }
         public float JumpBufferTime => JumpSettings.bufferTime;
 
@@ -49,25 +49,6 @@ namespace Code.Scripts.States
 
             if (!IsGrounded())
                 HasJumped = true;
-            
-        }
-        
-        protected void ApplyJumpForce()
-        {
-            rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
-        }
-        
-        public float TryJump(float coyoteTimeRemaining)
-        {
-            if (coyoteTimeRemaining > 0f)
-            {
-                ApplyJumpForce();
-                // Reset coyote time
-                return 0f;
-            }
-
-            // If coyote time is not active, return the original value
-            return coyoteTimeRemaining;
         }
 
         /// <summary>
@@ -77,8 +58,8 @@ namespace Code.Scripts.States
         protected virtual IEnumerator JumpOnFU()
         {
             yield return new WaitForFixedUpdate();
-            
-            //rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+
+            rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
     }
 }

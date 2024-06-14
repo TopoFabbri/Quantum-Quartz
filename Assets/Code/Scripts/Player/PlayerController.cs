@@ -34,7 +34,7 @@ namespace Code.Scripts.Player
         [SerializeField] private FsmAnimationController fsmAnimController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
-
+        
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -42,7 +42,6 @@ namespace Code.Scripts.Player
         private bool dashPressed;
         private bool djmpPressed;
         private bool falling;
-        private float coyoteTime = .1f;
 
         private event Action<bool> OnFlip;
 
@@ -101,17 +100,8 @@ namespace Code.Scripts.Player
         private void Update()
         {
             if (moveState.IsGrounded())
-            {
                 djmpState.Reset();
-                coyoteTime = 1f;
-            }
-            else
-            {
-                coyoteTime -= Time.deltaTime;
-            }
-         
 
-            
             fsm.Update();
 
             if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
@@ -139,11 +129,11 @@ namespace Code.Scripts.Player
 
             falling = false;
             rb.velocity = new Vector2(rb.velocity.x, 0f);
-
+            
             if (other.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);
         }
-
+        
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Platform"))
@@ -229,7 +219,7 @@ namespace Code.Scripts.Player
             if (!facingRight)
                 Flip();
         }
-
+        
         /// <summary>
         /// Flip character
         /// </summary>
@@ -301,20 +291,8 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler()
         {
-            //jumpPressed = true;
+            jumpPressed = true;
             StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
-            //coyoteTime = jumpState.TryJump(coyoteTime);
-            
-            if (moveState.IsGrounded())
-            {
-                coyoteTime = jumpState.TryJump(coyoteTime);
-                jumpPressed = true;
-            }
-            else if(!jumpPressed && coyoteTime > 0)
-            {
-                coyoteTime = jumpState.TryJump(coyoteTime);
-                Debug.Log(coyoteTime);
-            }
         }
 
         /// <summary>
@@ -358,7 +336,7 @@ namespace Code.Scripts.Player
         private void OnEnterDashHandler()
         {
             dashPressed = false;
-
+            
             dashPs.Play();
         }
 
@@ -368,7 +346,7 @@ namespace Code.Scripts.Player
         private void OnEnterDjmpHandler()
         {
             djmpPressed = false;
-
+            
             djmpPs.Play();
         }
     }
