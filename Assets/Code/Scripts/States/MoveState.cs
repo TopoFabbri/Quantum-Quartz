@@ -94,6 +94,11 @@ namespace Code.Scripts.States
             {
                 if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
                     return true;
+
+                if (!collider.gameObject.CompareTag("Platform")) continue;
+                
+                if (!collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
+                    return true;
             }
             
             return false;
