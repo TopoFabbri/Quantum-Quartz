@@ -75,8 +75,6 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            Debug.Log(_speed * Time.deltaTime);
-
             if (!(Mathf.Abs(_speed * Time.deltaTime) < moveSettings.minSpeed) || Input != 0f) return false;
             
             _speed = 0f;

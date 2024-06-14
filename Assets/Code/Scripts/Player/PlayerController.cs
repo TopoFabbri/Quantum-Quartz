@@ -108,7 +108,7 @@ namespace Code.Scripts.Player
                 Flip();
 
             if (stateTxt)
-                stateTxt.text = fsm.GetCurrentState().ID;
+                stateTxt.text = fsm.CurrentState.ID;
         }
 
         private void FixedUpdate()
@@ -148,7 +148,7 @@ namespace Code.Scripts.Player
             idleState = new IdleState<string>("Idle");
             moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
             jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
-            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform);
+            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform, this);
             dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
             djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
 
@@ -195,8 +195,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState,
-                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
 
@@ -204,6 +203,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(fallState, idleState, () => !falling);
             fsm.AddTransition(fallState, dashState, () => dashPressed);
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
+            fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
 
@@ -225,7 +225,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void Flip()
         {
-            if (fsm.GetCurrentState() == dashState)
+            if (fsm.CurrentState == dashState)
                 return;
 
             facingRight = !facingRight;
@@ -320,6 +320,12 @@ namespace Code.Scripts.Player
         private void OnEnterJumpHandler()
         {
             jumpPressed = false;
+
+            if (fsm.PreviousState != fallState) return;
+            
+            Vector2 vector2 = rb.velocity;
+            vector2.y = 0f;
+            rb.velocity = vector2;
         }
 
         /// <summary>
@@ -328,6 +334,9 @@ namespace Code.Scripts.Player
         private void OnEnterFallHandler()
         {
             falling = true;
+            
+            if (fsm.PreviousState != jumpState)
+                fallState.StartCoyoteTime();
         }
 
         /// <summary>

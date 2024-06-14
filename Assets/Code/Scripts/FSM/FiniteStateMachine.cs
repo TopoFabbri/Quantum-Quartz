@@ -7,7 +7,9 @@ namespace Code.Scripts.FSM
     public class FiniteStateMachine<T>
     {
         private readonly Dictionary<T, BaseState<T>> states = new();
-        private BaseState<T> currentState;
+
+        public BaseState<T> CurrentState { get; private set; }
+        public BaseState<T> PreviousState { get; private set; }
 
         private readonly Dictionary<Type, List<Transition<T>>> transitions = new();
         private List<Transition<T>> currentTransitions = new();
@@ -16,8 +18,8 @@ namespace Code.Scripts.FSM
 
         private bool initialized;
 
-        public event Action<T> StateChanged; 
-        
+        public event Action<T> StateChanged;
+
         public void Init()
         {
             if (!initialized)
@@ -27,13 +29,13 @@ namespace Code.Scripts.FSM
         public void Update()
         {
             Transition<T> transition = GetTransition();
- 
+
             if (transition != null)
                 SetCurrentState(transition.To);
 
             if (initialized)
             {
-                currentState.OnUpdate();
+                CurrentState.OnUpdate();
             }
             else
             {
@@ -45,7 +47,7 @@ namespace Code.Scripts.FSM
         {
             if (initialized)
             {
-                currentState.OnFixedUpdate();
+                CurrentState.OnFixedUpdate();
             }
             else
             {
@@ -75,36 +77,25 @@ namespace Code.Scripts.FSM
         }
 
         /// <summary>
-        /// Gets current state
-        /// </summary>
-        /// <returns></returns>
-        public BaseState<T> GetCurrentState()
-        {
-            if (currentState != null)
-                return currentState;
-
-            return null;
-        }
-
-        /// <summary>
         /// Sets current state, running OnExit() methods from previous and OnEnter() from new one
         /// </summary>
         /// <param name="state"></param>
         public void SetCurrentState(BaseState<T> state)
         {
-            if (currentState == state) return;
+            if (CurrentState == state) return;
 
-            currentState?.OnExit();
+            CurrentState?.OnExit();
 
-            currentState = state;
+            PreviousState = CurrentState;
+            CurrentState = state;
 
-            transitions.TryGetValue(currentState.GetType(), out currentTransitions);
-            
+            transitions.TryGetValue(CurrentState.GetType(), out currentTransitions);
+
             currentTransitions ??= EmptyTransitions;
 
-            StateChanged?.Invoke(currentState.ID);
-            
-            currentState?.OnEnter();
+            StateChanged?.Invoke(CurrentState.ID);
+
+            CurrentState?.OnEnter();
         }
 
         public void AddTransition(BaseState<T> from, BaseState<T> to, Func<bool> condition)
@@ -128,4 +119,3 @@ namespace Code.Scripts.FSM
         }
     }
 }
-

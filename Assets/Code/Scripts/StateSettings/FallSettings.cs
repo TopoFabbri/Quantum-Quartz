@@ -6,5 +6,7 @@ namespace Code.Scripts.StateSettings
     public class FallSettings : StateSettings
     {
         public MoveSettings moveSettings;
+
+        public float coyoteTime = 0.1f;
     }
 }

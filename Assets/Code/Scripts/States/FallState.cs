@@ -1,4 +1,5 @@
-﻿using Code.Scripts.StateSettings;
+﻿using System.Collections;
+using Code.Scripts.StateSettings;
 using UnityEngine;
 
 namespace Code.Scripts.States
@@ -11,11 +12,17 @@ namespace Code.Scripts.States
     {
         private FallSettings FallSettings => settings as FallSettings;
         
-        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings, rb, transform)
+        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings, rb, transform)
         {
             settings = stateSettings;
             moveSettings = FallSettings.moveSettings;
+            
+            this.mb = mb;
         }
+
+        private MonoBehaviour mb;
+        
+        public bool CanCoyoteJump { get; private set; }
         
         public override void OnEnter()
         {
@@ -37,6 +44,18 @@ namespace Code.Scripts.States
 
             if (Input != 0)
                 rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
+
+        public void StartCoyoteTime()
+        {
+            CanCoyoteJump = true;
+            mb.StartCoroutine(StopCoyoteTime());
+        }
+        
+        private IEnumerator StopCoyoteTime()
+        {
+            yield return new WaitForSeconds(FallSettings.coyoteTime);
+            CanCoyoteJump = false;
         }
     }
 }
