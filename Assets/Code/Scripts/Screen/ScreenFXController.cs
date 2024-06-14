@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ScreenFXController : MonoBehaviour
+namespace Code.Scripts.Screen
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ScreenFXController : MonoBehaviour
     {
+        [SerializeField] private Animator animator;
+        [SerializeField] private TextMeshProUGUI levelTxt;
         
-    }
+        private static readonly int Ended = Animator.StringToHash("Ended");
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void OnEnable()
+        {
+            LevelChanger.LevelEnd += End;
+        }
         
+        private void OnDisable()
+        {
+            LevelChanger.LevelEnd -= End;
+        }
+
+        private void Start()
+        {
+            levelTxt.text = "Level " + (LevelChanger.Instance.CurrentLevel + 1);
+        }
+
+        private void End()
+        {
+            animator.SetBool(Ended, true);
+        }
+        
+        public void EndFadeOut()
+        {
+            LevelChanger.Instance.LoadNextLevel();
+        }
     }
 }

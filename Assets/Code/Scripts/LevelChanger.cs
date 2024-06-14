@@ -1,33 +1,35 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelChanger : MonoBehaviour
+namespace Code.Scripts
 {
-    [SerializeField] private string[] levelScenes; 
-
-    [SerializeField] private int currentLevel = 0;
-    
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class LevelChanger : MonoBehaviourSingleton<LevelChanger>
     {
-        if (other.CompareTag("Player"))
-        {
-            LoadNextLevel();
-        }
-    }
+        [SerializeField] private string[] levelScenes;
+        [SerializeField] private int currentLevel;
 
-    private void LoadNextLevel()
-    {
-        if (currentLevel < levelScenes.Length)
+        public int CurrentLevel => currentLevel;
+
+        public static event Action LevelEnd;
+        
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            SceneManager.LoadScene(levelScenes[currentLevel+1]);
+            if (other.CompareTag("Player"))
+                LevelEnd?.Invoke();
         }
-        else
+
+        public void LoadNextLevel()
         {
-            Debug.Log("All levels completed!");
+            if (currentLevel < levelScenes.Length)
+            {
+                SceneManager.LoadScene(levelScenes[currentLevel+1]);
+            }
+            else
+            {
+                Debug.Log("All levels completed!");
+            }
         }
     }
 }
