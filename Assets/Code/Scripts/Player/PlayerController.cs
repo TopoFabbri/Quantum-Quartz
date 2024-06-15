@@ -34,7 +34,7 @@ namespace Code.Scripts.Player
         [SerializeField] private FsmAnimationController fsmAnimController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
-        
+                
         [SerializeField] private SpriteRenderer sprite;
 
         private bool facingRight;
@@ -233,11 +233,12 @@ namespace Code.Scripts.Player
 
             foreach (GameObject flipObject in flipObjects)
             {
-                flipObject.transform.Rotate(0f, 0f, 180f);
+                flipObject.transform.Rotate(0f, 180f, 0f);
                 flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
                     flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
-
+            
+            
             OnFlip?.Invoke(facingRight);
         }
 
