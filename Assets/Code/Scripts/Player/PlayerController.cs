@@ -5,8 +5,10 @@ using Code.Scripts.Animation;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
+using Code.Scripts.StateSettings;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +17,7 @@ namespace Code.Scripts.Player
     /// <summary>
     /// Manage player actions
     /// </summary>
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IKillable
     {
         private FiniteStateMachine<string> fsm;
 
@@ -26,12 +28,14 @@ namespace Code.Scripts.Player
         private FallState<string> fallState;
         private DashState<string> dashState;
         private DjmpState<string> djmpState;
+        private DeathState<string> dethState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<GameObject> flipObjects = new();
         [SerializeField] private FsmAnimationController fsmAnimController;
+        [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
                 
@@ -42,6 +46,7 @@ namespace Code.Scripts.Player
         private bool dashPressed;
         private bool djmpPressed;
         private bool falling;
+        private bool died;
 
         private event Action<bool> OnFlip;
 
@@ -62,6 +67,8 @@ namespace Code.Scripts.Player
             dashState.onEnter += OnEnterDashHandler;
             djmpState.onEnter += OnEnterDjmpHandler;
 
+            dethState.onExit += OnExitDeathHandler;
+            
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.Dash += OnDashHandler;
@@ -83,6 +90,8 @@ namespace Code.Scripts.Player
             dashState.onEnter -= OnEnterDashHandler;
             djmpState.onEnter -= OnEnterDjmpHandler;
 
+            dethState.onExit -= OnExitDeathHandler;
+            
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
@@ -151,6 +160,7 @@ namespace Code.Scripts.Player
             fallState = new FallState<string>("Fall", stateSettings[2], rb, transform, this);
             dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
             djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
+            dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -160,6 +170,7 @@ namespace Code.Scripts.Player
             fsm.AddState(fallState);
             fsm.AddState(dashState);
             fsm.AddState(djmpState);
+            fsm.AddState(dethState);
 
             FsmTransitions();
 
@@ -175,6 +186,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(fallState.ID, 3);
             fsmAnimController.AddState(dashState.ID, 4);
             fsmAnimController.AddState(djmpState.ID, 5);
+            fsmAnimController.AddState(dethState.ID, 6);
         }
 
         /// <summary>
@@ -187,28 +199,36 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded());
             fsm.AddTransition(idleState, dashState, () => dashPressed);
             fsm.AddTransition(idleState, djmpState, () => djmpPressed);
+            fsm.AddTransition(idleState, dethState, () => died);
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
             fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(moveState, dashState, () => dashPressed);
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
+            fsm.AddTransition(moveState, dethState, () => died);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
+            fsm.AddTransition(jumpState, dethState, () => died);
 
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove());
             fsm.AddTransition(fallState, idleState, () => !falling);
             fsm.AddTransition(fallState, dashState, () => dashPressed);
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
             fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
+            fsm.AddTransition(fallState, dethState, () => died);
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
+            fsm.AddTransition(dashState, dethState, () => died);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped);
+            fsm.AddTransition(djmpState, dethState, () => died);
+
+            fsm.AddTransition(dethState, idleState, () => dethState.Ended);
         }
 
         /// <summary>
@@ -358,6 +378,20 @@ namespace Code.Scripts.Player
             djmpPressed = false;
             
             djmpPs.Play();
+        }
+        
+        /// <summary>
+        /// Handle player exited death state
+        /// </summary>
+        private void OnExitDeathHandler()
+        {
+            deathController.Die();
+            died = false;
+        }
+        
+        public void Kill()
+        {
+            died = true;
         }
     }
 }

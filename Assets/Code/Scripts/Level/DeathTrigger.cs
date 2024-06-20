@@ -1,16 +1,17 @@
+using Code.Scripts.Player;
 using UnityEngine;
 
 namespace Code.Scripts.Level
 {
     /// <summary>
-    /// Manage player death
+    /// Manage object death
     /// </summary>
     public class DeathTrigger : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out DeathController deathController))
-                deathController.Die();
+            if (other.TryGetComponent(out IKillable killable))
+                killable.Kill();
         }
     }
 }

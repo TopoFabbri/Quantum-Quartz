@@ -8,7 +8,7 @@ namespace Code.Scripts.Level
     public class DeathController : MonoBehaviour
     {
         private Vector2 checkPoint;
-
+        
         private void Start()
         {
             checkPoint = transform.position;
