@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Code.Scripts.Level;
+using Code.Scripts.Player;
 using UnityEngine;
 
 namespace Code.Scripts.Obstacles
@@ -67,8 +68,8 @@ namespace Code.Scripts.Obstacles
             end.position = hit.point;
             end.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
-            if (hit.collider.TryGetComponent(out DeathController deathController))
-                deathController.Die();
+            if (hit.collider.TryGetComponent(out IKillable killable))
+                killable.Kill();
         }
 
         private IEnumerator ToggleOnOff()

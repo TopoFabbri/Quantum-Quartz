@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -21,6 +20,9 @@ namespace Code.Scripts.States
         public Vector2 Direction { get; set; }
         public bool Ended { get; private set; }
         
+        private bool moving;
+        private float speed;
+        
         public DeathState(T id, StateSettings.StateSettings settings, Transform transform, Rigidbody2D rb, MonoBehaviour mb) : base(id, settings)
         {
             this.transform = transform;
@@ -33,6 +35,7 @@ namespace Code.Scripts.States
             base.OnEnter();
             
             Ended = false;
+            moving = true;
             rb.velocity = Vector2.zero;
             rb.isKinematic = true;
 
@@ -50,8 +53,14 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
             
+            speed = moving ? speed + DeathSettings.accel * Time.deltaTime : speed - DeathSettings.accel * Time.deltaTime;
+            
+            speed = Mathf.Clamp(speed, 0f, DeathSettings.maxSpeed);
+            
+            Debug.Log(speed);
+            
             Vector2 target = (Vector2)transform.position + Direction;
-            transform.position = Vector2.MoveTowards(transform.position, target, DeathSettings.maxSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
         }
         
         /// <summary>
@@ -60,7 +69,10 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator WaitAndEnd()
         {
-            yield return new WaitForSeconds(DeathSettings.duration);
+            yield return new WaitForSeconds(DeathSettings.movingDuration);
+            moving = false;
+            
+            yield return new WaitForSeconds(DeathSettings.duration - DeathSettings.movingDuration);
             Ended = true;
         }
     }

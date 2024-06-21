@@ -391,6 +391,8 @@ namespace Code.Scripts.Player
         
         public void Kill()
         {
+            if (died) return;
+            
             died = true;
             
             dethState.Direction = new Vector2(-moveState.Input, -rb.velocity.normalized.y);
