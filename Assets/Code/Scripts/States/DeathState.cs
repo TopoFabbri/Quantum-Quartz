@@ -42,13 +42,6 @@ namespace Code.Scripts.States
             mb.StartCoroutine(WaitAndEnd());
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-            
-            rb.isKinematic = false;
-        }
-
         public override void OnUpdate()
         {
             base.OnUpdate();
@@ -56,8 +49,6 @@ namespace Code.Scripts.States
             speed = moving ? speed + DeathSettings.accel * Time.deltaTime : speed - DeathSettings.accel * Time.deltaTime;
             
             speed = Mathf.Clamp(speed, 0f, DeathSettings.maxSpeed);
-            
-            Debug.Log(speed);
             
             Vector2 target = (Vector2)transform.position + Direction;
             transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
