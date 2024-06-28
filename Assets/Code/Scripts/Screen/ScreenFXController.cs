@@ -24,7 +24,7 @@ namespace Code.Scripts.Screen
         private void OnDisable()
         {
             LevelChanger.LevelEnd -= End;
-            ColorSwitcher.ColorChanged += OnSwitchColorHandler;
+            ColorSwitcher.ColorChanged -= OnSwitchColorHandler;
         }
 
         private void Start()
