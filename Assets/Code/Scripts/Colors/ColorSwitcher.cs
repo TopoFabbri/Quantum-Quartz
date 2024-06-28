@@ -19,6 +19,11 @@ namespace Code.Scripts.Colors
         
         public static event Action<QColor> ColorChanged;
 
+        private void Start()
+        {
+            SetColor(QColor.None);
+        }
+
         private void OnEnable()
         {
             InputManager.Color1 += OnColor1;
