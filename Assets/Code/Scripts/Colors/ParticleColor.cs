@@ -27,6 +27,7 @@ namespace Code.Scripts.Colors
         private void OnDisable()
         {
             ColorSwitcher.ColorChanged -= OnColorSwitch;
+            particleMaterial.color = Color.white;
         }
 
         private void OnColorSwitch(ColorSwitcher.QColor color)
