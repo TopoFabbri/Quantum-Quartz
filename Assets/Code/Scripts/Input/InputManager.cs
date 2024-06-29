@@ -19,6 +19,7 @@ namespace Code.Scripts.Input
         public static event Action Restart;
         public static event Action Dash;
         public static event Action Djmp;
+        public static event Action Pause;
 
         private static bool _colorModifierPressed;
 
@@ -119,5 +120,16 @@ namespace Code.Scripts.Input
             if (!_colorModifierPressed)
                 Djmp?.Invoke();
         }
+        
+        /// <summary>
+        /// Called when input pause is pressed
+        /// </summary>
+        private void OnPause()
+        {
+            if (!_colorModifierPressed)
+                Pause?.Invoke();
+        }
+        
+        
     }
 }
