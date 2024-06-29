@@ -106,6 +106,8 @@ namespace Code.Scripts.Player
                 fsm.StateChanged -= fsmAnimController.OnStateChangedHandler;
                 OnFlip -= fsmAnimController.OnFlipHandler;
             }
+            
+            fallState.OnExit();
         }
 
         private void Update()

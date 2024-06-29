@@ -1,24 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Code.Scripts.Colors
 {
-    public class LightColor : MonoBehaviour
+    public class ParticleColor : MonoBehaviour
     {
         [SerializeField] private List<Color> colors = new();
-
-        private new Light2D light;
+        [SerializeField] private Material particleMaterial;
 
         private void Awake()
         {
-            light = GetComponent<Light2D>();
-            
-            if (!light)
-                light = gameObject.AddComponent<Light2D>();
-            
-            if (colors.Count > 0)
-                return;
+            if (colors.Count <= 0) return;
             
             colors.Add(Color.white);
             colors.Add(Color.red);
@@ -39,7 +31,7 @@ namespace Code.Scripts.Colors
 
         private void OnColorSwitch(ColorSwitcher.QColor color)
         {
-            light.color = colors[(int) color];
+            particleMaterial.color = colors[(int) color];
         }
     }
 }
