@@ -448,35 +448,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6174312472500994005, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2056097527404382140, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1195895112}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
---- !u!1 &1195895111 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2056097527404382140, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
+--- !u!114 &1195895113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8355067387269065807, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
   m_PrefabInstance: {fileID: 1195895110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1195895112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195895111}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e64647a32fb472f4eb06cee6fe2d8f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Level 1
-  creditsSceneName: 
-  mainMenuSceneName: Menu
 --- !u!1 &1570313543
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +789,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1195895112}
+      - m_Target: {fileID: 1195895113}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -1054,7 +1041,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1195895112}
+      - m_Target: {fileID: 1195895113}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
