@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" SchemaVersion="110">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_LabAmbs" ID="{68526D4E-F675-4EC1-8C34-80E1FECB9D8B}">
+					<ChildrenList>
+						<Action Name="" ID="{C0FC042A-8384-48D1-BA5D-D24B170EDDFF}" ShortID="1046170742">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Lab_Metal_Footsteps" ID="{34CFF654-10FA-47DD-914B-1316659A527E}">
+					<ChildrenList>
+						<Action Name="" ID="{F3B43CE3-D1FE-409D-A0CE-A6C3B9D83636}" ShortID="123110087">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lab_Metal_Footsteps" ID="{12B0545A-9DD9-4C92-A1FA-46B793C1E6D6}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>
