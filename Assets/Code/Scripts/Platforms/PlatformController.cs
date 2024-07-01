@@ -1,12 +1,19 @@
+using System;
+using System.Collections.Generic;
 using Code.Scripts.Colors;
 using UnityEngine;
 
 namespace Code.Scripts.Platforms
 {
+    /// <summary>
+    /// Manage each platform
+    /// </summary>
     public class PlatformController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private ColorSwitcher.QColor qColor;
+        [SerializeField] private List<Sprite> spritesByColor;
         
         private static readonly int On = Animator.StringToHash("On");
 
@@ -25,22 +32,39 @@ namespace Code.Scripts.Platforms
             ColorSwitcher.ColorChanged -= ToggleColor;
         }
 
-        private void ToggleColor(ColorSwitcher.QColor obj)
+        /// <summary>
+        /// Toggle platform on and off depending on color
+        /// </summary>
+        /// <param name="color">New world color</param>
+        private void ToggleColor(ColorSwitcher.QColor color)
         {
-            if (obj == qColor || qColor == ColorSwitcher.QColor.None)
+            if (color == qColor || qColor == ColorSwitcher.QColor.None)
                 Activate();
             else
                 Deactivate();
         }
 
+        /// <summary>
+        /// Toggle platform on
+        /// </summary>
         private void Activate()
         {
             animator.SetBool(On, true);
         }
 
+        /// <summary>
+        /// toggle platform off
+        /// </summary>
         private void Deactivate()
         {
             animator.SetBool(On, false);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            int spriteIndex = (int) qColor;
+
+            spriteRenderer.sprite = spritesByColor[spriteIndex];
         }
     }
 }
