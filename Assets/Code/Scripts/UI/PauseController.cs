@@ -1,43 +1,47 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Code.Scripts.Input;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PauseController : MonoBehaviour
+namespace Code.Scripts.UI
 {
-    [SerializeField] private GameObject pauseCanvas;
-    
-    private bool isPaused = true;
-    
-
-    private void OnEnable()
+    public class PauseController : MonoBehaviour
     {
-        InputManager.Pause += Pause;
-         
-        Pause();
-    }
+        [SerializeField] private GameObject pauseCanvas;
     
-    private void OnDisable()
-    {
-        InputManager.Pause -= Pause;
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private string defaultMap = "World";
+        [SerializeField] private string uiMap = "UI";
 
-        Pause();
-    }
+        private bool isPaused;
 
-    public void Pause()
-    {
-        isPaused = !isPaused;
-        
-        if (isPaused)
+        private void OnEnable()
         {
-            Time.timeScale = 0;
-            pauseCanvas.SetActive(true);
+            InputManager.Pause += Pause;
         }
-        else
+    
+        private void OnDisable()
         {
-            Time.timeScale = 1;
-            pauseCanvas.SetActive(false);
+            InputManager.Pause -= Pause;
+        }
+
+        public void Pause()
+        {
+            isPaused = !isPaused;
+        
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+                pauseCanvas.SetActive(true);
+                
+                playerInput.SwitchCurrentActionMap(uiMap);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseCanvas.SetActive(false);
+                
+                playerInput.SwitchCurrentActionMap(defaultMap);
+            }
         }
     }
 }

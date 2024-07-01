@@ -14,17 +14,15 @@ namespace Code.Scripts.Tools
                     _instance = FindObjectOfType<MonoBehaviourSingleton<T>>();
 
                 if (_instance != null) return (T)_instance;
-                
-                GameObject obj = new GameObject
-                {
-                    name = typeof(T).Name
-                };
+
+                GameObject obj = Instantiate(new GameObject());
+                obj.name = typeof(T).Name;
                 _instance = obj.AddComponent<T>();
 
                 return (T)_instance;
             }
         }
-
+        
         protected virtual void Initialize()
         {
 
@@ -33,11 +31,19 @@ namespace Code.Scripts.Tools
         private void Awake()
         {
             if (_instance != null)
+            {
                 Destroy(gameObject);
+                return;
+            }
 
             _instance = this;
 
             Initialize();
+        }
+
+        private void OnDestroy()
+        {
+            _instance = null;
         }
     }
 }
