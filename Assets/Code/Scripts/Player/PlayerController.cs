@@ -141,7 +141,7 @@ namespace Code.Scripts.Player
                 return;
 
             falling = false;
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
+            // rb.velocity = new Vector2(rb.velocity.x, 0f);
             
             if (other.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);

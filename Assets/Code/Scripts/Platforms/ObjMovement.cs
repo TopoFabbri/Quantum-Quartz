@@ -51,6 +51,9 @@ namespace Code.Scripts.Platforms
 
             if (overTime)
             {
+                if (time <= 0f)
+                    time = 1f;
+                
                 transform.position = Vector2.Lerp(fromPos.pos, toPos.pos, timer / time);
                 transform.rotation = Quaternion.Slerp(prevRot, nextRot, timer / time);
                 
