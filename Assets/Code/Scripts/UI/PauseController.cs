@@ -8,19 +8,21 @@ public class PauseController : MonoBehaviour
 {
     [SerializeField] private GameObject pauseCanvas;
     
-    private bool isPaused = false;
+    private bool isPaused = true;
     
 
     private void OnEnable()
     {
         InputManager.Pause += Pause;
-        
-        isPaused = false;
+         
+        Pause();
     }
     
     private void OnDisable()
     {
         InputManager.Pause -= Pause;
+
+        Pause();
     }
 
     public void Pause()
