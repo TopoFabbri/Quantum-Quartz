@@ -365,7 +365,7 @@ namespace Code.Scripts.Player
         {
             falling = true;
             
-            if (fsm.PreviousState != jumpState)
+            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState)
                 fallState.StartCoyoteTime();
         }
 
