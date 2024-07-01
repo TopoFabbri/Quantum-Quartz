@@ -14,7 +14,7 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             
             TimeCounter.Start();
