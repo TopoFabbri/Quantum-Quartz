@@ -22,6 +22,8 @@ namespace Code.Scripts.UI
         private void OnDisable()
         {
             InputManager.Pause -= Pause;
+
+            Time.timeScale = 1f;
         }
 
         public void Pause()
