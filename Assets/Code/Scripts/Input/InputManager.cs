@@ -9,6 +9,10 @@ namespace Code.Scripts.Input
     /// </summary>
     public class InputManager : MonoBehaviour
     {
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private string defaultMap;
+        [SerializeField] private string uiMap;
+
         public static event Action<Vector2> Move;
         public static event Action<Vector2> MoveCam;
         public static event Action Jump;
@@ -120,16 +124,18 @@ namespace Code.Scripts.Input
             if (!_colorModifierPressed)
                 Djmp?.Invoke();
         }
-        
+
         /// <summary>
         /// Called when input pause is pressed
         /// </summary>
         private void OnPause()
         {
+            playerInput.currentActionMap = playerInput.currentActionMap.name == defaultMap
+                ? playerInput.actions.FindActionMap(uiMap)
+                : playerInput.actions.FindActionMap(defaultMap);
+
             if (!_colorModifierPressed)
                 Pause?.Invoke();
         }
-        
-        
     }
 }
