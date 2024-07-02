@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -12,16 +13,17 @@ namespace Code.Scripts.States
     {
         private FallSettings FallSettings => settings as FallSettings;
         
-        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings, rb, transform)
+        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform)
         {
             settings = stateSettings;
             moveSettings = FallSettings.moveSettings;
-            
+
             this.mb = mb;
+            this.playerSfx = playerSfx;
         }
 
-        private MonoBehaviour mb;
-        
+        private readonly MonoBehaviour mb;
+        private readonly PlayerSfx playerSfx;
         public bool CanCoyoteJump { get; private set; }
         
         public override void OnEnter()
@@ -36,6 +38,9 @@ namespace Code.Scripts.States
             base.OnExit();
             
             rb.sharedMaterial.friction = FallSettings.moveSettings.groundFriction;
+            
+            if (IsGrounded())
+                playerSfx.Land();
         }
 
         public override void OnUpdate()

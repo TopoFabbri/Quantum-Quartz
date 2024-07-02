@@ -13,7 +13,7 @@ namespace Code.Scripts
         public int CurrentLevel => currentLevel;
 
         public static event Action LevelEnd;
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -22,13 +22,13 @@ namespace Code.Scripts
 
         public void LoadNextLevel()
         {
-            if (currentLevel < levelScenes.Length)
+            if (currentLevel < levelScenes.Length - 1)
             {
-                SceneManager.LoadScene(levelScenes[currentLevel+1]);
+                SceneManager.LoadScene(levelScenes[currentLevel + 1]);
             }
             else
             {
-                Debug.Log("All levels completed!");
+                SceneManager.LoadScene(0);
             }
         }
     }

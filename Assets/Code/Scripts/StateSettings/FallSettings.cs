@@ -8,5 +8,6 @@ namespace Code.Scripts.StateSettings
         public MoveSettings moveSettings;
 
         public float coyoteTime = 0.1f;
+        public string fallSoundName = "Play_Lab_Landing";
     }
 }
