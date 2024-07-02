@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F56A610C-C7C4-F874-B68B-7ADDF94EBB7A}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{EB322B05-EA2D-0F32-773A-95CD0485AD35}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -29,7 +29,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{CFA9B104-163F-7F59-1E6F-F50CE81C9570}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{489C0AE1-863D-049F-0050-BA77DDA68F50}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -56,6 +56,14 @@
 				<File Id="121997892" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_13.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_13_10C4C929.wem</CachePath>
+				</File>
+				<File Id="139537908" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Second_Jump.wav</ShortName>
+					<CachePath>SFX/Second_Jump_10C4C929.wem</CachePath>
+				</File>
+				<File Id="155892356" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LAB_Landing-002.wav</ShortName>
+					<CachePath>SFX/LAB_Landing-002_848403EF.wem</CachePath>
 				</File>
 				<File Id="173228913" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_5.wav</ShortName>
@@ -169,9 +177,17 @@
 					<ShortName>Lab_Footstep_20.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_20_10C4C929.wem</CachePath>
 				</File>
+				<File Id="869910401" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LAB_Landing-003.wav</ShortName>
+					<CachePath>SFX/LAB_Landing-003_58427A19.wem</CachePath>
+				</File>
 				<File Id="903032575" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_6.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_6_10C4C929.wem</CachePath>
+				</File>
+				<File Id="904398926" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Basic Jump.wav</ShortName>
+					<CachePath>SFX/Basic Jump_10C4C929.wem</CachePath>
 				</File>
 				<File Id="920848648" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_11.wav</ShortName>
@@ -181,12 +197,48 @@
 					<ShortName>Lab_Footstep_31.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_31_10C4C929.wem</CachePath>
 				</File>
+				<File Id="972474975" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LAB_Landing-001.wav</ShortName>
+					<CachePath>SFX/LAB_Landing-001_F2B34909.wem</CachePath>
+				</File>
 				<File Id="978274282" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_37.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_37_10C4C929.wem</CachePath>
 				</File>
 			</Media>
+			<Plugins>
+				<Custom>
+					<Plugin Id="827547251" Name="Parametric EQ (Custom)" LibName="Wwise Parametric EQ" LibId="6881283"/>
+				</Custom>
+			</Plugins>
 			<Events>
+				<Event Id="2848448515" Name="Play_Basic_Jump" DurationType="OneShot" DurationMin="0.06835417" DurationMax="0.06835417">
+					<MediaRefs>
+						<MediaRef Id="904398926"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3128279563" Name="Play_Blue_Quartz_Jump" DurationType="OneShot" DurationMin="0.051458333" DurationMax="0.051458333">
+					<MediaRefs>
+						<MediaRef Id="139537908"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="4039437947" Name="Play_Lab_Landing" DurationType="OneShot" DurationMin="0.103164546" DurationMax="0.13209379">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3089923853" Id="2473969246" Default="true"/>
+							<MediaRefs>
+								<MediaRef Id="155892356"/>
+								<MediaRef Id="869910401"/>
+								<MediaRef Id="972474975"/>
+							</MediaRefs>
+							<PluginRefs>
+								<Custom>
+									<PluginRef Id="827547251"/>
+								</Custom>
+							</PluginRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
 				<Event Id="2192130959" Name="Play_Lab_Metal_Footsteps" DurationType="OneShot" DurationMin="0.08296478" DurationMax="0.44337195">
 					<MediaRefs>
 						<MediaRef Id="17366721"/>
@@ -243,5 +295,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0C86C7F3-9719-FFDB-230D-B9C25D30145E}</FileHash>
+	<FileHash>{6C6E003F-B43E-E89D-42E3-1AB3A86DD4DA}</FileHash>
 </SoundBanksInfo>

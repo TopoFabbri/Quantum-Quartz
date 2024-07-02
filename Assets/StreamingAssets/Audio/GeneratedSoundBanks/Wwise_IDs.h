@@ -13,6 +13,9 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_BASIC_JUMP = 2848448515U;
+        static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
+        static const AkUniqueID PLAY_LAB_LANDING = 4039437947U;
         static const AkUniqueID PLAY_LAB_METAL_FOOTSTEPS = 2192130959U;
         static const AkUniqueID PLAY_LABAMBS = 1529281688U;
     } // namespace EVENTS
