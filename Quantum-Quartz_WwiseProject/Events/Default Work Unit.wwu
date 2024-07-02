@@ -5,6 +5,16 @@
 			<ChildrenList>
 				<Event Name="Play_LabAmbs" ID="{68526D4E-F675-4EC1-8C34-80E1FECB9D8B}">
 					<ChildrenList>
+						<Action Name="" ID="{1AA0F9B0-FA1E-4551-805F-A9A74AA3F8F6}" ShortID="985834866">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
 						<Action Name="" ID="{C0FC042A-8384-48D1-BA5D-D24B170EDDFF}" ShortID="1046170742">
 							<ReferenceList>
 								<Reference Name="Target">
@@ -20,6 +30,39 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="Lab_Metal_Footsteps" ID="{12B0545A-9DD9-4C92-A1FA-46B793C1E6D6}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Lab_Landing" ID="{C9CDE996-29D0-4B5F-8CDA-6D56ACE30737}">
+					<ChildrenList>
+						<Action Name="" ID="{E82049B8-F682-4639-8714-CFA253C3DD21}" ShortID="875517577">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lab_Landing" ID="{E381C06F-19DB-4DC0-BF5B-06BE55E45335}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Basic_Jump" ID="{B7C21276-EB52-402A-A801-9AB4F4E5F2A0}">
+					<ChildrenList>
+						<Action Name="" ID="{F5FDA6BB-E9E6-46B9-B397-A049104F260F}" ShortID="554498250">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Basic_Jump" ID="{B217E6B1-7037-46A4-9B5D-3FC753EB5607}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Blue_Quartz_Jump" ID="{5DB3C18C-632B-43BC-A673-9BD9C49E8B34}">
+					<ChildrenList>
+						<Action Name="" ID="{27287233-1BA5-4D94-9221-69A24F124ECA}" ShortID="930154129">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Blue_Quartz_Jump" ID="{B69405E8-F4BB-45DA-A11B-EC2FB533BB0A}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
