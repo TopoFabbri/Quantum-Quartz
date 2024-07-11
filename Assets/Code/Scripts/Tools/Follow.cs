@@ -1,31 +1,36 @@
 using UnityEngine;
 
-public class Follow : MonoBehaviour
+namespace Code.Scripts.Tools
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float maxRotationSpeed = 200f;
-    [SerializeField] private float stopDistance = 1f;
-
-    private void Update()
+    public class Follow : MonoBehaviour
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        [SerializeField] private Transform target;
+        [SerializeField] private Transform rotator;
+        [SerializeField] private float maxSpeed = 5f;
+        [SerializeField] private float maxRotationSpeed = 200f;
+        [SerializeField] private float stopDistance = 1f;
+        
 
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+        private void Update()
+        {
+            Vector2 direction = (target.position - transform.position).normalized;
 
-        transform.rotation =
-            Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
 
-        Vector2 diff = (target.position - transform.position).normalized;
+            rotator.rotation =
+                Quaternion.RotateTowards(rotator.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, target.position) > stopDistance)
-            transform.position = Vector2.MoveTowards(transform.position, target.position, maxSpeed * Time.deltaTime);
-        else if (Vector2.Distance(transform.position, target.position) < stopDistance)
-            transform.position = Vector2.MoveTowards(transform.position, (Vector2)target.position - diff * stopDistance,
-                maxSpeed * Time.deltaTime);
+            Vector2 diff = (target.position - transform.position).normalized;
 
-        if (transform.position.y < target.position.y)
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, target.position.y), maxSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, target.position) > stopDistance)
+                transform.position = Vector2.MoveTowards(transform.position, target.position, maxSpeed * Time.deltaTime);
+            else if (Vector2.Distance(transform.position, target.position) < stopDistance)
+                transform.position = Vector2.MoveTowards(transform.position, (Vector2)target.position - diff * stopDistance,
+                    maxSpeed * Time.deltaTime);
+
+            if (transform.position.y < target.position.y)
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, target.position.y), maxSpeed * Time.deltaTime);
+        }
     }
 }

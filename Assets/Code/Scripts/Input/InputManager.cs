@@ -1,5 +1,4 @@
 using System;
-using Code.Scripts.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +20,6 @@ namespace Code.Scripts.Input
         public static event Action Dash;
         public static event Action Djmp;
         public static event Action Pause;
-
-        private static bool _colorModifierPressed;
 
         /// <summary>
         /// Called when input move is pressed
@@ -47,8 +44,7 @@ namespace Code.Scripts.Input
         /// </summary>
         protected void OnJump()
         {
-            if (!_colorModifierPressed)
-                Jump?.Invoke();
+            Jump?.Invoke();
         }
 
         /// <summary>
@@ -56,8 +52,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor1()
         {
-            if (_colorModifierPressed)
-                Color1?.Invoke();
+            Color1?.Invoke();
         }
 
         /// <summary>
@@ -65,8 +60,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor2()
         {
-            if (_colorModifierPressed)
-                Color2?.Invoke();
+            Color2?.Invoke();
         }
 
         /// <summary>
@@ -74,8 +68,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor3()
         {
-            if (_colorModifierPressed)
-                Color3?.Invoke();
+            Color3?.Invoke();
         }
 
         /// <summary>
@@ -83,17 +76,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColor4()
         {
-            if (_colorModifierPressed)
-                Color4?.Invoke();
-        }
-
-        /// <summary>
-        /// Set modifier pressed state
-        /// </summary>
-        /// <param name="input"></param>
-        private void OnColorModifier(InputValue input)
-        {
-            _colorModifierPressed = input.isPressed;
+            Color4?.Invoke();
         }
 
         /// <summary>
@@ -109,8 +92,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnDash()
         {
-            if (!_colorModifierPressed)
-                Dash?.Invoke();
+            Dash?.Invoke();
         }
 
         /// <summary>
@@ -118,8 +100,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnDjmp()
         {
-            if (!_colorModifierPressed)
-                Djmp?.Invoke();
+            Djmp?.Invoke();
         }
 
         /// <summary>
@@ -127,8 +108,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnPause()
         {
-            if (!_colorModifierPressed)
-                Pause?.Invoke();
+            Pause?.Invoke();
         }
     }
 }
