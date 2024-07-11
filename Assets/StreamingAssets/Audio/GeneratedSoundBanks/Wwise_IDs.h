@@ -15,22 +15,25 @@ namespace AK
     {
         static const AkUniqueID PLAY_BASIC_JUMP = 2848448515U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
-        static const AkUniqueID PLAY_LAB_LANDING = 4039437947U;
-        static const AkUniqueID PLAY_LAB_METAL_FOOTSTEPS = 2192130959U;
+        static const AkUniqueID PLAY_CONCRETE_FOOTSTEPS = 1570257991U;
+        static const AkUniqueID PLAY_CONCRETE_LANDING = 810894027U;
         static const AkUniqueID PLAY_LABAMBS = 1529281688U;
+        static const AkUniqueID PLAY_METAL_FOOTSTEPS = 2727173199U;
+        static const AkUniqueID PLAY_METAL_LANDING = 502578675U;
     } // namespace EVENTS
 
     namespace SWITCHES
     {
-        namespace SWITCH_LAB_FOOTSTEPS
+        namespace SWITCH_FOOTSTEPS
         {
-            static const AkUniqueID GROUP = 3089923853U;
+            static const AkUniqueID GROUP = 3395986341U;
 
             namespace SWITCH
             {
+                static const AkUniqueID CONCRETE = 841620460U;
                 static const AkUniqueID METAL = 2473969246U;
             } // namespace SWITCH
-        } // namespace SWITCH_LAB_FOOTSTEPS
+        } // namespace SWITCH_FOOTSTEPS
 
     } // namespace SWITCHES
 
