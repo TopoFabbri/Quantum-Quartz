@@ -145,7 +145,6 @@ namespace Code.Scripts.Player
             touchingFloor = true;
             
             falling = false;
-            // rb.velocity = new Vector2(rb.velocity.x, 0f);
             
             if (other.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);
@@ -231,8 +230,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
 
-            fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove());
-            fsm.AddTransition(fallState, idleState, () => !falling);
+            fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
+            fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
             fsm.AddTransition(fallState, dashState, () => dashPressed);
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
             fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
@@ -353,7 +352,7 @@ namespace Code.Scripts.Player
             if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
-
+        
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>
@@ -377,7 +376,7 @@ namespace Code.Scripts.Player
         {
             falling = true;
             
-            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState)
+            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState)
                 fallState.StartCoyoteTime();
         }
 
