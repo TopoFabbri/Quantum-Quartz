@@ -7,12 +7,17 @@ namespace Code.Scripts.Player
     /// </summary>
     public class PlayerSfx : MonoBehaviour
     {
+        [SerializeField] private string stepEvent;
+        [SerializeField] private string jumpEvent;
+        [SerializeField] private string landEvent;
+        [SerializeField] private string djmpEvent;
+        
         /// <summary>
         /// Call step event
         /// </summary>
         public void Step()
         {
-            AkSoundEngine.PostEvent("Play_Lab_Metal_Footsteps", gameObject);
+            AkSoundEngine.PostEvent(stepEvent, gameObject);
         }
         
         /// <summary>
@@ -20,17 +25,17 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Jump()
         {
-            AkSoundEngine.PostEvent("Play_Basic_Jump", gameObject);
+            AkSoundEngine.PostEvent(jumpEvent, gameObject);
         }
         
         public void Land()
         {
-            AkSoundEngine.PostEvent("Play_Lab_Landing", gameObject);
+            AkSoundEngine.PostEvent(landEvent, gameObject);
         }
         
         public void Djmp()
         {
-            AkSoundEngine.PostEvent("Play_Blue_Quartz_Jump", gameObject);
+            AkSoundEngine.PostEvent(djmpEvent, gameObject);
         }
     }
 }

@@ -48,6 +48,7 @@ namespace Code.Scripts.Player
         private bool djmpPressed;
         private bool falling;
         private bool died;
+        private bool touchingFloor;
 
         private event Action<bool> OnFlip;
 
@@ -137,10 +138,12 @@ namespace Code.Scripts.Player
         {
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
-
+            
             if (!moveState.IsGrounded())
                 return;
 
+            touchingFloor = true;
+            
             falling = false;
             // rb.velocity = new Vector2(rb.velocity.x, 0f);
             
@@ -150,6 +153,12 @@ namespace Code.Scripts.Player
         
         private void OnCollisionExit2D(Collision2D other)
         {
+            
+            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
+                return;
+            
+            touchingFloor = false;
+            
             if (other.gameObject.CompareTag("Platform"))
                 transform.parent = null;
         }
@@ -217,7 +226,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, dethState, () => died);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
@@ -233,7 +242,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(dashState, dethState, () => died);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
-            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped);
+            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
