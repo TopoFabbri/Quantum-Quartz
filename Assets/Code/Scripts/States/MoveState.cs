@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -19,6 +18,7 @@ namespace Code.Scripts.States
         private static float _speed;
 
         public float Input { get; private set; }
+        public float Speed => _speed;
 
         public MoveState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings)
         {
@@ -28,7 +28,7 @@ namespace Code.Scripts.States
             this.rb = rb;
             this.transform = transform;
         }
-        
+
         public void SetInput(float input)
         {
             Input = input;
@@ -41,12 +41,20 @@ namespace Code.Scripts.States
             if (Input != 0)
                 _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
-                _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
+                DecreaseSpeed();
             
             if (WallCheck())
                 _speed = 0f;
             
             transform.Translate(Vector2.right * (_speed * Time.deltaTime));
+        }
+        
+        /// <summary>
+        /// Apply ground friction
+        /// </summary>
+        public void DecreaseSpeed()
+        {
+            _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
         }
         
         /// <summary>

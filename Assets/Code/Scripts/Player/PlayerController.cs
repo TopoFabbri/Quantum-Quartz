@@ -119,11 +119,14 @@ namespace Code.Scripts.Player
 
             fsm.Update();
 
-            if (facingRight && moveState.Input < 0f || !facingRight && moveState.Input > 0f)
+            if (facingRight && moveState.Speed < 0f || !facingRight && moveState.Speed > 0f)
                 Flip();
 
             if (stateTxt)
                 stateTxt.text = fsm.CurrentState.ID;
+            
+            if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState && fsm.CurrentState != djmpState)
+                moveState.DecreaseSpeed();
         }
 
         private void FixedUpdate()
