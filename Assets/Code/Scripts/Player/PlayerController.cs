@@ -29,6 +29,7 @@ namespace Code.Scripts.Player
         private DjmpState<string> djmpState;
         private DeathState<string> dethState;
         private SpawnState<string> spwnState;
+        private TpState<string> tlptState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -49,6 +50,7 @@ namespace Code.Scripts.Player
         private bool falling;
         private bool died;
         private bool touchingFloor;
+        private bool shouldTp;
 
         private event Action<bool> OnFlip;
 
@@ -68,9 +70,11 @@ namespace Code.Scripts.Player
             fallState.onEnter += OnEnterFallHandler;
             dashState.onEnter += OnEnterDashHandler;
             djmpState.onEnter += OnEnterDjmpHandler;
+            tlptState.onEnter += OnEnterTpHandler;
 
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
+            tlptState.onExit += OnExitTpHandler;
             
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
@@ -78,6 +82,7 @@ namespace Code.Scripts.Player
             InputManager.Djmp += OnDjmpHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
+            LevelChanger.PlayerTp += OnTpHandler;
 
             if (fsmAnimController)
             {
@@ -102,6 +107,7 @@ namespace Code.Scripts.Player
             InputManager.Djmp -= OnDjmpHandler;
 
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
+            LevelChanger.PlayerTp -= OnTpHandler;
 
             if (fsmAnimController)
             {
@@ -178,6 +184,7 @@ namespace Code.Scripts.Player
             djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
             dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
             spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
+            tlptState = new TpState<string>("TP", rb);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -189,6 +196,7 @@ namespace Code.Scripts.Player
             fsm.AddState(djmpState);
             fsm.AddState(dethState);
             fsm.AddState(spwnState);
+            fsm.AddState(tlptState);
 
             FsmTransitions();
 
@@ -206,6 +214,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(djmpState.ID, 5);
             fsmAnimController.AddState(dethState.ID, 6);
             fsmAnimController.AddState(spwnState.ID, 7);
+            fsmAnimController.AddState(tlptState.ID, 8);
         }
 
         /// <summary>
@@ -219,6 +228,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, dashState, () => dashPressed);
             fsm.AddTransition(idleState, djmpState, () => djmpPressed);
             fsm.AddTransition(idleState, dethState, () => died);
+            fsm.AddTransition(idleState, tlptState, () => shouldTp);
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
@@ -226,12 +236,14 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, dashState, () => dashPressed);
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
             fsm.AddTransition(moveState, dethState, () => died);
+            fsm.AddTransition(moveState, tlptState, () => shouldTp);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
+            fsm.AddTransition(jumpState, tlptState, () => shouldTp);
 
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
             fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
@@ -239,17 +251,22 @@ namespace Code.Scripts.Player
             fsm.AddTransition(fallState, djmpState, () => djmpPressed);
             fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
             fsm.AddTransition(fallState, dethState, () => died);
+            fsm.AddTransition(fallState, tlptState, () => shouldTp);
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
             fsm.AddTransition(dashState, dethState, () => died);
+            fsm.AddTransition(dashState, tlptState, () => shouldTp);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
+            fsm.AddTransition(djmpState, tlptState, () => shouldTp);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
             
             fsm.AddTransition(spwnState, idleState, () => spwnState.Ended);
+            
+            fsm.AddTransition(tlptState, spwnState, () => tlptState.Ended);
         }
 
         /// <summary>
@@ -284,6 +301,14 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Stop teleport state
+        /// </summary>
+        public void EndTp()
+        {
+            tlptState.OnEnd();
+        }
+        
+        /// <summary>
         /// Count and end jump buffer time
         /// </summary>
         /// <param name="jumpBufferTime">Time to count</param>
@@ -316,6 +341,14 @@ namespace Code.Scripts.Player
                 djmpState.Reset();
         }
 
+        /// <summary>
+        /// Handle player Teleport action
+        /// </summary>
+        private void OnTpHandler()
+        {
+            shouldTp = true;
+        }
+        
         /// <summary>
         /// Handle player move action
         /// </summary>
@@ -405,6 +438,14 @@ namespace Code.Scripts.Player
         }
         
         /// <summary>
+        /// Handle player started teleport
+        /// </summary>
+        private void OnEnterTpHandler()
+        {
+            shouldTp = false;  
+        }
+        
+        /// <summary>
         /// Handle player exited death state
         /// </summary>
         private void OnExitDeathHandler()
@@ -423,6 +464,14 @@ namespace Code.Scripts.Player
             djmpPressed = false;
             falling = false;
             died = false;
+        }
+
+        /// <summary>
+        /// Handle player exited teleport
+        /// </summary>
+        private void OnExitTpHandler()
+        {
+            LevelChanger.EndLevel();
         }
         
         public void Kill()

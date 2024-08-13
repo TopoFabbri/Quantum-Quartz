@@ -3,7 +3,7 @@ using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.Scripts
+namespace Code.Scripts.Level
 {
     public class LevelChanger : MonoBehaviourSingleton<LevelChanger>
     {
@@ -13,11 +13,17 @@ namespace Code.Scripts
         public int CurrentLevel => currentLevel;
 
         public static event Action LevelEnd;
+        public static event Action PlayerTp;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
-                LevelEnd?.Invoke();
+                PlayerTp?.Invoke();
+        }
+
+        public static void EndLevel()
+        {
+            LevelEnd?.Invoke();
         }
 
         public void LoadNextLevel()
