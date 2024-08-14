@@ -17,18 +17,21 @@ namespace Code.Scripts.Obstacles
         [SerializeField] private Transform origin;
         [SerializeField] private Transform end;
         [SerializeField] private LineRenderer line;
-
+        [SerializeField] private Animator animator;
+        
         [SerializeField] private bool useTime;
         [SerializeField] private float timeOn;
         [SerializeField] private float timeOff;
         [SerializeField] private float timeOffset;
 
         private bool isOn;
+        private static float _windupTime = 0.6f;
 
         private void Start()
         {
             if (!useTime)
             {
+                animator.SetBool("On", true);
                 isOn = true;
                 return;
             }
@@ -48,19 +51,19 @@ namespace Code.Scripts.Obstacles
             line.enabled = true;
             end.gameObject.SetActive(true);
 
-            line.SetPosition(0, origin.position);
-            line.SetPosition(1, end.position);
+            line.SetPosition(0, origin.position + origin.right * 0.5f + origin.up * 0.03f);
+            line.SetPosition(1, end.position + origin.up * 0.03f);
 
             FindCollisionPoint();
         }
 
         private void FindCollisionPoint()
         {
-            RaycastHit2D hit = Physics2D.Raycast(origin.position, -origin.up, maxDis, mask);
+            RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
 
             if (!hit.collider)
             {
-                end.position = origin.position - origin.up * maxDis;
+                end.position = origin.position + origin.right * maxDis;
                 end.rotation = origin.rotation;
                 return;
             }
@@ -78,12 +81,26 @@ namespace Code.Scripts.Obstacles
 
             do
             {
-                yield return new WaitForSeconds(timeOff);
-                isOn = true;
+                yield return new WaitForSeconds(timeOff - _windupTime);
+                animator.SetBool("On", true);
+                
+                yield return new WaitForSeconds(_windupTime);
+                TurnOn();
 
                 yield return new WaitForSeconds(timeOn);
-                isOn = false;
+                animator.SetBool("On", false);
+                TurnOff();
             } while (enabled);
+        }
+        
+        private void TurnOn()
+        {
+            isOn = true;
+        }
+        
+        private void TurnOff()
+        {
+            isOn = false;
         }
     }
 }
