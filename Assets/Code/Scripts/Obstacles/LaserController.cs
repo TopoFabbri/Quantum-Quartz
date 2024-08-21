@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Code.Scripts.Level;
 using Code.Scripts.Player;
 using UnityEngine;
 
@@ -12,26 +10,29 @@ namespace Code.Scripts.Obstacles
     public class LaserController : MonoBehaviour
     {
         [SerializeField] private float maxDis = 20f;
+        [SerializeField] private float width = .8f;
         [SerializeField] private LayerMask mask;
 
         [SerializeField] private Transform origin;
         [SerializeField] private Transform end;
         [SerializeField] private LineRenderer line;
         [SerializeField] private Animator animator;
-        
+
         [SerializeField] private bool useTime;
         [SerializeField] private float timeOn;
         [SerializeField] private float timeOff;
         [SerializeField] private float timeOffset;
 
+        private const float WindupTime = 0.6f;
+        
         private bool isOn;
-        private static float _windupTime = 0.6f;
+        private static readonly int AnimatorOn = Animator.StringToHash("On");
 
         private void Start()
         {
             if (!useTime)
             {
-                animator.SetBool("On", true);
+                animator.SetBool(AnimatorOn, true);
                 isOn = true;
                 return;
             }
@@ -73,6 +74,22 @@ namespace Code.Scripts.Obstacles
 
             if (hit.collider.TryGetComponent(out IKillable killable))
                 killable.Kill();
+
+            hit = Physics2D.Raycast(origin.position + origin.up * width / 2f, origin.right, maxDis, mask);
+
+            if (hit)
+            {
+                if (hit.collider.TryGetComponent(out killable))
+                    killable.Kill();
+            }
+
+            hit = Physics2D.Raycast(origin.position - origin.up * width / 2f, origin.right, maxDis, mask);
+
+            if (!hit)
+                return;
+
+            if (hit.collider.TryGetComponent(out killable))
+                killable.Kill();
         }
 
         private IEnumerator ToggleOnOff()
@@ -81,23 +98,23 @@ namespace Code.Scripts.Obstacles
 
             do
             {
-                yield return new WaitForSeconds(timeOff - _windupTime);
-                animator.SetBool("On", true);
-                
-                yield return new WaitForSeconds(_windupTime);
+                yield return new WaitForSeconds(timeOff - WindupTime);
+                animator.SetBool(AnimatorOn, true);
+
+                yield return new WaitForSeconds(WindupTime);
                 TurnOn();
 
                 yield return new WaitForSeconds(timeOn);
-                animator.SetBool("On", false);
+                animator.SetBool(AnimatorOn, false);
                 TurnOff();
             } while (enabled);
         }
-        
+
         private void TurnOn()
         {
             isOn = true;
         }
-        
+
         private void TurnOff()
         {
             isOn = false;
