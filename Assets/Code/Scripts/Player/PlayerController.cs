@@ -30,6 +30,7 @@ namespace Code.Scripts.Player
         private DeathState<string> dethState;
         private SpawnState<string> spwnState;
         private TpState<string> tlptState;
+        private ExitTpState<string> extpState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -185,6 +186,8 @@ namespace Code.Scripts.Player
             dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
             spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
             tlptState = new TpState<string>("TP", rb);
+            extpState = new ExitTpState<string>("ExitTP", rb);
+            
 
             fsm = new FiniteStateMachine<string>();
 
@@ -197,10 +200,11 @@ namespace Code.Scripts.Player
             fsm.AddState(dethState);
             fsm.AddState(spwnState);
             fsm.AddState(tlptState);
+            fsm.AddState(extpState);
 
             FsmTransitions();
 
-            fsm.SetCurrentState(spwnState);
+            fsm.SetCurrentState(extpState);
 
             fsm.Init();
 
@@ -215,6 +219,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(dethState.ID, 6);
             fsmAnimController.AddState(spwnState.ID, 7);
             fsmAnimController.AddState(tlptState.ID, 8);
+            fsmAnimController.AddState(extpState.ID, 9);
         }
 
         /// <summary>
@@ -266,7 +271,9 @@ namespace Code.Scripts.Player
             
             fsm.AddTransition(spwnState, idleState, () => spwnState.Ended);
             
-            fsm.AddTransition(tlptState, spwnState, () => tlptState.Ended);
+            fsm.AddTransition(tlptState, extpState, () => tlptState.Ended);
+            
+            fsm.AddTransition(extpState, idleState, () => extpState.Ended);
         }
 
         /// <summary>
@@ -308,6 +315,14 @@ namespace Code.Scripts.Player
             tlptState.OnEnd();
         }
         
+        /// <summary>
+        /// Stop exit teleport state
+        /// </summary>
+        private void EndExitTp()
+        {
+            extpState.OnEnd();
+        }
+
         /// <summary>
         /// Count and end jump buffer time
         /// </summary>
