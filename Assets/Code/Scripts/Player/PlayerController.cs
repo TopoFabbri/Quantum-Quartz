@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Code.Scripts.Animation;
+using Code.Scripts.Camera;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
@@ -40,10 +41,14 @@ namespace Code.Scripts.Player
         [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
-                
+        [SerializeField] private CameraController camController;
+
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private PlayerSfx playerSfx;
-        
+
+        [SerializeField] private float fallShakeMagnitudeMultiplier = 0.05f;
+        [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
+
         private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
@@ -76,7 +81,7 @@ namespace Code.Scripts.Player
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
             tlptState.onExit += OnExitTpHandler;
-            
+
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.Dash += OnDashHandler;
@@ -101,7 +106,8 @@ namespace Code.Scripts.Player
 
             dethState.onExit -= OnExitDeathHandler;
             spwnState.onExit -= OnExitSpawnHandler;
-            
+            tlptState.onExit -= OnExitTpHandler;
+
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.Dash -= OnDashHandler;
@@ -115,7 +121,7 @@ namespace Code.Scripts.Player
                 fsm.StateChanged -= fsmAnimController.OnStateChangedHandler;
                 OnFlip -= fsmAnimController.OnFlipHandler;
             }
-            
+
             fallState.OnExit();
         }
 
@@ -131,14 +137,24 @@ namespace Code.Scripts.Player
 
             if (stateTxt)
                 stateTxt.text = fsm.CurrentState.ID;
-            
-            if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState && fsm.CurrentState != djmpState)
+
+            if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState &&
+                fsm.CurrentState != djmpState)
                 moveState.DecreaseSpeed();
         }
 
         private void FixedUpdate()
         {
             fsm.FixedUpdate();
+
+            if (rb.velocity.y < 0f)
+            {
+                if (CamShakeCheck())
+                {
+                    float absVel = Mathf.Abs(rb.velocity.y);
+                    camController.Shake(absVel * fallShakeDurationMultiplier, absVel * fallShakeMagnitudeMultiplier);
+                }
+            }
 
             if (falling && rb.velocity.y == 0f)
                 falling = false;
@@ -148,26 +164,25 @@ namespace Code.Scripts.Player
         {
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
-            
+
             if (!moveState.IsGrounded())
                 return;
 
             touchingFloor = true;
-            
+
             falling = false;
-            
+
             if (other.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);
         }
-        
+
         private void OnCollisionExit2D(Collision2D other)
         {
-            
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
-            
+
             touchingFloor = false;
-            
+
             if (other.gameObject.CompareTag("Platform"))
                 transform.parent = null;
         }
@@ -187,7 +202,7 @@ namespace Code.Scripts.Player
             spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
             tlptState = new TpState<string>("TP", rb);
             extpState = new ExitTpState<string>("ExitTP", rb);
-            
+
 
             fsm = new FiniteStateMachine<string>();
 
@@ -244,7 +259,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, tlptState, () => shouldTp);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, idleState,
+                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
@@ -263,16 +279,17 @@ namespace Code.Scripts.Player
             fsm.AddTransition(dashState, tlptState, () => shouldTp);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
-            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(djmpState, idleState,
+                () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
-            
+
             fsm.AddTransition(spwnState, idleState, () => spwnState.Ended);
-            
+
             fsm.AddTransition(tlptState, extpState, () => tlptState.Ended);
-            
+
             fsm.AddTransition(extpState, idleState, () => extpState.Ended);
         }
 
@@ -284,7 +301,7 @@ namespace Code.Scripts.Player
             if (!facingRight)
                 Flip();
         }
-        
+
         /// <summary>
         /// Flip character
         /// </summary>
@@ -302,8 +319,8 @@ namespace Code.Scripts.Player
                 flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
                     flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
-            
-            
+
+
             OnFlip?.Invoke(facingRight);
         }
 
@@ -314,7 +331,7 @@ namespace Code.Scripts.Player
         {
             tlptState.OnEnd();
         }
-        
+
         /// <summary>
         /// Stop exit teleport state
         /// </summary>
@@ -363,7 +380,7 @@ namespace Code.Scripts.Player
         {
             shouldTp = true;
         }
-        
+
         /// <summary>
         /// Handle player move action
         /// </summary>
@@ -384,7 +401,7 @@ namespace Code.Scripts.Player
             jumpPressed = true;
             StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
         }
-        
+
         /// <summary>
         /// Handle player dash input
         /// </summary>
@@ -403,7 +420,7 @@ namespace Code.Scripts.Player
             if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
-        
+
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>
@@ -412,9 +429,9 @@ namespace Code.Scripts.Player
             jumpPressed = false;
 
             playerSfx.Jump();
-            
+
             if (fsm.PreviousState != fallState) return;
-            
+
             Vector2 vector2 = rb.velocity;
             vector2.y = 0f;
             rb.velocity = vector2;
@@ -426,7 +443,7 @@ namespace Code.Scripts.Player
         private void OnEnterFallHandler()
         {
             falling = true;
-            
+
             if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState)
                 fallState.StartCoyoteTime();
         }
@@ -437,7 +454,7 @@ namespace Code.Scripts.Player
         private void OnEnterDashHandler()
         {
             dashPressed = false;
-            
+
             dashPs.Play();
         }
 
@@ -448,18 +465,18 @@ namespace Code.Scripts.Player
         {
             playerSfx.Djmp();
             djmpPressed = false;
-            
+
             djmpPs.Play();
         }
-        
+
         /// <summary>
         /// Handle player started teleport
         /// </summary>
         private void OnEnterTpHandler()
         {
-            shouldTp = false;  
+            shouldTp = false;
         }
-        
+
         /// <summary>
         /// Handle player exited death state
         /// </summary>
@@ -468,7 +485,7 @@ namespace Code.Scripts.Player
             deathController.Die();
             died = false;
         }
-        
+
         /// <summary>
         /// Handle player exited spawn state
         /// </summary>
@@ -488,13 +505,27 @@ namespace Code.Scripts.Player
         {
             LevelChanger.EndLevel();
         }
-        
+
+        /// <summary>
+        /// Check if player about to land
+        /// </summary>
+        /// <returns>True if ground is near</returns>
+        private bool CamShakeCheck()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, LayerMask.GetMask("Default"));
+
+            bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
+            
+            Debug.DrawLine(transform.position, transform.position + Vector3.down * 2f, grounded ? Color.green : Color.red);
+            return grounded;
+        }
+
         public void Kill()
         {
             if (died) return;
-            
+
             died = true;
-            
+
             dethState.Direction = new Vector2(-moveState.Input, -rb.velocity.normalized.y);
         }
     }

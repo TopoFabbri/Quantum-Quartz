@@ -799,8 +799,11 @@ MonoBehaviour:
   deathController: {fileID: 2090065662981346448}
   dashPs: {fileID: 2237095473829572802}
   djmpPs: {fileID: 7283381500255639009}
+  camController: {fileID: 5601057218579832821}
   sprite: {fileID: 6340732406567318058}
   playerSfx: {fileID: 5633411915053908958}
+  fallShakeMagnitudeMultiplier: 0.02
+  fallShakeDurationMultiplier: 0.01
 --- !u!114 &7418189334097761856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,9 +1069,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.25185186
+    width: 0.12708335
+    height: 0.12708333
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
