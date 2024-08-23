@@ -335,71 +335,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9028315921219595659, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9028315921219595659, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9028315921219595659, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3572431261992949767, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3639020788704489740, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 54088755}
-    - targetCorrespondingSourceObject: {fileID: 3639020788704489740, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 54088754}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
---- !u!1 &54088753 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3639020788704489740, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-  m_PrefabInstance: {fileID: 54088752}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &54088754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54088753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
---- !u!114 &54088755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54088753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b9f512e698e864bba1ab2802aa633f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_listeners:
-    initialListenerList: []
-    useDefaultListeners: 1
-  isEnvironmentAware: 0
-  isStaticObject: 0
-  m_positionOffsetData:
-    KeepMe: 0
-    positionOffset: {x: 0, y: 0, z: 0}
-  m_posOffsetData: {fileID: 0}
-  listenerMask: 1
 --- !u!1 &106543176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 456758865959664435, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
@@ -54603,6 +54543,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 75680735333461382, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 75680735333461382, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.192
+      objectReference: {fileID: 0}
     - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.995056
@@ -56584,7 +56532,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -10
+  m_SortingOrder: -5
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

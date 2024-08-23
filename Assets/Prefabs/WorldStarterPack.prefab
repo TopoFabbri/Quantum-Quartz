@@ -1099,9 +1099,9 @@ GameObject:
   - component: {fileID: 9028315921219595659}
   - component: {fileID: 491598208999347411}
   - component: {fileID: 4916087244411182317}
-  - component: {fileID: 8417761764178848666}
-  - component: {fileID: 3006985745214186869}
   - component: {fileID: 5601057218579832821}
+  - component: {fileID: 8728506922580264406}
+  - component: {fileID: 6352162767042017302}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1245,7 +1245,22 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
---- !u!114 &8417761764178848666
+--- !u!114 &5601057218579832821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639020788704489740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0954aeacfd1d70418ea9ea09b9626ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 80
+  moveDis: 0.5
+  inputSpeed: 4
+--- !u!114 &8728506922580264406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1267,7 +1282,7 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &3006985745214186869
+--- !u!114 &6352162767042017302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1281,21 +1296,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDefaultListener: 1
   listenerId: 0
---- !u!114 &5601057218579832821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3639020788704489740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0954aeacfd1d70418ea9ea09b9626ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 80
-  moveDis: 0.5
-  inputSpeed: 4
 --- !u!1 &3656190707019696336
 GameObject:
   m_ObjectHideFlags: 0
@@ -17320,7 +17320,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 49.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
