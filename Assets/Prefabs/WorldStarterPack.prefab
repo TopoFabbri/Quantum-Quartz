@@ -209,6 +209,7 @@ Transform:
   - {fileID: 4206761184724296332}
   - {fileID: 2833670029452722819}
   - {fileID: 7519558577050624516}
+  - {fileID: 2631258419694469413}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1266396409589434030
@@ -886,8 +887,9 @@ MonoBehaviour:
   camController: {fileID: 5601057218579832821}
   sprite: {fileID: 6340732406567318058}
   playerSfx: {fileID: 5633411915053908958}
-  fallShakeMagnitudeMultiplier: 0.02
-  fallShakeDurationMultiplier: 0.01
+  fallShakeMagnitudeMultiplier: 0.015
+  fallShakeDurationMultiplier: 0.015
+  minShakeValue: 16.5
 --- !u!114 &7418189334097761856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17485,6 +17487,80 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &110766998963848147
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3076891057320368079}
+    m_Modifications:
+    - target: {fileID: 75680735333461382, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.067
+      objectReference: {fileID: 0}
+    - target: {fileID: 75680735333461382, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.22001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.892658
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.6094043
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807963440673747448, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: m_Name
+      value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344950475691099039, guid: fe581a3217f6238488603058bc196474, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 5658685984602118092}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fe581a3217f6238488603058bc196474, type: 3}
+--- !u!4 &2631258419694469413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2669964327107592950, guid: fe581a3217f6238488603058bc196474, type: 3}
+  m_PrefabInstance: {fileID: 110766998963848147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1172480564845882100
 PrefabInstance:
   m_ObjectHideFlags: 0

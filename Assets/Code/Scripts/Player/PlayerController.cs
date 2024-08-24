@@ -46,8 +46,11 @@ namespace Code.Scripts.Player
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private PlayerSfx playerSfx;
 
+        [Header("Shake Settings")]
         [SerializeField] private float fallShakeMagnitudeMultiplier = 0.05f;
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
+        [SerializeField] private float minShakeValue = 0.5f;
+        
 
         private bool facingRight;
         private bool jumpPressed;
@@ -152,7 +155,10 @@ namespace Code.Scripts.Player
                 if (CamShakeCheck())
                 {
                     float absVel = Mathf.Abs(rb.velocity.y);
-                    camController.Shake(absVel * fallShakeDurationMultiplier, absVel * fallShakeMagnitudeMultiplier);
+    
+                    print((absVel - minShakeValue) * fallShakeDurationMultiplier);
+                    
+                    camController.Shake((absVel - minShakeValue) * fallShakeDurationMultiplier, (absVel - minShakeValue) * fallShakeMagnitudeMultiplier);
                 }
             }
 

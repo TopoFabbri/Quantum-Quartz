@@ -15,9 +15,10 @@ namespace Code.Scripts.Camera
 
         private Vector3 cameraPosition;
         private Vector2 offsetByInput;
-        private float currentDis = 0f;
+        private float currentDis;
 
         private bool isMoving;
+        private bool isShaking;
 
         private void Awake()
         {
@@ -43,7 +44,7 @@ namespace Code.Scripts.Camera
                 else
                     currentDis = 0;
 
-                transform.position = Vector3.Lerp(cameraPosition, cameraPosition + (Vector3)offsetByInput, currentDis);
+                // transform.position = Vector3.Lerp(cameraPosition, cameraPosition + (Vector3)offsetByInput, currentDis);
                 return;
             }
 
@@ -79,14 +80,18 @@ namespace Code.Scripts.Camera
         /// <param name="magnitude">Shake magnitude</param>
         public void Shake(float duration, float magnitude)
         {
+            if (isShaking)
+                return;
+            
             StartCoroutine(ShakeForDuration(duration, magnitude));
         }
 
         private IEnumerator ShakeForDuration(float duration, float magnitude)
         {
             Vector3 originalPos = transform.localPosition;
-            Quaternion originalRotation = transform.localRotation;
             float elapsed = 0.0f;
+            
+            isShaking = true;
 
             while (elapsed < duration)
             {
@@ -97,16 +102,11 @@ namespace Code.Scripts.Camera
 
                 transform.localPosition = originalPos + new Vector3(x, y, 0f);
 
-                float rotationX = Random.Range(-1f, 1f) * magnitude;
-                float rotationY = Random.Range(-1f, 1f) * magnitude;
-
-                transform.localRotation = originalRotation * Quaternion.Euler(rotationX, rotationY, 0f);
-
                 yield return null;
             }
 
+            isShaking = false;
             transform.localPosition = originalPos;
-            transform.localRotation = originalRotation;
         }
     }
 }
