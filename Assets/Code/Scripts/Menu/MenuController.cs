@@ -15,7 +15,8 @@ namespace Code.Scripts.Menu
         [SerializeField] private string level4SceneName;
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject mainMenuButtons;
-
+        [SerializeField] private GameObject fadeOut;
+        
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -77,6 +78,13 @@ namespace Code.Scripts.Menu
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        public void OnControllerSelection()
+        {
+            fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
+            Invoke(nameof(GoMainMenu), 2);
+            //GoMainMenu();
         }
     }
 }
