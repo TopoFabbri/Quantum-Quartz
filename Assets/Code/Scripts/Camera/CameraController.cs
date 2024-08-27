@@ -86,6 +86,12 @@ namespace Code.Scripts.Camera
             StartCoroutine(ShakeForDuration(duration, magnitude));
         }
 
+        /// <summary>
+        /// Shake camera for given duration and magnitude
+        /// </summary>
+        /// <param name="duration">Shake duration</param>
+        /// <param name="magnitude">Shake magnitude</param>
+        /// <returns></returns>
         private IEnumerator ShakeForDuration(float duration, float magnitude)
         {
             Vector3 originalPos = transform.localPosition;

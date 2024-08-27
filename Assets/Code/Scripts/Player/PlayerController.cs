@@ -155,8 +155,6 @@ namespace Code.Scripts.Player
                 if (CamShakeCheck())
                 {
                     float absVel = Mathf.Abs(rb.velocity.y);
-    
-                    print((absVel - minShakeValue) * fallShakeDurationMultiplier);
                     
                     camController.Shake((absVel - minShakeValue) * fallShakeDurationMultiplier, (absVel - minShakeValue) * fallShakeMagnitudeMultiplier);
                 }
