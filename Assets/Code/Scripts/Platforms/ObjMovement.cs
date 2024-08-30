@@ -26,7 +26,7 @@ namespace Code.Scripts.Platforms
         private void Start()
         {
             initPos.pos = transform.position;
-            initPos.rotation = transform.rotation.z;
+            initPos.rotation = transform.rotation.eulerAngles.z;
         }
 
         private void Update()
