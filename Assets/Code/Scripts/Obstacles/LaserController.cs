@@ -62,9 +62,11 @@ namespace Code.Scripts.Obstacles
         {
             RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
 
+            float dis = hit ? hit.distance : maxDis;
+            
             if (!hit.collider)
             {
-                end.position = origin.position + origin.right * maxDis;
+                end.position = origin.position + origin.right * dis;
                 end.rotation = origin.rotation;
                 return;
             }
@@ -75,7 +77,7 @@ namespace Code.Scripts.Obstacles
             if (hit.collider.TryGetComponent(out IKillable killable))
                 killable.Kill();
 
-            hit = Physics2D.Raycast(origin.position + origin.up * width / 2f, origin.right, maxDis, mask);
+            hit = Physics2D.Raycast(origin.position + origin.up * width / 2f, origin.right, dis, mask);
 
             if (hit)
             {
@@ -83,7 +85,7 @@ namespace Code.Scripts.Obstacles
                     killable.Kill();
             }
 
-            hit = Physics2D.Raycast(origin.position - origin.up * width / 2f, origin.right, maxDis, mask);
+            hit = Physics2D.Raycast(origin.position - origin.up * width / 2f, origin.right, dis, mask);
 
             if (!hit)
                 return;

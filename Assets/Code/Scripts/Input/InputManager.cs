@@ -17,8 +17,7 @@ namespace Code.Scripts.Input
         public static event Action Color3;
         public static event Action Color4;
         public static event Action Restart;
-        public static event Action Dash;
-        public static event Action Djmp;
+        public static event Action Ability;
         public static event Action Pause;
 
         /// <summary>
@@ -88,19 +87,11 @@ namespace Code.Scripts.Input
         }
 
         /// <summary>
-        /// Called when input dash is pressed
+        /// Called when input ability is pressed
         /// </summary>
-        private void OnDash()
+        private void OnAbility()
         {
-            Dash?.Invoke();
-        }
-
-        /// <summary>
-        /// Called when input MiniJump is pressed
-        /// </summary>
-        private void OnDjmp()
-        {
-            Djmp?.Invoke();
+            Ability?.Invoke();
         }
 
         /// <summary>

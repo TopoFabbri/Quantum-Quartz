@@ -87,8 +87,7 @@ namespace Code.Scripts.Player
 
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
-            InputManager.Dash += OnDashHandler;
-            InputManager.Djmp += OnDjmpHandler;
+            InputManager.Ability += OnAbilityHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
             LevelChanger.PlayerTp += OnTpHandler;
@@ -113,8 +112,7 @@ namespace Code.Scripts.Player
 
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
-            InputManager.Dash -= OnDashHandler;
-            InputManager.Djmp -= OnDjmpHandler;
+            InputManager.Ability -= OnAbilityHandler;
 
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
             LevelChanger.PlayerTp -= OnTpHandler;
@@ -410,6 +408,30 @@ namespace Code.Scripts.Player
         /// Handle player dash input
         /// </summary>
         /// <returns>True if player can dash</returns>
+        private void OnAbilityHandler()
+        {
+            switch (ColorSwitcher.Instance.CurrentColor)
+            {
+                case ColorSwitcher.QColor.None:
+                    break;
+                case ColorSwitcher.QColor.Red:
+                    OnDashHandler();
+                    break;
+                case ColorSwitcher.QColor.Blue:
+                    OnDjmpHandler();
+                    break;
+                case ColorSwitcher.QColor.Green:
+                    break;
+                case ColorSwitcher.QColor.Yellow:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        /// <summary>
+        /// Handle player Dash input
+        /// </summary>
         private void OnDashHandler()
         {
             if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
