@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Code.Scripts.Menu
 {
@@ -16,9 +18,13 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject mainMenuButtons;
         [SerializeField] private GameObject fadeOut;
+        [SerializeField] private Button backButton;
+        [SerializeField] private Button optionsButton;
+        
         
         private void Start()
         {
+            optionsPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -45,9 +51,17 @@ namespace Code.Scripts.Menu
             Cursor.visible = true;
 
             if (optionsPanel.activeSelf)
+            {
                 mainMenuButtons.SetActive(false);
+                backButton.Select();
+
+            }
             else
+            {
                 mainMenuButtons.SetActive(true);
+                optionsButton.Select();
+            }
+
         }
 
         public void GoMainMenu()
