@@ -17,13 +17,24 @@ namespace AK
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
         static const AkUniqueID PLAY_CONCRETE_FOOTSTEPS = 1570257991U;
         static const AkUniqueID PLAY_CONCRETE_LANDING = 810894027U;
-        static const AkUniqueID PLAY_LABAMBS = 1529281688U;
+        static const AkUniqueID PLAY_DEATH = 1172822028U;
         static const AkUniqueID PLAY_METAL_FOOTSTEPS = 2727173199U;
         static const AkUniqueID PLAY_METAL_LANDING = 502578675U;
     } // namespace EVENTS
 
     namespace SWITCHES
     {
+        namespace LEVEL1_MUSIC_SWITCH
+        {
+            static const AkUniqueID GROUP = 96434573U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID DEFAULT = 782826392U;
+                static const AkUniqueID PAUSE = 3092587493U;
+            } // namespace SWITCH
+        } // namespace LEVEL1_MUSIC_SWITCH
+
         namespace SWITCH_FOOTSTEPS
         {
             static const AkUniqueID GROUP = 3395986341U;
