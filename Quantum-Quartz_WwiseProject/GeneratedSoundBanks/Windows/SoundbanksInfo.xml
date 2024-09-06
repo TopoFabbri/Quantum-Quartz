@@ -22,6 +22,12 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 			<SwitchGroups>
+				<SwitchGroup Id="96434573" Name="Level1_Music_Switch">
+					<Switches>
+						<Switch Id="782826392" Name="Default"/>
+						<Switch Id="3092587493" Name="Pause"/>
+					</Switches>
+				</SwitchGroup>
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
@@ -30,7 +36,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{5E945DFA-233F-DA4E-D4CB-E4FB98A2423F}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{EAE9BB12-2BAC-98E9-4FF8-5F119260036A}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -93,6 +99,10 @@
 				<File Id="192936632" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-018.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-018_10C4C929.wem</CachePath>
+				</File>
+				<File Id="200330901" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Basic_Jump.wav</ShortName>
+					<CachePath>SFX/Basic_Jump_10C4C929.wem</CachePath>
 				</File>
 				<File Id="231733684" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_29.wav</ShortName>
@@ -169,10 +179,6 @@
 				<File Id="414913162" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-011.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-011_10C4C929.wem</CachePath>
-				</File>
-				<File Id="439206557" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>LabAmbs.wav</ShortName>
-					<CachePath>SFX/LabAmbs_C5579977.wem</CachePath>
 				</File>
 				<File Id="446586235" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-030.wav</ShortName>
@@ -314,10 +320,6 @@
 					<ShortName>Lab_Footstep_6.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_6_10C4C929.wem</CachePath>
 				</File>
-				<File Id="904398926" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>Basic Jump.wav</ShortName>
-					<CachePath>SFX/Basic Jump_10C4C929.wem</CachePath>
-				</File>
 				<File Id="906006272" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-001.wav</ShortName>
 					<CachePath>SFX/Concrete_Landings-001_10C4C929.wem</CachePath>
@@ -358,6 +360,10 @@
 					<ShortName>Concrete_Footstep-016.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-016_10C4C929.wem</CachePath>
 				</File>
+				<File Id="1027129847" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Death_Revive.wav</ShortName>
+					<CachePath>SFX/Death_Revive_10C4C929.wem</CachePath>
+				</File>
 				<File Id="1033624229" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-036.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-036_10C4C929.wem</CachePath>
@@ -375,7 +381,7 @@
 			<Events>
 				<Event Id="2848448515" Name="Play_Basic_Jump" DurationType="OneShot" DurationMin="0.06835417" DurationMax="0.06835417">
 					<MediaRefs>
-						<MediaRef Id="904398926"/>
+						<MediaRef Id="200330901"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="3128279563" Name="Play_Blue_Quartz_Jump" DurationType="OneShot" DurationMin="0.051458333" DurationMax="0.051458333">
@@ -441,9 +447,9 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
-				<Event Id="1529281688" Name="Play_LabAmbs" DurationType="Infinite">
+				<Event Id="1172822028" Name="Play_Death" DurationType="OneShot" DurationMin="1.4868333" DurationMax="1.4868333">
 					<MediaRefs>
-						<MediaRef Id="439206557"/>
+						<MediaRef Id="1027129847"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2727173199" Name="Play_Metal_Footsteps" DurationType="OneShot" DurationMin="0.08296478" DurationMax="0.44337195">
@@ -520,5 +526,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{038CEEC5-667E-1219-6406-E7278B80BB02}</FileHash>
+	<FileHash>{833B5621-EA97-31B5-E0F7-7EA08D6AE3CB}</FileHash>
 </SoundBanksInfo>

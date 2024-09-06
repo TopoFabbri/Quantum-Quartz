@@ -3,88 +3,125 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_LabAmbs" ID="{68526D4E-F675-4EC1-8C34-80E1FECB9D8B}">
+				<Folder Name="_Deprecated" ID="{46E11A96-4656-407C-A1C7-1F31F2A25DB0}" ShortID="625310376">
+					<PropertyList>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
-						<Action Name="" ID="{1AA0F9B0-FA1E-4551-805F-A9A74AA3F8F6}" ShortID="985834866">
+						<Event Name="Play_LabAmbs" ID="{68526D4E-F675-4EC1-8C34-80E1FECB9D8B}">
 							<PropertyList>
-								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="Inclusion" Type="bool" Value="False"/>
 							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-						<Action Name="" ID="{C0FC042A-8384-48D1-BA5D-D24B170EDDFF}" ShortID="1046170742">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
+							<ChildrenList>
+								<Action Name="" ID="{1AA0F9B0-FA1E-4551-805F-A9A74AA3F8F6}" ShortID="985834866">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{C0FC042A-8384-48D1-BA5D-D24B170EDDFF}" ShortID="1046170742">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
-				</Event>
-				<Event Name="Play_Basic_Jump" ID="{B7C21276-EB52-402A-A801-9AB4F4E5F2A0}">
+				</Folder>
+				<Folder Name="Char Movements" ID="{CA646234-8A99-49B1-BC41-47B782A35173}" ShortID="1038744688">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="10"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
-						<Action Name="" ID="{F5FDA6BB-E9E6-46B9-B397-A049104F260F}" ShortID="554498250">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Basic_Jump" ID="{B217E6B1-7037-46A4-9B5D-3FC753EB5607}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
+						<Event Name="Play_Basic_Jump" ID="{B7C21276-EB52-402A-A801-9AB4F4E5F2A0}">
+							<ChildrenList>
+								<Action Name="" ID="{F5FDA6BB-E9E6-46B9-B397-A049104F260F}" ShortID="554498250">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Basic_Jump" ID="{B217E6B1-7037-46A4-9B5D-3FC753EB5607}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Blue_Quartz_Jump" ID="{5DB3C18C-632B-43BC-A673-9BD9C49E8B34}">
+							<ChildrenList>
+								<Action Name="" ID="{27287233-1BA5-4D94-9221-69A24F124ECA}" ShortID="930154129">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Blue_Quartz_Jump" ID="{B69405E8-F4BB-45DA-A11B-EC2FB533BB0A}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
-				</Event>
-				<Event Name="Play_Blue_Quartz_Jump" ID="{5DB3C18C-632B-43BC-A673-9BD9C49E8B34}">
+				</Folder>
+				<Folder Name="Footsteps" ID="{B7EA5D3A-FBFE-4C5B-9949-C439F875EE3A}" ShortID="50940473">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="14"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
-						<Action Name="" ID="{27287233-1BA5-4D94-9221-69A24F124ECA}" ShortID="930154129">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Blue_Quartz_Jump" ID="{B69405E8-F4BB-45DA-A11B-EC2FB533BB0A}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
+						<Event Name="Play_Concrete_Footsteps" ID="{B268C326-6B27-4C37-931D-B8B640C6BD03}">
+							<ChildrenList>
+								<Action Name="" ID="{31D68390-6260-4A64-84FF-6566EFC6CBC7}" ShortID="827753980">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Concrete_Footsteps" ID="{0688F28E-B489-46BD-BDE0-FF595E8577F2}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Metal_Footsteps" ID="{4D9E5D27-6CCF-44FB-A78D-3DC3B306EA70}">
+							<ChildrenList>
+								<Action Name="" ID="{46069F48-0FBD-4D48-BD83-424252862D2C}" ShortID="883243412">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Metal_Footsteps" ID="{264AD988-9E13-42B5-A6F9-D0AD5FDAECD9}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Metal_Landing" ID="{1BE4754D-FACB-42F3-B1E2-40AF7AD62B94}">
+							<ChildrenList>
+								<Action Name="" ID="{28F537AF-D95B-4144-BABE-C044545D7828}" ShortID="268546524">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Metal_Landing" ID="{E381C06F-19DB-4DC0-BF5B-06BE55E45335}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Concrete_Landing" ID="{C20FCB7A-F20E-40AE-858F-C49A59DE85C3}">
+							<ChildrenList>
+								<Action Name="" ID="{2047DD2A-67C4-41C1-8F1E-48B1DDC819DC}" ShortID="757158052">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Concrete_Landing" ID="{9605A94C-857C-46D1-9C3C-31AEAB5A4A20}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
-				</Event>
-				<Event Name="Play_Concrete_Footsteps" ID="{B268C326-6B27-4C37-931D-B8B640C6BD03}">
+				</Folder>
+				<Event Name="Play_Death" ID="{3001DBEB-173D-45C8-97C1-AE482DDFDCF0}">
 					<ChildrenList>
-						<Action Name="" ID="{31D68390-6260-4A64-84FF-6566EFC6CBC7}" ShortID="827753980">
+						<Action Name="" ID="{CE71DAD3-B16B-4FCD-91D8-240B06D8DF14}" ShortID="901431361">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="Concrete_Footsteps" ID="{0688F28E-B489-46BD-BDE0-FF595E8577F2}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Concrete_Landing" ID="{C20FCB7A-F20E-40AE-858F-C49A59DE85C3}">
-					<ChildrenList>
-						<Action Name="" ID="{2047DD2A-67C4-41C1-8F1E-48B1DDC819DC}" ShortID="757158052">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Concrete_Landing" ID="{9605A94C-857C-46D1-9C3C-31AEAB5A4A20}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Metal_Footsteps" ID="{4D9E5D27-6CCF-44FB-A78D-3DC3B306EA70}">
-					<ChildrenList>
-						<Action Name="" ID="{46069F48-0FBD-4D48-BD83-424252862D2C}" ShortID="883243412">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Metal_Footsteps" ID="{264AD988-9E13-42B5-A6F9-D0AD5FDAECD9}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Metal_Landing" ID="{1BE4754D-FACB-42F3-B1E2-40AF7AD62B94}">
-					<ChildrenList>
-						<Action Name="" ID="{28F537AF-D95B-4144-BABE-C044545D7828}" ShortID="268546524">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Metal_Landing" ID="{E381C06F-19DB-4DC0-BF5B-06BE55E45335}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+									<ObjectRef Name="Death_Revive" ID="{D830557A-1AA8-4C4F-9604-BE057642C16C}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
