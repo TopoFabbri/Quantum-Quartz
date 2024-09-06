@@ -29,14 +29,14 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             
-            rb.sharedMaterial.friction = FallSettings.moveSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
         }
 
         public override void OnExit()
         {
             base.OnExit();
             
-            rb.sharedMaterial.friction = FallSettings.moveSettings.groundFriction;
+            rb.sharedMaterial.friction = moveSettings.groundFriction;
             
             if (IsGrounded())
                 playerSfx.Land();

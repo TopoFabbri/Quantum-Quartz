@@ -3,11 +3,10 @@
 namespace Code.Scripts.StateSettings
 {
     [CreateAssetMenu(menuName = "StateSettings/Wall", fileName = "WallSettings", order = 0)]
-    public class WallSettings : StateSettings
+    public class WallSettings : FallSettings
     {
-        public FallSettings fallSettings;
-        
-        public float wallCheckDis = 0.2f;
+        [Header("Wall")]
         public float gravMultiplier = .5f;
+        public float wallDis = 0.5f;
     }
 }
