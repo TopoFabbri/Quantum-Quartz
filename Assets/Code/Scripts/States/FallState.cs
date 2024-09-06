@@ -12,32 +12,31 @@ namespace Code.Scripts.States
     public class FallState<T> : MoveState<T>
     {
         private FallSettings FallSettings => settings as FallSettings;
-        
-        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform)
-        {
-            settings = stateSettings;
-            moveSettings = FallSettings.moveSettings;
-
-            this.mb = mb;
-            this.playerSfx = playerSfx;
-        }
 
         private readonly MonoBehaviour mb;
         private readonly PlayerSfx playerSfx;
         public bool CanCoyoteJump { get; private set; }
         
+        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform)
+        {
+            settings = stateSettings;
+
+            this.mb = mb;
+            this.playerSfx = playerSfx;
+        }
+
         public override void OnEnter()
         {
             base.OnEnter();
             
-            rb.sharedMaterial.friction = FallSettings.moveSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
         }
 
         public override void OnExit()
         {
             base.OnExit();
             
-            rb.sharedMaterial.friction = FallSettings.moveSettings.groundFriction;
+            rb.sharedMaterial.friction = moveSettings.groundFriction;
             
             if (IsGrounded())
                 playerSfx.Land();

@@ -3,10 +3,9 @@
 namespace Code.Scripts.StateSettings
 {
     [CreateAssetMenu(menuName = "StateSettings/Fall", fileName = "FallSettings", order = 0)]
-    public class FallSettings : StateSettings
+    public class FallSettings : MoveSettings
     {
-        public MoveSettings moveSettings;
-
+        [Header("Fall")]
         public float coyoteTime = 0.1f;
         public string fallSoundName = "Play_Lab_Landing";
     }
