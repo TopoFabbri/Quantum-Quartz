@@ -63,18 +63,12 @@ namespace Code.Scripts.States
         /// <returns>True if on ground</returns>
         public bool IsGrounded()
         {
-            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.right * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.right * moveSettings.groundCheckRadius, Color.red);
-            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset - Vector2.up * moveSettings.groundCheckRadius, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.up * moveSettings.groundCheckRadius, Color.red);
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + moveSettings.groundCheckOffset, Vector2.down, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+            bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
             
-            Collider2D[] colliders = Physics2D.OverlapCircleAll((Vector2)transform.position + moveSettings.groundCheckOffset, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
             
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.gameObject.CompareTag("Floor") || collider.gameObject.CompareTag("Platform"))
-                    return true;
-            }
-            
-            return false;
+            return grounded;
         }
 
         /// <summary>

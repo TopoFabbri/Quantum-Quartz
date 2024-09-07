@@ -7,6 +7,7 @@ namespace Code.Scripts.StateSettings
     {
         [Header("Wall")]
         public float gravMultiplier = .5f;
+        public float upwardsGravMultiplier = 1.5f;
         public float wallDis = 0.5f;
     }
 }
