@@ -2254,10 +2254,23 @@
 								</BlendContainer>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Death" ID="{A24812D9-D797-4AB8-BD37-81E76AEB6BCE}" ShortID="855886174">
+						<BlendContainer Name="Death" ID="{C9B43F71-3248-49D6-AACF-66714C01694F}" ShortID="985035946">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
 							<ChildrenList>
 								<Sound Name="Death_Revive" ID="{D830557A-1AA8-4C4F-9604-BE057642C16C}" ShortID="888690756">
 									<PropertyList>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-7</Value>
@@ -2285,17 +2298,52 @@
 										<ActiveSource Name="Death_Revive" ID="{F224A22A-260F-4E5E-8535-29D44F829F11}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="Death_Revive_Electrical" ID="{7D3E0767-E9BC-4AB8-83E6-CEEBC6F79518}" ShortID="454918503">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Death_Revive_Electrical" ID="{B668EC51-3473-4D0A-B6E6-26F3BE9E6BA3}">
+											<Language>SFX</Language>
+											<AudioFile>Death_Revive_Electrical.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="399637785"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Death_Revive_Electrical" ID="{B668EC51-3473-4D0A-B6E6-26F3BE9E6BA3}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
-						</Folder>
+						</BlendContainer>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Amb" ID="{DDA89ED5-D175-4775-A10D-EE2A91A4C344}" ShortID="44945405">
 					<PropertyList>
+						<Property Name="Color" Type="int16" Value="2"/>
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>
 					<ChildrenList>
 						<BlendContainer Name="LabAmbs" ID="{0E53074D-B643-46C9-B95E-C1129C92785F}" ShortID="865714751">
 							<PropertyList>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -2352,6 +2400,64 @@
 								</Sound>
 							</ChildrenList>
 						</BlendContainer>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Steampunk_Level" ID="{81AA1268-8631-42AB-BF64-4842660392BE}" ShortID="741077834">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="13"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Folder Name="Lasers" ID="{45764CE5-A5CE-43DE-9497-2C4FD19A6438}" ShortID="28831619">
+							<ChildrenList>
+								<BlendContainer Name="Steampunk_Laser" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" ShortID="8444524">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Charge_Shoot_Laser" ID="{2AEB8C9A-65D7-4963-9019-865A012DC1E4}" ShortID="124374118">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-8</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.112204871601209"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="2.71428927492447"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Charge_Shoot_Laser.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="403912503"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</BlendContainer>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
