@@ -22,6 +22,7 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
             
+            rb.gravityScale = rb.velocity.y < 0 ? WallSettings.gravMultiplier : WallSettings.upwardsGravMultiplier;
             PositionPlayer();
         }
 
@@ -30,7 +31,6 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             savedGravityScale = rb.gravityScale;
-            rb.gravityScale = WallSettings.gravMultiplier;
         }
 
         public override void OnExit()

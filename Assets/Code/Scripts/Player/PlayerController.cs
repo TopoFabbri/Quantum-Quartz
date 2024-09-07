@@ -272,7 +272,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(fallState, wallState,  wallState.CanWallJump);
+            fsm.AddTransition(jumpState, wallState,  wallState.CanWallJump);
 
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
             fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
@@ -301,7 +301,7 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(extpState, idleState, () => extpState.Ended);
             
-            fsm.AddTransition(wallState, idleState, () => rb.velocity.y >= 0f);
+            fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
         }
 
