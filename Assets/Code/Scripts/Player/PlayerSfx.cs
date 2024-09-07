@@ -28,14 +28,28 @@ namespace Code.Scripts.Player
             AkSoundEngine.PostEvent(jumpEvent, gameObject);
         }
         
+        /// <summary>
+        /// Call land event
+        /// </summary>
         public void Land()
         {
             AkSoundEngine.PostEvent(landEvent, gameObject);
         }
         
+        /// <summary>
+        /// Call djmp event
+        /// </summary>
         public void Djmp()
         {
             AkSoundEngine.PostEvent(djmpEvent, gameObject);
+        }
+
+        /// <summary>
+        /// Call death event
+        /// </summary>
+        public void Death()
+        {
+            AkSoundEngine.PostEvent("Play_Death", gameObject);
         }
     }
 }

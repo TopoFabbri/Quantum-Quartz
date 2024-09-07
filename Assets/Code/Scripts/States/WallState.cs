@@ -26,6 +26,13 @@ namespace Code.Scripts.States
             PositionPlayer();
         }
 
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -WallSettings.maxSpeed, WallSettings.maxSpeed));
+        }
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -38,6 +45,7 @@ namespace Code.Scripts.States
             base.OnExit();
 
             rb.gravityScale = savedGravityScale;
+            rb.AddForce(Vector2.right * (FacingRight ? WallSettings.wallJumpForce : -WallSettings.wallJumpForce), ForceMode2D.Impulse);
         }
         
         /// <summary>

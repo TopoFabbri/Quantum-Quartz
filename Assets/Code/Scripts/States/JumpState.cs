@@ -16,8 +16,9 @@ namespace Code.Scripts.States
         protected readonly MonoBehaviour mb;
 
         public bool HasJumped { get; protected set; }
+        public float JumpForce => JumpSettings.jumpForce;
         public float JumpBufferTime => JumpSettings.bufferTime;
-
+        
         public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, rb, transform)
         {

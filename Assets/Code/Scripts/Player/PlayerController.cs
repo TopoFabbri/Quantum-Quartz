@@ -81,6 +81,7 @@ namespace Code.Scripts.Player
             dashState.onEnter += OnEnterDashHandler;
             djmpState.onEnter += OnEnterDjmpHandler;
             tlptState.onEnter += OnEnterTpHandler;
+            dethState.onEnter += OnEnterDeathHandler;
 
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
@@ -107,6 +108,7 @@ namespace Code.Scripts.Player
             fallState.onEnter -= OnEnterFallHandler;
             dashState.onEnter -= OnEnterDashHandler;
             djmpState.onEnter -= OnEnterDjmpHandler;
+            dethState.onEnter -= OnEnterDeathHandler;
 
             dethState.onExit -= OnExitDeathHandler;
             spwnState.onExit -= OnExitSpawnHandler;
@@ -301,6 +303,7 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(extpState, idleState, () => extpState.Ended);
             
+            fsm.AddTransition(wallState, jumpState, () => jumpPressed);
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
         }
@@ -467,7 +470,7 @@ namespace Code.Scripts.Player
             jumpPressed = false;
 
             playerSfx.Jump();
-
+            
             if (fsm.PreviousState != fallState) return;
 
             Vector2 vector2 = rb.velocity;
@@ -507,6 +510,14 @@ namespace Code.Scripts.Player
             djmpPs.Play();
         }
 
+        /// <summary>
+        /// Handle player died
+        /// </summary>
+        private void OnEnterDeathHandler()
+        {
+            playerSfx.Death();
+        }
+        
         /// <summary>
         /// Handle player started teleport
         /// </summary>

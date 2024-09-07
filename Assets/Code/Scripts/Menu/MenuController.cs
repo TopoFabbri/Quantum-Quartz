@@ -20,11 +20,13 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private Button backButton;
         [SerializeField] private Button optionsButton;
-        
-        
+
+
         private void Start()
         {
-            optionsPanel.SetActive(false);
+            if (optionsPanel)
+                optionsPanel.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -54,14 +56,12 @@ namespace Code.Scripts.Menu
             {
                 mainMenuButtons.SetActive(false);
                 backButton.Select();
-
             }
             else
             {
                 mainMenuButtons.SetActive(true);
                 optionsButton.Select();
             }
-
         }
 
         public void GoMainMenu()
