@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F56A610C-C7C4-F874-B68B-7ADDF94EBB7A}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{BEC6716E-0886-092B-813A-269619E10BFA}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -19,8 +19,25 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
+				<Bus Id="989987316" Name="SFX's"/>
+				<Bus Id="1069431850" Name="Player"/>
+				<Bus Id="3537656742" Name="Ambs"/>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
+				<Bus Id="3991942870" Name="Music"/>
 			</Busses>
+			<AuxBusses>
+				<AuxBus Id="187046019" Name="LargeRoom">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+				<AuxBus Id="2933838247" Name="SmallRoom">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+				<AuxBus Id="3545700988" Name="Reverbs"/>
+			</AuxBusses>
 			<SwitchGroups>
 				<SwitchGroup Id="96434573" Name="Level1_Music_Switch">
 					<Switches>
@@ -36,7 +53,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{9F1C413F-7A3D-19CF-0391-6406D3F12BA0}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C0161953-AB38-01E8-0FC7-771DED1BE312}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -78,7 +95,7 @@
 				</File>
 				<File Id="243405919" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>STEAM.wav</ShortName>
-					<CachePath>SFX/STEAM_10C4C929.wem</CachePath>
+					<CachePath>SFX/STEAM_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="271393065" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-003.wav</ShortName>
@@ -300,7 +317,7 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3194314661" Name="Play_Steam_Pipe" DurationType="OneShot" DurationMin="20.406813" DurationMax="20.406813">
+				<Event Id="2885688842" Name="Play_Steam" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
 					</MediaRefs>
@@ -316,5 +333,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{9C5AAC51-4B00-15A6-44CF-C10DB217F799}</FileHash>
+	<FileHash>{79DFD72E-B3EA-5B6D-BD7E-E80AEC6CD993}</FileHash>
 </SoundBanksInfo>
