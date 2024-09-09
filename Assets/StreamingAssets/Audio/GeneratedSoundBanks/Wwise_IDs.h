@@ -19,6 +19,7 @@ namespace AK
         static const AkUniqueID PLAY_CONCRETE_FOOTSTEPS = 1570257991U;
         static const AkUniqueID PLAY_CONCRETE_LANDING = 810894027U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
+        static const AkUniqueID PLAY_STEAM_PIPE = 3194314661U;
     } // namespace EVENTS
 
     namespace SWITCHES

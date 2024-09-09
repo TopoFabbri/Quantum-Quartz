@@ -124,7 +124,21 @@
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Folder Name="Steampunk_Ambs" ID="{BFC81798-8C0F-458E-815C-018254AB3CDB}" ShortID="45368212"/>
+						<Folder Name="Steampunk_Ambs" ID="{BFC81798-8C0F-458E-815C-018254AB3CDB}" ShortID="45368212">
+							<ChildrenList>
+								<Event Name="Play_Steam_Pipe" ID="{E05C0B16-601F-4731-9505-87BD5A1382E6}">
+									<ChildrenList>
+										<Action Name="" ID="{624AD7AD-C696-4C99-AC15-74B2757050A0}" ShortID="569623863">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Steam_Pipe" ID="{258F617E-FD69-4507-AB2F-468F129D86BC}" WorkUnitID="{7A6F8D6C-0191-498F-9F87-A1114DB28E8C}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
