@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{64F6236D-430F-481B-8F9B-D0684B5F269B}" SchemaVersion="110">
+	<AudioObjects>
+		<WorkUnit Name="Player" ID="{64F6236D-430F-481B-8F9B-D0684B5F269B}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="10"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Molly" ID="{9BAAFB8B-50DD-4D79-B1D9-AE7B57513CA7}" ShortID="528752926">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="10"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<BlendContainer Name="Death" ID="{C9B43F71-3248-49D6-AACF-66714C01694F}" ShortID="985035946">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Death_Revive" ID="{D830557A-1AA8-4C4F-9604-BE057642C16C}" ShortID="888690756">
+									<PropertyList>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Death_Revive" ID="{F224A22A-260F-4E5E-8535-29D44F829F11}">
+											<Language>SFX</Language>
+											<AudioFile>Death_Revive.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1027129847"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Death_Revive" ID="{F224A22A-260F-4E5E-8535-29D44F829F11}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Death_Revive_Electrical" ID="{7D3E0767-E9BC-4AB8-83E6-CEEBC6F79518}" ShortID="454918503">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Death_Revive_Electrical" ID="{B668EC51-3473-4D0A-B6E6-26F3BE9E6BA3}">
+											<Language>SFX</Language>
+											<AudioFile>Death_Revive_Electrical.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="399637785"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Death_Revive_Electrical" ID="{B668EC51-3473-4D0A-B6E6-26F3BE9E6BA3}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</BlendContainer>
+						<WorkUnit Name="Footsteps" ID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}" PersistMode="Reference"/>
+						<WorkUnit Name="Locomotion" ID="{D96D9E74-137A-475E-9466-F985A7B49511}" PersistMode="Reference"/>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

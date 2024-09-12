@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B8778B66-9DD8-40E2-850A-F73033811BD0}" SchemaVersion="110">
+	<Events>
+		<WorkUnit Name="Stages" ID="{B8778B66-9DD8-40E2-850A-F73033811BD0}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="13"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Folder Name="Steampunk_Level" ID="{65B79DF4-B889-46BF-AA91-56C0F23E29B7}" ShortID="989692093">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="13"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Event Name="Play_SP_Charge_Shoot_Laser" ID="{A7AF2BD7-2650-42D0-8919-C9B90E54353E}">
+							<ChildrenList>
+								<Action Name="" ID="{F25F2746-6581-4B59-A166-53EC00348426}" ShortID="918175097">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Steampunk_Laser_oneshot" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Folder Name="Steampunk_Ambs" ID="{BFC81798-8C0F-458E-815C-018254AB3CDB}" ShortID="45368212">
+							<ChildrenList>
+								<Event Name="Play_SP_Amb_Steam" ID="{CF83F248-3C38-4067-BDC3-C9A13A0B5162}">
+									<ChildrenList>
+										<Action Name="" ID="{5FB83E53-D0B8-4AB4-93F6-E07AB190F09D}" ShortID="738403827">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Steam_Loop" ID="{A7AF985E-B8FF-4AA5-BC47-A9C6BBB79B6F}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

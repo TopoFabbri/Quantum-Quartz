@@ -9,6 +9,36 @@
 							<ObjectRef Name="System" ID="{82D08B72-E7F1-4A0F-9226-CE6AB8A70045}" WorkUnitID="{4CCBE10E-9230-4625-9CD1-FC075E022A6B}"/>
 						</Reference>
 					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="Music" ID="{39C1111F-D84E-41C5-88E2-E3840159C76B}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="5"/>
+							</PropertyList>
+						</Bus>
+						<Bus Name="SFX's" ID="{AB4FA5EA-2224-479F-AE93-ECC886F2758C}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="10"/>
+							</PropertyList>
+							<ChildrenList>
+								<Bus Name="Ambs" ID="{0FAAA135-8F87-43D4-88AB-7273B3AE048F}">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="26"/>
+									</PropertyList>
+								</Bus>
+								<Bus Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="10"/>
+									</PropertyList>
+								</Bus>
+							</ChildrenList>
+						</Bus>
+						<AuxBus Name="Reverbs" ID="{798825A7-3EA0-44D4-BFF7-727C33E3BEFF}">
+							<ChildrenList>
+								<AuxBus Name="SmallRoom" ID="{130F3325-B5E2-47D5-A464-703BB27C6B91}"/>
+								<AuxBus Name="LargeRoom" ID="{3C4403FB-92BB-4467-A29C-E526DE1403BC}"/>
+							</ChildrenList>
+						</AuxBus>
+					</ChildrenList>
 				</Bus>
 			</ChildrenList>
 		</WorkUnit>
