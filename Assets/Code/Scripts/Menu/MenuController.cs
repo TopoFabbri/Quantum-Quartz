@@ -19,12 +19,14 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private GameObject controlsPanel;
         [SerializeField] private GameObject videoPanel;
+        [SerializeField] private GameObject audioPanel;
         [SerializeField] private GameObject mainMenuButtons;
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button creditsBackButton;
         [SerializeField] private Button controlsBackButton;
         [SerializeField] private Button videoFirstButton;
+        [SerializeField] private Button audioFirstButton;
         [SerializeField] private Button mainMenuButton;
 
 
@@ -34,6 +36,7 @@ namespace Code.Scripts.Menu
             creditsPanel.SetActive(false);
             controlsPanel.SetActive(false);
             videoPanel.SetActive(false);
+            audioPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -105,6 +108,22 @@ namespace Code.Scripts.Menu
             {
                 optionsPanel.SetActive(false);
                 videoFirstButton.Select();
+            }
+            else
+            {
+                optionsPanel.SetActive(true);
+                optionsFirstButton.Select();
+            }
+        }
+        
+        public void TurnAudio()
+        {
+            audioPanel.SetActive(!audioPanel.activeSelf);
+
+            if (audioPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                audioFirstButton.Select();
             }
             else
             {
