@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Code.Scripts.Menu
@@ -9,23 +10,24 @@ namespace Code.Scripts.Menu
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private string levelSelectorScene;
-        [SerializeField] private string creditsSceneName;
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private string level1SceneName;
         [SerializeField] private string level2SceneName;
         [SerializeField] private string level3SceneName;
         [SerializeField] private string level4SceneName;
         [SerializeField] private GameObject optionsPanel;
+        [SerializeField] private GameObject creditsPanel;
         [SerializeField] private GameObject mainMenuButtons;
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private Button backButton;
-        [SerializeField] private Button optionsButton;
+        [SerializeField] private Button creditsBackButton;
+        [SerializeField] private Button mainMenuButton;
 
 
         private void Start()
         {
-            if (optionsPanel)
-                optionsPanel.SetActive(false);
+            optionsPanel.SetActive(false);
+            creditsPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -41,9 +43,22 @@ namespace Code.Scripts.Menu
             LoadScene(levelSelectorScene);
         }
 
-        public void ShowCredits()
+        public void TurnCredits()
         {
-            LoadScene(creditsSceneName);
+            creditsPanel.SetActive(!creditsPanel.activeSelf);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (creditsPanel.activeSelf)
+            {
+                mainMenuButtons.SetActive(false);
+                creditsBackButton.Select();
+            }
+            else
+            {
+                mainMenuButtons.SetActive(true);
+                mainMenuButton.Select();
+            }
         }
 
         public void TurnOptions()
@@ -60,7 +75,7 @@ namespace Code.Scripts.Menu
             else
             {
                 mainMenuButtons.SetActive(true);
-                optionsButton.Select();
+                mainMenuButton.Select();
             }
         }
 
