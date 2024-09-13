@@ -18,11 +18,13 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private GameObject controlsPanel;
+        [SerializeField] private GameObject videoPanel;
         [SerializeField] private GameObject mainMenuButtons;
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button creditsBackButton;
         [SerializeField] private Button controlsBackButton;
+        [SerializeField] private Button videoFirstButton;
         [SerializeField] private Button mainMenuButton;
 
 
@@ -31,6 +33,7 @@ namespace Code.Scripts.Menu
             optionsPanel.SetActive(false);
             creditsPanel.SetActive(false);
             controlsPanel.SetActive(false);
+            videoPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -49,9 +52,7 @@ namespace Code.Scripts.Menu
         public void TurnCredits()
         {
             creditsPanel.SetActive(!creditsPanel.activeSelf);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
+            
             if (creditsPanel.activeSelf)
             {
                 mainMenuButtons.SetActive(false);
@@ -67,8 +68,6 @@ namespace Code.Scripts.Menu
         public void TurnOptions()
         {
             optionsPanel.SetActive(!optionsPanel.activeSelf);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
 
             if (optionsPanel.activeSelf)
             {
@@ -85,8 +84,6 @@ namespace Code.Scripts.Menu
         public void TurnControls()
         {
             controlsPanel.SetActive(!controlsPanel.activeSelf);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
 
             if (controlsPanel.activeSelf)
             {
@@ -100,6 +97,22 @@ namespace Code.Scripts.Menu
             }
         }
 
+        public void TurnVideo()
+        {
+            videoPanel.SetActive(!videoPanel.activeSelf);
+
+            if (videoPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                videoFirstButton.Select();
+            }
+            else
+            {
+                optionsPanel.SetActive(true);
+                optionsFirstButton.Select();
+            }
+        }
+        
         public void GoMainMenu()
         {
             LoadScene(mainMenuSceneName);
