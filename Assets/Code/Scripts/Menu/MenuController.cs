@@ -17,10 +17,12 @@ namespace Code.Scripts.Menu
         [SerializeField] private string level4SceneName;
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private GameObject creditsPanel;
+        [SerializeField] private GameObject controlsPanel;
         [SerializeField] private GameObject mainMenuButtons;
         [SerializeField] private GameObject fadeOut;
-        [SerializeField] private Button backButton;
+        [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button creditsBackButton;
+        [SerializeField] private Button controlsBackButton;
         [SerializeField] private Button mainMenuButton;
 
 
@@ -28,6 +30,7 @@ namespace Code.Scripts.Menu
         {
             optionsPanel.SetActive(false);
             creditsPanel.SetActive(false);
+            controlsPanel.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -70,12 +73,30 @@ namespace Code.Scripts.Menu
             if (optionsPanel.activeSelf)
             {
                 mainMenuButtons.SetActive(false);
-                backButton.Select();
+                optionsFirstButton.Select();
             }
             else
             {
                 mainMenuButtons.SetActive(true);
                 mainMenuButton.Select();
+            }
+        }
+
+        public void TurnControls()
+        {
+            controlsPanel.SetActive(!controlsPanel.activeSelf);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (controlsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                controlsBackButton.Select();
+            }
+            else
+            {
+                optionsPanel.SetActive(true);
+                optionsFirstButton.Select();
             }
         }
 
