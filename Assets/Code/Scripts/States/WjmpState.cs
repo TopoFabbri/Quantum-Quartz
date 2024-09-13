@@ -8,6 +8,8 @@ namespace Code.Scripts.States
     {
         protected WjmpSettings WjmpSettings => settings as WjmpSettings;
         
+        public bool FacingRight { get; set; }
+
         private bool canMove;
         
         public WjmpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb, Transform transform) : base(id, stateSettings, mb, rb, transform)
@@ -16,10 +18,21 @@ namespace Code.Scripts.States
 
         public override void OnEnter()
         {
+            rb.velocity = Vector2.zero;
+            
             base.OnEnter();
+            
+            rb.velocity = new Vector2(FacingRight ? WjmpSettings.wallJumpForce : -WjmpSettings.wallJumpForce, rb.velocity.y);
             
             canMove = false;
             mb.StartCoroutine(WaitAndReturnInput(WjmpSettings.noInputTime));
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            
+            canMove = false;
         }
 
         public override void OnUpdate()

@@ -82,11 +82,11 @@ namespace Code.Scripts.Player
             djmpState.onEnter += OnEnterDjmpHandler;
             tlptState.onEnter += OnEnterTpHandler;
             dethState.onEnter += OnEnterDeathHandler;
+            wjmpState.onEnter += OnEnterWjmpHandler;
 
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
             tlptState.onExit += OnExitTpHandler;
-            wallState.onExit += OnExitWallHandler;
 
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
@@ -109,11 +109,11 @@ namespace Code.Scripts.Player
             dashState.onEnter -= OnEnterDashHandler;
             djmpState.onEnter -= OnEnterDjmpHandler;
             dethState.onEnter -= OnEnterDeathHandler;
+            wjmpState.onEnter -= OnEnterWjmpHandler;
 
             dethState.onExit -= OnExitDeathHandler;
             spwnState.onExit -= OnExitSpawnHandler;
             tlptState.onExit -= OnExitTpHandler;
-            wallState.onExit -= OnExitWallHandler;
 
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
@@ -345,6 +345,7 @@ namespace Code.Scripts.Player
             }
             
             wallState.FacingRight = facingRight;
+            wjmpState.FacingRight = facingRight;
             
             OnFlip?.Invoke(facingRight);
         }
@@ -536,6 +537,14 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Handle player started wall jump
+        /// </summary>
+        private void OnEnterWjmpHandler()
+        {
+            Flip();
+        }
+
+        /// <summary>
         /// Handle player exited death state
         /// </summary>
         private void OnExitDeathHandler()
@@ -562,14 +571,6 @@ namespace Code.Scripts.Player
         private void OnExitTpHandler()
         {
             LevelChanger.EndLevel();
-        }
-
-        /// <summary>
-        /// Handle player exited wall state
-        /// </summary>
-        private void OnExitWallHandler()
-        {
-            Flip();
         }
 
         /// <summary>
