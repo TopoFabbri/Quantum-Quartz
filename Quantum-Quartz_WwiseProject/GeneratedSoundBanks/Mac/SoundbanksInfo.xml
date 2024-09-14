@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{BEC6716E-0886-092B-813A-269619E10BFA}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{821CD6F1-3AD6-9AC1-9496-C597CB118E60}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -38,6 +38,9 @@
 				</AuxBus>
 				<AuxBus Id="3545700988" Name="Reverbs"/>
 			</AuxBusses>
+			<GameParameters>
+				<GameParameter Id="1240670792" Name="Distance"/>
+			</GameParameters>
 			<SwitchGroups>
 				<SwitchGroup Id="96434573" Name="Level1_Music_Switch">
 					<Switches>
@@ -53,7 +56,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{11C066A5-2DC2-8A1F-F823-8F82A571CE5A}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C7473D06-239B-DB70-FF4C-BCF12A8F0198}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -80,6 +83,10 @@
 				<File Id="139537908" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Second_Jump.wav</ShortName>
 					<CachePath>SFX/Second_Jump_10C4C929.wem</CachePath>
+				</File>
+				<File Id="151863213" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Laser_LP.wav</ShortName>
+					<CachePath>SFX/Laser_LP_170C2CFA.wem</CachePath>
 				</File>
 				<File Id="192936632" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-018.wav</ShortName>
@@ -127,7 +134,7 @@
 				</File>
 				<File Id="403912503" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Charge_Shoot_Laser.wav</ShortName>
-					<CachePath>SFX/Charge_Shoot_Laser_2DC45417.wem</CachePath>
+					<CachePath>SFX/Charge_Shoot_Laser_BF792A05.wem</CachePath>
 				</File>
 				<File Id="413672958" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-001.wav</ShortName>
@@ -312,16 +319,18 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3893832595" Name="Play_SP_Amb_Steam" DurationType="Infinite">
+				<Event Id="3893832595" Name="Play_SP_Amb_Steam" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="64216506" Name="Play_SP_Charge_Shoot_Laser" DurationType="OneShot" DurationMin="2.7142892" DurationMax="2.7142892">
+				<Event Id="64216506" Name="Play_SP_Charge_Shoot_Laser" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
+						<MediaRef Id="151863213"/>
 						<MediaRef Id="403912503"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="815649508" Name="Stop_SP_Charge_Shoot_Laser" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<SwitchGroups>
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
@@ -333,5 +342,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E6D9CA52-FE96-A30E-BFE5-8BCB32612E16}</FileHash>
+	<FileHash>{4B8FDF22-84B6-0071-11D5-D5488E72FB84}</FileHash>
 </SoundBanksInfo>

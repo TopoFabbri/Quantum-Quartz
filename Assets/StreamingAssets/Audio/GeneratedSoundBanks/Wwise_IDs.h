@@ -20,6 +20,7 @@ namespace AK
         static const AkUniqueID PLAY_DEATH = 1172822028U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_SP_CHARGE_SHOOT_LASER = 64216506U;
+        static const AkUniqueID STOP_SP_CHARGE_SHOOT_LASER = 815649508U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -47,6 +48,11 @@ namespace AK
         } // namespace SWITCH_FOOTSTEPS
 
     } // namespace SWITCHES
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID DISTANCE = 1240670792U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
