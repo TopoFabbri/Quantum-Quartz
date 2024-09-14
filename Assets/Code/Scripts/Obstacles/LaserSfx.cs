@@ -6,13 +6,19 @@ namespace Code.Scripts.Obstacles
     {
         [SerializeField] private string offEvent;
         [SerializeField] private string windUpEvent;
+        [SerializeField] private bool playSound = true;
+        
         public void Off()
         {
+            if (!playSound) return;
+            
             AkSoundEngine.PostEvent(offEvent, gameObject);
         }
         
         public void WindUp()
         {
+            if (!playSound) return;
+            
             AkSoundEngine.PostEvent(windUpEvent, gameObject);
         }
     }

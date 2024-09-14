@@ -930,6 +930,8 @@ GameObject:
   - component: {fileID: 2090065662981346448}
   - component: {fileID: 1836373101099275539}
   - component: {fileID: 5633411915053908958}
+  - component: {fileID: 8552471897275700223}
+  - component: {fileID: 1171006249397760591}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1130,6 +1132,42 @@ MonoBehaviour:
   jumpEvent: Play_Basic_Jump
   landEvent: Play_Concrete_Landing
   djmpEvent: Play_Blue_Quartz_Jump
+--- !u!114 &8552471897275700223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237457409041573795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b9f512e698e864bba1ab2802aa633f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &1171006249397760591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237457409041573795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
 --- !u!1 &3503600333377678760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,7 +1408,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3639020788704489740}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
   m_Name: 

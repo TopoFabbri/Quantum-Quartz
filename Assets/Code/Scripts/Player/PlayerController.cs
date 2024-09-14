@@ -315,6 +315,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wjmpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wjmpState, dethState, () => died);
             fsm.AddTransition(wjmpState, tlptState, () => shouldTp);
+            fsm.AddTransition(wjmpState, wallState, wallState.CanWallJump);
         }
 
         /// <summary>
