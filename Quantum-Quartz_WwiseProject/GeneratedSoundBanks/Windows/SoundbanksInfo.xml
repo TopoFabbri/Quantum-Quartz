@@ -53,7 +53,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C0161953-AB38-01E8-0FC7-771DED1BE312}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{11C066A5-2DC2-8A1F-F823-8F82A571CE5A}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -249,11 +249,6 @@
 						<MediaRef Id="139537908"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3751886250" Name="Play_Charge_Shoot_Laser" DurationType="OneShot" DurationMin="2.7142892" DurationMax="2.7142892">
-					<MediaRefs>
-						<MediaRef Id="403912503"/>
-					</MediaRefs>
-				</Event>
 				<Event Id="1570257991" Name="Play_Concrete_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.13970633">
 					<SwitchContainers>
 						<SwitchContainer>
@@ -317,9 +312,14 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="2885688842" Name="Play_Steam" DurationType="Infinite">
+				<Event Id="3893832595" Name="Play_SP_Amb_Steam" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="64216506" Name="Play_SP_Charge_Shoot_Laser" DurationType="OneShot" DurationMin="2.7142892" DurationMax="2.7142892">
+					<MediaRefs>
+						<MediaRef Id="403912503"/>
 					</MediaRefs>
 				</Event>
 			</Events>
@@ -333,5 +333,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{231F1BAE-6CC7-7453-7E35-4867542C1D80}</FileHash>
+	<FileHash>{DBB971EC-34AF-788C-F28E-FAB61C907716}</FileHash>
 </SoundBanksInfo>

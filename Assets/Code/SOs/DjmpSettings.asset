@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e844ab298cb94e25a6723c9ae6fc6e5a, type: 3}
   m_Name: DjmpSettings
   m_EditorClassIdentifier: 
-  moveSettings: {fileID: 11400000, guid: c46327f8512b0214d8f1b824ca1ffb78, type: 2}
+  accel: 100
+  maxSpeed: 10
+  minSpeed: 0.5
+  groundFriction: 20
+  airFriction: 0
+  groundCheckOffset: {x: -0.03, y: -0.85}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  wallCheckDis: 0.3
+  wallCheckSize: {x: 0.2, y: 0.9}
   jumpForce: 18
+  bufferTime: 0.1
