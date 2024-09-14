@@ -39,6 +39,20 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
+						<Event Name="Stop_SP_Charge_Shoot_Laser" ID="{2607CE6D-3038-48DA-B06A-EFC38D68A063}">
+							<ChildrenList>
+								<Action Name="" ID="{E7B5AA72-FCA0-4919-BC6F-08145270D31A}" ShortID="100540556">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Steampunk_Laser_oneshot" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
