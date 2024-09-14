@@ -15,11 +15,11 @@ namespace AK
     {
         static const AkUniqueID PLAY_BASIC_JUMP = 2848448515U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
-        static const AkUniqueID PLAY_CHARGE_SHOOT_LASER = 3751886250U;
         static const AkUniqueID PLAY_CONCRETE_FOOTSTEPS = 1570257991U;
         static const AkUniqueID PLAY_CONCRETE_LANDING = 810894027U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
-        static const AkUniqueID PLAY_STEAM = 2885688842U;
+        static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
+        static const AkUniqueID PLAY_SP_CHARGE_SHOOT_LASER = 64216506U;
     } // namespace EVENTS
 
     namespace SWITCHES

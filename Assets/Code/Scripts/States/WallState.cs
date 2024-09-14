@@ -45,7 +45,6 @@ namespace Code.Scripts.States
             base.OnExit();
 
             rb.gravityScale = savedGravityScale;
-            rb.AddForce(Vector2.right * (FacingRight ? WallSettings.wallJumpForce : -WallSettings.wallJumpForce), ForceMode2D.Impulse);
         }
         
         /// <summary>

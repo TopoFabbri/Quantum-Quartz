@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -22,9 +21,6 @@ namespace Code.Scripts.States
         public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, rb, transform)
         {
-            settings = stateSettings;
-            moveSettings = JumpSettings.moveSettings;
-
             this.mb = mb;
         }
 
@@ -34,7 +30,7 @@ namespace Code.Scripts.States
 
             mb.StartCoroutine(JumpOnFU());
 
-            rb.sharedMaterial.friction = JumpSettings.moveSettings.airFriction;
+            rb.sharedMaterial.friction = JumpSettings.airFriction;
         }
 
         public override void OnExit()

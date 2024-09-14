@@ -17,7 +17,7 @@ namespace Code.Scripts.States
         
         protected static float _speed;
 
-        public float Input { get; private set; }
+        public float Input { get; protected set; }
         public float Speed => _speed;
 
         public MoveState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings)
