@@ -91,6 +91,8 @@ public class OptionsController : MonoBehaviour
 
         public void TurnVideo()
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             videoPanel.SetActive(!videoPanel.activeSelf);
 
             if (videoPanel.activeSelf)
