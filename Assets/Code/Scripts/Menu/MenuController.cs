@@ -21,7 +21,6 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
-            
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
