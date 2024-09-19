@@ -167,7 +167,7 @@ namespace Code.Scripts.Player
                 falling = false;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D other)
         {
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
@@ -271,8 +271,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, tlptState, () => shouldTp);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState,
-                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, moveState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
@@ -292,8 +292,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(dashState, tlptState, () => shouldTp);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
-            fsm.AddTransition(djmpState, idleState,
-                () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
 
