@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DevMode",
+                    "type": "Button",
+                    "id": "512621d9-ea09-4718-acec-36047231caec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -342,7 +351,7 @@
                 {
                     "name": "",
                     "id": "c60a5df1-f2e4-40c4-b11f-3b2a1bd5af9e",
-                    "path": "<Gamepad>/select",
+                    "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -353,7 +362,7 @@
                 {
                     "name": "",
                     "id": "480a5b2d-33b0-4ac4-9c87-c31a8ec04f82",
-                    "path": "<DualShockGamepad>/select",
+                    "path": "<DualShockGamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -512,6 +521,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5266f33-7a13-4597-89b6-1ce7d473db32",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DevMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "871e02e1-9447-48bd-9c63-a3c4ac7f0beb",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DevMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
