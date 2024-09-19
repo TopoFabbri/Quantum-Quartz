@@ -19,6 +19,7 @@ namespace Code.Scripts.Input
         public static event Action Restart;
         public static event Action Ability;
         public static event Action Pause;
+        public static event Action DevMode;
 
         /// <summary>
         /// Called when input move is pressed
@@ -100,6 +101,14 @@ namespace Code.Scripts.Input
         private void OnPause()
         {
             Pause?.Invoke();
+        }
+
+        /// <summary>
+        /// Called when input dev mode is pressed
+        /// </summary>
+        private void OnDevMode()
+        {
+            DevMode?.Invoke();
         }
     }
 }

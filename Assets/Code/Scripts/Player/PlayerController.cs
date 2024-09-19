@@ -472,7 +472,7 @@ namespace Code.Scripts.Player
             if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
-
+        
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>
