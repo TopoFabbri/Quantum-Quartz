@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Code.Scripts.States
 
         private readonly Rigidbody2D rb;
         private readonly MonoBehaviour mb;
+        
+        private CameraController camController;
 
         private bool facingRight;
         private float gravScale;
@@ -28,6 +31,9 @@ namespace Code.Scripts.States
             DashAvailable = true;
             this.rb = rb;
             this.mb = mb;
+
+            if (UnityEngine.Camera.main != null)
+                camController = UnityEngine.Camera.main.GetComponent<CameraController>();
         }
 
         public override void OnEnter()
@@ -37,6 +43,9 @@ namespace Code.Scripts.States
             gravScale = rb.gravityScale;
             rb.gravityScale = 0f;
 
+            if (camController)
+                camController.Shake(DashSettings.shakeDur, DashSettings.shakeMag);
+            
             mb.StartCoroutine(EndDash());
         }
 

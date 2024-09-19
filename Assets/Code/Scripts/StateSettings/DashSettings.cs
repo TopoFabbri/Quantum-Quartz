@@ -9,6 +9,8 @@ namespace Code.Scripts.StateSettings
         public float speed = 10f;
         public float duration = 0.5f;
         public float cooldown = 3f;
+        public float shakeDur = 0.1f;
+        public float shakeMag = 0.1f;
         
         [Header("Wall Check:")]
         public float wallCheckDis;

@@ -21,6 +21,7 @@ namespace Code.Scripts.Tools
         private void Update()
         {
             animator.SetBool(Broken, colliding);
+            
             if (colliding)
             {
                 rb.gravityScale = 1f;
