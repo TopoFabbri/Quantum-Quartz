@@ -20,7 +20,7 @@ namespace Code.Scripts.States
         private readonly Rigidbody2D rb;
         private readonly MonoBehaviour mb;
         
-        private CameraController camController;
+        private readonly CameraController camController;
 
         private bool facingRight;
         private float gravScale;
@@ -33,7 +33,7 @@ namespace Code.Scripts.States
             this.mb = mb;
 
             if (UnityEngine.Camera.main != null)
-                camController = UnityEngine.Camera.main.GetComponent<CameraController>();
+                UnityEngine.Camera.main.TryGetComponent(out camController);
         }
 
         public override void OnEnter()

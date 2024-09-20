@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Code.Scripts.Camera;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -6,13 +7,18 @@ namespace Code.Scripts.States
 {
     public class DjmpState<T> : JumpState<T>
     {
-        private bool DjmpSettings => settings as DjmpSettings;
+        private DjmpSettings DjmpSettings => settings as DjmpSettings;
         
         public bool JumpAvailable { get; private set; }
 
+        private readonly CameraController camController;
+        
         public DjmpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, mb, rb, transform)
         {
+            if (UnityEngine.Camera.main != null)
+                UnityEngine.Camera.main.TryGetComponent(out camController);
+                    
             Reset();
         }
 
@@ -21,6 +27,9 @@ namespace Code.Scripts.States
             base.OnEnter();
             
             rb.velocity = new Vector2(0f, 0f);
+            
+            if (camController)
+                camController.Shake(DjmpSettings.shakeDur, DjmpSettings.shakeMag);
         }
 
         public override void OnExit()
