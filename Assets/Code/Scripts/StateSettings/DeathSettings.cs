@@ -9,5 +9,7 @@ namespace Code.Scripts.StateSettings
         public float maxSpeed;
         public float duration;
         public float movingDuration;
+        public float shakeDur = 0.5f;
+        public float shakeMag = 0.3f;
     }
 }
