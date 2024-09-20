@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Code.Scripts.Input;
 using UnityEngine;
 
@@ -13,12 +14,14 @@ namespace Code.Scripts.Camera
         [SerializeField] private float moveDis = 10f;
         [SerializeField] private float inputSpeed = 2f;
 
+        private readonly Dictionary<int, bool> shakes = new();
+        private List<int> shakeIds = new();
+        
         private Vector3 cameraPosition;
         private Vector2 offsetByInput;
         private float currentDis;
-
+        
         private bool isMoving;
-        private bool isShaking;
 
         private void Awake()
         {
@@ -80,10 +83,17 @@ namespace Code.Scripts.Camera
         /// <param name="magnitude">Shake magnitude</param>
         public void Shake(float duration, float magnitude)
         {
-            if (isShaking)
-                return;
+            StopAllShakes();
             
-            StartCoroutine(ShakeForDuration(duration, magnitude));
+            int i = 0;
+
+            while (shakes.ContainsKey(i))
+                i++;
+            
+            shakes.Add(i, true);
+            shakeIds.Add(i);
+            
+            StartCoroutine(ShakeForDuration(duration, magnitude, i));
         }
 
         /// <summary>
@@ -92,14 +102,12 @@ namespace Code.Scripts.Camera
         /// <param name="duration">Shake duration</param>
         /// <param name="magnitude">Shake magnitude</param>
         /// <returns></returns>
-        private IEnumerator ShakeForDuration(float duration, float magnitude)
+        private IEnumerator ShakeForDuration(float duration, float magnitude, int shakeId)
         {
             Vector3 originalPos = transform.localPosition;
             float elapsed = 0.0f;
-            
-            isShaking = true;
 
-            while (elapsed < duration)
+            while (elapsed < duration && shakes[shakeId])
             {
                 elapsed += Time.deltaTime;
 
@@ -111,8 +119,18 @@ namespace Code.Scripts.Camera
                 yield return null;
             }
 
-            isShaking = false;
+            shakes.Remove(shakeId);
+            shakeIds.Remove(shakeId);
             transform.localPosition = originalPos;
+        }
+
+        /// <summary>
+        /// Stop all camera shakes
+        /// </summary>
+        private void StopAllShakes()
+        {
+            foreach (int shakeId in shakeIds)
+                shakes[shakeId] = false;
         }
     }
 }
