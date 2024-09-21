@@ -118,6 +118,13 @@ namespace Code.Scripts.States
         /// </summary>
         private void SpawnDust()
         {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + (FacingRight ? Vector3.right : Vector3.left),
+                FacingRight ? Vector2.left : Vector2.right, WallSettings.wallDis,
+                LayerMask.GetMask("Default"));
+
+            if (!hit.collider)
+                return;
+            
             Vector2 position = transform.position +
                                (FacingRight ? Vector3.right : Vector3.left) * WallSettings.wallDis +
                                Vector3.down * WallSettings.dustOffset;
