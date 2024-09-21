@@ -31,6 +31,8 @@ namespace Code.Scripts.States
             mb.StartCoroutine(JumpOnFU());
 
             rb.sharedMaterial.friction = JumpSettings.airFriction;
+            
+            SpawnDust();
         }
 
         public override void OnExit()
@@ -57,6 +59,26 @@ namespace Code.Scripts.States
             yield return new WaitForFixedUpdate();
 
             rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+        }
+
+        /// <summary>
+        /// Make dust at jump position
+        /// </summary>
+        public virtual void SpawnDust()
+        {
+            Vector2 position = (Vector2)transform.position + JumpSettings.groundCheckOffset;
+            
+            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, JumpSettings.groundCheckRadius, LayerMask.GetMask("Default"));
+            
+            if (hit.collider == null)
+                return;
+            
+            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+                return;
+            
+            Transform parent = hit.collider.transform;
+            
+            Object.Instantiate(JumpSettings.dust, hit.point, Quaternion.identity, parent);
         }
     }
 }

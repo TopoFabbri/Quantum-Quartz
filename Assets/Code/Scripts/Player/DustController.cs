@@ -8,12 +8,22 @@ namespace Code.Scripts.Player
     /// </summary>
     public class DustController : MonoBehaviour
     {
+        private static int _lastAnim;
+        private static readonly int Anim = Animator.StringToHash("Anim");
+        
         [SerializeField] private Animator anim;
         [SerializeField] private int animCount;
 
         private void OnEnable()
         {
-            anim.SetInteger("Anim", Random.Range(0, animCount));
+            int animNum;
+
+            do
+            {
+                animNum = Random.Range(0, animCount);
+            } while (animNum == _lastAnim);
+
+            anim.SetInteger(Anim, animNum);
         }
 
         /// <summary>

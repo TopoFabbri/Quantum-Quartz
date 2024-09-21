@@ -13,7 +13,7 @@ namespace Code.Scripts.States
     {
         private FallSettings FallSettings => settings as FallSettings;
 
-        private readonly MonoBehaviour mb;
+        protected readonly MonoBehaviour mb;
         private readonly PlayerSfx playerSfx;
         public bool CanCoyoteJump { get; private set; }
         

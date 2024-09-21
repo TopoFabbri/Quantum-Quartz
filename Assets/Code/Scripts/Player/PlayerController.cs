@@ -33,7 +33,7 @@ namespace Code.Scripts.Player
         private TpState<string> tlptState;
         private ExitTpState<string> extpState;
         private WallState<string> wallState;
-        private WjmpState<string> wjmpState;
+        private WallJumpState<string> wallJumpState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -48,11 +48,12 @@ namespace Code.Scripts.Player
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private PlayerSfx playerSfx;
 
-        [Header("Shake Settings")]
-        [SerializeField] private float fallShakeMagnitudeMultiplier = 0.05f;
+        [Header("Shake Settings")] [SerializeField]
+        private float fallShakeMagnitudeMultiplier = 0.05f;
+
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
-        
+
         private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
@@ -82,7 +83,7 @@ namespace Code.Scripts.Player
             djmpState.onEnter += OnEnterDjmpHandler;
             tlptState.onEnter += OnEnterTpHandler;
             dethState.onEnter += OnEnterDeathHandler;
-            wjmpState.onEnter += OnEnterWjmpHandler;
+            wallJumpState.onEnter += OnEnterWallJumpHandler;
 
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
@@ -109,7 +110,7 @@ namespace Code.Scripts.Player
             dashState.onEnter -= OnEnterDashHandler;
             djmpState.onEnter -= OnEnterDjmpHandler;
             dethState.onEnter -= OnEnterDeathHandler;
-            wjmpState.onEnter -= OnEnterWjmpHandler;
+            wallJumpState.onEnter -= OnEnterWallJumpHandler;
 
             dethState.onExit -= OnExitDeathHandler;
             spwnState.onExit -= OnExitSpawnHandler;
@@ -158,13 +159,33 @@ namespace Code.Scripts.Player
                 if (CamShakeCheck())
                 {
                     float absVel = Mathf.Abs(rb.velocity.y);
-                    
-                    camController.Shake((absVel - minShakeValue) * fallShakeDurationMultiplier, (absVel - minShakeValue) * fallShakeMagnitudeMultiplier);
+
+                    camController.Shake((absVel - minShakeValue) * fallShakeDurationMultiplier,
+                        (absVel - minShakeValue) * fallShakeMagnitudeMultiplier);
                 }
             }
 
             if (falling && rb.velocity.y == 0f)
                 falling = false;
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (fsm.CurrentState == fallState)
+                jumpState.SpawnDust();
+            
+            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
+                return;
+
+            if (!moveState.IsGrounded())
+                return;
+
+            touchingFloor = true;
+
+            falling = false;
+
+            if (other.gameObject.TryGetComponent(out ObjMovement obj))
+                obj.AddPlayer(transform);
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -210,7 +231,7 @@ namespace Code.Scripts.Player
             tlptState = new TpState<string>("TP", rb);
             extpState = new ExitTpState<string>("ExitTP", rb);
             wallState = new WallState<string>("Wall", stateSettings[7], rb, transform, this, playerSfx);
-            wjmpState = new WjmpState<string>("Wjmp", stateSettings[8], this, rb, transform);
+            wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -225,7 +246,7 @@ namespace Code.Scripts.Player
             fsm.AddState(tlptState);
             fsm.AddState(extpState);
             fsm.AddState(wallState);
-            fsm.AddState(wjmpState);
+            fsm.AddState(wallJumpState);
 
             FsmTransitions();
 
@@ -246,7 +267,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(tlptState.ID, 8);
             fsmAnimController.AddState(extpState.ID, 9);
             fsmAnimController.AddState(wallState.ID, 10);
-            fsmAnimController.AddState(wjmpState.ID, 11);
+            fsmAnimController.AddState(wallJumpState.ID, 11);
         }
 
         /// <summary>
@@ -264,15 +285,17 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
-            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0);
+            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded());
             fsm.AddTransition(moveState, dashState, () => dashPressed);
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
             fsm.AddTransition(moveState, dethState, () => died);
             fsm.AddTransition(moveState, tlptState, () => shouldTp);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(jumpState, moveState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, idleState,
+                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, moveState,
+                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
@@ -291,8 +314,9 @@ namespace Code.Scripts.Player
             fsm.AddTransition(dashState, dethState, () => died);
             fsm.AddTransition(dashState, tlptState, () => shouldTp);
 
-            fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f);
-            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f && !moveState.IsGrounded());
+            fsm.AddTransition(djmpState, idleState,
+                () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
 
@@ -303,17 +327,18 @@ namespace Code.Scripts.Player
             fsm.AddTransition(tlptState, extpState, () => tlptState.Ended);
 
             fsm.AddTransition(extpState, idleState, () => extpState.Ended);
-            
-            fsm.AddTransition(wallState, wjmpState, () => jumpPressed);
+
+            fsm.AddTransition(wallState, wallJumpState, () => jumpPressed);
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
-            
-            fsm.AddTransition(wjmpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(wjmpState, idleState, () => moveState.IsGrounded() && wjmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(wjmpState, dashState, () => dashPressed);
-            fsm.AddTransition(wjmpState, djmpState, () => djmpPressed);
-            fsm.AddTransition(wjmpState, dethState, () => died);
-            fsm.AddTransition(wjmpState, tlptState, () => shouldTp);
+
+            fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
+            fsm.AddTransition(wallJumpState, idleState,
+                () => moveState.IsGrounded() && wallJumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(wallJumpState, dashState, () => dashPressed);
+            fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
+            fsm.AddTransition(wallJumpState, dethState, () => died);
+            fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
         }
 
         /// <summary>
@@ -342,10 +367,10 @@ namespace Code.Scripts.Player
                 flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
                     flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
-            
+
             wallState.FacingRight = facingRight;
-            wjmpState.FacingRight = facingRight;
-            
+            wallJumpState.FacingRight = facingRight;
+
             OnFlip?.Invoke(facingRight);
         }
 
@@ -470,7 +495,7 @@ namespace Code.Scripts.Player
             if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
-        
+
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>
@@ -479,7 +504,7 @@ namespace Code.Scripts.Player
             jumpPressed = false;
 
             playerSfx.Jump();
-            
+
             if (fsm.PreviousState != fallState) return;
 
             Vector2 vector2 = rb.velocity;
@@ -494,7 +519,8 @@ namespace Code.Scripts.Player
         {
             falling = true;
 
-            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState && fsm.PreviousState != wjmpState)
+            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState &&
+                fsm.PreviousState != wallJumpState)
                 fallState.StartCoyoteTime();
         }
 
@@ -526,7 +552,7 @@ namespace Code.Scripts.Player
         {
             playerSfx.Death();
         }
-        
+
         /// <summary>
         /// Handle player started teleport
         /// </summary>
@@ -538,7 +564,7 @@ namespace Code.Scripts.Player
         /// <summary>
         /// Handle player started wall jump
         /// </summary>
-        private void OnEnterWjmpHandler()
+        private void OnEnterWallJumpHandler()
         {
             Flip();
         }
@@ -581,8 +607,6 @@ namespace Code.Scripts.Player
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, LayerMask.GetMask("Default"));
 
             bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
-            
-            Debug.DrawLine(transform.position, transform.position + Vector3.down * 2f, grounded ? Color.green : Color.red);
             return grounded;
         }
 

@@ -10,5 +10,9 @@ namespace Code.Scripts.StateSettings
         public float upwardsGravMultiplier = 1.5f;
         public float wallDis = 0.5f;
         public float maxFallSpeed = 10f;
+        public float dustDelay = 0.3f;
+        public float dustOffset = 0.3f;
+        public int dustQty = 4;
+        public GameObject dust;
     }
 }
