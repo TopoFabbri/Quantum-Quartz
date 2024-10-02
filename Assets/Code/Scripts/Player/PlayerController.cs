@@ -34,6 +34,7 @@ namespace Code.Scripts.Player
         private ExitTpState<string> extpState;
         private WallState<string> wallState;
         private WallJumpState<string> wallJumpState;
+        private GlideState<string> gldeState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -62,6 +63,7 @@ namespace Code.Scripts.Player
         private bool died;
         private bool touchingFloor;
         private bool shouldTp;
+        private bool glidePressed;
 
         private event Action<bool> OnFlip;
 
@@ -91,7 +93,8 @@ namespace Code.Scripts.Player
 
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
-            InputManager.Ability += OnAbilityHandler;
+            InputManager.AbilityPress += OnAbilityPressHandler;
+            InputManager.AbilityRelease += OnAbilityReleaseHandler;
 
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
             LevelChanger.PlayerTp += OnTpHandler;
@@ -118,7 +121,8 @@ namespace Code.Scripts.Player
 
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
-            InputManager.Ability -= OnAbilityHandler;
+            InputManager.AbilityPress -= OnAbilityPressHandler;
+            InputManager.AbilityRelease -= OnAbilityReleaseHandler;
 
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
             LevelChanger.PlayerTp -= OnTpHandler;
@@ -232,6 +236,7 @@ namespace Code.Scripts.Player
             extpState = new ExitTpState<string>("ExitTP", rb);
             wallState = new WallState<string>("Wall", stateSettings[7], rb, transform, this, playerSfx);
             wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
+            gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -247,6 +252,7 @@ namespace Code.Scripts.Player
             fsm.AddState(extpState);
             fsm.AddState(wallState);
             fsm.AddState(wallJumpState);
+            fsm.AddState(gldeState);
 
             FsmTransitions();
 
@@ -268,6 +274,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(extpState.ID, 9);
             fsmAnimController.AddState(wallState.ID, 10);
             fsmAnimController.AddState(wallJumpState.ID, 11);
+            fsmAnimController.AddState(gldeState.ID, 12);
         }
 
         /// <summary>
@@ -301,6 +308,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
 
+            fsm.AddTransition(fallState, gldeState, () => glidePressed);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
             fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
             fsm.AddTransition(fallState, dashState, () => dashPressed);
@@ -339,6 +347,9 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
+            
+            fsm.AddTransition(gldeState, fallState, () => !glidePressed);
+            fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
         }
 
         /// <summary>
@@ -421,6 +432,9 @@ namespace Code.Scripts.Player
 
             if (color != ColorSwitcher.QColor.Blue)
                 djmpState.Reset();
+
+            if (color != ColorSwitcher.QColor.Yellow)
+                glidePressed = false;
         }
 
         /// <summary>
@@ -442,6 +456,7 @@ namespace Code.Scripts.Player
             fallState.SetInput(input.x);
             djmpState.SetInput(input.x);
             wallState.SetInput(input.x);
+            gldeState.SetInput(input.x);
         }
 
         /// <summary>
@@ -454,10 +469,10 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
-        /// Handle player dash input
+        /// Handle player ability input
         /// </summary>
         /// <returns>True if player can dash</returns>
-        private void OnAbilityHandler()
+        private void OnAbilityPressHandler()
         {
             switch (ColorSwitcher.Instance.CurrentColor)
             {
@@ -472,6 +487,31 @@ namespace Code.Scripts.Player
                 case ColorSwitcher.QColor.Green:
                     break;
                 case ColorSwitcher.QColor.Yellow:
+                    OnGlideHandler();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        /// <summary>
+        /// Handle player ability release input
+        /// </summary>
+        /// <returns>True if player can dash</returns>
+        private void OnAbilityReleaseHandler()
+        {
+            switch (ColorSwitcher.Instance.CurrentColor)
+            {
+                case ColorSwitcher.QColor.None:
+                    break;
+                case ColorSwitcher.QColor.Red:
+                    break;
+                case ColorSwitcher.QColor.Blue:
+                    break;
+                case ColorSwitcher.QColor.Green:
+                    break;
+                case ColorSwitcher.QColor.Yellow:
+                    OnGlideReleaseHandler();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -496,6 +536,22 @@ namespace Code.Scripts.Player
                 djmpPressed = true;
         }
 
+        /// <summary>
+        /// Handle player Glide input
+        /// </summary>
+        private void OnGlideHandler()
+        {
+            glidePressed = true;
+        }
+
+        /// <summary>
+        /// Handle player Glide release input
+        /// </summary>
+        private void OnGlideReleaseHandler()
+        {
+            glidePressed = false;
+        }
+        
         /// <summary>
         /// Handle player HAS jumped
         /// </summary>

@@ -17,7 +17,8 @@ namespace Code.Scripts.Input
         public static event Action Color3;
         public static event Action Color4;
         public static event Action Restart;
-        public static event Action Ability;
+        public static event Action AbilityPress;
+        public static event Action AbilityRelease; 
         public static event Action Pause;
         public static event Action DevMode;
 
@@ -90,9 +91,14 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Called when input ability is pressed
         /// </summary>
-        private void OnAbility()
+        private void OnAbility(InputValue input)
         {
-            Ability?.Invoke();
+            float value = input.Get<float>();
+            
+            if (value != 0)
+                AbilityPress?.Invoke();
+            else
+                AbilityRelease?.Invoke();
         }
 
         /// <summary>
