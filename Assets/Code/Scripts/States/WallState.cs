@@ -59,8 +59,6 @@ namespace Code.Scripts.States
         /// <returns>True if touching a wall</returns>
         public bool CanWallJump()
         {
-            if ((FacingRight && Input <= 0f) || (!FacingRight && Input >= 0f)) return false;
-            
             if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green)
                 return false;
 
@@ -77,7 +75,7 @@ namespace Code.Scripts.States
 
                 if (!collider.gameObject.CompareTag("Platform")) continue;
 
-                if (!collider.TryGetComponent(out PlatformEffector2D _))
+                if (!collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
                     return true;
             }
 
