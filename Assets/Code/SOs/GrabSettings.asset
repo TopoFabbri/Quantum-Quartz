@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea8aa31d0c7459ca0b70196595101cd, type: 3}
+  m_Name: GrabSettings
+  m_EditorClassIdentifier: 
+  accel: 100
+  maxSpeed: 9
+  minSpeed: 0.5
+  groundFriction: 20
+  airFriction: 0
+  groundCheckOffset: {x: -0.03, y: -0.97}
+  groundCheckRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  wallCheckDis: 0.4
+  wallCheckSize: {x: 0.2, y: 0.9}
+  coyoteTime: 0.05
+  fallSoundName: Play_Lab_Landing
+  gravMultiplier: 0
+  upwardsGravMultiplier: 0
+  wallDis: 0.3
+  maxFallSpeed: 0
+  dustDelay: 0.15
+  dustOffset: 0.4
+  dustQty: 1
+  dust: {fileID: 6527389880770261295, guid: 67b8ddbb0cb540a42b4bcc28bea8fa8b, type: 3}
+  staminaMitigation: 0.2

@@ -35,6 +35,7 @@ namespace Code.Scripts.Player
         private WallState<string> wallState;
         private WallJumpState<string> wallJumpState;
         private GlideState<string> gldeState;
+        private GrabState<string> grabState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -65,6 +66,7 @@ namespace Code.Scripts.Player
         private bool touchingFloor;
         private bool shouldTp;
         private bool glidePressed;
+        private bool grabPressed;
 
         private event Action<bool> OnFlip;
 
@@ -155,7 +157,7 @@ namespace Code.Scripts.Player
                 moveState.DecreaseSpeed();
             
             if (fsm.CurrentState != gldeState)
-                staminaBar.FillValue += 0.1f * Time.deltaTime;
+                staminaBar.FillValue += 1.5f * Time.deltaTime;
         }
 
         private void FixedUpdate()
@@ -241,6 +243,7 @@ namespace Code.Scripts.Player
             wallState = new WallState<string>("Wall", stateSettings[7], rb, transform, this, playerSfx);
             wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
             gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
+            grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -257,6 +260,7 @@ namespace Code.Scripts.Player
             fsm.AddState(wallState);
             fsm.AddState(wallJumpState);
             fsm.AddState(gldeState);
+            fsm.AddState(grabState);
 
             FsmTransitions();
 
@@ -279,6 +283,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(wallState.ID, 10);
             fsmAnimController.AddState(wallJumpState.ID, 11);
             fsmAnimController.AddState(gldeState.ID, 12);
+            fsmAnimController.AddState(grabState.ID, 13);
         }
 
         /// <summary>
@@ -344,6 +349,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
             fsm.AddTransition(wallState, dethState, () => died);
+            fsm.AddTransition(wallState, grabState, () => grabPressed);
 
             fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(wallJumpState, idleState,
@@ -356,6 +362,9 @@ namespace Code.Scripts.Player
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
+            
+            fsm.AddTransition(grabState, fallState, () => !grabPressed);
+            fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
         }
 
         /// <summary>
@@ -441,6 +450,9 @@ namespace Code.Scripts.Player
 
             if (color != ColorSwitcher.QColor.Yellow)
                 glidePressed = false;
+            
+            if (color != ColorSwitcher.QColor.Green)
+                grabPressed = false;
         }
 
         /// <summary>
@@ -491,6 +503,7 @@ namespace Code.Scripts.Player
                     OnDjmpHandler();
                     break;
                 case ColorSwitcher.QColor.Green:
+                    OnGrabHandler();
                     break;
                 case ColorSwitcher.QColor.Yellow:
                     OnGlideHandler();
@@ -515,6 +528,7 @@ namespace Code.Scripts.Player
                 case ColorSwitcher.QColor.Blue:
                     break;
                 case ColorSwitcher.QColor.Green:
+                    OnGrabReleaseHandler();
                     break;
                 case ColorSwitcher.QColor.Yellow:
                     OnGlideReleaseHandler();
@@ -541,6 +555,14 @@ namespace Code.Scripts.Player
             if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
                 djmpPressed = true;
         }
+        
+        /// <summary>
+        /// Handle player Grab input
+        /// </summary>
+        private void OnGrabHandler()
+        {
+            grabPressed = true;
+        }
 
         /// <summary>
         /// Handle player Glide input
@@ -556,6 +578,14 @@ namespace Code.Scripts.Player
         private void OnGlideReleaseHandler()
         {
             glidePressed = false;
+        }
+
+        /// <summary>
+        /// Handle player Grab release input
+        /// </summary>
+        private void OnGrabReleaseHandler()
+        {
+            grabPressed = false;
         }
         
         /// <summary>
