@@ -156,7 +156,7 @@ namespace Code.Scripts.Player
                 fsm.CurrentState != djmpState)
                 moveState.DecreaseSpeed();
             
-            if (fsm.CurrentState != gldeState)
+            if (fsm.CurrentState != gldeState && fsm.CurrentState != grabState && moveState.IsGrounded())
                 staminaBar.FillValue += 1.5f * Time.deltaTime;
         }
 
@@ -349,7 +349,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
             fsm.AddTransition(wallState, dethState, () => died);
-            fsm.AddTransition(wallState, grabState, () => grabPressed);
+            fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.depleted);
 
             fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
             fsm.AddTransition(wallJumpState, idleState,
@@ -363,7 +363,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
             
-            fsm.AddTransition(grabState, fallState, () => !grabPressed);
+            fsm.AddTransition(grabState, fallState, () => !grabPressed || staminaBar.depleted);
             fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
         }
 

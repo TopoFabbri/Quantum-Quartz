@@ -22,6 +22,8 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
+            
+            barController.SetVisibility(true);
 
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
@@ -30,6 +32,8 @@ namespace Code.Scripts.States
         public override void OnUpdate()
         {
             base.OnUpdate();
+            
+            barController.FillValue -= GrabSettings.staminaMitigation * Time.deltaTime;
         }
     }
 }
