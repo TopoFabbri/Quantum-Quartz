@@ -45,7 +45,8 @@ namespace Code.Scripts.Player
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
         [SerializeField] private CameraController camController;
-
+        [SerializeField] private BarController staminaBar;
+        
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private PlayerSfx playerSfx;
 
@@ -152,6 +153,9 @@ namespace Code.Scripts.Player
             if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState &&
                 fsm.CurrentState != djmpState)
                 moveState.DecreaseSpeed();
+            
+            if (fsm.CurrentState != gldeState)
+                staminaBar.FillValue += 0.1f * Time.deltaTime;
         }
 
         private void FixedUpdate()
@@ -236,7 +240,7 @@ namespace Code.Scripts.Player
             extpState = new ExitTpState<string>("ExitTP", rb);
             wallState = new WallState<string>("Wall", stateSettings[7], rb, transform, this, playerSfx);
             wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
-            gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx);
+            gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -308,7 +312,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
 
-            fsm.AddTransition(fallState, gldeState, () => glidePressed);
+            fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.depleted);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
             fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
             fsm.AddTransition(fallState, dashState, () => dashPressed);
@@ -349,7 +353,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
             
-            fsm.AddTransition(gldeState, fallState, () => !glidePressed);
+            fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
         }

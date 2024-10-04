@@ -6,18 +6,24 @@ namespace Code.Scripts.States
 {
     public class GlideState<T> : FallState<T>
     {
-        GlideSettings Settings => settings as GlideSettings;
+        protected GlideSettings Settings => settings as GlideSettings;
 
         private float prevGravScale;
+        private bool interruptCoroutine;
+        private readonly BarController barController;
         
-        public GlideState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform, mb, playerSfx)
+        public GlideState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings, rb, transform, mb, playerSfx)
         {
+            this.barController = barController;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
 
+            barController.SetVisibility(true);
+            interruptCoroutine = true;
+            
             prevGravScale = rb.gravityScale;
             rb.gravityScale = 0f;
         }
@@ -26,6 +32,8 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
+            interruptCoroutine = false;
+            
             rb.gravityScale = prevGravScale;
         }
 
@@ -36,6 +44,13 @@ namespace Code.Scripts.States
             Vector2 vector2 = rb.velocity;
             vector2.y = -Settings.fallSpeed * Time.fixedDeltaTime;
             rb.velocity = vector2;
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            barController.FillValue -= Settings.staminaMitigation * Time.deltaTime;
         }
     }
 }

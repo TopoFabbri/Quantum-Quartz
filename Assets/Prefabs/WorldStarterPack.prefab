@@ -1065,6 +1065,7 @@ MonoBehaviour:
   dashPs: {fileID: 2237095473829572802}
   djmpPs: {fileID: 7283381500255639009}
   camController: {fileID: 5601057218579832821}
+  staminaBar: {fileID: 8225620126934593600}
   sprite: {fileID: 6340732406567318058}
   playerSfx: {fileID: 5633411915053908958}
   fallShakeMagnitudeMultiplier: 0.015
@@ -1346,10 +1347,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.23281251
-    y: 0
-    width: 0.25555557
-    height: 0.25555554
+    x: 0
+    y: 0.17407407
+    width: 0.14895834
+    height: 0.14895833
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -7612,6 +7613,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4847720831263390370}
+  - component: {fileID: 8225620126934593600}
   - component: {fileID: 6399367333187215420}
   - component: {fileID: 6840678344628939747}
   - component: {fileID: 2471059341220326933}
@@ -7642,6 +7644,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.531248}
   m_SizeDelta: {x: 1, y: 0.3125}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8225620126934593600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182077944693161757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5001af5e38474564dab21b9d459ebb5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill: {fileID: 2566352781495322702}
+  strides: 0.0625
 --- !u!223 &6399367333187215420
 Canvas:
   m_ObjectHideFlags: 0
