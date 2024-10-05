@@ -363,7 +363,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
             
-            fsm.AddTransition(grabState, fallState, () => !grabPressed || staminaBar.depleted);
+            fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.depleted);
             fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
         }
 
