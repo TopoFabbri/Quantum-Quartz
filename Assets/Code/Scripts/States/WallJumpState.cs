@@ -37,10 +37,8 @@ namespace Code.Scripts.States
 
         public override void OnUpdate()
         {
-            if (!canMove)
-                Input = 0f;
-            
-            base.OnUpdate();
+            if (canMove)
+                base.OnUpdate();
         }
 
         /// <summary>

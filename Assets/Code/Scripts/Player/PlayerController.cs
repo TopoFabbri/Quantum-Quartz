@@ -476,6 +476,7 @@ namespace Code.Scripts.Player
             djmpState.SetInput(input.x);
             wallState.SetInput(input.x);
             gldeState.SetInput(input.x);
+            wallJumpState.SetInput(input.x);
         }
 
         /// <summary>
@@ -613,7 +614,7 @@ namespace Code.Scripts.Player
             falling = true;
 
             if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState &&
-                fsm.PreviousState != wallJumpState)
+                fsm.PreviousState != wallJumpState && fsm.PreviousState != wallState)
                 fallState.StartCoyoteTime();
         }
 

@@ -14,8 +14,8 @@ namespace Code.Scripts.States
         
         protected readonly Rigidbody2D rb;
         protected readonly Transform transform;
-        
-        protected static float _speed;
+
+        private static float _speed;
 
         public float Input { get; protected set; }
         public float Speed => _speed;
