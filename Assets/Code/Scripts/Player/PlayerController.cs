@@ -396,6 +396,7 @@ namespace Code.Scripts.Player
 
             wallState.FacingRight = facingRight;
             wallJumpState.FacingRight = facingRight;
+            grabState.FacingRight = facingRight;
 
             OnFlip?.Invoke(facingRight);
         }

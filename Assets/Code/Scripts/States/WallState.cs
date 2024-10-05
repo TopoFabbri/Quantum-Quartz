@@ -90,7 +90,7 @@ namespace Code.Scripts.States
             RaycastHit2D hit = Physics2D.Raycast(transform.position + (FacingRight ? Vector3.left : Vector3.right),
                 FacingRight ? Vector2.right : Vector2.left, WallSettings.wallCheckDis * 4f,
                 LayerMask.GetMask("Default"));
-
+            
             if (!hit.collider)
                 return;
 
