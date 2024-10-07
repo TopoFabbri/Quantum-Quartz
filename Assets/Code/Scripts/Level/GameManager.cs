@@ -20,8 +20,15 @@ namespace Code.Scripts.Level
             Cursor.visible = false;
             
             TimeCounter.Start();
+            
+            SfxController.MusicOnOff(true, gameObject);
         }
 
+        private void OnDestroy()
+        {
+            SfxController.MusicOnOff(false, gameObject);
+        }
+        
         private void OnEnable()
         {
             InputManager.Restart += OnRestartHandler;

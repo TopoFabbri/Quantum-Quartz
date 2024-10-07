@@ -4,13 +4,15 @@ namespace Code.Scripts.Obstacles
 {
     public class LaserSfx : MonoBehaviour
     {
-        [SerializeField] private string offEvent;
+        [SerializeField] private string laserEvent;
         [SerializeField] private string windUpEvent;
-        
+        [SerializeField] private string shootEvent;
+
         private new UnityEngine.Camera camera;
 
         private bool isOn;
-        
+        private uint laserEventId;
+
         private void Awake()
         {
             if (UnityEngine.Camera.main != null)
@@ -20,12 +22,9 @@ namespace Code.Scripts.Obstacles
         private void Update()
         {
             bool onScreen = IsOnScreen();
-            
+
             if (isOn && !onScreen)
                 Off();
-
-            if (!isOn && onScreen)
-                WindUp();
         }
 
         /// <summary>
@@ -33,8 +32,12 @@ namespace Code.Scripts.Obstacles
         /// </summary>
         public void Off()
         {
+            if (!isOn)
+                return;
+            
             isOn = false;
-            AkSoundEngine.PostEvent(offEvent, gameObject);
+            
+            AkSoundEngine.StopPlayingID(laserEventId);
         }
 
         /// <summary>
@@ -44,20 +47,36 @@ namespace Code.Scripts.Obstacles
         {
             if (!IsOnScreen())
                 return;
-            
-            isOn = true;
+
             AkSoundEngine.PostEvent(windUpEvent, gameObject);
         }
-        
+
+        /// <summary>
+        /// Call turn on laser event
+        /// </summary>
+        private void On()
+        {
+            if (isOn || !IsOnScreen())
+                return;
+            
+            isOn = true;
+
+            AkSoundEngine.PostEvent(shootEvent, gameObject);
+            laserEventId = AkSoundEngine.PostEvent(laserEvent, gameObject);
+        }
+
         /// <summary>
         /// Check if laser is on screen
         /// </summary>
         /// <returns>True if on screen</returns>
         private bool IsOnScreen()
         {
+            if (!camera)
+                return false;
+
             Vector3 viewPos = camera.WorldToViewportPoint(transform.position);
             bool onScreen = viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1;
-            
+
             return onScreen;
         }
     }
