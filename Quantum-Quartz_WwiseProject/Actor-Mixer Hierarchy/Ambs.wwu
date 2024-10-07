@@ -21,29 +21,23 @@
 							<ChildrenList>
 								<Folder Name="Lasers" ID="{45764CE5-A5CE-43DE-9497-2C4FD19A6438}" ShortID="28831619">
 									<ChildrenList>
-										<BlendContainer Name="Steampunk_Laser_oneshot" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" ShortID="8444524">
+										<Sound Name="Laser_LP" ID="{C21FD8E3-CDFF-475F-AB17-CBAB24BD38FD}" ShortID="486290613">
 											<PropertyList>
-												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
-												<Property Name="MaxSoundPerInstance" Type="int16">
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>2</Value>
-													</ValueList>
-												</Property>
-												<Property Name="OverridePositioning" Type="bool" Value="True"/>
-												<Property Name="UseMaxSoundPerInstance" Type="bool">
-													<ValueList>
-														<Value>True</Value>
+														<Value>-23</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
 													<Custom>
-														<Attenuation Name="Attenuation (Custom)" ID="{5ECE2D4E-04B0-4CC4-8108-467BA5CC8650}" ShortID="517949603">
+														<Attenuation Name="Attenuation (Custom)" ID="{E1E095C5-7413-4E0C-AB3A-F5415F8EB05A}" ShortID="793889649">
 															<CurveUsageInfoList>
 																<VolumeDryUsage>
 																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-																		<Curve Name="VolumeDry" ID="{4B2FBA2A-16EA-4601-8F4C-79C1C4E50613}">
+																		<Curve Name="VolumeDry" ID="{4412EFB6-4D11-4E01-9638-D6CD1A62E590}">
 																			<PropertyList>
 																				<Property Name="Flags" Type="int32" Value="3"/>
 																			</PropertyList>
@@ -124,99 +118,261 @@
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+													<ObjectRef Name="Ambs" ID="{0FAAA135-8F87-43D4-88AB-7273B3AE048F}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<Sound Name="Charge_Shoot_Laser" ID="{2AEB8C9A-65D7-4963-9019-865A012DC1E4}" ShortID="124374118">
+												<AudioFileSource Name="Laser_LP" ID="{7FE190B2-9E9D-49D7-905A-24D89EF87063}">
 													<PropertyList>
-														<Property Name="Volume" Type="Real64">
-															<ValueList>
-																<Value>-8</Value>
-															</ValueList>
-														</Property>
+														<Property Name="MarkerInputMode" Type="int16" Value="2"/>
 													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}">
-															<PropertyList>
-																<Property Name="FadeOutDuration" Type="Real64" Value="0.00831638895435161"/>
-																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-																<Property Name="TrimEnd" Type="Real64" Value="0.683120647087677"/>
-															</PropertyList>
-															<Language>SFX</Language>
-															<AudioFile>Charge_Shoot_Laser.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="403912503"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ActiveSourceList>
-														<ActiveSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-												<Sound Name="Laser_LP" ID="{C21FD8E3-CDFF-475F-AB17-CBAB24BD38FD}" ShortID="486290613">
-													<PropertyList>
-														<Property Name="InitialDelay" Type="Real64">
-															<ValueList>
-																<Value>0.683</Value>
-															</ValueList>
-														</Property>
-														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-														<Property Name="Volume" Type="Real64">
-															<ValueList>
-																<Value>-23</Value>
-															</ValueList>
-														</Property>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="Laser_LP" ID="{7FE190B2-9E9D-49D7-905A-24D89EF87063}">
-															<PropertyList>
-																<Property Name="MarkerInputMode" Type="int16" Value="2"/>
-															</PropertyList>
-															<Language>SFX</Language>
-															<AudioFile>Laser_LP.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="151863213"/>
-															</MediaIDList>
-															<PluginInnerObjectList>
-																<List Name="Markers">
-																	<PluginInnerObject Name="" ID="{F33637FF-A761-4EFA-97F9-BB9C5B985D69}" PluginName="Marker" CompanyID="0" PluginID="993">
-																		<PropertyList>
-																			<Property Name="Label" Type="string" Value="1"/>
-																		</PropertyList>
-																	</PluginInnerObject>
-																	<PluginInnerObject Name="" ID="{487AD930-74A5-4456-92DE-2D0B8DBBCB7A}" PluginName="Marker" CompanyID="0" PluginID="993">
-																		<PropertyList>
-																			<Property Name="Label" Type="string" Value="2"/>
-																			<Property Name="Time" Type="Real64" Value="1.77422916666667"/>
-																		</PropertyList>
-																	</PluginInnerObject>
-																</List>
-															</PluginInnerObjectList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ActiveSourceList>
-														<ActiveSource Name="Laser_LP" ID="{7FE190B2-9E9D-49D7-905A-24D89EF87063}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
+													<Language>SFX</Language>
+													<AudioFile>Laser_LP.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="151863213"/>
+													</MediaIDList>
+												</AudioFileSource>
 											</ChildrenList>
-										</BlendContainer>
+											<ActiveSourceList>
+												<ActiveSource Name="Laser_LP" ID="{7FE190B2-9E9D-49D7-905A-24D89EF87063}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Charge_Shoot_Laser" ID="{2AEB8C9A-65D7-4963-9019-865A012DC1E4}" ShortID="124374118">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-8</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<Custom>
+														<Attenuation Name="Attenuation (Custom)" ID="{5D9C633D-4232-4042-9C7B-F0E559119D0F}" ShortID="78597323">
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{E0829EFE-6744-4C49-926F-D6692544E3F3}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+																<ObstructionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionVolumeUsage>
+																<ObstructionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionLPFUsage>
+																<ObstructionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionHPFUsage>
+																<OcclusionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionVolumeUsage>
+																<OcclusionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionLPFUsage>
+																<OcclusionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionHPFUsage>
+																<DiffractionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionVolumeUsage>
+																<DiffractionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionLPFUsage>
+																<DiffractionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionHPFUsage>
+																<TransmissionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionVolumeUsage>
+																<TransmissionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionLPFUsage>
+																<TransmissionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionHPFUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Ambs" ID="{0FAAA135-8F87-43D4-88AB-7273B3AE048F}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.00831638895435161"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.550837923510441"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Charge_Shoot_Laser.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="403912503"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Charge_Shoot_Laser" ID="{71DBBA7D-6B22-4EDE-A7C3-B3F84FDEDCEE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Beam_Laser" ID="{E9D42955-3D4B-48F7-A5F4-B508D1B2EDBD}" ShortID="915830771">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-8</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<Custom>
+														<Attenuation Name="Attenuation (Custom)" ID="{9A9B12A9-04B6-4A4F-ADE4-37B1DB7AB1FC}" ShortID="1005705452">
+															<CurveUsageInfoList>
+																<VolumeDryUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																		<Curve Name="VolumeDry" ID="{D9F6AFC4-BD9C-4D9A-9AA9-2B62F90CBCBB}">
+																			<PropertyList>
+																				<Property Name="Flags" Type="int32" Value="3"/>
+																			</PropertyList>
+																			<PointList>
+																				<Point>
+																					<XPos>0</XPos>
+																					<YPos>0</YPos>
+																					<Flags>5</Flags>
+																				</Point>
+																				<Point>
+																					<XPos>100</XPos>
+																					<YPos>-200</YPos>
+																					<Flags>37</Flags>
+																				</Point>
+																			</PointList>
+																		</Curve>
+																	</CurveUsageInfo>
+																</VolumeDryUsage>
+																<VolumeWetGameUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetGameUsage>
+																<VolumeWetUserUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+																</VolumeWetUserUsage>
+																<LowPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</LowPassFilterUsage>
+																<HighPassFilterUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</HighPassFilterUsage>
+																<SpreadUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</SpreadUsage>
+																<FocusUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+																</FocusUsage>
+																<ObstructionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionVolumeUsage>
+																<ObstructionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionLPFUsage>
+																<ObstructionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</ObstructionHPFUsage>
+																<OcclusionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionVolumeUsage>
+																<OcclusionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionLPFUsage>
+																<OcclusionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</OcclusionHPFUsage>
+																<DiffractionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionVolumeUsage>
+																<DiffractionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionLPFUsage>
+																<DiffractionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</DiffractionHPFUsage>
+																<TransmissionVolumeUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionVolumeUsage>
+																<TransmissionLPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionLPFUsage>
+																<TransmissionHPFUsage>
+																	<CurveUsageInfo Platform="Linked" CurveToUse="UseProject"/>
+																</TransmissionHPFUsage>
+															</CurveUsageInfoList>
+														</Attenuation>
+													</Custom>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Ambs" ID="{0FAAA135-8F87-43D4-88AB-7273B3AE048F}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Charge_Shoot_Laser" ID="{128F3A93-CD00-4425-B904-53E06E0B43DA}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.00671567499371961"/>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.0144901880670163"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.548489126052542"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.683120647087677"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Charge_Shoot_Laser.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="924197872"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Charge_Shoot_Laser" ID="{128F3A93-CD00-4425-B904-53E06E0B43DA}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</Folder>
 								<Folder Name="Steam_Ambs" ID="{88E3492E-F23C-4845-A24C-53F5A888E03C}" ShortID="643737609">

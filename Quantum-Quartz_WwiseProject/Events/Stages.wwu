@@ -13,17 +13,6 @@
 						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>
 					<ChildrenList>
-						<Event Name="Play_SP_Charge_Shoot_Laser" ID="{A7AF2BD7-2650-42D0-8919-C9B90E54353E}">
-							<ChildrenList>
-								<Action Name="" ID="{F25F2746-6581-4B59-A166-53EC00348426}" ShortID="918175097">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Steampunk_Laser_oneshot" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
 						<Folder Name="Steampunk_Ambs" ID="{BFC81798-8C0F-458E-815C-018254AB3CDB}" ShortID="45368212">
 							<ChildrenList>
 								<Event Name="Play_SP_Amb_Steam" ID="{CF83F248-3C38-4067-BDC3-C9A13A0B5162}">
@@ -39,20 +28,76 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
-						<Event Name="Stop_SP_Charge_Shoot_Laser" ID="{2607CE6D-3038-48DA-B06A-EFC38D68A063}">
+						<Folder Name="Lasers" ID="{AA1A9572-72FF-4450-9293-0EE7620199A2}" ShortID="327444201">
 							<ChildrenList>
-								<Action Name="" ID="{E7B5AA72-FCA0-4919-BC6F-08145270D31A}" ShortID="100540556">
-									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="2"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Steampunk_Laser_oneshot" ID="{D1B9E69D-3766-41DE-8921-E2E957D0CCB1}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
+								<Event Name="Play_Charge_Shoot_Laser" ID="{40952075-05DC-4690-B716-DDCB36B3539A}">
+									<ChildrenList>
+										<Action Name="" ID="{462ACCA9-A6A7-4D16-8686-ADCECD2695B9}" ShortID="820852771">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Charge_Shoot_Laser" ID="{2AEB8C9A-65D7-4963-9019-865A012DC1E4}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_Beam_Laser" ID="{31B01294-AF54-4187-8E3F-5EC837E19DE4}">
+									<ChildrenList>
+										<Action Name="" ID="{E293DFCE-8090-43B0-947F-087F70D84DE7}" ShortID="985443089">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Beam_Laser" ID="{E9D42955-3D4B-48F7-A5F4-B508D1B2EDBD}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_Laser_LP" ID="{CE9B4039-0E1F-4C66-9795-A84670146DD9}">
+									<ChildrenList>
+										<Action Name="" ID="{35E65133-7952-4E99-ABA8-89D1084B5D17}" ShortID="900932621">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Laser_LP" ID="{C21FD8E3-CDFF-475F-AB17-CBAB24BD38FD}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
-						</Event>
+						</Folder>
+						<Folder Name="Steampunk_Music" ID="{7799CA34-F1D2-4D68-B4A5-B703AB460A35}" ShortID="883587752">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="4"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<Event Name="Play_Steampunk_Music" ID="{9C133FA1-99D8-48EA-9A1D-A494A5CC2278}">
+									<ChildrenList>
+										<Action Name="" ID="{BB0A073B-2E47-497F-B8C9-9C531B07D421}" ShortID="738164073">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Steampunk_Default" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" WorkUnitID="{1A182142-E5A9-4D77-8D2B-F2B8C90EB1CC}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_Steampunk_Music" ID="{A0F915D4-00FC-46E5-B6AD-3457E6AD9422}">
+									<ChildrenList>
+										<Action Name="" ID="{AD8AFDCB-3C04-4D80-A18E-B8C20627CE27}" ShortID="984623584">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Steampunk_Default" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" WorkUnitID="{1A182142-E5A9-4D77-8D2B-F2B8C90EB1CC}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

@@ -56,7 +56,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C7473D06-239B-DB70-FF4C-BCF12A8F0198}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{61023EA3-64FE-88DF-04F5-79C1C488E395}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -86,7 +86,7 @@
 				</File>
 				<File Id="151863213" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Laser_LP.wav</ShortName>
-					<CachePath>SFX/Laser_LP_170C2CFA.wem</CachePath>
+					<CachePath>SFX/Laser_LP_542CF7D5.wem</CachePath>
 				</File>
 				<File Id="192936632" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-018.wav</ShortName>
@@ -134,7 +134,7 @@
 				</File>
 				<File Id="403912503" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Charge_Shoot_Laser.wav</ShortName>
-					<CachePath>SFX/Charge_Shoot_Laser_BF792A05.wem</CachePath>
+					<CachePath>SFX/Charge_Shoot_Laser_0C6F8EAD.wem</CachePath>
 				</File>
 				<File Id="413672958" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-001.wav</ShortName>
@@ -171,6 +171,10 @@
 				<File Id="670787781" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-021.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-021_10C4C929.wem</CachePath>
+				</File>
+				<File Id="717978069" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Steampunk Level_v5.0 Premaster.wav</ShortName>
+					<CachePath>SFX/Steampunk Level_v5.0 Premaster_542CF7D5.wem</CachePath>
 				</File>
 				<File Id="728419561" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-019.wav</ShortName>
@@ -220,6 +224,10 @@
 					<ShortName>Concrete_Footstep-027.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-027_10C4C929.wem</CachePath>
 				</File>
+				<File Id="924197872" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Charge_Shoot_Laser.wav</ShortName>
+					<CachePath>SFX/Charge_Shoot_Laser_97BD7CCE.wem</CachePath>
+				</File>
 				<File Id="947895533" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-032.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-032_10C4C929.wem</CachePath>
@@ -251,9 +259,19 @@
 						<MediaRef Id="200330901"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="1231329179" Name="Play_Beam_Laser" DurationType="OneShot" DurationMin="0.13463151" DurationMax="0.13463151">
+					<MediaRefs>
+						<MediaRef Id="924197872"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3128279563" Name="Play_Blue_Quartz_Jump" DurationType="OneShot" DurationMin="0.051458333" DurationMax="0.051458333">
 					<MediaRefs>
 						<MediaRef Id="139537908"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3751886250" Name="Play_Charge_Shoot_Laser" DurationType="OneShot" DurationMin="0.55083793" DurationMax="0.55083793">
+					<MediaRefs>
+						<MediaRef Id="403912503"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="1570257991" Name="Play_Concrete_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.13970633">
@@ -319,18 +337,22 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="718252718" Name="Play_Laser_LP" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="151863213"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3893832595" Name="Play_SP_Amb_Steam" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="64216506" Name="Play_SP_Charge_Shoot_Laser" MaxAttenuation="100" DurationType="Infinite">
+				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="OneShot" DurationMin="162.46155" DurationMax="162.46155">
 					<MediaRefs>
-						<MediaRef Id="151863213"/>
-						<MediaRef Id="403912503"/>
+						<MediaRef Id="717978069"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="815649508" Name="Stop_SP_Charge_Shoot_Laser" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<SwitchGroups>
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
@@ -342,5 +364,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{4B8FDF22-84B6-0071-11D5-D5488E72FB84}</FileHash>
+	<FileHash>{DC5C6FA3-CAF2-4BAB-6334-584949461DFF}</FileHash>
 </SoundBanksInfo>
