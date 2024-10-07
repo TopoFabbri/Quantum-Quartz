@@ -24,6 +24,7 @@ namespace Code.Scripts.States
             
             prevGravScale = rb.gravityScale;
             rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
         }
 
         public override void OnExit()
