@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{CBC18C20-F2CE-4A49-ACEA-5F7EC83669B6}" SchemaVersion="110">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{CBC18C20-F2CE-4A49-ACEA-5F7EC83669B6}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{CBC18C20-F2CE-4A49-ACEA-5F7EC83669B6}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="Test" ID="{868025D4-F099-4A41-823A-FECB33B3C4A4}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Play_Laser_LP" ID="{CE9B4039-0E1F-4C66-9795-A84670146DD9}" WorkUnitID="{B8778B66-9DD8-40E2-850A-F73033811BD0}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Stop_Laser_LP" ID="{DD437797-89ED-4D98-8B3C-0BE02D3451E7}" WorkUnitID="{B8778B66-9DD8-40E2-850A-F73033811BD0}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true"/>
+					<CurrentStateList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true"/>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>

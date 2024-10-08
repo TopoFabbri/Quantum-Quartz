@@ -63,6 +63,20 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="Stop_Laser_LP" ID="{DD437797-89ED-4D98-8B3C-0BE02D3451E7}">
+									<ChildrenList>
+										<Action Name="" ID="{83D4C8C2-EE2C-4653-8DBF-E3F47F0B0858}" ShortID="708669932">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Laser_LP" ID="{C21FD8E3-CDFF-475F-AB17-CBAB24BD38FD}" WorkUnitID="{EB38CC4A-F577-4016-891B-D45023D03FCD}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Steampunk_Music" ID="{7799CA34-F1D2-4D68-B4A5-B703AB460A35}" ShortID="883587752">
