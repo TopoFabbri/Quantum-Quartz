@@ -91,7 +91,7 @@ namespace Code.Scripts.States
                 FacingRight ? Vector2.right : Vector2.left, WallSettings.wallCheckDis * 4f,
                 LayerMask.GetMask("Default"));
             
-            if (!hit.collider)
+            if (!hit.collider || !hit.collider.CompareTag("Floor"))
                 return;
 
             Vector3 newPos = transform.position;

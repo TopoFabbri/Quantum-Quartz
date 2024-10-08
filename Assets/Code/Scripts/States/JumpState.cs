@@ -39,6 +39,8 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
+            rb.sharedMaterial.friction = moveSettings.groundFriction;
+            
             HasJumped = false;
         }
 
