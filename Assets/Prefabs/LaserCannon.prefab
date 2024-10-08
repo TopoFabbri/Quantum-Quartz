@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6900140869472391618}
   - component: {fileID: 7432534263170368766}
   m_Layer: 0
-  m_Name: Origin
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,6 +118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5696835817047063248}
   - {fileID: 6900140869472391618}
   - {fileID: 3374492047617507561}
   m_Father: {fileID: 0}
@@ -139,7 +140,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 65
-  origin: {fileID: 6900140869472391618}
+  origin: {fileID: 5696835817047063248}
   end: {fileID: 3374492047617507561}
   line: {fileID: 2220791965457056089}
   animator: {fileID: 3710814431014743559}
@@ -309,6 +310,37 @@ MonoBehaviour:
   laserEvent: Play_Laser_LP
   windUpEvent: Play_Charge_Shoot_Laser
   shootEvent: Play_Beam_Laser
+--- !u!1 &5979443667260540502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5696835817047063248}
+  m_Layer: 0
+  m_Name: Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5696835817047063248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979443667260540502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.03125, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7699243481721602613}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &6120070678338149911
 GameObject:
   m_ObjectHideFlags: 0

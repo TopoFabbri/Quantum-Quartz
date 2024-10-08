@@ -22,7 +22,7 @@ namespace Code.Scripts.Obstacles
         [SerializeField] private float timeOn;
         [SerializeField] private float timeOff;
         [SerializeField] private float timeOffset;
-
+        
         private const float WindupTime = 0.6f;
         
         private bool isOn;
@@ -52,10 +52,10 @@ namespace Code.Scripts.Obstacles
             line.enabled = true;
             end.gameObject.SetActive(true);
 
-            line.SetPosition(0, origin.position + origin.right * 0.5f + origin.up * 0.03f);
-            line.SetPosition(1, end.position + origin.up * 0.03f);
-
             FindCollisionPoint();
+
+            line.SetPosition(0, origin.position + origin.right * 0.5f);
+            line.SetPosition(1, end.position);
         }
 
         private void FindCollisionPoint()
