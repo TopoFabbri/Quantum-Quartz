@@ -19,8 +19,9 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private Button videoFirstButton;
     [SerializeField] private Button audioFirstButton;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Toggle fullScreenToggle;
 
-    private bool isFullScreen = true;
+    private bool isFullScreen;
     private void Start()
     {
         optionsPanel.SetActive(false);
@@ -29,8 +30,9 @@ public class OptionsController : MonoBehaviour
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
         
-        isFullScreen = PlayerPrefs.GetInt("FullScreen", 0) == 1;
-        Screen.fullScreen = isFullScreen;
+        //isFullScreen = PlayerPrefs.GetInt("FullScreen", 0) == 1;
+        //Screen.fullScreen = isFullScreen;
+        //fullScreenToggle.isOn = isFullScreen;
     }
 
     public void SetFullScreen()

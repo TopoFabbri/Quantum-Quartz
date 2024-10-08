@@ -1,9 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Menu
 {
@@ -21,6 +21,7 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
+            UnityEngine.Screen.fullScreen = PlayerPrefs.GetInt("FullScreen", 0) == 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
