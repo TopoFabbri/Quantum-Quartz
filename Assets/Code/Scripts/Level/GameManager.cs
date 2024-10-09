@@ -11,6 +11,7 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private TextMeshProUGUI timerTxt;
         [SerializeField] private GameObject statesText;
+        public bool isTimerOn;
         
         private bool ended;
 
@@ -19,6 +20,9 @@ namespace Code.Scripts.Level
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             
+            isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+            
+            if(isTimerOn)
             TimeCounter.Start();
             
             SfxController.MusicOnOff(true, gameObject);

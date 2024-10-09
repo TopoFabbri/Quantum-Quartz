@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts.Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,11 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private Button audioFirstButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Toggle fullScreenToggle;
+    [SerializeField] private Toggle timerToggle;
 
     private bool isFullScreen;
+    private bool isTimerOn;
+    
     private void Start()
     {
         optionsPanel.SetActive(false);
@@ -30,14 +34,26 @@ public class OptionsController : MonoBehaviour
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
         
+        
         bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
+        isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+        
         fullScreenToggle.isOn = isFullScreen;
+        timerToggle.isOn = isTimerOn;
     }
 
     public void SetFullScreen()
     {
         bool isFullScreen = fullScreenToggle.isOn;
         FullScreenManager.SetFullScreen(isFullScreen); 
+    }
+    public void ToggleTimer()
+    {
+        isTimerOn = timerToggle.isOn;
+            
+        GameManager.Instance.isTimerOn = isTimerOn;
+        PlayerPrefs.SetInt("Timer", isTimerOn ? 1 : 0);
+        PlayerPrefs.Save();
     }
     public void TurnCredits()
         {
@@ -120,4 +136,5 @@ public class OptionsController : MonoBehaviour
                 optionsFirstButton.Select();
             }
         }
+        
 }
