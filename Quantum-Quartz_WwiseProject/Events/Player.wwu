@@ -200,6 +200,39 @@
 										</Reference>
 									</ReferenceList>
 								</Action>
+								<Action Name="" ID="{58291321-933B-4599-9379-2BE1DC240062}" ShortID="963942012">
+									<PropertyList>
+										<Property Name="FadeTime" Type="Real64" Value="0.15"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Wind_LP" ID="{36933DD9-297D-4995-8AC0-9C479CFC64BE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{71ABA74F-DD1B-4EFC-82F7-E6FFCCD09D9B}" ShortID="604136564">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="SeekPercent" Type="Real64" Value="50">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{FC920783-AAA5-464F-8D9E-C4A2B24853D9}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="45"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Wind_LP" ID="{36933DD9-297D-4995-8AC0-9C479CFC64BE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 							</ChildrenList>
 						</Event>
 						<Event Name="Stop_Yellow_Quartz" ID="{98727EDF-8006-4187-838C-76918CD653BA}">
@@ -233,6 +266,17 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="Yellow_Quartz_Cloth_Start" ID="{A41AF7A8-709B-49E8-B534-CF1D8F23CA03}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{929C5A86-02E5-43AF-A959-E40BDE3016C4}" ShortID="145334083">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Wind_LP" ID="{36933DD9-297D-4995-8AC0-9C479CFC64BE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

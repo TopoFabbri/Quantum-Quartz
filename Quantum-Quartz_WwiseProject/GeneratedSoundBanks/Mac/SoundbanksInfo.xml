@@ -56,13 +56,17 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B8F28759-9194-A11A-B66D-892DCD2B7203}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{1BBB41DF-F6D7-5E8E-36B7-D91110478532}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
 				<File Id="5402978" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-014.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-014_10C4C929.wem</CachePath>
+				</File>
+				<File Id="10060735" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Yellow_Quartz_Wind_LP.wav</ShortName>
+					<CachePath>SFX/Yellow_Quartz_Wind_LP_10C4C929.wem</CachePath>
 				</File>
 				<File Id="10333130" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-003.wav</ShortName>
@@ -384,6 +388,7 @@
 				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
 					<MediaRefs>
+						<MediaRef Id="10060735"/>
 						<MediaRef Id="237036231"/>
 						<MediaRef Id="862457260"/>
 						<MediaRef Id="948792412"/>
@@ -403,5 +408,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{3A92597F-BD80-5EB4-496D-296C7214E51B}</FileHash>
+	<FileHash>{AB895888-503F-C159-7036-9ADD79383E49}</FileHash>
 </SoundBanksInfo>
