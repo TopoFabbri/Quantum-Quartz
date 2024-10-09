@@ -5,9 +5,11 @@ Event	ID	Name			Wwise Object Path	Notes
 	1231329179	Play_Beam_Laser			\Stages\Steampunk_Level\Lasers\Play_Beam_Laser	
 	1386925776	Stop_Laser_LP			\Stages\Steampunk_Level\Lasers\Stop_Laser_LP	
 	1570257991	Play_Concrete_Footsteps			\Player\Molly\Footsteps\Play_Concrete_Footsteps	
-	1886667247	Play_Dash_L			\Default Work Unit\Play_Dash_L	
-	1886667249	Play_Dash_R			\Default Work Unit\Play_Dash_R	
+	1886667247	Play_Dash_L			\Player\Molly\Play_Dash_L	
+	1886667249	Play_Dash_R			\Player\Molly\Play_Dash_R	
+	2438634884	Play_Yellow_Quartz			\Player\Molly\Play_Yellow_Quartz	
 	2505006364	Stop_Steampunk_Music			\Stages\Steampunk_Level\Steampunk_Music\Stop_Steampunk_Music	
+	2588384050	Stop_Yellow_Quartz			\Player\Molly\Stop_Yellow_Quartz	
 	2848448515	Play_Basic_Jump			\Player\Molly\Play_Basic_Jump	
 	3128279563	Play_Blue_Quartz_Jump			\Player\Molly\Play_Blue_Quartz_Jump	
 	3751886250	Play_Charge_Shoot_Laser			\Stages\Steampunk_Level\Lasers\Play_Charge_Shoot_Laser	
@@ -24,8 +26,12 @@ Switch	ID	Name	Switch Group			Notes
 	841620460	Concrete	Switch_Footsteps			
 	2473969246	Metal	Switch_Footsteps			
 
+Modulator Envelope	ID	Name			Wwise Object Path	Notes
+	672827090	Modulator Envelope (Custom)				
+
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	5402978	Concrete_Footstep-014	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-014_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-014		7576
+	10060735	Yellow_Quartz_Wind_LP	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Yellow_Quartz_Wind_LP_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Yellow_Quartz_Wind_LP		1887416
 	10333130	Concrete_Landings-003	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Landings-003_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-003		23380
 	49726500	Concrete_Footstep-024	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-024_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-024		12380
 	124247045	Concrete_Footstep-029	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-029_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-029		11628
@@ -35,6 +41,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	192936632	Concrete_Footstep-018	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-018_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-018		8904
 	200330901	Basic_Jump	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Basic_Jump_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Basic_Jump\Basic_Jump		13284
 	236984613	Concrete_Footstep-008	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-008_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-008		26096
+	237036231	Yellow_Quartz_Magic_Pad_LP	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Yellow_Quartz_Magic_Pad_LP_542CF7D5.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Pad\Yellow_Quartz_Magic_Pad_LP		2536704
 	243405919	Steam_Pipe_loop	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\STEAM_D79FB2B7.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Steampunk_Level\Steam_Ambs\Steam_Loop\Steam_Pipe_loop		1959150
 	271393065	Concrete_Footstep-003	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-003_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-003		13984
 	283864771	Concrete_Footstep-035	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-035_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-035		14808
@@ -48,14 +55,14 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	414913162	Concrete_Footstep-011	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-011_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-011		15036
 	446586235	Concrete_Footstep-030	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-030_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-030		18028
 	503771883	Concrete_Footstep-034	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-034_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-034		16964
-	519779318	Dash_R	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Dash_R_BB8D46BD.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Dash_R		27842
+	519779318	Dash_R	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Dash_R_EC70017B.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Red_Quartz\Dash_R		27842
 	560813382	Concrete_Footstep-020	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-020_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-020		15560
 	595934151	Concrete_Footstep-017	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-017_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-017		10240
 	600393049	Concrete_Footstep-028	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-028_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-028		11948
-	624876094	Dash_L	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Dash_L_C1415B5D.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Dash_L		27842
+	624876094	Dash_L	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Dash_L_3E0C39D3.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Red_Quartz\Dash_L		27842
 	661691748	Concrete_Footstep-002	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-002_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-002		21120
 	670787781	Concrete_Footstep-021	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-021_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-021		8908
-	717978069	Steampunk Level_v5_0 Premaster	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Steampunk Level_v5.0 Premaster_542CF7D5.wem		\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Steampunk_Music\Steampunk_Default\Steampunk Level_v5_0 Premaster		31192712
+	717978069	Intro	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Steampunk Level_v5.0 Premaster_542CF7D5.wem		\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Steampunk_Music\Steampunk_Default\Intro		31192712
 	728419561	Concrete_Footstep-019	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-019_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-019		7540
 	735533881	Concrete_Landings-002	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Landings-002_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-002		24168
 	742299575	Concrete_Footstep-023	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-023_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-023		8860
@@ -65,11 +72,13 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	807661749	Concrete_Footstep-004	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-004_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-004		13812
 	841600986	Concrete_Footstep-031	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-031_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-031		24408
 	854077163	Concrete_Footstep-007	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-007_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-007		8320
+	862457260	Yellow_Quartz_Cloth_LP	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Yellow_Quartz_Cloth_LP_D79FB2B7.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Cloth\Yellow_Quartz_Cloth_LP		505316
 	885686076	Concrete_Footstep-010	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-010_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-010		14332
 	906006272	Concrete_Landings-001	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Landings-001_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-001		20548
 	906701666	Concrete_Footstep-027	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-027_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-027		11236
 	924197872	Beam_Laser	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Charge_Shoot_Laser_C1103BD0.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Steampunk_Level\Lasers\Beam_Laser		13022
 	947895533	Concrete_Footstep-032	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-032_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-032		12988
+	948792412	Yellow_Quartz_Cloth_Start	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Yellow_Quartz_Cloth_Start_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Cloth\Yellow_Quartz_Cloth_Start		30556
 	954933478	Concrete_Footstep-037	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-037_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-037		16488
 	998000307	Concrete_Footstep-026	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-026_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-026		8560
 	1018597292	Concrete_Footstep-016	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-016_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-016		12988

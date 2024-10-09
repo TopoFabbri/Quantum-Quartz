@@ -56,13 +56,17 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C1B0953A-E6A8-57D4-5F44-B07428D8DA9B}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{1BBB41DF-F6D7-5E8E-36B7-D91110478532}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
 				<File Id="5402978" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-014.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-014_10C4C929.wem</CachePath>
+				</File>
+				<File Id="10060735" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Yellow_Quartz_Wind_LP.wav</ShortName>
+					<CachePath>SFX/Yellow_Quartz_Wind_LP_10C4C929.wem</CachePath>
 				</File>
 				<File Id="10333130" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-003.wav</ShortName>
@@ -99,6 +103,10 @@
 				<File Id="236984613" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-008.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-008_10C4C929.wem</CachePath>
+				</File>
+				<File Id="237036231" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Yellow_Quartz_Magic_Pad_LP.wav</ShortName>
+					<CachePath>SFX/Yellow_Quartz_Magic_Pad_LP_542CF7D5.wem</CachePath>
 				</File>
 				<File Id="243405919" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>STEAM.wav</ShortName>
@@ -154,7 +162,7 @@
 				</File>
 				<File Id="519779318" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_R.wav</ShortName>
-					<CachePath>SFX/Dash_R_BB8D46BD.wem</CachePath>
+					<CachePath>SFX/Dash_R_EC70017B.wem</CachePath>
 				</File>
 				<File Id="560813382" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-020.wav</ShortName>
@@ -170,7 +178,7 @@
 				</File>
 				<File Id="624876094" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_L.wav</ShortName>
-					<CachePath>SFX/Dash_L_C1415B5D.wem</CachePath>
+					<CachePath>SFX/Dash_L_3E0C39D3.wem</CachePath>
 				</File>
 				<File Id="661691748" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-002.wav</ShortName>
@@ -220,6 +228,10 @@
 					<ShortName>Concrete_Footstep-007.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-007_10C4C929.wem</CachePath>
 				</File>
+				<File Id="862457260" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Yellow_Quartz_Cloth_LP.wav</ShortName>
+					<CachePath>SFX/Yellow_Quartz_Cloth_LP_D79FB2B7.wem</CachePath>
+				</File>
 				<File Id="885686076" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-010.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-010_10C4C929.wem</CachePath>
@@ -239,6 +251,10 @@
 				<File Id="947895533" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-032.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-032_10C4C929.wem</CachePath>
+				</File>
+				<File Id="948792412" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Yellow_Quartz_Cloth_Start.wav</ShortName>
+					<CachePath>SFX/Yellow_Quartz_Cloth_Start_10C4C929.wem</CachePath>
 				</File>
 				<File Id="954933478" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-037.wav</ShortName>
@@ -370,8 +386,17 @@
 						<MediaRef Id="717978069"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="10060735"/>
+						<MediaRef Id="237036231"/>
+						<MediaRef Id="862457260"/>
+						<MediaRef Id="948792412"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1386925776" Name="Stop_Laser_LP" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<SwitchGroups>
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
@@ -383,5 +408,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{B9669760-3C3C-4A1D-E575-147BE6FD8574}</FileHash>
+	<FileHash>{E1590CF0-071E-CA64-B134-CFA41C5733DA}</FileHash>
 </SoundBanksInfo>

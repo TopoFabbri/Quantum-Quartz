@@ -25,8 +25,10 @@ namespace AK
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAMPUNK_MUSIC = 4292865938U;
+        static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
         static const AkUniqueID STOP_LASER_LP = 1386925776U;
         static const AkUniqueID STOP_STEAMPUNK_MUSIC = 2505006364U;
+        static const AkUniqueID STOP_YELLOW_QUARTZ = 2588384050U;
     } // namespace EVENTS
 
     namespace SWITCHES
