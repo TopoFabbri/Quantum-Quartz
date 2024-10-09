@@ -104,6 +104,140 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
+						<Event Name="Play_Dash_R" ID="{735585E3-42B6-421D-BEBA-5E8183CC39B1}">
+							<ChildrenList>
+								<Action Name="" ID="{4D048921-3755-4C22-8DF0-2781CB91E567}" ShortID="1071264630">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Dash_R" ID="{3A800EDA-E740-440C-AE40-0835B5C67379}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Dash_L" ID="{766EB6E9-EC97-4320-894E-589E99718F08}">
+							<ChildrenList>
+								<Action Name="" ID="{081C4132-1FBC-49B4-ACFE-D36DA4CB17B4}" ShortID="170793768">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Dash_L" ID="{BD129564-CF7F-431C-9A9F-5E321679E61A}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Yellow_Quartz" ID="{0F545326-58B8-4426-9249-70666C8A35B1}">
+							<ChildrenList>
+								<Action Name="" ID="{DD8B6F15-EE97-41E4-9E34-D1BD712319EC}" ShortID="1004818047">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Cloth_Start" ID="{A41AF7A8-709B-49E8-B534-CF1D8F23CA03}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{2D734CCB-6039-4C0E-8BCD-F82B58B2EF12}" ShortID="621116510">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Cloth_LP" ID="{86AFAF1E-8F80-4337-8A30-740CD489FFCE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{594609F8-73EC-4678-9D25-926243B2AAAA}" ShortID="270591933">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="SeekPercent" Type="Real64" Value="50">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{01BB6A3E-2A2C-4FA2-BF0A-C254D40A20C4}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="45"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Cloth_LP" ID="{86AFAF1E-8F80-4337-8A30-740CD489FFCE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{97C83A36-AAB8-4448-8CA3-FA66B75384C9}" ShortID="388659910">
+									<PropertyList>
+										<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+										<Property Name="SeekPercent" Type="Real64" Value="90"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Magic_Pad_LP" ID="{680280EE-9BA3-41E7-825C-7291A329FB28}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{BB081363-EE4D-4FC6-B8C3-69A995E99E36}" ShortID="554988628">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+										<Property Name="SeekPercent" Type="Real64" Value="50">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{27A3A6E3-809A-419F-A18A-DDC1FD3D7E43}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="45"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Magic_Pad_LP" ID="{680280EE-9BA3-41E7-825C-7291A329FB28}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_Yellow_Quartz" ID="{98727EDF-8006-4187-838C-76918CD653BA}">
+							<ChildrenList>
+								<Action Name="" ID="{B92F3E04-D4F4-490C-A852-C1C568174C72}" ShortID="493949318">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="40"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.2"/>
+										<Property Name="SeekPercent" Type="Real64" Value="90"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Magic_Pad_LP" ID="{680280EE-9BA3-41E7-825C-7291A329FB28}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{EEA310E0-F524-4B65-9355-53BEA7EAC98D}" ShortID="161480628">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Cloth_LP" ID="{86AFAF1E-8F80-4337-8A30-740CD489FFCE}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{18986503-8DF7-4C3D-B5CB-F3A78685DA75}" ShortID="276041444">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Yellow_Quartz_Cloth_Start" ID="{A41AF7A8-709B-49E8-B534-CF1D8F23CA03}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

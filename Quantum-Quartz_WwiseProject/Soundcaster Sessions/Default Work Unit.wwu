@@ -13,10 +13,30 @@
 							<ObjectRef Name="Stop_Laser_LP" ID="{DD437797-89ED-4D98-8B3C-0BE02D3451E7}" WorkUnitID="{B8778B66-9DD8-40E2-850A-F73033811BD0}"/>
 							<Position X="0" Y="1"/>
 						</Module>
+						<Module>
+							<ObjectRef Name="Play_Yellow_Quartz" ID="{0F545326-58B8-4426-9249-70666C8A35B1}" WorkUnitID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Stop_Yellow_Quartz" ID="{98727EDF-8006-4187-838C-76918CD653BA}" WorkUnitID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}"/>
+							<Position X="1" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_Steampunk_Music" ID="{9C133FA1-99D8-48EA-9A1D-A494A5CC2278}" WorkUnitID="{B8778B66-9DD8-40E2-850A-F73033811BD0}"/>
+							<Position X="2" Y="0"/>
+						</Module>
 					</ModuleList>
-					<RTPCValueList ShowAll="true"/>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="Distance" ID="{205D8EA5-37C2-4524-99A2-86F305CDBB9A}"/>
+							<Value>100</Value>
+						</RTPCValue>
+					</RTPCValueList>
 					<CurrentStateList ShowAll="true"/>
-					<CurrentSwitchList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Default" ID="{0D9BFF96-9DF8-42ED-9078-2A3BEF36F265}"/>
+						<CurrentSwitchRef Name="Concrete" ID="{C4353A63-4D50-4A4F-B566-FB5ABFA37307}"/>
+					</CurrentSwitchList>
 				</SoundcasterSession>
 			</ChildrenList>
 		</WorkUnit>

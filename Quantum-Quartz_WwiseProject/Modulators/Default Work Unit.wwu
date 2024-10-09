@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{16631D24-2B01-452D-B515-E672502F317A}" SchemaVersion="110">
 	<Modulators>
-		<WorkUnit Name="Default Work Unit" ID="{16631D24-2B01-452D-B515-E672502F317A}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{16631D24-2B01-452D-B515-E672502F317A}" PersistMode="Standalone">
+			<ChildrenList>
+				<ModulatorEnvelope Name="Yellow_Quartz_Env" ID="{9B5632E6-9607-4614-8878-1DCC457A2501}" ShortID="721633647">
+					<PropertyList>
+						<Property Name="EnvelopeTriggerOn" Type="int32" Value="2"/>
+					</PropertyList>
+				</ModulatorEnvelope>
+			</ChildrenList>
+		</WorkUnit>
 	</Modulators>
 </WwiseDocument>
