@@ -19,13 +19,18 @@ public class ResolutionController : MonoBehaviour
         resolutionDropdown.ClearOptions();
         currentRefreshRate = Screen.currentResolution.refreshRate;
         
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            if (resolutions[i].refreshRate == currentRefreshRate)
-            {
-                filteredResolutions.Add(resolutions[i]);
-            }
-        }
+        // for (int i = 0; i < resolutions.Length; i++)
+        // {
+        //     if (resolutions[i].refreshRate == currentRefreshRate)
+        //     {
+        //         filteredResolutions.Add(resolutions[i]);
+        //     }
+        // }
+        
+        
+        filteredResolutions.Add(addResolution(1280, 720, Screen.currentResolution.refreshRateRatio));
+        filteredResolutions.Add(addResolution(1600, 900, Screen.currentResolution.refreshRateRatio));
+        filteredResolutions.Add(addResolution(1920, 1080, Screen.currentResolution.refreshRateRatio));
         
         List<string> options = new List<string>();
         for (int i = 0; i < filteredResolutions.Count; i++)
@@ -62,5 +67,15 @@ public class ResolutionController : MonoBehaviour
         int width = PlayerPrefs.GetInt("ResolutionWidth", Screen.currentResolution.width);
         int height = PlayerPrefs.GetInt("ResolutionHeight", Screen.currentResolution.height);
         Screen.SetResolution(width, height, Screen.fullScreen);
+    }
+
+    private Resolution addResolution(int width, int height, RefreshRate refreshRate )
+    {
+        Resolution resolution = new Resolution();
+        resolution.width = width;
+        resolution.height = height;
+        resolution.refreshRateRatio = refreshRate;
+        
+        return resolution;
     }
 }

@@ -30,18 +30,14 @@ public class OptionsController : MonoBehaviour
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
         
-        //isFullScreen = PlayerPrefs.GetInt("FullScreen", 0) == 1;
-        //Screen.fullScreen = isFullScreen;
-        //fullScreenToggle.isOn = isFullScreen;
+        bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
+        fullScreenToggle.isOn = isFullScreen;
     }
 
     public void SetFullScreen()
     {
-        isFullScreen = !Screen.fullScreen;
-        Screen.fullScreen = isFullScreen;
-        
-        PlayerPrefs.SetInt("FullScreen", isFullScreen ? 1 : 0);
-        PlayerPrefs.Save();
+        bool isFullScreen = fullScreenToggle.isOn;
+        FullScreenManager.SetFullScreen(isFullScreen); 
     }
     public void TurnCredits()
         {

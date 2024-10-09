@@ -18,10 +18,15 @@ namespace Code.Scripts.Menu
         
         [SerializeField] private GameObject fadeOut;
         
-
+        private bool isFullScreen;
         private void Start()
         {
-            UnityEngine.Screen.fullScreen = PlayerPrefs.GetInt("FullScreen", 0) == 1;
+            // Solo inicializa pantalla completa en la escena principal
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "SelectControllerMenu")
+            {
+                FullScreenManager.InitializeFullScreen();
+            }
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
