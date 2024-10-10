@@ -23,10 +23,16 @@
 									<ChildrenList>
 										<Sound Name="Laser_LP" ID="{C21FD8E3-CDFF-475F-AB17-CBAB24BD38FD}" ShortID="486290613">
 											<PropertyList>
+												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
-														<Value>2</Value>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
 													</ValueList>
 												</Property>
 												<Property Name="Volume" Type="Real64">
@@ -144,6 +150,16 @@
 										</Sound>
 										<Sound Name="Charge_Shoot_Laser" ID="{2AEB8C9A-65D7-4963-9019-865A012DC1E4}" ShortID="124374118">
 											<PropertyList>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>-8</Value>
@@ -261,6 +277,17 @@
 										</Sound>
 										<Sound Name="Beam_Laser" ID="{E9D42955-3D4B-48F7-A5F4-B508D1B2EDBD}" ShortID="915830771">
 											<PropertyList>
+												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>-8</Value>
