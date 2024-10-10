@@ -45,6 +45,38 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Call left dash event
+        /// </summary>
+        public void DashL()
+        {
+            AkSoundEngine.PostEvent("Play_Dash_L", gameObject);
+        }
+        
+        /// <summary>
+        /// Call right dash event
+        /// </summary>
+        public void DashR()
+        {
+            AkSoundEngine.PostEvent("Play_Dash_R", gameObject);
+        }
+
+        /// <summary>
+        /// Call glide event
+        /// </summary>
+        public void PlayGlide()
+        {
+            AkSoundEngine.PostEvent("Play_Yellow_Quartz", gameObject);
+        }
+
+        /// <summary>
+        /// Call stop glide event
+        /// </summary>
+        public void StopGlide()
+        {
+            AkSoundEngine.PostEvent("Stop_Yellow_Quartz", gameObject);
+        }
+        
+        /// <summary>
         /// Call death event
         /// </summary>
         public void Death()

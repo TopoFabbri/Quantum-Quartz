@@ -89,10 +89,12 @@ namespace Code.Scripts.Player
             tlptState.onEnter += OnEnterTpHandler;
             dethState.onEnter += OnEnterDeathHandler;
             wallJumpState.onEnter += OnEnterWallJumpHandler;
+            gldeState.onEnter += OnEnterGlideHandler;
 
             dethState.onExit += OnExitDeathHandler;
             spwnState.onExit += OnExitSpawnHandler;
             tlptState.onExit += OnExitTpHandler;
+            gldeState.onExit += OnExitGlideHandler;
 
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
@@ -117,10 +119,12 @@ namespace Code.Scripts.Player
             djmpState.onEnter -= OnEnterDjmpHandler;
             dethState.onEnter -= OnEnterDeathHandler;
             wallJumpState.onEnter -= OnEnterWallJumpHandler;
+            gldeState.onEnter -= OnEnterGlideHandler;
 
             dethState.onExit -= OnExitDeathHandler;
             spwnState.onExit -= OnExitSpawnHandler;
             tlptState.onExit -= OnExitTpHandler;
+            gldeState.onExit -= OnExitGlideHandler;
 
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
@@ -664,6 +668,14 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Handle player started glide
+        /// </summary>
+        private void OnEnterGlideHandler()
+        {
+            playerSfx.PlayGlide();
+        }
+        
+        /// <summary>
         /// Handle player exited death state
         /// </summary>
         private void OnExitDeathHandler()
@@ -692,6 +704,14 @@ namespace Code.Scripts.Player
             LevelChanger.EndLevel();
         }
 
+        /// <summary>
+        /// Handle player exited glide
+        /// </summary>
+        private void OnExitGlideHandler()
+        {
+            playerSfx.StopGlide();
+        }
+        
         /// <summary>
         /// Check if player about to land
         /// </summary>
