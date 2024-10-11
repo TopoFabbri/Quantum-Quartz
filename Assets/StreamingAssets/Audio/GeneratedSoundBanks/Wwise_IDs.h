@@ -17,12 +17,11 @@ namespace AK
         static const AkUniqueID PLAY_BEAM_LASER = 1231329179U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
         static const AkUniqueID PLAY_CHARGE_SHOOT_LASER = 3751886250U;
-        static const AkUniqueID PLAY_CONCRETE_FOOTSTEPS = 1570257991U;
-        static const AkUniqueID PLAY_CONCRETE_LANDING = 810894027U;
         static const AkUniqueID PLAY_DASH_L = 1886667247U;
         static const AkUniqueID PLAY_DASH_R = 1886667249U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
         static const AkUniqueID PLAY_FOOTSTEPS = 3854155799U;
+        static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAMPUNK_MUSIC = 4292865938U;
