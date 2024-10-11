@@ -1,4 +1,3 @@
-using System;
 using Code.Scripts.Colors;
 using UnityEngine;
 
@@ -13,26 +12,37 @@ namespace Code.Scripts.Platforms
         [SerializeField] private ColorSwitcher.QColor qColor;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private ParticleSystem ps;
+        [SerializeField] private float particleQty;
+        [SerializeField] private bool solid;
         
         private static readonly int On = Animator.StringToHash("On");
 
         private void Start()
         {
             ToggleColor(ColorSwitcher.QColor.None);
-            
-            if(!ps) return;
-            
+
+            if (!ps) return;
+
             ParticleSystem.ShapeModule psShape = ps.shape;
-            psShape.radius = (spriteRenderer.bounds.size.x - 2f) / 2f;
             ParticleSystem.EmissionModule module = ps.emission;
-            module.rateOverTime = psShape.radius * 17f;
+
+            if (solid)
+            {
+                psShape.scale = spriteRenderer.bounds.size + Vector3.one;
+                module.rateOverTime = (psShape.scale.x - 1) * (psShape.scale.y - 1) * particleQty;
+            }
+            else
+            {
+                psShape.radius = (spriteRenderer.bounds.size.x - 2f) / 2f;
+                module.rateOverTime = psShape.radius * particleQty;
+            }
         }
 
         private void OnEnable()
         {
             ColorSwitcher.ColorChanged += ToggleColor;
         }
-        
+
         private void OnDisable()
         {
             ColorSwitcher.ColorChanged -= ToggleColor;
