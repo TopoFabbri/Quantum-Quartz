@@ -57,7 +57,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{54EC5B78-B1A7-41DF-12C4-AA93F6A93484}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{8B46F512-95C0-16A7-98E9-EAEB151F5F73}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -568,7 +568,7 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.638867">
+				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.7254363">
 					<SwitchContainers>
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
@@ -711,6 +711,21 @@
 						<MediaRef Id="948792412"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3543386712" Name="Set_Switch_Concrete" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="3395986341" Id="841620460" Name="Concrete"/>
+					</ActionSetSwitch>
+				</Event>
+				<Event Id="4131070040" Name="Set_Switch_Cristal_Platforms" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="3395986341" Id="1403804780" Name="Cristal_Platforms"/>
+					</ActionSetSwitch>
+				</Event>
+				<Event Id="708957530" Name="Set_Switch_Metal" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="3395986341" Id="2473969246" Name="Metal"/>
+					</ActionSetSwitch>
+				</Event>
 				<Event Id="1386925776" Name="Stop_Laser_LP" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
@@ -726,5 +741,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{544BEB56-79C3-CE4C-D6E8-AC71E7808DBF}</FileHash>
+	<FileHash>{E9DF6434-FAC7-BE5E-D23D-0417D9E6BD7F}</FileHash>
 </SoundBanksInfo>

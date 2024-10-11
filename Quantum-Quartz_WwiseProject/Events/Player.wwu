@@ -63,40 +63,65 @@
 										</Action>
 									</ChildrenList>
 								</Event>
-								<Event Name="Play_Metal_Footsteps" ID="{4D9E5D27-6CCF-44FB-A78D-3DC3B306EA70}">
-									<PropertyList>
-										<Property Name="Inclusion" Type="bool" Value="False"/>
-									</PropertyList>
-									<ChildrenList>
-										<Action Name="" ID="{46069F48-0FBD-4D48-BD83-424252862D2C}" ShortID="883243412">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Metal_Footsteps" ID="{264AD988-9E13-42B5-A6F9-D0AD5FDAECD9}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
-								<Event Name="Play_Metal_Landing" ID="{1BE4754D-FACB-42F3-B1E2-40AF7AD62B94}">
-									<PropertyList>
-										<Property Name="Inclusion" Type="bool" Value="False"/>
-									</PropertyList>
-									<ChildrenList>
-										<Action Name="" ID="{28F537AF-D95B-4144-BABE-C044545D7828}" ShortID="268546524">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Metal_Landing" ID="{E381C06F-19DB-4DC0-BF5B-06BE55E45335}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
 								<Event Name="Play_Concrete_Landing" ID="{C20FCB7A-F20E-40AE-858F-C49A59DE85C3}">
 									<ChildrenList>
 										<Action Name="" ID="{2047DD2A-67C4-41C1-8F1E-48B1DDC819DC}" ShortID="757158052">
 											<ReferenceList>
 												<Reference Name="Target">
 													<ObjectRef Name="Concrete_Landing" ID="{9605A94C-857C-46D1-9C3C-31AEAB5A4A20}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_Footsteps" ID="{9C889416-9D01-48E4-91DB-3416B850975D}">
+									<ChildrenList>
+										<Action Name="" ID="{BFB898BC-7A79-4E15-AEBC-1965FB77CA7A}" ShortID="382254343">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Footsteps" ID="{72B2F075-B565-4313-AA33-5003DC000068}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Set_Switch_Cristal_Platforms" ID="{D5AF79F3-1F44-46D6-A07A-8BDB0AAE24C5}">
+									<ChildrenList>
+										<Action Name="" ID="{A4C33E67-E4BB-4C08-BED7-931B40198506}" ShortID="474391040">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="23"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Set_Switch_Metal" ID="{7DF8491C-DAF4-447F-A1EB-A7B61ADE944F}">
+									<ChildrenList>
+										<Action Name="" ID="{88EF7EAF-BBD5-4656-AC81-896546A0EAA2}" ShortID="625507912">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="23"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Metal" ID="{CB41568D-863A-456E-AFE2-E43BD4D19A2D}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Set_Switch_Concrete" ID="{2F70FD06-0BB7-4AB5-83C2-ED91101AEBE2}">
+									<ChildrenList>
+										<Action Name="" ID="{224C8955-A6D6-4EAF-89A9-7F6783A001FE}" ShortID="938527684">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="23"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Concrete" ID="{C4353A63-4D50-4A4F-B566-FB5ABFA37307}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>

@@ -4,6 +4,13 @@
 		<WorkUnit Name="Footsteps" ID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}" OwnerID="{9BAAFB8B-50DD-4D79-B1D9-AE7B57513CA7}" PersistMode="Nested">
 			<ChildrenList>
 				<SwitchContainer Name="Footsteps" ID="{72B2F075-B565-4313-AA33-5003DC000068}" ShortID="477341012">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>5</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1090,7 +1097,6 @@
 										<ModifierInfo>
 											<Modifier Name="" ID="{585CECBC-E2FC-424C-BFAB-B5F1476B000C}">
 												<PropertyList>
-													<Property Name="Enabled" Type="bool" Value="True"/>
 													<Property Name="Min" Type="Real64" Value="-3"/>
 												</PropertyList>
 											</Modifier>
@@ -1128,7 +1134,7 @@
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
 										</Reference>
 										<Reference Name="DefaultSwitchOrState">
-											<ObjectRef Name="Concrete" ID="{C4353A63-4D50-4A4F-B566-FB5ABFA37307}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+											<ObjectRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
 										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
@@ -1222,7 +1228,7 @@
 												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ValueList>
-														<Value>430</Value>
+														<Value>210</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
@@ -1510,7 +1516,7 @@
 												</Property>
 												<Property Name="Pitch" Type="int32">
 													<ValueList>
-														<Value>630</Value>
+														<Value>620</Value>
 													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
