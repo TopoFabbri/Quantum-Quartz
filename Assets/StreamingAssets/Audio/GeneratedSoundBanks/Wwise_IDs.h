@@ -22,6 +22,7 @@ namespace AK
         static const AkUniqueID PLAY_DASH_L = 1886667247U;
         static const AkUniqueID PLAY_DASH_R = 1886667249U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
+        static const AkUniqueID PLAY_FOOTSTEPS = 3854155799U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAMPUNK_MUSIC = 4292865938U;
@@ -51,6 +52,7 @@ namespace AK
             namespace SWITCH
             {
                 static const AkUniqueID CONCRETE = 841620460U;
+                static const AkUniqueID CRISTAL_PLATFORMS = 1403804780U;
                 static const AkUniqueID METAL = 2473969246U;
             } // namespace SWITCH
         } // namespace SWITCH_FOOTSTEPS

@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E7F5BA3C-52E2-6B0B-C684-41EB320D6855}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{4B3042BD-8D33-6432-4047-865E65DFB4B6}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -51,12 +51,13 @@
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
+						<Switch Id="1403804780" Name="Cristal_Platforms"/>
 						<Switch Id="2473969246" Name="Metal"/>
 					</Switches>
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{102B61CF-DC8E-BEA3-9508-BFD4E950AFDE}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{54EC5B78-B1A7-41DF-12C4-AA93F6A93484}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -72,9 +73,41 @@
 					<ShortName>Concrete_Landings-003.wav</ShortName>
 					<CachePath>SFX/Concrete_Landings-003_10C4C929.wem</CachePath>
 				</File>
+				<File Id="17366721" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_14.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_14_10C4C929.wem</CachePath>
+				</File>
+				<File Id="30026640" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_22.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_22_10C4C929.wem</CachePath>
+				</File>
+				<File Id="33755011" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-011.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-011_10C4C929.wem</CachePath>
+				</File>
+				<File Id="43028668" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_4.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_4_10C4C929.wem</CachePath>
+				</File>
 				<File Id="49726500" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-024.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-024_10C4C929.wem</CachePath>
+				</File>
+				<File Id="53952485" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-006.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-006_10C4C929.wem</CachePath>
+				</File>
+				<File Id="119363177" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_8.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_8_10C4C929.wem</CachePath>
+				</File>
+				<File Id="119457110" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_12.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_12_10C4C929.wem</CachePath>
+				</File>
+				<File Id="121997892" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_13.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_13_10C4C929.wem</CachePath>
 				</File>
 				<File Id="124247045" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-029.wav</ShortName>
@@ -92,6 +125,14 @@
 					<ShortName>Laser_LP.wav</ShortName>
 					<CachePath>SFX/Laser_LP_542CF7D5.wem</CachePath>
 				</File>
+				<File Id="173228913" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_5.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_5_10C4C929.wem</CachePath>
+				</File>
+				<File Id="177089522" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-009.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-009_10C4C929.wem</CachePath>
+				</File>
 				<File Id="192936632" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-018.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-018_10C4C929.wem</CachePath>
@@ -99,6 +140,10 @@
 				<File Id="200330901" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Basic_Jump.wav</ShortName>
 					<CachePath>SFX/Basic_Jump_10C4C929.wem</CachePath>
+				</File>
+				<File Id="231733684" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_29.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_29_10C4C929.wem</CachePath>
 				</File>
 				<File Id="236984613" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-008.wav</ShortName>
@@ -112,17 +157,37 @@
 					<ShortName>STEAM.wav</ShortName>
 					<CachePath>SFX/STEAM_D79FB2B7.wem</CachePath>
 				</File>
+				<File Id="243878753" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_35.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_35_10C4C929.wem</CachePath>
+				</File>
+				<File Id="268259119" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_17.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_17_10C4C929.wem</CachePath>
+				</File>
 				<File Id="271393065" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-003.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-003_10C4C929.wem</CachePath>
+				</File>
+				<File Id="279424501" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_1.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_1_10C4C929.wem</CachePath>
 				</File>
 				<File Id="283864771" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-035.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-035_10C4C929.wem</CachePath>
 				</File>
+				<File Id="288798525" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_21.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_21_10C4C929.wem</CachePath>
+				</File>
 				<File Id="302420005" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-022.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-022_10C4C929.wem</CachePath>
+				</File>
+				<File Id="311291390" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_26.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_26_10C4C929.wem</CachePath>
 				</File>
 				<File Id="315952504" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-025.wav</ShortName>
@@ -131,6 +196,30 @@
 				<File Id="316699522" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-006.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-006_10C4C929.wem</CachePath>
+				</File>
+				<File Id="319367561" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_18.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_18_10C4C929.wem</CachePath>
+				</File>
+				<File Id="325148815" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-002.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-002_10C4C929.wem</CachePath>
+				</File>
+				<File Id="368943550" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_28.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_28_10C4C929.wem</CachePath>
+				</File>
+				<File Id="372306415" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_36.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_36_10C4C929.wem</CachePath>
+				</File>
+				<File Id="382921185" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_32.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_32_10C4C929.wem</CachePath>
+				</File>
+				<File Id="385139575" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_Hit.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_Hit_10C4C929.wem</CachePath>
 				</File>
 				<File Id="397686389" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-033.wav</ShortName>
@@ -156,6 +245,26 @@
 					<ShortName>Concrete_Footstep-030.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-030_10C4C929.wem</CachePath>
 				</File>
+				<File Id="469029252" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_27.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_27_10C4C929.wem</CachePath>
+				</File>
+				<File Id="487891851" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_7.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_7_10C4C929.wem</CachePath>
+				</File>
+				<File Id="489545332" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_9.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_9_10C4C929.wem</CachePath>
+				</File>
+				<File Id="493023189" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_25.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_25_10C4C929.wem</CachePath>
+				</File>
+				<File Id="496275679" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-010.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-010_10C4C929.wem</CachePath>
+				</File>
 				<File Id="503771883" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-034.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-034_10C4C929.wem</CachePath>
@@ -163,6 +272,18 @@
 				<File Id="519779318" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_R.wav</ShortName>
 					<CachePath>SFX/Dash_R_EC70017B.wem</CachePath>
+				</File>
+				<File Id="525914837" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_2.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_2_10C4C929.wem</CachePath>
+				</File>
+				<File Id="549926341" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_24.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_24_10C4C929.wem</CachePath>
+				</File>
+				<File Id="560802341" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_19.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_19_10C4C929.wem</CachePath>
 				</File>
 				<File Id="560813382" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-020.wav</ShortName>
@@ -176,9 +297,21 @@
 					<ShortName>Concrete_Footstep-028.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-028_10C4C929.wem</CachePath>
 				</File>
+				<File Id="602730006" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-005.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-005_10C4C929.wem</CachePath>
+				</File>
+				<File Id="615289234" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_34.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_34_10C4C929.wem</CachePath>
+				</File>
 				<File Id="624876094" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_L.wav</ShortName>
 					<CachePath>SFX/Dash_L_3E0C39D3.wem</CachePath>
+				</File>
+				<File Id="642864624" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_23.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_23_10C4C929.wem</CachePath>
 				</File>
 				<File Id="661691748" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-002.wav</ShortName>
@@ -188,9 +321,21 @@
 					<ShortName>Concrete_Footstep-021.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-021_10C4C929.wem</CachePath>
 				</File>
+				<File Id="699555885" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_30.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_30_10C4C929.wem</CachePath>
+				</File>
+				<File Id="713985757" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-004.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-004_10C4C929.wem</CachePath>
+				</File>
 				<File Id="717978069" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Steampunk Level_v5.0 Premaster.wav</ShortName>
 					<CachePath>SFX/Steampunk Level_v5.0 Premaster_542CF7D5.wem</CachePath>
+				</File>
+				<File Id="724976298" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_16.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_16_10C4C929.wem</CachePath>
 				</File>
 				<File Id="728419561" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-019.wav</ShortName>
@@ -208,6 +353,18 @@
 					<ShortName>Concrete_Footstep-013.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-013_10C4C929.wem</CachePath>
 				</File>
+				<File Id="777340066" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-008.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-008_10C4C929.wem</CachePath>
+				</File>
+				<File Id="783385467" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_33.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_33_10C4C929.wem</CachePath>
+				</File>
+				<File Id="793874521" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_10.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_10_10C4C929.wem</CachePath>
+				</File>
 				<File Id="800179235" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-005.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-005_10C4C929.wem</CachePath>
@@ -220,21 +377,41 @@
 					<ShortName>Concrete_Footstep-004.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-004_10C4C929.wem</CachePath>
 				</File>
+				<File Id="809838471" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_15.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_15_10C4C929.wem</CachePath>
+				</File>
 				<File Id="841600986" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-031.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-031_10C4C929.wem</CachePath>
+				</File>
+				<File Id="847615794" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_3.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_3_10C4C929.wem</CachePath>
 				</File>
 				<File Id="854077163" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-007.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-007_10C4C929.wem</CachePath>
 				</File>
+				<File Id="860204178" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-001.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-001_10C4C929.wem</CachePath>
+				</File>
 				<File Id="862457260" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Yellow_Quartz_Cloth_LP.wav</ShortName>
 					<CachePath>SFX/Yellow_Quartz_Cloth_LP_D79FB2B7.wem</CachePath>
 				</File>
+				<File Id="862774514" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_20.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_20_10C4C929.wem</CachePath>
+				</File>
 				<File Id="885686076" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-010.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-010_10C4C929.wem</CachePath>
+				</File>
+				<File Id="903032575" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_6.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_6_10C4C929.wem</CachePath>
 				</File>
 				<File Id="906006272" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-001.wav</ShortName>
@@ -244,9 +421,17 @@
 					<ShortName>Concrete_Footstep-027.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-027_10C4C929.wem</CachePath>
 				</File>
+				<File Id="920848648" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_11.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_11_10C4C929.wem</CachePath>
+				</File>
 				<File Id="924197872" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Charge_Shoot_Laser.wav</ShortName>
 					<CachePath>SFX/Charge_Shoot_Laser_C1103BD0.wem</CachePath>
+				</File>
+				<File Id="926326807" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_31.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_31_10C4C929.wem</CachePath>
 				</File>
 				<File Id="947895533" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-032.wav</ShortName>
@@ -260,6 +445,14 @@
 					<ShortName>Concrete_Footstep-037.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-037_10C4C929.wem</CachePath>
 				</File>
+				<File Id="978274282" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Lab_Footstep_37.wav</ShortName>
+					<CachePath>SFX/Lab_Footstep_37_10C4C929.wem</CachePath>
+				</File>
+				<File Id="985296626" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-007.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-007_10C4C929.wem</CachePath>
+				</File>
 				<File Id="998000307" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-026.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-026_10C4C929.wem</CachePath>
@@ -267,6 +460,10 @@
 				<File Id="1018597292" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-016.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-016_10C4C929.wem</CachePath>
+				</File>
+				<File Id="1023081737" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Cristal_Platform_FS-003.wav</ShortName>
+					<CachePath>SFX/Cristal_Platform_FS-003_10C4C929.wem</CachePath>
 				</File>
 				<File Id="1033624229" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-036.wav</ShortName>
@@ -371,6 +568,126 @@
 						<MediaRef Id="399637785"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.638867">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="5402978"/>
+										<MediaRef Id="49726500"/>
+										<MediaRef Id="124247045"/>
+										<MediaRef Id="128474236"/>
+										<MediaRef Id="192936632"/>
+										<MediaRef Id="236984613"/>
+										<MediaRef Id="271393065"/>
+										<MediaRef Id="283864771"/>
+										<MediaRef Id="302420005"/>
+										<MediaRef Id="315952504"/>
+										<MediaRef Id="316699522"/>
+										<MediaRef Id="397686389"/>
+										<MediaRef Id="413672958"/>
+										<MediaRef Id="414913162"/>
+										<MediaRef Id="446586235"/>
+										<MediaRef Id="503771883"/>
+										<MediaRef Id="560813382"/>
+										<MediaRef Id="595934151"/>
+										<MediaRef Id="600393049"/>
+										<MediaRef Id="661691748"/>
+										<MediaRef Id="670787781"/>
+										<MediaRef Id="728419561"/>
+										<MediaRef Id="742299575"/>
+										<MediaRef Id="743409494"/>
+										<MediaRef Id="800179235"/>
+										<MediaRef Id="806524630"/>
+										<MediaRef Id="807661749"/>
+										<MediaRef Id="841600986"/>
+										<MediaRef Id="854077163"/>
+										<MediaRef Id="885686076"/>
+										<MediaRef Id="906701666"/>
+										<MediaRef Id="947895533"/>
+										<MediaRef Id="954933478"/>
+										<MediaRef Id="998000307"/>
+										<MediaRef Id="1018597292"/>
+										<MediaRef Id="1033624229"/>
+										<MediaRef Id="1044412963"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+									<MediaRefs>
+										<MediaRef Id="33755011"/>
+										<MediaRef Id="53952485"/>
+										<MediaRef Id="177089522"/>
+										<MediaRef Id="325148815"/>
+										<MediaRef Id="385139575"/>
+										<MediaRef Id="496275679"/>
+										<MediaRef Id="602730006"/>
+										<MediaRef Id="713985757"/>
+										<MediaRef Id="777340066"/>
+										<MediaRef Id="860204178"/>
+										<MediaRef Id="985296626"/>
+										<MediaRef Id="1023081737"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="17366721"/>
+										<MediaRef Id="30026640"/>
+										<MediaRef Id="43028668"/>
+										<MediaRef Id="119363177"/>
+										<MediaRef Id="119457110"/>
+										<MediaRef Id="121997892"/>
+										<MediaRef Id="173228913"/>
+										<MediaRef Id="231733684"/>
+										<MediaRef Id="243878753"/>
+										<MediaRef Id="268259119"/>
+										<MediaRef Id="279424501"/>
+										<MediaRef Id="288798525"/>
+										<MediaRef Id="311291390"/>
+										<MediaRef Id="319367561"/>
+										<MediaRef Id="368943550"/>
+										<MediaRef Id="372306415"/>
+										<MediaRef Id="382921185"/>
+										<MediaRef Id="469029252"/>
+										<MediaRef Id="487891851"/>
+										<MediaRef Id="489545332"/>
+										<MediaRef Id="493023189"/>
+										<MediaRef Id="525914837"/>
+										<MediaRef Id="549926341"/>
+										<MediaRef Id="560802341"/>
+										<MediaRef Id="615289234"/>
+										<MediaRef Id="642864624"/>
+										<MediaRef Id="699555885"/>
+										<MediaRef Id="724976298"/>
+										<MediaRef Id="783385467"/>
+										<MediaRef Id="793874521"/>
+										<MediaRef Id="809838471"/>
+										<MediaRef Id="847615794"/>
+										<MediaRef Id="862774514"/>
+										<MediaRef Id="903032575"/>
+										<MediaRef Id="920848648"/>
+										<MediaRef Id="926326807"/>
+										<MediaRef Id="978274282"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
 				<Event Id="718252718" Name="Play_Laser_LP" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="151863213"/>
@@ -402,11 +719,12 @@
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
+						<Switch Id="1403804780" Name="Cristal_Platforms"/>
 						<Switch Id="2473969246" Name="Metal"/>
 					</Switches>
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0199BCF9-303D-D248-EB39-4BBAFFFD1BF7}</FileHash>
+	<FileHash>{EDD2C6AB-8808-6F23-CAC8-9E36C12E2250}</FileHash>
 </SoundBanksInfo>
