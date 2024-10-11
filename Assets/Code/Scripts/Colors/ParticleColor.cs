@@ -13,7 +13,7 @@ namespace Code.Scripts.Colors
         private void Awake()
         {
             mainPs = ps.main;
-            if (colors.Count <= 0) return;
+            if (colors.Count > 0) return;
             
             colors.Add(Color.white);
             colors.Add(Color.red);

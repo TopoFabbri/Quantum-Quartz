@@ -22,14 +22,14 @@ namespace Code.Scripts.Platforms
             ToggleColor(ColorSwitcher.QColor.None);
 
             if (!ps) return;
-
+            
             ParticleSystem.ShapeModule psShape = ps.shape;
             ParticleSystem.EmissionModule module = ps.emission;
 
             if (solid)
             {
-                psShape.scale = spriteRenderer.bounds.size + Vector3.one;
-                module.rateOverTime = (psShape.scale.x - 1) * (psShape.scale.y - 1) * particleQty;
+                psShape.scale = spriteRenderer.bounds.size - new Vector3(1f, 1f, 0f);
+                module.rateOverTime = psShape.scale.x * psShape.scale.y * particleQty;
             }
             else
             {

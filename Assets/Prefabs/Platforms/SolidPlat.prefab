@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6581186032706341729}
   - component: {fileID: 3387757842940568987}
   - component: {fileID: 3236577416900242855}
+  - component: {fileID: 7154587462799714939}
   m_Layer: 0
   m_Name: SolidPlat
   m_TagString: Platform
@@ -53,7 +54,7 @@ MonoBehaviour:
   qColor: 0
   spriteRenderer: {fileID: 3087653745520979586}
   ps: {fileID: 3387757842940568987}
-  particleQty: 23
+  particleQty: 5.75
   solid: 1
 --- !u!61 &1493537210109348200
 BoxCollider2D:
@@ -4952,3 +4953,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7154587462799714939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206685543716980669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  ps: {fileID: 3387757842940568987}
