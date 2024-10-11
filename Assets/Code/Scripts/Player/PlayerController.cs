@@ -11,6 +11,7 @@ using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scripts.Player
 {
@@ -56,7 +57,9 @@ namespace Code.Scripts.Player
 
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
-
+        [SerializeField] private string platformSwitchEvent = "Set_Switch_Cristal_Platforms";
+        [FormerlySerializedAs("concreteSwitchEvent")] [SerializeField] private string floorSwitchEvent = "Set_Switch_Concrete";
+        
         private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
@@ -190,9 +193,14 @@ namespace Code.Scripts.Player
             
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
-
+            
             if (!moveState.IsGrounded())
                 return;
+
+            if (other.gameObject.CompareTag("Platform"))
+                AkSoundEngine.PostEvent(platformSwitchEvent, gameObject);
+            else if (other.gameObject.CompareTag("Floor"))
+                AkSoundEngine.PostEvent(floorSwitchEvent, gameObject);
 
             touchingFloor = true;
 
