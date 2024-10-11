@@ -46,6 +46,8 @@ namespace Code.Scripts.Player
         [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
+        [SerializeField] private ParticleSystem gldePs;
+        [SerializeField] private ParticleSystem wjmpPs;
         [SerializeField] private CameraController camController;
         [SerializeField] private BarController staminaBar;
         
@@ -681,6 +683,7 @@ namespace Code.Scripts.Player
         private void OnEnterGlideHandler()
         {
             playerSfx.PlayGlide();
+            gldePs.Play();
         }
         
         /// <summary>
@@ -718,6 +721,7 @@ namespace Code.Scripts.Player
         private void OnExitGlideHandler()
         {
             playerSfx.StopGlide();
+            gldePs.Stop();
         }
         
         /// <summary>
