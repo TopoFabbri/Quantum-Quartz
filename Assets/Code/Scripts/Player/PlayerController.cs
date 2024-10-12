@@ -307,7 +307,6 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(wallJumpState.ID, 11);
             fsmAnimController.AddState(gldeState.ID, 12);
             fsmAnimController.AddState(grabState.ID, 13);
-            fsmAnimController.AddState(pausState.ID, 14);
         }
 
         /// <summary>
@@ -430,6 +429,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void PausePlayer()
         {
+            fsmAnimController.TogglePauseAnim(true);
             fsm.InterruptState(pausState);
         }
         
@@ -438,6 +438,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void ResumePlayer()
         {
+            fsmAnimController.TogglePauseAnim(false);
             fsm.StopInterrupt();
         }
         

@@ -41,5 +41,14 @@ namespace Code.Scripts.Animation
         {
             animator.SetBool(boolParamName, facingRight);
         }
+
+        /// <summary>
+        /// Toggle pause animation
+        /// </summary>
+        /// <param name="pause"> True to pause</param>
+        public void TogglePauseAnim(bool pause)
+        {
+            animator.speed = pause ? 0 : 1;
+        }
     }
 }

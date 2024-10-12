@@ -110,8 +110,6 @@ namespace Code.Scripts.FSM
             InterruptedState = CurrentState;
             CurrentState = state;
             
-            StateChanged?.Invoke(CurrentState.ID);
-            
             CurrentState?.OnEnter();
         }
         
@@ -120,8 +118,6 @@ namespace Code.Scripts.FSM
             CurrentState.OnExit();
             
             CurrentState = InterruptedState;
-            
-            StateChanged?.Invoke(CurrentState.ID);
             
             interrupted = false;
         }
