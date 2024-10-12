@@ -1120,90 +1120,6 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<SwitchContainer Name="Cristal_Platform_Landings" ID="{18F6F991-2D51-448D-A442-9907190FB206}" ShortID="745256866">
-									<PropertyList>
-										<Property Name="Color" Type="int16" Value="3"/>
-										<Property Name="OverrideColor" Type="bool" Value="True"/>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-9</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
-										</Reference>
-										<Reference Name="DefaultSwitchOrState">
-											<ObjectRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
-										</Reference>
-										<Reference Name="SwitchGroupOrStateGroup">
-											<ObjectRef Name="Switch_Footsteps" ID="{E3C53D9E-3A19-4A84-92FB-F58A5A1C7E9C}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<RandomSequenceContainer Name="Cristal_Platform_Landings" ID="{5726F7EC-0828-402C-9216-835055E6DFE1}" ShortID="806799002">
-											<PropertyList>
-												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
-												<Property Name="MaxSoundPerInstance" Type="int16">
-													<ValueList>
-														<Value>2</Value>
-													</ValueList>
-												</Property>
-												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
-												<Property Name="Pitch" Type="int32">
-													<ModifierList>
-														<ModifierInfo>
-															<Modifier Name="" ID="{94CAC7D5-1816-4203-913F-0F952799BAE6}">
-																<PropertyList>
-																	<Property Name="Enabled" Type="bool" Value="True"/>
-																	<Property Name="Max" Type="Real64" Value="50"/>
-																	<Property Name="Min" Type="Real64" Value="-50"/>
-																</PropertyList>
-															</Modifier>
-														</ModifierInfo>
-													</ModifierList>
-												</Property>
-												<Property Name="UseMaxSoundPerInstance" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>-15</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
-												</Reference>
-											</ReferenceList>
-										</RandomSequenceContainer>
-									</ChildrenList>
-									<GroupingInfo>
-										<GroupingBehaviorList>
-											<GroupingBehavior>
-												<ItemRef Name="Cristal_Platform_Landings" ID="{5726F7EC-0828-402C-9216-835055E6DFE1}"/>
-											</GroupingBehavior>
-										</GroupingBehaviorList>
-										<GroupingList>
-											<Grouping>
-												<SwitchRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}"/>
-												<ItemList>
-													<ItemRef Name="Cristal_Platform_Landings" ID="{5726F7EC-0828-402C-9216-835055E6DFE1}"/>
-												</ItemList>
-											</Grouping>
-										</GroupingList>
-									</GroupingInfo>
-								</SwitchContainer>
 								<BlendContainer Name="Cristal_Platform_FS" ID="{D5701CBB-691A-4863-A9C2-3A10CC576336}" ShortID="317545406">
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -1217,20 +1133,12 @@
 										<RandomSequenceContainer Name="Cristal_Platform_Footsteps" ID="{59B5B466-C3AE-463D-84AC-1B1A9AE1AB8B}" ShortID="318316738">
 											<PropertyList>
 												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
-												<Property Name="Lowpass" Type="int16">
-													<ValueList>
-														<Value>20</Value>
-													</ValueList>
-												</Property>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
 														<Value>1</Value>
 													</ValueList>
 												</Property>
 												<Property Name="Pitch" Type="int32">
-													<ValueList>
-														<Value>210</Value>
-													</ValueList>
 													<ModifierList>
 														<ModifierInfo>
 															<Modifier Name="" ID="{D54B85E0-F5A6-4D2A-9A40-5C90D5BBBEF2}">
@@ -1251,7 +1159,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>5</Value>
+														<Value>-23</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -1275,10 +1183,15 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-001" ID="{5406BC73-E54B-49A9-BA80-80B059D294E1}">
+															<PropertyList>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0569598429951691"/>
+																<Property Name="LoopBegin" Type="Real64" Value="0"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-001.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="860204178"/>
+																<MediaID ID="820823285"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1297,10 +1210,15 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-002" ID="{DD1A3868-0F8E-4D56-BB7D-89B0A62AB232}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.00468550724637681"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0275273550724637"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-002.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="325148815"/>
+																<MediaID ID="249457665"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1319,10 +1237,15 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-003" ID="{FB45EAFF-B931-46A9-826F-F088A1B6B73B}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.00300528381642512"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0805416062801932"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-003.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="1023081737"/>
+																<MediaID ID="672981343"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1331,6 +1254,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-004" ID="{FCAB4811-5A68-4691-814B-02D151C8870C}" ShortID="963864854">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>3</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1341,10 +1271,16 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-004" ID="{57728AA4-39A9-42CD-AB66-0A4479E4FE47}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.0100093599033816"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.129120742753623"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.540505434782609"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-004.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="713985757"/>
+																<MediaID ID="480827525"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1369,12 +1305,95 @@
 																<MediaID ID="602730006"/>
 															</MediaIDList>
 														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-001" ID="{41F000CD-DF55-4D00-B593-F5A4950C6491}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-001.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="860204178"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-002" ID="{4361F0C0-3996-477C-8406-AC98378AB9C2}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-002.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="325148815"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-003" ID="{76554763-4605-4E71-A139-4501540121F8}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-003.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="1023081737"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-004" ID="{C4B6B3A6-F3FE-4DB3-859C-FCA5F681500E}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-004.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="713985757"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-006" ID="{3ACE12EF-011C-48C8-8030-0437D2808665}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-006.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="53952485"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-007" ID="{9AF5CDD1-9408-4775-865D-49AC20F816BF}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-007.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="985296626"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-008" ID="{7E90F6F4-15D3-4A5A-B565-7C3D2C523CAA}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-008.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="777340066"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-009" ID="{8B750144-0346-4AB1-B4C1-69B3D3665210}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-009.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="177089522"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-010" ID="{70E9EDCF-EBDF-4A43-BFED-C5A21091B3B5}">
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-010.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="496275679"/>
+															</MediaIDList>
+														</AudioFileSource>
+														<AudioFileSource Name="Cristal_Platform_FS-011" ID="{D947BFC4-2DCA-4765-B4C6-A7D1953D752D}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.00768574879227053"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.094150422705314"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.422716183574879"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Cristal_Platform_FS-011.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="695130860"/>
+															</MediaIDList>
+														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="Cristal_Platform_FS-005" ID="{8926B96D-3FDB-487A-9A0F-9DB6CA23E0E6}" Platform="Linked"/>
+														<ActiveSource Name="Cristal_Platform_FS-011" ID="{D947BFC4-2DCA-4765-B4C6-A7D1953D752D}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-006" ID="{C650478F-5E6A-4F82-8338-574BE623A9C3}" ShortID="1055199414">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>5</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1385,10 +1404,16 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-006" ID="{08AB20D5-F31B-482D-9DCA-4F440E3FA020}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.0043977958937198"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0650873792270532"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.394922071256039"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-006.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="53952485"/>
+																<MediaID ID="28636868"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1397,6 +1422,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-007" ID="{95D8D831-8B88-4162-8888-C4D9458A18A3}" ShortID="232702663">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>6</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1407,10 +1439,15 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-007" ID="{787DCE39-2AC7-42D6-813E-588D5630598C}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.00419402173913043"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0386782004830918"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-007.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="985296626"/>
+																<MediaID ID="672188993"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1419,6 +1456,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-008" ID="{09B25038-463A-4F3E-A4C8-E12D98490B73}" ShortID="884702875">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>3</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1441,6 +1485,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-009" ID="{E1285AE0-6B24-4DD9-BF06-8272D7D538EC}" ShortID="15502228">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>5</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1451,10 +1502,16 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-009" ID="{DF84FF91-E321-4589-AE41-1FD1DFE405EC}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.0070195652173913"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.115822826086957"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.514768115942029"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-009.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="177089522"/>
+																<MediaID ID="17443080"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1463,6 +1520,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-010" ID="{6FC5233A-8397-43C6-B3D1-FA7033C575DD}" ShortID="484676230">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>5</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1473,10 +1537,15 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-010" ID="{59BD0476-218E-47E0-AA01-6FB37C23DFE0}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.00522312801932367"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.0438742753623189"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-010.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="496275679"/>
+																<MediaID ID="252607925"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
@@ -1485,6 +1554,13 @@
 													</ActiveSourceList>
 												</Sound>
 												<Sound Name="Cristal_Platform_FS-011" ID="{A9C02B9B-4F91-4839-84C3-D197D79B8943}" ShortID="675758606">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>4</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
@@ -1495,6 +1571,12 @@
 													</ReferenceList>
 													<ChildrenList>
 														<AudioFileSource Name="Cristal_Platform_FS-011" ID="{1F53725D-F993-4D61-8AE9-68964375F926}">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.0057643115942029"/>
+																<Property Name="FadeOutDuration" Type="Real64" Value="0.109521920289855"/>
+																<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+																<Property Name="TrimEnd" Type="Real64" Value="0.465948520531401"/>
+															</PropertyList>
 															<Language>SFX</Language>
 															<AudioFile>Cristal_Platform_FS-011.wav</AudioFile>
 															<MediaIDList>
@@ -1580,9 +1662,6 @@
 							</ChildrenList>
 							<GroupingInfo>
 								<GroupingBehaviorList>
-									<GroupingBehavior>
-										<ItemRef Name="Cristal_Platform_Landings" ID="{18F6F991-2D51-448D-A442-9907190FB206}"/>
-									</GroupingBehavior>
 									<GroupingBehavior>
 										<ItemRef Name="Cristal_Platform_FS" ID="{D5701CBB-691A-4863-A9C2-3A10CC576336}"/>
 									</GroupingBehavior>
@@ -2886,11 +2965,19 @@
 								</GroupingList>
 							</GroupingInfo>
 						</SwitchContainer>
-						<SwitchContainer Name="Cristal_Platform_Footsteps" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}" ShortID="387160336">
+						<SwitchContainer Name="Cristal_Platform_Landing" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}" ShortID="387160336">
 							<PropertyList>
 								<Property Name="Color" Type="int16" Value="3"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>26</Value>
+									</ValueList>
+								</Property>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>6</Value>
+									</ValueList>
 									<ModifierList>
 										<ModifierInfo>
 											<Modifier Name="" ID="{8A03DFE1-FC58-4F07-891D-424B36E7B5ED}">
@@ -2946,7 +3033,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-15</Value>
+												<Value>-27</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2958,6 +3045,460 @@
 											<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 										</Reference>
 									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Cristal_Platform_Landings-001" ID="{34EF2363-6839-408B-A7D5-59C83BC2C963}" ShortID="366514960">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-001" ID="{5FD590C5-15BA-4E2B-B4D9-D65C3E24BD11}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.145729347826087"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.333679347826087"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="67995237"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-001" ID="{5FD590C5-15BA-4E2B-B4D9-D65C3E24BD11}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-002" ID="{805C28AC-B8A8-47B1-BD9F-FEE9DB3289CF}" ShortID="800123265">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-002" ID="{F979E665-DD9B-4CF1-9A42-61153C027337}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.0663985507246377"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.273182608695652"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="354437593"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-002" ID="{F979E665-DD9B-4CF1-9A42-61153C027337}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-003" ID="{EF7C4678-8331-42F6-BF0F-C23D5982D87D}" ShortID="675612826">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-003" ID="{0BB0C0D8-FA3F-4683-9C7E-AA4E3E112F2D}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.0681951992753623"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.340258152173913"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="381624687"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-003" ID="{0BB0C0D8-FA3F-4683-9C7E-AA4E3E112F2D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-004" ID="{B3EA9826-FC0C-4D34-9A73-E012C85E7F02}" ShortID="237232812">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-004" ID="{517E2331-8B5C-4339-BB3A-C3600A800AF7}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.0741262983091788"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.428510929951691"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="180203765"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-001" ID="{28336588-EC67-467A-809F-9DD372D198D2}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="950183408"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-002" ID="{68E2E697-08DF-4E00-8629-3E7A852FDFFE}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="315629678"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-003" ID="{CBCD3ACF-4ABC-4EBE-AFF2-07239E20B655}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="69497771"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-005" ID="{959AAA17-1012-4AB7-8BA1-BF6E8859196C}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-005.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="442714168"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-006" ID="{0A8D6EBB-AB7B-4622-8591-8200EB349046}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-006.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="15240986"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-007" ID="{09EA0004-41B1-4190-AC8C-DB07F70B9FE3}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-007.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="576422941"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-008" ID="{1145BC89-7FDF-4912-ABDC-2D893F5ACD92}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-008.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="575231651"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-009" ID="{846BC174-6D09-43C7-BA9E-8EC68C2CDD42}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-009.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="690760627"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-010" ID="{F8D020BB-FA6D-4C50-AE75-0BD47CFEB61B}">
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-010.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1058834736"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="Cristal_Platform_Landings-011" ID="{15E465EC-240A-4623-B40E-E00E18C4657A}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.00832753623188406"/>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.272726811594203"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.47258768115942"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-011.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="450505302"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-011" ID="{15E465EC-240A-4623-B40E-E00E18C4657A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-005" ID="{B8B35D65-5857-4BF6-9548-9CF56E62745D}" ShortID="622714355">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-005" ID="{6ADC0D45-4258-41DA-B3D4-BAD7506ED00E}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.00749646739130434"/>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.128510869565217"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.389816304347826"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-005.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="531548991"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-005" ID="{6ADC0D45-4258-41DA-B3D4-BAD7506ED00E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-006" ID="{C1A39616-02D4-41D9-A1CB-BABE32B53BA6}" ShortID="944183228">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-006" ID="{9CAD3E96-BDCD-440A-BDA9-C15049AEC052}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.239240096618357"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.417790609903382"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-006.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="690073225"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-006" ID="{9CAD3E96-BDCD-440A-BDA9-C15049AEC052}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-007" ID="{008529D2-1EBB-4463-B320-43D28FE48F69}" ShortID="510640814">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-007" ID="{77B2FF8F-1238-4C0F-A35E-961FF3214108}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.325357548309179"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.451993719806763"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-007.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="799062548"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-007" ID="{77B2FF8F-1238-4C0F-A35E-961FF3214108}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-008" ID="{746F6899-03C6-4D5D-B987-8915C6ABA37B}" ShortID="657330890">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-008" ID="{9B0DC176-9788-4212-97A6-F849B4F744CD}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.165087560386473"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.317832125603865"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-008.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="104324263"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-008" ID="{9B0DC176-9788-4212-97A6-F849B4F744CD}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-009" ID="{074FAB4C-924C-4E78-A11C-0A4AED1B5174}" ShortID="953456120">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-009" ID="{98B577BC-EC1E-4553-ABE8-6D5A9F40136E}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.340448913043478"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.377886594202899"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-009.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="229211874"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-009" ID="{98B577BC-EC1E-4553-ABE8-6D5A9F40136E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-010" ID="{9F7BB8C1-5321-4BCE-98DA-B70DB77EE9DF}" ShortID="262988190">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-010" ID="{1325BAA4-9E77-4CB4-8A8B-256A597C96EB}">
+													<PropertyList>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.12449797705314"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.418415881642512"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-010.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="174589174"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-010" ID="{1325BAA4-9E77-4CB4-8A8B-256A597C96EB}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Cristal_Platform_Landings-011" ID="{57FC1E57-77D9-450E-8192-4579D6977172}" ShortID="694049382">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cristal_Platform_Landings-011" ID="{763BE851-6FBB-41B8-B814-23AA8525EE6F}">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.00520471014492754"/>
+														<Property Name="FadeOutDuration" Type="Real64" Value="0.207147463768116"/>
+														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.320610144927536"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cristal_Platform_Landings-011.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="719909032"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cristal_Platform_Landings-011" ID="{763BE851-6FBB-41B8-B814-23AA8525EE6F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
 								</RandomSequenceContainer>
 							</ChildrenList>
 							<GroupingInfo>
@@ -2976,7 +3517,7 @@
 								</GroupingList>
 							</GroupingInfo>
 						</SwitchContainer>
-						<SwitchContainer Name="Metal_Footsteps" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}" ShortID="415659839">
+						<SwitchContainer Name="Metal_Landing" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}" ShortID="415659839">
 							<PropertyList>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
@@ -3124,10 +3665,10 @@
 					<GroupingInfo>
 						<GroupingBehaviorList>
 							<GroupingBehavior>
-								<ItemRef Name="Metal_Footsteps" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}"/>
+								<ItemRef Name="Metal_Landing" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}"/>
 							</GroupingBehavior>
 							<GroupingBehavior>
-								<ItemRef Name="Cristal_Platform_Footsteps" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}"/>
+								<ItemRef Name="Cristal_Platform_Landing" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}"/>
 							</GroupingBehavior>
 							<GroupingBehavior>
 								<ItemRef Name="Concrete_Landing" ID="{B4992BEB-8D66-49FD-8DC2-6B4233A6C691}"/>
@@ -3143,13 +3684,13 @@
 							<Grouping>
 								<SwitchRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}"/>
 								<ItemList>
-									<ItemRef Name="Cristal_Platform_Footsteps" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}"/>
+									<ItemRef Name="Cristal_Platform_Landing" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}"/>
 								</ItemList>
 							</Grouping>
 							<Grouping>
 								<SwitchRef Name="Metal" ID="{CB41568D-863A-456E-AFE2-E43BD4D19A2D}"/>
 								<ItemList>
-									<ItemRef Name="Metal_Footsteps" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}"/>
+									<ItemRef Name="Metal_Landing" ID="{E124C939-0E00-45CC-AA88-A8C2687605BE}"/>
 								</ItemList>
 							</Grouping>
 						</GroupingList>
