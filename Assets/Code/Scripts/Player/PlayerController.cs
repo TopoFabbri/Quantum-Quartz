@@ -37,6 +37,7 @@ namespace Code.Scripts.Player
         private WallJumpState<string> wallJumpState;
         private GlideState<string> gldeState;
         private GrabState<string> grabState;
+        private PauseState<string> pausState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -72,7 +73,7 @@ namespace Code.Scripts.Player
         private bool shouldTp;
         private bool glidePressed;
         private bool grabPressed;
-
+        
         private event Action<bool> OnFlip;
 
         private void Awake()
@@ -101,6 +102,9 @@ namespace Code.Scripts.Player
             tlptState.onExit += OnExitTpHandler;
             gldeState.onExit += OnExitGlideHandler;
 
+            camController.MoveCam += PausePlayer;
+            camController.StopCam += ResumePlayer;
+            
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.AbilityPress += OnAbilityPressHandler;
@@ -131,6 +135,9 @@ namespace Code.Scripts.Player
             tlptState.onExit -= OnExitTpHandler;
             gldeState.onExit -= OnExitGlideHandler;
 
+            camController.MoveCam -= PausePlayer;
+            camController.StopCam -= ResumePlayer;
+            
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.AbilityPress -= OnAbilityPressHandler;
@@ -258,6 +265,7 @@ namespace Code.Scripts.Player
             wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
             gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
             grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
+            pausState = new PauseState<string>("Pause", rb);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -275,6 +283,7 @@ namespace Code.Scripts.Player
             fsm.AddState(wallJumpState);
             fsm.AddState(gldeState);
             fsm.AddState(grabState);
+            fsm.AddState(pausState);
 
             FsmTransitions();
 
@@ -298,6 +307,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(wallJumpState.ID, 11);
             fsmAnimController.AddState(gldeState.ID, 12);
             fsmAnimController.AddState(grabState.ID, 13);
+            fsmAnimController.AddState(pausState.ID, 14);
         }
 
         /// <summary>
@@ -415,6 +425,22 @@ namespace Code.Scripts.Player
             OnFlip?.Invoke(facingRight);
         }
 
+        /// <summary>
+        /// Pause player fsm
+        /// </summary>
+        private void PausePlayer()
+        {
+            fsm.InterruptState(pausState);
+        }
+        
+        /// <summary>
+        /// Resume player fsm
+        /// </summary>
+        private void ResumePlayer()
+        {
+            fsm.StopInterrupt();
+        }
+        
         /// <summary>
         /// Stop teleport state
         /// </summary>

@@ -10,6 +10,7 @@ namespace Code.Scripts.FSM
 
         public BaseState<T> CurrentState { get; private set; }
         public BaseState<T> PreviousState { get; private set; }
+        public BaseState<T> InterruptedState { get; private set; }
 
         private readonly Dictionary<Type, List<Transition<T>>> transitions = new();
         private List<Transition<T>> currentTransitions = new();
@@ -17,6 +18,7 @@ namespace Code.Scripts.FSM
         private static readonly List<Transition<T>> EmptyTransitions = new(0);
 
         private bool initialized;
+        private bool interrupted;
 
         public event Action<T> StateChanged;
 
@@ -98,6 +100,32 @@ namespace Code.Scripts.FSM
             CurrentState?.OnEnter();
         }
 
+        public void InterruptState(BaseState<T> state)
+        {
+            if (CurrentState == state)
+                return;
+            
+            interrupted = true;
+            
+            InterruptedState = CurrentState;
+            CurrentState = state;
+            
+            StateChanged?.Invoke(CurrentState.ID);
+            
+            CurrentState?.OnEnter();
+        }
+        
+        public void StopInterrupt()
+        {
+            CurrentState.OnExit();
+            
+            CurrentState = InterruptedState;
+            
+            StateChanged?.Invoke(CurrentState.ID);
+            
+            interrupted = false;
+        }
+
         public void AddTransition(BaseState<T> from, BaseState<T> to, Func<bool> condition)
         {
             if (this.transitions.TryGetValue(from.GetType(), out List<Transition<T>> transitions) == false)
@@ -111,6 +139,9 @@ namespace Code.Scripts.FSM
 
         private Transition<T> GetTransition()
         {
+            if (interrupted)
+                return null;
+            
             foreach (var transition in currentTransitions)
                 if (transition.Condition())
                     return transition;

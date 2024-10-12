@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Code.Scripts.Input;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Camera
 {
@@ -23,6 +25,9 @@ namespace Code.Scripts.Camera
         
         private bool isMoving;
 
+        public event Action MoveCam;
+        public event Action StopCam;
+        
         private void Awake()
         {
             cameraPosition = transform.position;
@@ -54,7 +59,10 @@ namespace Code.Scripts.Camera
             transform.position = Vector3.MoveTowards(transform.position, cameraPosition, Time.deltaTime * speed);
 
             if (transform.position == cameraPosition)
+            {
                 isMoving = false;
+                StopCam?.Invoke();
+            }
         }
 
         /// <summary>
@@ -63,6 +71,7 @@ namespace Code.Scripts.Camera
         /// <param name="position"></param>
         public void MoveTo(Vector3 position)
         {
+            MoveCam?.Invoke();
             cameraPosition = position;
             isMoving = true;
         }
