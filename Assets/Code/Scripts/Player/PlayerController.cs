@@ -11,6 +11,7 @@ using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scripts.Player
 {
@@ -36,6 +37,7 @@ namespace Code.Scripts.Player
         private WallJumpState<string> wallJumpState;
         private GlideState<string> gldeState;
         private GrabState<string> grabState;
+        private PauseState<string> pausState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -45,6 +47,8 @@ namespace Code.Scripts.Player
         [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
+        [SerializeField] private ParticleSystem gldePs;
+        [SerializeField] private ParticleSystem wjmpPs;
         [SerializeField] private CameraController camController;
         [SerializeField] private BarController staminaBar;
         
@@ -56,7 +60,9 @@ namespace Code.Scripts.Player
 
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
-
+        [SerializeField] private string platformSwitchEvent = "Set_Switch_Cristal_Platforms";
+        [FormerlySerializedAs("concreteSwitchEvent")] [SerializeField] private string floorSwitchEvent = "Set_Switch_Concrete";
+        
         private bool facingRight;
         private bool jumpPressed;
         private bool dashPressed;
@@ -67,7 +73,7 @@ namespace Code.Scripts.Player
         private bool shouldTp;
         private bool glidePressed;
         private bool grabPressed;
-
+        
         private event Action<bool> OnFlip;
 
         private void Awake()
@@ -96,6 +102,9 @@ namespace Code.Scripts.Player
             tlptState.onExit += OnExitTpHandler;
             gldeState.onExit += OnExitGlideHandler;
 
+            camController.MoveCam += PausePlayer;
+            camController.StopCam += ResumePlayer;
+            
             InputManager.Move += OnMoveHandler;
             InputManager.Jump += OnJumpPressedHandler;
             InputManager.AbilityPress += OnAbilityPressHandler;
@@ -126,6 +135,9 @@ namespace Code.Scripts.Player
             tlptState.onExit -= OnExitTpHandler;
             gldeState.onExit -= OnExitGlideHandler;
 
+            camController.MoveCam -= PausePlayer;
+            camController.StopCam -= ResumePlayer;
+            
             InputManager.Move -= OnMoveHandler;
             InputManager.Jump -= OnJumpPressedHandler;
             InputManager.AbilityPress -= OnAbilityPressHandler;
@@ -190,9 +202,14 @@ namespace Code.Scripts.Player
             
             if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
                 return;
-
+            
             if (!moveState.IsGrounded())
                 return;
+
+            if (other.gameObject.CompareTag("Platform"))
+                AkSoundEngine.PostEvent(platformSwitchEvent, gameObject);
+            else if (other.gameObject.CompareTag("Floor"))
+                AkSoundEngine.PostEvent(floorSwitchEvent, gameObject);
 
             touchingFloor = true;
 
@@ -248,6 +265,7 @@ namespace Code.Scripts.Player
             wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
             gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
             grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
+            pausState = new PauseState<string>("Pause", rb);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -265,6 +283,7 @@ namespace Code.Scripts.Player
             fsm.AddState(wallJumpState);
             fsm.AddState(gldeState);
             fsm.AddState(grabState);
+            fsm.AddState(pausState);
 
             FsmTransitions();
 
@@ -405,6 +424,24 @@ namespace Code.Scripts.Player
             OnFlip?.Invoke(facingRight);
         }
 
+        /// <summary>
+        /// Pause player fsm
+        /// </summary>
+        private void PausePlayer()
+        {
+            fsmAnimController.TogglePauseAnim(true);
+            fsm.InterruptState(pausState);
+        }
+        
+        /// <summary>
+        /// Resume player fsm
+        /// </summary>
+        private void ResumePlayer()
+        {
+            fsmAnimController.TogglePauseAnim(false);
+            fsm.StopInterrupt();
+        }
+        
         /// <summary>
         /// Stop teleport state
         /// </summary>
@@ -673,6 +710,7 @@ namespace Code.Scripts.Player
         private void OnEnterGlideHandler()
         {
             playerSfx.PlayGlide();
+            gldePs.Play();
         }
         
         /// <summary>
@@ -710,6 +748,7 @@ namespace Code.Scripts.Player
         private void OnExitGlideHandler()
         {
             playerSfx.StopGlide();
+            gldePs.Stop();
         }
         
         /// <summary>

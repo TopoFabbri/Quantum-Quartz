@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Code.Scripts.Input;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Scripts.Camera
 {
@@ -13,15 +15,19 @@ namespace Code.Scripts.Camera
         [SerializeField] private float speed = 20f;
         [SerializeField] private float moveDis = 10f;
         [SerializeField] private float inputSpeed = 2f;
+        [SerializeField] private float moveTimeOffset = 0.5f;
 
         private readonly Dictionary<int, bool> shakes = new();
         private List<int> shakeIds = new();
-        
+
         private Vector3 cameraPosition;
         private Vector2 offsetByInput;
         private float currentDis;
-        
+
         private bool isMoving;
+
+        public event Action MoveCam;
+        public event Action StopCam;
 
         private void Awake()
         {
@@ -54,7 +60,9 @@ namespace Code.Scripts.Camera
             transform.position = Vector3.MoveTowards(transform.position, cameraPosition, Time.deltaTime * speed);
 
             if (transform.position == cameraPosition)
-                isMoving = false;
+            {
+                StartCoroutine(WaitAndToggleMoving(moveTimeOffset));
+            }
         }
 
         /// <summary>
@@ -63,8 +71,11 @@ namespace Code.Scripts.Camera
         /// <param name="position"></param>
         public void MoveTo(Vector3 position)
         {
+            if (cameraPosition == position)
+                return;
+            
             cameraPosition = position;
-            isMoving = true;
+            StartCoroutine(WaitAndToggleMoving(moveTimeOffset));
         }
 
         /// <summary>
@@ -84,15 +95,15 @@ namespace Code.Scripts.Camera
         public void Shake(float duration, float magnitude)
         {
             StopAllShakes();
-            
+
             int i = 0;
 
             while (shakes.ContainsKey(i))
                 i++;
-            
+
             shakes.Add(i, true);
             shakeIds.Add(i);
-            
+
             StartCoroutine(ShakeForDuration(duration, magnitude, i));
         }
 
@@ -122,6 +133,27 @@ namespace Code.Scripts.Camera
             shakes.Remove(shakeId);
             shakeIds.Remove(shakeId);
             transform.localPosition = originalPos;
+        }
+
+        /// <summary>
+        /// Wait time and start move camera
+        /// </summary>
+        /// <param name="time"> Time to wait</param>
+        /// <returns></returns>
+        private IEnumerator WaitAndToggleMoving(float time)
+        {
+            if (isMoving)
+            {
+                isMoving = false;
+                yield return new WaitForSeconds(time);
+                StopCam?.Invoke();
+            }
+            else
+            {
+                MoveCam?.Invoke();
+                yield return new WaitForSeconds(time);
+                isMoving = true;
+            }
         }
 
         /// <summary>
