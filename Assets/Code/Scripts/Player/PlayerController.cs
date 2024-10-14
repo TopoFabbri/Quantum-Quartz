@@ -355,8 +355,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(dashState, tlptState, () => shouldTp);
 
             fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f && !moveState.IsGrounded());
-            fsm.AddTransition(djmpState, idleState,
-                () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
 

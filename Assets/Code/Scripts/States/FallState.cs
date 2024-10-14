@@ -25,18 +25,9 @@ namespace Code.Scripts.States
             this.playerSfx = playerSfx;
         }
 
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            
-            rb.sharedMaterial.friction = moveSettings.airFriction;
-        }
-
         public override void OnExit()
         {
             base.OnExit();
-            
-            rb.sharedMaterial.friction = moveSettings.groundFriction;
             
             if (IsGrounded())
                 playerSfx.Land();

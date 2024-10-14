@@ -38,11 +38,11 @@ namespace Code.Scripts.FSM
         {
             base.OnExit();
             
-            rb.velocity = velocity;
-            rb.angularVelocity = angularVelocity;
-            rb.drag = drag;
-            rb.gravityScale = gravityScale;
             rb.isKinematic = isKinematic;
+            rb.gravityScale = gravityScale;
+            rb.drag = drag;
+            rb.angularVelocity = angularVelocity;
+            rb.velocity = velocity;
         }
     }
 }
