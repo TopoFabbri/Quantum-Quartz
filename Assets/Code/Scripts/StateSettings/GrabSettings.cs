@@ -7,5 +7,6 @@ namespace Code.Scripts.StateSettings
     {
         [Header("Grab")]
         public float staminaMitigation = .2f;
+        public float initStaminaCut = .5f;
     }
 }

@@ -23,6 +23,8 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             
+            barController.FillValue -= GrabSettings.staminaMitigation * GrabSettings.initStaminaCut;
+            
             barController.SetVisibility(true);
 
             rb.gravityScale = 0f;

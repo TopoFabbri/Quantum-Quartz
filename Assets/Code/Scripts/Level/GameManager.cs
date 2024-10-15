@@ -12,19 +12,19 @@ namespace Code.Scripts.Level
         [SerializeField] private TextMeshProUGUI timerTxt;
         [SerializeField] private GameObject statesText;
         public bool isTimerOn;
-        
+
         private bool ended;
 
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            
+
             isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
-            
-            if(isTimerOn)
-            TimeCounter.Start();
-            
+
+            if (isTimerOn)
+                TimeCounter.Start();
+
             SfxController.MusicOnOff(true, gameObject);
         }
 
@@ -32,7 +32,7 @@ namespace Code.Scripts.Level
         {
             SfxController.MusicOnOff(false, gameObject);
         }
-        
+
         private void OnEnable()
         {
             InputManager.Restart += OnRestartHandler;
@@ -44,7 +44,7 @@ namespace Code.Scripts.Level
             InputManager.Restart -= OnRestartHandler;
             InputManager.DevMode -= OnDevModeHandler;
         }
-        
+
         private void Update()
         {
             TimeCounter.Update(Time.deltaTime);
@@ -56,9 +56,10 @@ namespace Code.Scripts.Level
         /// </summary>
         private void OnDevModeHandler()
         {
-            Settings.devMode = !Settings.devMode;
-            
-            statesText.SetActive(Settings.devMode);
+            Settings.Instance.devMode = !Settings.Instance.devMode;
+
+            statesText.SetActive(Settings.Instance.devMode);
+            Settings.MusicVol = Settings.Instance.devMode ? 0 : 100f;
         }
 
         /// <summary>
