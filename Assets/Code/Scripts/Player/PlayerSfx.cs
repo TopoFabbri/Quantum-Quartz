@@ -11,12 +11,15 @@ namespace Code.Scripts.Player
         [SerializeField] private string jumpEvent;
         [SerializeField] private string landEvent;
         [SerializeField] private string djmpEvent;
-        
+        [SerializeField] private string platformSwitchEvent = "Set_Switch_Cristal_Platforms";
+        [SerializeField] private string floorSwitchEvent = "Set_Switch_Concrete";
+
         /// <summary>
         /// Call step event
         /// </summary>
         public void Step()
         {
+            CheckMaterial();
             AkSoundEngine.PostEvent(stepEvent, gameObject);
         }
         
@@ -33,6 +36,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Land()
         {
+            CheckMaterial();
             AkSoundEngine.PostEvent(landEvent, gameObject);
         }
         
@@ -82,6 +86,23 @@ namespace Code.Scripts.Player
         public void Death()
         {
             AkSoundEngine.PostEvent("Play_Death", gameObject);
+        }
+
+        /// <summary>
+        /// Set the floor material sound
+        /// </summary>
+        private void CheckMaterial()
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, LayerMask.GetMask("Default"));
+
+            if (!hit.collider) return;
+            
+            GameObject other = hit.collider.gameObject;
+
+            if (other.gameObject.CompareTag("Platform"))
+                AkSoundEngine.PostEvent(platformSwitchEvent, gameObject);
+            else if (other.gameObject.CompareTag("Floor"))
+                AkSoundEngine.PostEvent(floorSwitchEvent, gameObject);
         }
     }
 }
