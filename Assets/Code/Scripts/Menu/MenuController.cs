@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Menu
@@ -22,7 +18,7 @@ namespace Code.Scripts.Menu
         private void Start()
         {
             // Solo inicializa pantalla completa en la escena principal
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "SelectControllerMenu")
+            if (SceneManager.GetActiveScene().name == "SelectControllerMenu")
             {
                 FullScreenManager.InitializeFullScreen();
             }

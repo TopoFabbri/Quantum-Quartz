@@ -1,7 +1,33 @@
 namespace Code.Scripts.Game
 {
-    public static class Settings
+    public class Settings
     {
-        public static bool devMode;
+        private static Settings _instance;
+
+        public bool devMode;
+        private float musicVol = 100f;
+        private float sfxVol = 100f;
+
+        public static Settings Instance => _instance ??= new Settings();
+
+        public static float MusicVol
+        {
+            get => Instance.musicVol;
+            set
+            {
+                Instance.musicVol = value;
+                AkSoundEngine.SetRTPCValue("music_volume", value);
+            }
+        }
+        
+        public static float SfxVol
+        {
+            get => Instance.sfxVol;
+            set
+            {
+                Instance.sfxVol = value;
+                AkSoundEngine.SetRTPCValue("sfx_volume", value);
+            }
+        }
     }
 }
