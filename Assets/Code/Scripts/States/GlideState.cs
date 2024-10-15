@@ -20,6 +20,8 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
+            barController.FillValue -= Settings.staminaMitigation * Settings.initStaminaCut;
+
             barController.SetVisibility(true);
             
             prevGravScale = rb.gravityScale;

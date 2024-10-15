@@ -7,7 +7,7 @@ namespace Code.Scripts.StateSettings
     {
         [Header("Glide")]
         public float fallSpeed = .1f;
-        public float barDuration = 1f;
         public float staminaMitigation = .05f;
+        public float initStaminaCut = 3f;
     }
 }
