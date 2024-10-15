@@ -59,6 +59,7 @@ namespace Code.Scripts.Level
             Settings.Instance.devMode = !Settings.Instance.devMode;
 
             statesText.SetActive(Settings.Instance.devMode);
+            Settings.MusicVol = Settings.Instance.devMode ? 0 : 100f;
         }
 
         /// <summary>
