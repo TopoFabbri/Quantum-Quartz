@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ namespace Code.Scripts.Level
         [SerializeField] private int currentLevel;
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
+        [SerializeField] private GameObject playerGO;
 
         public int CurrentLevel => currentLevel;
 
@@ -20,7 +22,6 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
-            //Time.timeScale = 1;
             endLevelCanvas.gameObject.SetActive(false);
         }
 
@@ -28,14 +29,20 @@ namespace Code.Scripts.Level
         {
             if (other.CompareTag("Player"))
             {
-                //endLevelCanvas.gameObject.SetActive(true);
-                //endLevelFirstSelectedButton.Select();
-                //Time.timeScale = 0;
                 PlayerTp?.Invoke();
+
+                StartCoroutine(ShowEndLevelScreen(2));
             }
         }
-        
-        
+
+        private IEnumerator ShowEndLevelScreen(float time)
+        {
+            yield return new WaitForSeconds(time);
+            playerGO.SetActive(false);
+            endLevelCanvas.gameObject.SetActive(true);
+            endLevelFirstSelectedButton.Select();
+        }
+
 
         public static void EndLevel()
         {

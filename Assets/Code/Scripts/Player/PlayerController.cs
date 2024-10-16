@@ -730,7 +730,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnExitTpHandler()
         {
-            LevelChanger.EndLevel();
+            //LevelChanger.EndLevel();
         }
 
         /// <summary>
