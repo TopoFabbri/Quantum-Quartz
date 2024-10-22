@@ -1,12 +1,15 @@
+using System.Collections;
 using Code.Scripts.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Code.Scripts.UI
 {
     public class PauseController : MonoBehaviour
     {
         [SerializeField] private GameObject pauseCanvas;
+        [SerializeField] private Button pauseResumeButton;
     
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private string defaultMap = "World";
@@ -32,10 +35,11 @@ namespace Code.Scripts.UI
         
             if (isPaused)
             {
-                Time.timeScale = 0;
                 pauseCanvas.SetActive(true);
-                
+                pauseResumeButton.Select();
                 playerInput.SwitchCurrentActionMap(uiMap);
+
+                StartCoroutine(PauseTimeScale(0.9f));
             }
             else
             {
@@ -44,6 +48,12 @@ namespace Code.Scripts.UI
                 
                 playerInput.SwitchCurrentActionMap(defaultMap);
             }
+        }
+        
+        private IEnumerator PauseTimeScale(float time)
+        {
+            yield return new WaitForSeconds(time);
+            Time.timeScale = 0;
         }
     }
 }
