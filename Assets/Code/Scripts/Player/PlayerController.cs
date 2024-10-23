@@ -247,7 +247,7 @@ namespace Code.Scripts.Player
             moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
             jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
             fallState = new FallState<string>("Fall", stateSettings[2], rb, transform, this, playerSfx);
-            dashState = new DashState<string>("Dash", stateSettings[3], rb, this);
+            dashState = new DashState<string>("Dash", stateSettings[3], rb, transform, this);
             djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
             dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
             spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
