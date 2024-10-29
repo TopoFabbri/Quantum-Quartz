@@ -13,6 +13,7 @@ namespace Code.Scripts.Menu
         [SerializeField] private string level4SceneName;
         
         [SerializeField] private GameObject fadeOut;
+        [SerializeField] private OptionsController optionsController;
         
         private bool isFullScreen;
         private void Start()
@@ -42,6 +43,11 @@ namespace Code.Scripts.Menu
         public void GoMainMenu()
         {
             LoadScene(mainMenuSceneName);
+        }
+        public void GoMainMenuAndTurnOptions()
+        {
+            LoadScene(mainMenuSceneName);
+            optionsController.TurnOptions();
         }
 
         public void LoadLevel1()
