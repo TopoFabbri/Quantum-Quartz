@@ -6063,11 +6063,11 @@ GameObject:
   - component: {fileID: 5658685984602118092}
   - component: {fileID: 5011673250015572329}
   - component: {fileID: 7418189334097761856}
-  - component: {fileID: 5336747697084548560}
-  - component: {fileID: 2847745276369036443}
   - component: {fileID: 2090065662981346448}
-  - component: {fileID: 1836373101099275539}
   - component: {fileID: 5633411915053908958}
+  - component: {fileID: 2847745276369036443}
+  - component: {fileID: 5336747697084548560}
+  - component: {fileID: 1836373101099275539}
   - component: {fileID: 8552471897275700223}
   - component: {fileID: 1171006249397760591}
   m_Layer: 6
@@ -6151,33 +6151,39 @@ MonoBehaviour:
   animator: {fileID: 1836373101099275539}
   intParamName: State
   boolParamName: FacingRight
---- !u!50 &5336747697084548560
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &2090065662981346448
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3237457409041573795}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 6
-  m_Material: {fileID: 6200000, guid: 12ed1f11a9ff85940b0d0abe10b68f3f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4baf419a5f44d2db116fafcb9612f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5633411915053908958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3237457409041573795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ac68fdc2b0411c865cf7d0163470ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepEvent: Play_Footsteps
+  jumpEvent: Play_Basic_Jump
+  landEvent: Play_Landings
+  djmpEvent: Play_Blue_Quartz_Jump
+  platformSwitchEvent: Set_Switch_Cristal_Platforms
+  floorSwitchEvent: Set_Switch_Concrete
+  soundsBySprites:
+  - sprite: {fileID: 0}
+    soundEvent: 
 --- !u!61 &2847745276369036443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6223,18 +6229,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45206356, y: 2.0658267}
   m_EdgeRadius: 0
---- !u!114 &2090065662981346448
-MonoBehaviour:
+--- !u!50 &5336747697084548560
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4baf419a5f44d2db116fafcb9612f8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 6
+  m_Material: {fileID: 6200000, guid: 12ed1f11a9ff85940b0d0abe10b68f3f, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!95 &1836373101099275539
 Animator:
   serializedVersion: 5
@@ -6256,24 +6277,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5633411915053908958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12ac68fdc2b0411c865cf7d0163470ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepEvent: Play_Footsteps
-  jumpEvent: Play_Basic_Jump
-  landEvent: Play_Landings
-  djmpEvent: Play_Blue_Quartz_Jump
-  platformSwitchEvent: Set_Switch_Cristal_Platforms
-  floorSwitchEvent: Set_Switch_Concrete
 --- !u!114 &8552471897275700223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6376,9 +6379,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.17222221
-    width: 0.17447917
-    height: 0.17447916
+    y: 0.22592592
+    width: 0.14166668
+    height: 0.14166667
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

@@ -14,6 +14,8 @@ namespace Code.Scripts.Platforms
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private float particleQty;
         [SerializeField] private bool solid;
+
+        public string matSoundEvent;
         
         private static readonly int On = Animator.StringToHash("On");
 
