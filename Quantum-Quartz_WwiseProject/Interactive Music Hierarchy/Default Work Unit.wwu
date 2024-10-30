@@ -40,8 +40,19 @@
 								<MusicSegment Name="Steampunk_Default" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" ShortID="945094142">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="251076.926282051"/>
+										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="130"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -419,6 +430,27 @@
 									</ObjectLists>
 								</MusicSegment>
 							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Steampunk_Music_States" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
+										<CustomState Name="" ID="{E60A736D-2C76-45D1-BA08-A1C815FABA0A}" ShortID="902411312">
+											<PropertyList>
+												<Property Name="Lowpass" Type="int16" Value="60"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
+										<CustomState Name="" ID="{231E7FC1-6E26-4BF6-BBF4-84F4E7357559}" ShortID="782311724"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
 							<TransitionList>
 								<MusicTransition Name="Root" ID="{B86206AF-81DD-4967-A801-5FD8D504FA1B}">
 									<PropertyList>

@@ -1,15 +1,17 @@
 Event	ID	Name			Wwise Object Path	Notes
 	708957530	Set_Switch_Metal			\Player\Molly\Footsteps\Set_Switch_Metal	
 	718252718	Play_Laser_LP			\Stages\Steampunk_Level\Lasers\Play_Laser_LP	
-	1019246482	Play_Landings			\Default Work Unit\Play_Landings	
+	1019246482	Play_Landings			\Player\Molly\Footsteps\Play_Landings	
 	1172822028	Play_Death			\Player\Molly\Play_Death	
 	1231329179	Play_Beam_Laser			\Stages\Steampunk_Level\Lasers\Play_Beam_Laser	
 	1386925776	Stop_Laser_LP			\Stages\Steampunk_Level\Lasers\Stop_Laser_LP	
 	1886667247	Play_Dash_L			\Player\Molly\Play_Dash_L	
 	1886667249	Play_Dash_R			\Player\Molly\Play_Dash_R	
+	2405722263	Set_State_Music_Ingame			\Stages\Steampunk_Level\Steampunk_Music\Set_State_Music_Ingame	
 	2438634884	Play_Yellow_Quartz			\Player\Molly\Play_Yellow_Quartz	
 	2505006364	Stop_Steampunk_Music			\Stages\Steampunk_Level\Steampunk_Music\Stop_Steampunk_Music	
 	2588384050	Stop_Yellow_Quartz			\Player\Molly\Stop_Yellow_Quartz	
+	2666093702	Set_State_Music_Pause			\Stages\Steampunk_Level\Steampunk_Music\Set_State_Music_Pause	
 	2848448515	Play_Basic_Jump			\Player\Molly\Play_Basic_Jump	
 	3128279563	Play_Blue_Quartz_Jump			\Player\Molly\Play_Blue_Quartz_Jump	
 	3543386712	Set_Switch_Concrete			\Player\Molly\Footsteps\Set_Switch_Concrete	
@@ -30,6 +32,17 @@ Switch	ID	Name	Switch Group			Notes
 	1403804780	Cristal_Platforms	Switch_Footsteps			
 	2473969246	Metal	Switch_Footsteps			
 
+State Group	ID	Name			Wwise Object Path	Notes
+	3322003828	Steampunk_Music_States			\Default Work Unit\Steampunk_Music_States	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Steampunk_Music_States			
+	984691642	Ingame	Steampunk_Music_States			
+	3092587493	Pause	Steampunk_Music_States			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	902411312	Pause	Steampunk_Music_States	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Steampunk_Music		
+
 Modulator Envelope	ID	Name			Wwise Object Path	Notes
 	672827090	Modulator Envelope (Custom)				
 
@@ -39,7 +52,7 @@ Effect plug-ins	ID	Name	Type				Notes
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	5402978	Concrete_Footstep-014	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-014_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-014		7576
 	10060735	Yellow_Quartz_Wind_LP	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Yellow_Quartz_Wind_LP_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Yellow_Quartz_Wind_LP		1887416
-	10333130	Concrete_Landings-003	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-003_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Concrete_Landing\Concrete_Landings\Concrete_Landings-003		23380
+	10333130	Concrete_Landings-003	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-003_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-003		23380
 	17366721	Lab_Footstep_14	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_14_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_14		67548
 	17443080	Cristal_Platform_FS-009	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-009_C9066ABA.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-009		49514
 	28636868	Cristal_Platform_FS-006	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-006_B6005344.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-006		38008
@@ -120,7 +133,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	719909032	Cristal_Platform_Landings-011	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-011_78A282ED.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-011		30874
 	724976298	Lab_Footstep_16	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_16_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_16		57716
 	728419561	Concrete_Footstep-019	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-019_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-019		7540
-	735533881	Concrete_Landings-002	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-002_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Concrete_Landing\Concrete_Landings\Concrete_Landings-002		24168
+	735533881	Concrete_Landings-002	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-002_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-002		24168
 	742299575	Concrete_Footstep-023	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-023_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-023		8860
 	743409494	Concrete_Footstep-013	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-013_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-013		6924
 	777340066	Cristal_Platform_FS-008	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-008_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-008		51196
@@ -140,7 +153,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	869910401	LAB_Landing-003	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\LAB_Landing-003_58427A19.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Metal_Landing\Metal_Landings\LAB_Landing-003		24736
 	885686076	Concrete_Footstep-010	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-010_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-010		14332
 	903032575	Lab_Footstep_6	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_6_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_6		59748
-	906006272	Concrete_Landings-001	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-001_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Concrete_Landing\Concrete_Landings\Concrete_Landings-001		20548
+	906006272	Concrete_Landings-001	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Landings-001_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-001		20548
 	906701666	Concrete_Footstep-027	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-027_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-027		11236
 	920848648	Lab_Footstep_11	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_11_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_11		58944
 	924197872	Beam_Laser	E:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Charge_Shoot_Laser_C1103BD0.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Steampunk_Level\Lasers\Beam_Laser		13022
