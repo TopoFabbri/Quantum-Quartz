@@ -26,6 +26,8 @@ namespace AK
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAMPUNK_MUSIC = 4292865938U;
         static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
+        static const AkUniqueID SET_STATE_MUSIC_INGAME = 2405722263U;
+        static const AkUniqueID SET_STATE_MUSIC_PAUSE = 2666093702U;
         static const AkUniqueID SET_SWITCH_CONCRETE = 3543386712U;
         static const AkUniqueID SET_SWITCH_CRISTAL_PLATFORMS = 4131070040U;
         static const AkUniqueID SET_SWITCH_METAL = 708957530U;
@@ -33,6 +35,22 @@ namespace AK
         static const AkUniqueID STOP_STEAMPUNK_MUSIC = 2505006364U;
         static const AkUniqueID STOP_YELLOW_QUARTZ = 2588384050U;
     } // namespace EVENTS
+
+    namespace STATES
+    {
+        namespace STEAMPUNK_MUSIC_STATES
+        {
+            static const AkUniqueID GROUP = 3322003828U;
+
+            namespace STATE
+            {
+                static const AkUniqueID INGAME = 984691642U;
+                static const AkUniqueID NONE = 748895195U;
+                static const AkUniqueID PAUSE = 3092587493U;
+            } // namespace STATE
+        } // namespace STEAMPUNK_MUSIC_STATES
+
+    } // namespace STATES
 
     namespace SWITCHES
     {

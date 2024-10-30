@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{A23F9145-AE58-2D0E-93E0-548DD11B2D0D}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{76E94BDB-CBAD-6357-7995-51CEF8663F7D}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -43,6 +43,15 @@
 				<GameParameter Id="1240670792" Name="Distance"/>
 				<GameParameter Id="1564184899" Name="sfx_volume"/>
 			</GameParameters>
+			<StateGroups>
+				<StateGroup Id="3322003828" Name="Steampunk_Music_States">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="Ingame"/>
+						<State Id="3092587493" Name="Pause"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
 			<SwitchGroups>
 				<SwitchGroup Id="96434573" Name="Level1_Music_Switch">
 					<Switches>
@@ -59,7 +68,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{139B491D-BD4E-CD6D-CA75-A27CD3B5F1EF}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{3808359C-5669-B080-425A-5A1DDCD73BF9}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -782,6 +791,16 @@
 						<MediaRef Id="948792412"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2405722263" Name="Set_State_Music_Ingame" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="3322003828" Id="984691642" Name="Ingame"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="2666093702" Name="Set_State_Music_Pause" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="3322003828" Id="3092587493" Name="Pause"/>
+					</ActionSetState>
+				</Event>
 				<Event Id="3543386712" Name="Set_Switch_Concrete" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
 						<ActionSetSwitchEntry GroupId="3395986341" Id="841620460" Name="Concrete"/>
@@ -801,6 +820,15 @@
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
+			<StateGroups>
+				<StateGroup Id="3322003828" Name="Steampunk_Music_States">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="Ingame"/>
+						<State Id="3092587493" Name="Pause"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
 			<SwitchGroups>
 				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
 					<Switches>
@@ -812,5 +840,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{58516284-26A6-50E3-0F34-61F6A533A294}</FileHash>
+	<FileHash>{7FE779C5-D111-883C-DEC4-E39A52D40BD7}</FileHash>
 </SoundBanksInfo>

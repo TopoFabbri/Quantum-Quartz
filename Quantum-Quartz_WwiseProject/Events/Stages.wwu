@@ -110,6 +110,34 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="Set_State_Music_Ingame" ID="{F6418AA0-343B-43B7-8C37-E182436028BB}">
+									<ChildrenList>
+										<Action Name="" ID="{D3850329-07EB-4A5B-82F3-7E983529CDF1}" ShortID="505062429">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="22"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Set_State_Music_Pause" ID="{0ADB95B8-86C3-4DEA-8061-2B2BEE62B4F7}">
+									<ChildrenList>
+										<Action Name="" ID="{C99868C3-6216-4E41-9740-4C73C5359F36}" ShortID="564552468">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="22"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
