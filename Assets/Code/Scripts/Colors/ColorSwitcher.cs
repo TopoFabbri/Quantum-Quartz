@@ -1,12 +1,17 @@
 ﻿using System;
 using Code.Scripts.Input;
-using Code.Scripts.Level;
 using Code.Scripts.Tools;
+using UnityEngine;
 
 namespace Code.Scripts.Colors
 {
     public class ColorSwitcher : MonoBehaviourSingleton<ColorSwitcher>
     {
+        [SerializeField] private bool blue = true;
+        [SerializeField] private bool red;
+        [SerializeField] private bool green;
+        [SerializeField] private bool yellow;
+        
         public enum QColor
         {
             None,
@@ -43,25 +48,25 @@ namespace Code.Scripts.Colors
 
         private void OnColor1()
         {
-            if (SelectableCrystals.Red)
+            if (red)
                SetColor(CurrentColor == QColor.Red ? QColor.None : QColor.Red);
         }
 
         private void OnColor2()
         {
-            if (SelectableCrystals.Blue)
+            if (blue)
                 SetColor(CurrentColor == QColor.Blue ? QColor.None : QColor.Blue);
         }
 
         private void OnColor3()
         {
-            if (SelectableCrystals.Green)
+            if (green)
                 SetColor(CurrentColor == QColor.Green ? QColor.None : QColor.Green);
         }
 
         private void OnColor4()
         {
-            if (SelectableCrystals.Yellow)
+            if (yellow)
                 SetColor(CurrentColor == QColor.Yellow ? QColor.None : QColor.Yellow);
         }
 
