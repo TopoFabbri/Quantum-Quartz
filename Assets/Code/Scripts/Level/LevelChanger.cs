@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Code.Scripts.Level
 {
@@ -9,17 +11,38 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private string[] levelScenes;
         [SerializeField] private int currentLevel;
+        [SerializeField] private Canvas endLevelCanvas;
+        [SerializeField] private Button endLevelFirstSelectedButton;
+        [SerializeField] private GameObject playerGO;
 
         public int CurrentLevel => currentLevel;
 
         public static event Action LevelEnd;
         public static event Action PlayerTp;
 
+        private void Start()
+        {
+            endLevelCanvas.gameObject.SetActive(false);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
+            {
                 PlayerTp?.Invoke();
+
+                StartCoroutine(ShowEndLevelScreen(2));
+            }
         }
+
+        private IEnumerator ShowEndLevelScreen(float time)
+        {
+            yield return new WaitForSeconds(time);
+            playerGO.SetActive(false);
+            endLevelCanvas.gameObject.SetActive(true);
+            endLevelFirstSelectedButton.Select();
+        }
+
 
         public static void EndLevel()
         {

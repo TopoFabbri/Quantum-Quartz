@@ -17,6 +17,7 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Code.Scripts.Platforms;
+using UnityEngine;
 
 namespace Code.Scripts.Player
 {
@@ -7,11 +9,16 @@ namespace Code.Scripts.Player
     /// </summary>
     public class PlayerSfx : MonoBehaviour
     {
+        [Serializable] private struct SoundBySprite
+        {
+            public Sprite sprite;
+            public string soundEvent;
+        }
+            
         [SerializeField] private string stepEvent;
         [SerializeField] private string jumpEvent;
         [SerializeField] private string landEvent;
         [SerializeField] private string djmpEvent;
-        [SerializeField] private string platformSwitchEvent = "Set_Switch_Cristal_Platforms";
         [SerializeField] private string floorSwitchEvent = "Set_Switch_Concrete";
 
         /// <summary>
@@ -99,10 +106,8 @@ namespace Code.Scripts.Player
             
             GameObject other = hit.collider.gameObject;
 
-            if (other.gameObject.CompareTag("Platform"))
-                AkSoundEngine.PostEvent(platformSwitchEvent, gameObject);
-            else if (other.gameObject.CompareTag("Floor"))
-                AkSoundEngine.PostEvent(floorSwitchEvent, gameObject);
+            AkSoundEngine.PostEvent(
+                other.TryGetComponent(out PlatformController plat) ? plat.matSoundEvent : floorSwitchEvent, gameObject);
         }
     }
 }

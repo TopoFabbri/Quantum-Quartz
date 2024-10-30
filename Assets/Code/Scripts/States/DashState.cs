@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
@@ -19,18 +20,21 @@ namespace Code.Scripts.States
 
         private readonly Rigidbody2D rb;
         private readonly MonoBehaviour mb;
-        
+        private readonly Transform transform;
+
         private readonly CameraController camController;
 
         private bool facingRight;
         private float gravScale;
 
-        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, MonoBehaviour mb) : base(id,
+        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, Transform transform,
+            MonoBehaviour mb) : base(id,
             settings)
         {
             DashAvailable = true;
             this.rb = rb;
             this.mb = mb;
+            this.transform = transform;
 
             if (UnityEngine.Camera.main != null)
                 UnityEngine.Camera.main.TryGetComponent(out camController);
@@ -42,10 +46,11 @@ namespace Code.Scripts.States
 
             gravScale = rb.gravityScale;
             rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
 
             if (camController)
                 camController.Shake(DashSettings.shakeDur, DashSettings.shakeMag);
-            
+
             mb.StartCoroutine(EndDash());
         }
 
@@ -55,22 +60,19 @@ namespace Code.Scripts.States
 
             rb.velocity = new Vector2(rb.velocity.x / 2f, 0f);
             rb.gravityScale = gravScale;
-            
+
             mb.StartCoroutine(StartCoolDown());
         }
 
-        public override void OnFixedUpdate()
+        public override void OnUpdate()
         {
             base.OnUpdate();
 
-            rb.velocity = new Vector2((facingRight ? DashSettings.speed : -DashSettings.speed) * Time.fixedDeltaTime,
-                0f);
-            
+            transform.position = Vector3.MoveTowards(transform.position,
+                transform.position + Vector3.right * (facingRight ? 1 : -1), DashSettings.speed * Time.deltaTime);
+
             if (WallCheck())
-            {
                 Ended = true;
-                rb.velocity = Vector2.zero;
-            }
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace Code.Scripts.States
         private IEnumerator StartCoolDown()
         {
             yield return new WaitForSeconds(DashSettings.cooldown);
-            
+
             Reset();
         }
 
@@ -123,8 +125,7 @@ namespace Code.Scripts.States
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Platform") ||
-                    collider.gameObject.CompareTag("Floor"))
+                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
                     return true;
             }
 
