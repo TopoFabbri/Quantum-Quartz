@@ -46,6 +46,7 @@ namespace Code.Scripts.Player
         [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
+        [SerializeField] private ParticleSystem djmpPs2;
         [SerializeField] private ParticleSystem gldePs;
         [SerializeField] private ParticleSystem wjmpPs;
         [SerializeField] private CameraController camController;
@@ -669,6 +670,7 @@ namespace Code.Scripts.Player
             djmpPressed = false;
 
             djmpPs.Play();
+            djmpPs2.Play();
         }
 
         /// <summary>
