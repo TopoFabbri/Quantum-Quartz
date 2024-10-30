@@ -7,6 +7,7 @@ namespace Code.Scripts.Menu
     {
         [SerializeField] private string levelSelectorScene;
         [SerializeField] private string mainMenuSceneName;
+        [SerializeField] private string fileSaveSceneName;
         [SerializeField] private string level1SceneName;
         [SerializeField] private string level2SceneName;
         [SerializeField] private string level3SceneName;
@@ -37,12 +38,15 @@ namespace Code.Scripts.Menu
         {
             LoadScene(levelSelectorScene);
         }
-
-        
         
         public void GoMainMenu()
         {
             LoadScene(mainMenuSceneName);
+        }
+
+        public void GoFileSaves()
+        {
+            LoadScene(fileSaveSceneName);
         }
         public void GoMainMenuAndTurnOptions()
         {
@@ -76,6 +80,12 @@ namespace Code.Scripts.Menu
         }
 
         public void OnControllerSelection()
+        {
+            fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
+            Invoke(nameof(GoFileSaves), 2);
+            //GoMainMenu();
+        }
+        public void OnFileSelection()
         {
             fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
             Invoke(nameof(GoMainMenu), 2);
