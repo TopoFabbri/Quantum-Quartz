@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Scripts.Input;
+using Code.Scripts.Level;
 using Code.Scripts.Tools;
 
 namespace Code.Scripts.Colors
@@ -42,22 +43,26 @@ namespace Code.Scripts.Colors
 
         private void OnColor1()
         {
-           SetColor(CurrentColor == QColor.Red ? QColor.None : QColor.Red);
+            if (SelectableCrystals.Red)
+               SetColor(CurrentColor == QColor.Red ? QColor.None : QColor.Red);
         }
 
         private void OnColor2()
         {
-            SetColor(CurrentColor == QColor.Blue ? QColor.None : QColor.Blue);
+            if (SelectableCrystals.Blue)
+                SetColor(CurrentColor == QColor.Blue ? QColor.None : QColor.Blue);
         }
 
         private void OnColor3()
         {
-            SetColor(CurrentColor == QColor.Green ? QColor.None : QColor.Green);
+            if (SelectableCrystals.Green)
+                SetColor(CurrentColor == QColor.Green ? QColor.None : QColor.Green);
         }
 
         private void OnColor4()
         {
-            SetColor(CurrentColor == QColor.Yellow ? QColor.None : QColor.Yellow);
+            if (SelectableCrystals.Yellow)
+                SetColor(CurrentColor == QColor.Yellow ? QColor.None : QColor.Yellow);
         }
 
         private void SetColor(QColor color)
