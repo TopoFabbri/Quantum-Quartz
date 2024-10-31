@@ -18,7 +18,7 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<MusicPlaylistContainer Name="Steampunk_Music" ID="{07A0BF79-5B8F-41BF-903F-32D8E1486ECA}" ShortID="923261839">
+						<MusicPlaylistContainer Name="Steampunk_Music_Default" ID="{07A0BF79-5B8F-41BF-903F-32D8E1486ECA}" ShortID="923261839">
 							<PropertyList>
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="130"/>
@@ -37,9 +37,9 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<MusicSegment Name="Steampunk_Default" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" ShortID="945094142">
+								<MusicSegment Name="Steampunk_Default_Intro" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" ShortID="945094142">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="251076.926282051"/>
+										<Property Name="EndPosition" Type="Real64" Value="33230.7692307694"/>
 										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -48,11 +48,6 @@
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="130"/>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -180,26 +175,77 @@
 												</ObjectList>
 											</ObjectLists>
 										</MusicTrack>
-										<MusicTrack Name="Main_Loop" ID="{806D3983-03C7-49E8-BF52-BD375FD881BE}" ShortID="413839096">
+									</ChildrenList>
+									<ObjectLists>
+										<ObjectList Name="Cues">
+											<Reference>
+												<Local>
+													<MusicCue Name="Entry Cue" ID="{8799DEDD-FE56-4965-A04B-6098BB6EF6F1}"/>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<MusicCue Name="Exit Cue" ID="{A1D336A7-B1E5-4F04-B3A2-1BF7A92D5F92}">
+														<PropertyList>
+															<Property Name="CueType" Type="int16" Value="1"/>
+															<Property Name="TimeMs" Type="Real64" Value="33230.7692307694"/>
+														</PropertyList>
+													</MusicCue>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</MusicSegment>
+								<MusicSegment Name="Steampunk_Default_MainLP" ID="{94E3EBC2-90C9-439D-A2F8-FA2AE284EFB9}" ShortID="839031548">
+									<PropertyList>
+										<Property Name="EndPosition" Type="Real64" Value="118153.854166667"/>
+										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+										<Property Name="Tempo" Type="Real64" Value="130"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<MusicTrack Name="Main_Loop" ID="{2A15378D-E2FC-40FD-8E28-9A4145394564}" ShortID="873741474">
+											<PropertyList>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="Steampunk Level_v5_0 Premaster" ID="{A0FC0FCA-384B-4C80-8489-1A20FC671B12}">
-													<PropertyList>
-														<Property Name="MarkerInputMode" Type="int16" Value="2"/>
-													</PropertyList>
+												<AudioFileSource Name="Steampunk Level_Main_Loop_LP" ID="{823C7EC2-7B68-4BAC-9298-ADAD39B0874B}">
 													<Language>SFX</Language>
-													<AudioFile>Steampunk Level_v5.0 Premaster.wav</AudioFile>
+													<AudioFile>Steampunk Level_Main_Loop_LP.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="717978069"/>
+														<MediaID ID="958719904"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{1742A30E-34E7-4B93-B91B-218F3006443A}">
+												<MusicTransition Name="Root" ID="{A9044DFE-32ED-4021-B87F-935C77766B47}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
@@ -210,77 +256,17 @@
 												<ObjectList Name="Sequences">
 													<Reference>
 														<Local>
-															<MusicTrackSequence Name="" ID="{8C5509CE-F77F-4C8C-9C07-E399A87969C2}">
+															<MusicTrackSequence Name="" ID="{11E10C18-11B6-4571-B799-9AC9DA084DE3}">
 																<ObjectLists>
 																	<ObjectList Name="Clips">
 																		<Reference>
 																			<Local>
-																				<MusicClip Name="Steampunk Level_v5_0 Premaster" ID="{12815396-B1DA-4EF9-BF87-1D993AE9EA23}">
+																				<MusicClip Name="Steampunk Level_Main_Loop_LP" ID="{1B2C4A0C-5F97-49B7-9B83-345FBA2B506D}">
 																					<PropertyList>
-																						<Property Name="BeginTrimOffset" Type="Real64" Value="33230.7692307693"/>
-																						<Property Name="EndTrimOffset" Type="Real64" Value="151384.615384615"/>
-																						<Property Name="PlayAt" Type="Real64" Value="1.45519152283669E-11"/>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="118153.854166667"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
-																					<AudioSourceRef Name="Steampunk Level_v5_0 Premaster" ID="{A0FC0FCA-384B-4C80-8489-1A20FC671B12}"/>
-																					<PropertyCurveList>
-																						<PropertyCurve PropertyName="Highpass">
-																							<Curve Name="" ID="{2E545DD1-28D1-4856-AC16-4AD7E1AB7E3D}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="1"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>33.23077</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>151.38462</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																						<PropertyCurve PropertyName="Lowpass">
-																							<Curve Name="" ID="{2B8A5100-5112-4B04-90F3-B49AA9B2DE89}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="1"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>33.23077</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>151.38462</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																						<PropertyCurve PropertyName="Volume">
-																							<Curve Name="" ID="{E946DEC8-AAD9-4C20-8BF8-6019034724B6}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="3"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>33.23077</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>151.38462</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																					</PropertyCurveList>
+																					<AudioSourceRef Name="Steampunk Level_Main_Loop_LP" ID="{823C7EC2-7B68-4BAC-9298-ADAD39B0874B}"/>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -292,14 +278,61 @@
 												</ObjectList>
 											</ObjectLists>
 										</MusicTrack>
-										<MusicTrack Name="End" ID="{9047EC87-8DAE-4F09-A15B-B0F7B5837FFA}" ShortID="821223711">
+									</ChildrenList>
+									<ObjectLists>
+										<ObjectList Name="Cues">
+											<Reference>
+												<Local>
+													<MusicCue Name="Entry Cue" ID="{EC512376-6A49-4446-BE44-DD8CC6F73A2E}"/>
+												</Local>
+											</Reference>
+											<Reference>
+												<Local>
+													<MusicCue Name="Exit Cue" ID="{84988F18-5B71-4111-BABB-BD09F952D93B}">
+														<PropertyList>
+															<Property Name="CueType" Type="int16" Value="1"/>
+															<Property Name="TimeMs" Type="Real64" Value="118153.854166667"/>
+														</PropertyList>
+													</MusicCue>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</MusicSegment>
+								<MusicSegment Name="Steampunk_Default_End" ID="{6BDB030D-A643-47ED-9B50-3357E5828A64}" ShortID="610854493">
+									<PropertyList>
+										<Property Name="EndPosition" Type="Real64" Value="11076.9262820521"/>
+										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
+										<Property Name="Tempo" Type="Real64" Value="130"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<MusicTrack Name="End" ID="{5B2CEEE2-B29B-412C-90A0-211756C0A724}" ShortID="151387436">
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="Steampunk Level_v5_0 Premaster" ID="{CF959085-55FD-47D5-8702-49E0DB3CF9BB}">
+												<AudioFileSource Name="Steampunk Level_v5_0 Premaster" ID="{CA93C503-F375-4499-B3DB-FE96F2A68B02}">
 													<PropertyList>
 														<Property Name="MarkerInputMode" Type="int16" Value="2"/>
 													</PropertyList>
@@ -311,7 +344,7 @@
 												</AudioFileSource>
 											</ChildrenList>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{0C523ACE-5454-4EF1-B697-2902E4DFD0B8}">
+												<MusicTransition Name="Root" ID="{95176746-32BC-46B7-A0CC-B3B35D4455CD}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
@@ -322,21 +355,21 @@
 												<ObjectList Name="Sequences">
 													<Reference>
 														<Local>
-															<MusicTrackSequence Name="" ID="{D0311AEF-B0A2-4240-925B-D21AB02F295A}">
+															<MusicTrackSequence Name="" ID="{2DCD2375-0DBD-45FD-92E5-306F56E255AE}">
 																<ObjectLists>
 																	<ObjectList Name="Clips">
 																		<Reference>
 																			<Local>
-																				<MusicClip Name="Steampunk Level_v5_0 Premaster" ID="{091F4C1D-6B35-4C41-9993-DB1FE3B1661D}">
+																				<MusicClip Name="Steampunk Level_v5_0 Premaster" ID="{1F342868-5D13-4172-8389-F25FAD2B4997}">
 																					<PropertyList>
 																						<Property Name="BeginTrimOffset" Type="Real64" Value="151384.615384615"/>
 																						<Property Name="EndTrimOffset" Type="Real64" Value="162461.541666667"/>
-																						<Property Name="PlayAt" Type="Real64" Value="-8.73114913702011E-11"/>
+																						<Property Name="PlayAt" Type="Real64" Value="-151384.615384615"/>
 																					</PropertyList>
-																					<AudioSourceRef Name="Steampunk Level_v5_0 Premaster" ID="{CF959085-55FD-47D5-8702-49E0DB3CF9BB}"/>
+																					<AudioSourceRef Name="Steampunk Level_v5_0 Premaster" ID="{CA93C503-F375-4499-B3DB-FE96F2A68B02}"/>
 																					<PropertyCurveList>
 																						<PropertyCurve PropertyName="Highpass">
-																							<Curve Name="" ID="{ED40556A-07C7-43B9-A391-7BFC041E87BD}">
+																							<Curve Name="" ID="{3F309410-0790-471D-BB0A-C30F887E19EE}">
 																								<PropertyList>
 																									<Property Name="Flags" Type="int32" Value="1"/>
 																								</PropertyList>
@@ -355,7 +388,7 @@
 																							</Curve>
 																						</PropertyCurve>
 																						<PropertyCurve PropertyName="Lowpass">
-																							<Curve Name="" ID="{BE79DFB0-2B85-49F0-9B35-B04B6BFCAC58}">
+																							<Curve Name="" ID="{48F18781-4EDC-40E9-8DB3-C68DCDB07011}">
 																								<PropertyList>
 																									<Property Name="Flags" Type="int32" Value="1"/>
 																								</PropertyList>
@@ -374,7 +407,7 @@
 																							</Curve>
 																						</PropertyCurve>
 																						<PropertyCurve PropertyName="Volume">
-																							<Curve Name="" ID="{A6486291-0C4C-4341-9D0D-F2544EFFA47D}">
+																							<Curve Name="" ID="{EB254690-FA08-4C47-88DC-44ECACCACA83}">
 																								<PropertyList>
 																									<Property Name="Flags" Type="int32" Value="3"/>
 																								</PropertyList>
@@ -409,19 +442,19 @@
 										<ObjectList Name="Cues">
 											<Reference>
 												<Local>
-													<MusicCue Name="Entry Cue" ID="{8799DEDD-FE56-4965-A04B-6098BB6EF6F1}">
+													<MusicCue Name="Entry Cue" ID="{87ED47E4-5053-4957-AAB8-B0414A01CE5A}">
 														<PropertyList>
-															<Property Name="TimeMs" Type="Real64" Value="33230.7692307692"/>
+															<Property Name="TimeMs" Type="Real64" Value="1.09139364212751E-11"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
 											</Reference>
 											<Reference>
 												<Local>
-													<MusicCue Name="Exit Cue" ID="{A1D336A7-B1E5-4F04-B3A2-1BF7A92D5F92}">
+													<MusicCue Name="Exit Cue" ID="{1A66807B-5265-449C-89E3-2699C3262C0F}">
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
-															<Property Name="TimeMs" Type="Real64" Value="151384.615384615"/>
+															<Property Name="TimeMs" Type="Real64" Value="11076.9262820521"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -472,10 +505,22 @@
 									<ChildrenList>
 										<MusicPlaylistItem Name="" ID="{F45E349F-98D1-4623-9DF7-F8E7D2AFCD59}" ShortID="27916049">
 											<PropertyList>
+												<Property Name="PlaylistItemType" Type="int16" Value="1"/>
+											</PropertyList>
+											<SegmentRef Name="Steampunk_Default_Intro" ID="{F011D083-495C-473F-A5A6-A277E28807D9}"/>
+										</MusicPlaylistItem>
+										<MusicPlaylistItem Name="" ID="{90736A87-1438-4659-8434-E9460EBB49BD}" ShortID="1025880241">
+											<PropertyList>
 												<Property Name="LoopCount" Type="int16" Value="0"/>
 												<Property Name="PlaylistItemType" Type="int16" Value="1"/>
 											</PropertyList>
-											<SegmentRef Name="Steampunk_Default" ID="{F011D083-495C-473F-A5A6-A277E28807D9}"/>
+											<SegmentRef Name="Steampunk_Default_MainLP" ID="{94E3EBC2-90C9-439D-A2F8-FA2AE284EFB9}"/>
+										</MusicPlaylistItem>
+										<MusicPlaylistItem Name="" ID="{F6AFCF61-7C13-4A2F-87F9-6DEEA645716B}" ShortID="978118238">
+											<PropertyList>
+												<Property Name="PlaylistItemType" Type="int16" Value="1"/>
+											</PropertyList>
+											<SegmentRef Name="Steampunk_Default_End" ID="{6BDB030D-A643-47ED-9B50-3357E5828A64}"/>
 										</MusicPlaylistItem>
 									</ChildrenList>
 								</MusicPlaylistItem>
