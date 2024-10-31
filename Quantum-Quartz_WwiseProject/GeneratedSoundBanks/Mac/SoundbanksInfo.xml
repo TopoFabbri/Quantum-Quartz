@@ -68,7 +68,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{4F526577-FBBB-A1AD-8235-EF64A2DF1C3F}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{3666056A-3FA3-AF76-04A8-3AA441B85D95}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -516,6 +516,10 @@
 					<ShortName>Concrete_Footstep-037.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-037_10C4C929.wem</CachePath>
 				</File>
+				<File Id="958719904" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Steampunk Level_Main_Loop_LP.wav</ShortName>
+					<CachePath>SFX/Steampunk Level_Main_Loop_LP_D79FB2B7.wem</CachePath>
+				</File>
 				<File Id="972474975" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>LAB_Landing-001.wav</ShortName>
 					<CachePath>SFX/LAB_Landing-001_F2B34909.wem</CachePath>
@@ -778,9 +782,10 @@
 						<MediaRef Id="243405919"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="OneShot" DurationMin="33.23077" DurationMax="33.23077">
+				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="717978069"/>
+						<MediaRef Id="958719904"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
@@ -840,5 +845,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{7BCD0CE9-AF18-2F30-8164-B0026D666233}</FileHash>
+	<FileHash>{12FB656D-4FD4-35CC-3E45-99D7C0DA3998}</FileHash>
 </SoundBanksInfo>
