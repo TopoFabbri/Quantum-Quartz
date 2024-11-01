@@ -11,7 +11,8 @@ namespace Code.Scripts.Animation
         [SerializeField] private Animator animator;
         [SerializeField] private string intParamName = "State";
         [SerializeField] private string boolParamName = "FacingRight";
-                
+        [SerializeField] private string edgeParamName = "RightEdge";
+        
         private readonly Dictionary<string, int> animIdsByName = new();
 
         /// <summary>
@@ -49,6 +50,15 @@ namespace Code.Scripts.Animation
         public void TogglePauseAnim(bool pause)
         {
             animator.speed = pause ? 0 : 1;
+        }
+
+        /// <summary>
+        /// Set edge right or left
+        /// </summary>
+        /// <param name="right">True for right</param>
+        public void SetEdgeSide(bool right)
+        {
+            animator.SetBool(edgeParamName, right);
         }
     }
 }

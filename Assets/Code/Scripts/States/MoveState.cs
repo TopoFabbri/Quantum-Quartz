@@ -66,8 +66,15 @@ namespace Code.Scripts.States
             RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + moveSettings.groundCheckOffset, Vector2.down, moveSettings.groundCheckRadius, moveSettings.groundLayer);
             bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
             
-            Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset, (Vector2)transform.position + moveSettings.groundCheckOffset + Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
-            
+            if (moveSettings.shouldDraw)
+            {
+                Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset,
+                    (Vector2)transform.position + moveSettings.groundCheckOffset +
+                    Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+                Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset,
+                    (Vector2)transform.position + moveSettings.groundCheckOffset +
+                    Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+            }       
             return grounded;
         }
 

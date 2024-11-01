@@ -15789,6 +15789,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43c338fd6e4749b46a07877f9ab07b0b, type: 2}
   - {fileID: 11400000, guid: 42829502fd2ee344bb9c831b0d749ab8, type: 2}
   - {fileID: 11400000, guid: b94b8aa67cd5e2441a536e59e2508413, type: 2}
+  - {fileID: 11400000, guid: 6dd0f41c52ed5b74591bb4cca3fff6e3, type: 2}
   rb: {fileID: 5336747697084548560}
   stateTxt: {fileID: 8413274154481050696}
   flipObjects: []
@@ -15821,6 +15822,7 @@ MonoBehaviour:
   animator: {fileID: 1836373101099275539}
   intParamName: State
   boolParamName: FacingRight
+  edgeParamName: RightEdge
 --- !u!114 &2090065662981346448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16045,9 +16047,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.22592592
+    width: 0.14166668
+    height: 0.14166667
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -16600,7 +16602,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4387134374734647787}
   - component: {fileID: 6852540256168251616}
-  - component: {fileID: 6703643563412318666}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -16638,22 +16639,6 @@ MonoBehaviour:
   timerTxt: {fileID: 3618906788000093473}
   statesText: {fileID: 6390153902942336264}
   isTimerOn: 0
---- !u!114 &6703643563412318666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5389356490274078885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e38f29696f15af545aefaaa7c0ae221a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blue: 1
-  red: 0
-  green: 0
-  yellow: 0
 --- !u!1 &5439391470232644367
 GameObject:
   m_ObjectHideFlags: 0
@@ -16852,6 +16837,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190a1b9a7ede4ed491aea26cdeb15416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blue: 1
+  red: 0
+  green: 0
+  yellow: 0
 --- !u!1 &6321414099659866319
 GameObject:
   m_ObjectHideFlags: 0
@@ -27599,6 +27588,8 @@ MonoBehaviour:
   playerInput: {fileID: 6271191338240243199}
   defaultMap: World
   uiMap: UI
+  pauseEvent: Set_State_Music_Pause
+  unPauseEvent: Set_State_Music_Ingame
 --- !u!1 &9203880967478804016
 GameObject:
   m_ObjectHideFlags: 0

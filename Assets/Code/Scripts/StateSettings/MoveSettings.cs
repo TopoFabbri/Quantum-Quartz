@@ -16,6 +16,7 @@ namespace Code.Scripts.StateSettings
         public Vector2 groundCheckOffset;
         public float groundCheckRadius;
         public LayerMask groundLayer;
+        public bool shouldDraw;
         
         [Header("Wall Check:")]
         public float wallCheckDis;

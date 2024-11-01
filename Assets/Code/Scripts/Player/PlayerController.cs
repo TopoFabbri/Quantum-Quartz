@@ -37,6 +37,7 @@ namespace Code.Scripts.Player
         private GlideState<string> gldeState;
         private GrabState<string> grabState;
         private PauseState<string> pausState;
+        private EdgeState<string> edgeState;
 
         [SerializeField] private StateSettings.StateSettings[] stateSettings;
         [SerializeField] private Rigidbody2D rb;
@@ -259,6 +260,7 @@ namespace Code.Scripts.Player
             gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
             grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
             pausState = new PauseState<string>("Pause", rb);
+            edgeState = new EdgeState<string>("Edge", stateSettings[11], transform, fsmAnimController);
 
             fsm = new FiniteStateMachine<string>();
 
@@ -277,6 +279,7 @@ namespace Code.Scripts.Player
             fsm.AddState(gldeState);
             fsm.AddState(grabState);
             fsm.AddState(pausState);
+            fsm.AddState(edgeState);
 
             FsmTransitions();
 
@@ -300,6 +303,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(wallJumpState.ID, 11);
             fsmAnimController.AddState(gldeState.ID, 12);
             fsmAnimController.AddState(grabState.ID, 13);
+            fsmAnimController.AddState(edgeState.ID, 14);
         }
 
         /// <summary>
@@ -314,6 +318,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(idleState, djmpState, () => djmpPressed);
             fsm.AddTransition(idleState, dethState, () => died);
             fsm.AddTransition(idleState, tlptState, () => shouldTp);
+            fsm.AddTransition(idleState, edgeState, () => edgeState.IsOnEdge());
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
@@ -342,6 +347,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(fallState, dethState, () => died);
             fsm.AddTransition(fallState, tlptState, () => shouldTp);
             fsm.AddTransition(fallState, wallState, wallState.CanWallJump);
+            fsm.AddTransition(fallState, edgeState, () => rb.velocity.y >= 0f && edgeState.IsOnEdge());
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
             fsm.AddTransition(dashState, dethState, () => died);
@@ -377,9 +383,19 @@ namespace Code.Scripts.Player
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
+            fsm.AddTransition(gldeState, edgeState, edgeState.IsOnEdge);
             
             fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.depleted);
             fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
+            
+            fsm.AddTransition(edgeState, idleState, () => moveState.IsGrounded() && !edgeState.IsOnEdge());
+            fsm.AddTransition(edgeState, moveState, ShouldEnterMove);
+            fsm.AddTransition(edgeState, jumpState, () => jumpPressed && edgeState.IsOnEdge());
+            fsm.AddTransition(edgeState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded() && !edgeState.IsOnEdge());
+            fsm.AddTransition(edgeState, dashState, () => dashPressed);
+            fsm.AddTransition(edgeState, djmpState, () => djmpPressed);
+            fsm.AddTransition(edgeState, dethState, () => died);
+            fsm.AddTransition(edgeState, tlptState, () => shouldTp);
         }
 
         /// <summary>

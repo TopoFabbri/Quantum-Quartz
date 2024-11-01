@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
+    /// <summary>
+    /// Double jump state
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DjmpState<T> : JumpState<T>
     {
         private DjmpSettings DjmpSettings => settings as DjmpSettings;
