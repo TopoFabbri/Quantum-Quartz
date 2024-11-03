@@ -234,12 +234,14 @@
 				</Folder>
 				<BlendContainer Name="Yellow_Quartz" ID="{A1EB1A0B-8DAA-44A4-8E0C-6EC68EFCACFC}" ShortID="701977970">
 					<PropertyList>
+						<Property Name="Color" Type="int16" Value="19"/>
 						<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 						<Property Name="MaxSoundPerInstance" Type="int16">
 							<ValueList>
 								<Value>1</Value>
 							</ValueList>
 						</Property>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -341,7 +343,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-6</Value>
+										<Value>-20</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
