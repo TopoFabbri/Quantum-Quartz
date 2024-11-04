@@ -710,6 +710,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnEnterWallJumpHandler()
         {
+            moveState.ResetSpeed();
             Flip();
         }
 

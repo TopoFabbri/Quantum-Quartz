@@ -112,5 +112,13 @@ namespace Code.Scripts.States
             
             return false;
         }
+        
+        /// <summary>
+        /// Reset player speed
+        /// </summary>
+        public void ResetSpeed()
+        {
+            _speed = 0f;
+        }
     }
 }

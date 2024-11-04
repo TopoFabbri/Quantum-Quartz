@@ -1,5 +1,6 @@
 using System.Collections;
 using Code.Scripts.Colors;
+using Code.Scripts.Platforms;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Code.Scripts.States
         private WallSettings WallSettings => settings as WallSettings;
 
         private float savedGravityScale;
+        private static GameObject _wall;
 
         public bool FacingRight { get; set; }
 
@@ -41,7 +43,13 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             savedGravityScale = rb.gravityScale;
-
+            
+            if (_wall)
+            {
+                if (_wall.transform.TryGetComponent(out ObjMovement objMovement))
+                    objMovement.AddPlayer(transform);
+            }
+            
             PositionPlayer();
             mb.StartCoroutine(SpawnDusts());
         }
@@ -49,6 +57,8 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
+            
+            transform.parent = null;
 
             rb.gravityScale = savedGravityScale;
         }
@@ -75,10 +85,13 @@ namespace Code.Scripts.States
 
                 if (!collider.gameObject.CompareTag("Platform")) continue;
 
-                if (!collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
-                    return true;
+                if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D)) continue;
+                
+                _wall = collider.gameObject;
+                return true;
             }
 
+            _wall = null;
             return false;
         }
 
@@ -91,7 +104,7 @@ namespace Code.Scripts.States
                 FacingRight ? Vector2.right : Vector2.left, WallSettings.wallCheckDis * 4f,
                 LayerMask.GetMask("Default"));
             
-            if (!hit.collider || !hit.collider.CompareTag("Floor"))
+            if (!hit.collider || !hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
                 return;
 
             Vector3 newPos = transform.position;
