@@ -387,7 +387,8 @@ namespace Code.Scripts.Player
             
             fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.depleted);
             fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
-            
+            fsm.AddTransition(grabState, dethState, () => died);
+
             fsm.AddTransition(edgeState, idleState, () => moveState.IsGrounded() && !edgeState.IsOnEdge());
             fsm.AddTransition(edgeState, moveState, ShouldEnterMove);
             fsm.AddTransition(edgeState, jumpState, () => jumpPressed && edgeState.IsOnEdge());
