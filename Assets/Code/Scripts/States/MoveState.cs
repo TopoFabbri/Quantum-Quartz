@@ -38,6 +38,8 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
             
+            FlipCheck();
+            
             if (Input != 0)
                 _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
@@ -119,6 +121,12 @@ namespace Code.Scripts.States
         public void ResetSpeed()
         {
             _speed = 0f;
+        }
+        
+        private void FlipCheck()
+        {
+            if (Input > 0f && _speed < 0f || Input < 0f && _speed > 0f)
+                _speed = 0f;
         }
     }
 }

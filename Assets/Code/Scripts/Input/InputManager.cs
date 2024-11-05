@@ -22,13 +22,17 @@ namespace Code.Scripts.Input
         public static event Action Pause;
         public static event Action DevMode;
 
+        [SerializeField] private float moveDeadzone = .5f;
+        
         /// <summary>
         /// Called when input move is pressed
         /// </summary>
         /// <param name="input">Input value</param>
         protected void OnMove(InputValue input)
         {
-            Move?.Invoke(input.Get<Vector2>());
+            Vector2 value = input.Get<Vector2>();
+
+            Move?.Invoke(value.magnitude > moveDeadzone ? value : Vector2.zero);
         }
 
         /// <summary>
