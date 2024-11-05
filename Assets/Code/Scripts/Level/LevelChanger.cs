@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Code.Scripts.Game;
 using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,6 +38,8 @@ namespace Code.Scripts.Level
 
         private IEnumerator ShowEndLevelScreen(float time)
         {
+            TimeCounter.Stop();
+            Stats.SetTime(TimeCounter.Time);
             yield return new WaitForSeconds(time);
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);
