@@ -32,6 +32,8 @@ namespace Code.Scripts.Level
         private void OnDestroy()
         {
             SfxController.MusicOnOff(false, gameObject);
+            
+            Stats.SetTime(TimeCounter.Time);
         }
 
         private void OnEnable()
@@ -49,7 +51,7 @@ namespace Code.Scripts.Level
         private void Update()
         {
             TimeCounter.Update(Time.deltaTime);
-            timerTxt.text = TimeCounter.Time;
+            timerTxt.text = TimeCounter.Time.ToStr;
         }
 
         /// <summary>
