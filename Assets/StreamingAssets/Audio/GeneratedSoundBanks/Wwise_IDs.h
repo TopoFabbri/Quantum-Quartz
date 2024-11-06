@@ -15,6 +15,7 @@ namespace AK
     {
         static const AkUniqueID PLAY_BASIC_JUMP = 2848448515U;
         static const AkUniqueID PLAY_BEAM_LASER = 1231329179U;
+        static const AkUniqueID PLAY_BLOCKED_QUARTZ = 3010479856U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
         static const AkUniqueID PLAY_CHARGE_SHOOT_LASER = 3751886250U;
         static const AkUniqueID PLAY_DASH_L = 1886667247U;

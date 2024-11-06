@@ -68,10 +68,14 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E29B69C6-A564-0A95-908C-DC4F723954CD}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{1626E2A8-E70F-0F1B-E7DA-C27867FFCB2D}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
+				<File Id="591838" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Blocked_Crystal.wav</ShortName>
+					<CachePath>SFX/Blocked_Crystal_10C4C929.wem</CachePath>
+				</File>
 				<File Id="5402978" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-014.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-014_10C4C929.wem</CachePath>
@@ -561,6 +565,11 @@
 						<MediaRef Id="924197872"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="3010479856" Name="Play_Blocked_Quartz" DurationType="OneShot" DurationMin="0.2894375" DurationMax="0.2894375">
+					<MediaRefs>
+						<MediaRef Id="591838"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3128279563" Name="Play_Blue_Quartz_Jump" DurationType="OneShot" DurationMin="0.051458333" DurationMax="0.051458333">
 					<MediaRefs>
 						<MediaRef Id="139537908"/>
@@ -845,5 +854,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{5744831A-8C43-45AE-1452-2396982ED7E3}</FileHash>
+	<FileHash>{8691F489-A063-DC4B-19B2-4BB740156BC6}</FileHash>
 </SoundBanksInfo>
