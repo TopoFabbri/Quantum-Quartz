@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{76E94BDB-CBAD-6357-7995-51CEF8663F7D}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{01F32C37-E7EC-4540-7EB0-41CC4F9F21A7}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -44,6 +44,13 @@
 				<GameParameter Id="1564184899" Name="sfx_volume"/>
 			</GameParameters>
 			<StateGroups>
+				<StateGroup Id="2978222038" Name="General_Game_State">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="984691642" Name="Ingame"/>
+						<State Id="3092587493" Name="Pause"/>
+					</States>
+				</StateGroup>
 				<StateGroup Id="3322003828" Name="Steampunk_Music_States">
 					<States>
 						<State Id="748895195" Name="None"/>
@@ -68,7 +75,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{572B5796-08F3-2D15-E6CE-0E584E3F0E56}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{0B6AA6EA-A936-EB20-6724-F70F5288FAF6}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -890,5 +897,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BB44C329-0A9E-1E6F-280D-CBFF1C2FD48F}</FileHash>
+	<FileHash>{6BF74C70-2F0A-8B5A-8533-154B546A69EF}</FileHash>
 </SoundBanksInfo>

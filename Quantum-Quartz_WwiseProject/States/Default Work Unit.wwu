@@ -10,6 +10,16 @@
 						<State Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
 					</ChildrenList>
 				</StateGroup>
+				<StateGroup Name="General_Game_State" ID="{A7ED838C-4205-4FAB-8AD1-6E459636A92F}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="0.1"/>
+					</PropertyList>
+					<ChildrenList>
+						<State Name="None" ID="{79E72A00-1C6E-49A8-B63B-21CE93FECDA0}"/>
+						<State Name="Ingame" ID="{3BF0ED54-309C-48A9-A7D8-B70EF90DFA68}"/>
+						<State Name="Pause" ID="{5FEBCF9B-8699-4C53-833F-125C116B6B43}"/>
+					</ChildrenList>
+				</StateGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</States>

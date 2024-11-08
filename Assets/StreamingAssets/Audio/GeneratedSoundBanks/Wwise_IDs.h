@@ -43,6 +43,18 @@ namespace AK
 
     namespace STATES
     {
+        namespace GENERAL_GAME_STATE
+        {
+            static const AkUniqueID GROUP = 2978222038U;
+
+            namespace STATE
+            {
+                static const AkUniqueID INGAME = 984691642U;
+                static const AkUniqueID NONE = 748895195U;
+                static const AkUniqueID PAUSE = 3092587493U;
+            } // namespace STATE
+        } // namespace GENERAL_GAME_STATE
+
         namespace STEAMPUNK_MUSIC_STATES
         {
             static const AkUniqueID GROUP = 3322003828U;

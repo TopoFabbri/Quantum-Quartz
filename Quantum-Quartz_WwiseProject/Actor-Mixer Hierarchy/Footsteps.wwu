@@ -2975,16 +2975,23 @@
 						<SwitchContainer Name="Cristal_Platform_Landing" ID="{41583B87-BDDF-46B4-9914-E09B6BB2948F}" ShortID="387160336">
 							<PropertyList>
 								<Property Name="Color" Type="int16" Value="3"/>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>50</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Lowpass" Type="int16">
 									<ValueList>
-										<Value>26</Value>
+										<Value>19</Value>
+									</ValueList>
+								</Property>
+								<Property Name="MakeUpGain" Type="Real64">
+									<ValueList>
+										<Value>14</Value>
 									</ValueList>
 								</Property>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>6</Value>
-									</ValueList>
 									<ModifierList>
 										<ModifierInfo>
 											<Modifier Name="" ID="{8A03DFE1-FC58-4F07-891D-424B36E7B5ED}">
