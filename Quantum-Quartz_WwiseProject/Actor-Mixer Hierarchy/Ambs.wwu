@@ -25,6 +25,11 @@
 											<PropertyList>
 												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="Lowpass" Type="int16">
+													<ValueList>
+														<Value>13</Value>
+													</ValueList>
+												</Property>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
 														<Value>1</Value>
@@ -37,7 +42,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-23</Value>
+														<Value>-26</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
