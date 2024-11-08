@@ -36,15 +36,6 @@ namespace Code.Scripts.Input
         }
 
         /// <summary>
-        /// Called when camera movement is changed
-        /// </summary>
-        /// <param name="input">Input value</param>
-        private void OnMoveCam(InputValue input)
-        {
-            MoveCam?.Invoke(input.Get<Vector2>());
-        }
-
-        /// <summary>
         /// Called when input jump is pressed
         /// </summary>
         protected void OnJump()
