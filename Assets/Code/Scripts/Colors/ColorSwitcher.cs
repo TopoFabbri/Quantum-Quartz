@@ -102,6 +102,8 @@ namespace Code.Scripts.Colors
             ColorChanged?.Invoke(color);
 
             CurrentColor = color;
+            
+            SfxController.ChangeToCrystal(gameObject, color);
         }
     }
 }
