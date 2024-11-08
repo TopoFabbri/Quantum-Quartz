@@ -10,7 +10,6 @@ namespace Code.Scripts.Input
     public class InputManager : MonoBehaviour
     {
         public static event Action<Vector2> Move;
-        public static event Action<Vector2> MoveCam;
         public static event Action Jump;
         public static event Action Color1;
         public static event Action Color2;
@@ -23,7 +22,19 @@ namespace Code.Scripts.Input
         public static event Action DevMode;
 
         [SerializeField] private float moveDeadzone = .5f;
+
+        public static PlayerInput Input { get; private set; }
+
+        private void OnEnable()
+        {
+            Input = GetComponent<PlayerInput>();
+        }
         
+        private void OnDisable()
+        {
+            Input = null;
+        }
+
         /// <summary>
         /// Called when input move is pressed
         /// </summary>

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Code.Scripts.Input;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +20,6 @@ namespace Code.Scripts.Camera
         private List<int> shakeIds = new();
 
         private Vector3 cameraPosition;
-        private Vector2 offsetByInput;
         private float currentDis;
 
         private bool isMoving;
@@ -34,28 +32,10 @@ namespace Code.Scripts.Camera
             cameraPosition = transform.position;
         }
 
-        private void OnEnable()
-        {
-            InputManager.MoveCam += OnMoveCam;
-        }
-
-        private void OnDisable()
-        {
-            InputManager.MoveCam -= OnMoveCam;
-        }
-
         private void LateUpdate()
         {
             if (!isMoving)
-            {
-                if (offsetByInput.magnitude > 0)
-                    currentDis = Mathf.Clamp01(currentDis + Time.deltaTime * inputSpeed);
-                else
-                    currentDis = 0;
-
-                // transform.position = Vector3.Lerp(cameraPosition, cameraPosition + (Vector3)offsetByInput, currentDis);
                 return;
-            }
 
             transform.position = Vector3.MoveTowards(transform.position, cameraPosition, Time.deltaTime * speed);
 
@@ -76,15 +56,6 @@ namespace Code.Scripts.Camera
             
             cameraPosition = position;
             StartCoroutine(WaitAndToggleMoving(moveTimeOffset));
-        }
-
-        /// <summary>
-        /// Called when camera movement is changed
-        /// </summary>
-        /// <param name="input">Input value</param>
-        private void OnMoveCam(Vector2 input)
-        {
-            offsetByInput = input * moveDis;
         }
 
         /// <summary>
