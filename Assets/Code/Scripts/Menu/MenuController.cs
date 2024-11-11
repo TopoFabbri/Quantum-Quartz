@@ -1,3 +1,4 @@
+using Code.Scripts.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,7 +29,6 @@ namespace Code.Scripts.Menu
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            
         }
 
         public void LoadScene(string sceneName)

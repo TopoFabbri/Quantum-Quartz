@@ -1,4 +1,5 @@
 using System;
+using Code.Scripts.Game;
 using TMPro;
 using UnityEngine;
 
@@ -9,12 +10,14 @@ namespace Code.Scripts.Menu
         [SerializeField] private Animator animator; 
         [SerializeField] private TextMeshProUGUI timerText; 
         [SerializeField] private TextMeshProUGUI deathsText;
-
-
+        [SerializeField] private int saveSlot;
+        
         private void OnEnable()
         {
             timerText.gameObject.SetActive(false);
             deathsText.gameObject.SetActive(false);
+            Stats.LoadStats(saveSlot);
+            Stats.LoadTexts(timerText,deathsText);
         }
 
         private void Update()
