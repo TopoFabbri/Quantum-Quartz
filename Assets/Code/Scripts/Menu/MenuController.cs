@@ -12,11 +12,12 @@ namespace Code.Scripts.Menu
         [SerializeField] private string level2SceneName;
         [SerializeField] private string level3SceneName;
         [SerializeField] private string level4SceneName;
-        
+
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private OptionsController optionsController;
-        
+
         private bool isFullScreen;
+
         private void Start()
         {
             // Solo inicializa pantalla completa en la escena principal
@@ -27,6 +28,7 @@ namespace Code.Scripts.Menu
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
         }
 
         public void LoadScene(string sceneName)
@@ -38,7 +40,7 @@ namespace Code.Scripts.Menu
         {
             LoadScene(levelSelectorScene);
         }
-        
+
         public void GoMainMenu()
         {
             LoadScene(mainMenuSceneName);
@@ -48,6 +50,7 @@ namespace Code.Scripts.Menu
         {
             LoadScene(fileSaveSceneName);
         }
+
         public void GoMainMenuAndTurnOptions()
         {
             LoadScene(mainMenuSceneName);
@@ -76,6 +79,7 @@ namespace Code.Scripts.Menu
 
         public void QuitGame()
         {
+            Stats.SaveStats();
             Application.Quit();
         }
 
@@ -85,11 +89,12 @@ namespace Code.Scripts.Menu
             Invoke(nameof(GoFileSaves), 2);
             //GoMainMenu();
         }
-        public void OnFileSelection()
+
+        public void OnFileSelection(int saveSlot)
         {
             fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
+            Stats.SelectSaveSlot(saveSlot);
             Invoke(nameof(GoMainMenu), 2);
-            //GoMainMenu();
         }
     }
 }
