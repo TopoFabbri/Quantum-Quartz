@@ -24,7 +24,10 @@ namespace Code.Scripts.Level
             isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
 
             if (isTimerOn)
+            {
                 TimeCounter.Start();
+                TimeCounter.Reset();
+            }
 
             SfxController.MusicOnOff(true, gameObject);
         }
@@ -69,7 +72,6 @@ namespace Code.Scripts.Level
         private static void OnRestartHandler()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            TimeCounter.Reset();
         }
     }
 }
