@@ -39,7 +39,7 @@ namespace Code.Scripts.Level
         private IEnumerator ShowEndLevelScreen(float time)
         {
             TimeCounter.Stop();
-            Stats.SetTime(TimeCounter.Time);
+            Stats.SetLevelTime(currentLevel + 1, TimeCounter.Time.time);
             yield return new WaitForSeconds(time);
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);

@@ -1,4 +1,5 @@
 using Code.Scripts.Game;
+using Code.Scripts.Level;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Code.Scripts.Menu
 
         private void OnEnable()
         {
-            timeTxt.text = Stats.Time.ToStr;
+            timeTxt.text = Stats.GetLevelTime(LevelChanger.Instance.CurrentLevel).ToString();
             deathsTxt.text = Stats.GetDeaths().ToString();
         }
     }
