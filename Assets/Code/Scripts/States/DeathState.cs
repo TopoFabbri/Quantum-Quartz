@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
+using Code.Scripts.Game;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -50,6 +50,13 @@ namespace Code.Scripts.States
                 camController.Shake(DeathSettings.shakeDur, DeathSettings.shakeMag);
             
             mb.StartCoroutine(WaitAndEnd());
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            
+            Stats.SetDeaths(Stats.GetDeaths() + 1);
         }
 
         public override void OnUpdate()

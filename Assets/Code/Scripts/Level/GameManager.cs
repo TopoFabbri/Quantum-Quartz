@@ -27,6 +27,7 @@ namespace Code.Scripts.Level
             {
                 TimeCounter.Start();
                 TimeCounter.Reset();
+                Stats.SetDeaths(0);
             }
 
             SfxController.MusicOnOff(true, gameObject);
