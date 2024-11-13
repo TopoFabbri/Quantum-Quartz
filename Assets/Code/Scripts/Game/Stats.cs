@@ -58,12 +58,28 @@ namespace Code.Scripts.Game
         /// <summary>
         /// Update the provided UI texts with the player's saved stats.
         /// </summary>
-        public static void LoadTexts(TextMeshProUGUI timerText, TextMeshProUGUI deathsText)
+        public static void LoadTexts(TextMeshProUGUI totalTimerText, TextMeshProUGUI level1TimerText,TextMeshProUGUI level2TimerText, TextMeshProUGUI level3TimerText, TextMeshProUGUI level4TimerText, TextMeshProUGUI deathsText)
         {
             int totalTime = Instance.level1Time + Instance.level2Time + Instance.level3Time + Instance.level4Time;
+            //Instance.totalTimer = totalTime.ToString();
             
-            //timerText.text = totalTime.ToString();
-            timerText.text = PlayerPrefs.GetString($"SaveSlot_{Instance.saveSlot}_TotalTimer", "00:00:00");
+            level1TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level1Time", 0).ToString();
+            level2TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level2Time", 0).ToString();
+            level3TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level3Time", 0).ToString();
+            level4TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level4Time", 0).ToString();
+            
+            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level1Time", 0) == 0)
+                level1TimerText.text = "00:00:00";
+            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level2Time", 0) == 0)
+                level2TimerText.text = "00:00:00";
+            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level3Time", 0) == 0)
+                level3TimerText.text = "00:00:00";
+            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level4Time", 0) == 0)
+                level4TimerText.text = "00:00:00";
+            if(PlayerPrefs.GetString($"SaveSlot_{Instance.saveSlot}_TotalTimer", "00:00:00") == "0")
+                Instance.totalTimer = "00:00:00";
+            
+            totalTimerText.text = Instance.totalTimer;
             deathsText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Deaths", 0).ToString();
         }
 
