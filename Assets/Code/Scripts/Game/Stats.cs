@@ -12,7 +12,7 @@ namespace Code.Scripts.Game
         private static Stats _instance;
 
         private Timer time;
-        private int level1Time, level2Time, level3Time, level4Time;
+        private float level1Time, level2Time, level3Time, level4Time;
         private int deaths;
         private int saveSlot;
         private string totalTimer;
@@ -47,10 +47,10 @@ namespace Code.Scripts.Game
         {
             Instance.saveSlot = slot;
             Instance.totalTimer = PlayerPrefs.GetString($"SaveSlot_{slot}_TotalTimer", "00:00:00");
-            Instance.level1Time = PlayerPrefs.GetInt($"SaveSlot_{slot}_Level1Time", 0);
-            Instance.level2Time = PlayerPrefs.GetInt($"SaveSlot_{slot}_Level2Time", 0);
-            Instance.level3Time = PlayerPrefs.GetInt($"SaveSlot_{slot}_Level3Time", 0);
-            Instance.level4Time = PlayerPrefs.GetInt($"SaveSlot_{slot}_Level4Time", 0);
+            Instance.level1Time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level1Time", 0);
+            Instance.level2Time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level2Time", 0);
+            Instance.level3Time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level3Time", 0);
+            Instance.level4Time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level4Time", 0);
             Instance.deaths = PlayerPrefs.GetInt($"SaveSlot_{slot}_Deaths", 0);
             
         }
@@ -60,21 +60,21 @@ namespace Code.Scripts.Game
         /// </summary>
         public static void LoadTexts(TextMeshProUGUI totalTimerText, TextMeshProUGUI level1TimerText,TextMeshProUGUI level2TimerText, TextMeshProUGUI level3TimerText, TextMeshProUGUI level4TimerText, TextMeshProUGUI deathsText)
         {
-            int totalTime = Instance.level1Time + Instance.level2Time + Instance.level3Time + Instance.level4Time;
+            float totalTime = Instance.level1Time + Instance.level2Time + Instance.level3Time + Instance.level4Time;
             //Instance.totalTimer = totalTime.ToString();
             
-            level1TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level1Time", 0).ToString();
-            level2TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level2Time", 0).ToString();
-            level3TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level3Time", 0).ToString();
-            level4TimerText.text = PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level4Time", 0).ToString();
+            level1TimerText.text = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level1Time", 0).ToString();
+            level2TimerText.text = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level2Time", 0).ToString();
+            level3TimerText.text = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level3Time", 0).ToString();
+            level4TimerText.text = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level4Time", 0).ToString();
             
-            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level1Time", 0) == 0)
+            if(PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level1Time", 0) == 0)
                 level1TimerText.text = "00:00:00";
-            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level2Time", 0) == 0)
+            if(PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level2Time", 0) == 0)
                 level2TimerText.text = "00:00:00";
-            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level3Time", 0) == 0)
+            if(PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level3Time", 0) == 0)
                 level3TimerText.text = "00:00:00";
-            if(PlayerPrefs.GetInt($"SaveSlot_{Instance.saveSlot}_Level4Time", 0) == 0)
+            if(PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level4Time", 0) == 0)
                 level4TimerText.text = "00:00:00";
             if(PlayerPrefs.GetString($"SaveSlot_{Instance.saveSlot}_TotalTimer", "00:00:00") == "0")
                 Instance.totalTimer = "00:00:00";
@@ -90,11 +90,11 @@ namespace Code.Scripts.Game
         {
             int slot = Instance.saveSlot;
             PlayerPrefs.SetString($"SaveSlot_{slot}_TotalTimer", Instance.totalTimer);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Level1Time", Instance.level1Time);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Level2Time", Instance.level2Time);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Level3Time", Instance.level3Time);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Level4Time", Instance.level4Time);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Deaths", Instance.deaths);
+            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level1Time", Instance.level1Time);
+            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level2Time", Instance.level2Time);
+            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level3Time", Instance.level3Time);
+            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level4Time", Instance.level4Time);
+            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Deaths", Instance.deaths);
             PlayerPrefs.Save();
             Debug.Log("Saved, total timer: " + PlayerPrefs.GetString($"SaveSlot_{slot}_TotalTimer", "00:00:00"));
         }
@@ -102,7 +102,7 @@ namespace Code.Scripts.Game
         /// <summary>
         // Set level time
         /// <summary>
-        public static void SetLevelTime(int level, int time)
+        public static void SetLevelTime(int level, float time)
         {
             switch (level)
             {
@@ -124,7 +124,7 @@ namespace Code.Scripts.Game
         /// <summary>
         // Get level time
         /// <summary>
-        public static int GetLevelTime(int level)
+        public static float GetLevelTime(int level)
         {
             return level switch
             {
