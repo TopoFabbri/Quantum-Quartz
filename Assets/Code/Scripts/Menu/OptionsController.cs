@@ -1,6 +1,9 @@
+using System;
 using Code.Scripts.Game;
 using Code.Scripts.Level;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
@@ -13,10 +16,10 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private GameObject mainMenuButtons;
 
     [SerializeField] private Button optionsFirstButton;
-    [SerializeField] private Button creditsBackButton;
-    [SerializeField] private Button controlsBackButton;
-    [SerializeField] private Button videoFirstButton;
-    [SerializeField] private Button audioFirstButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button controlsButton;
+    [SerializeField] private Button videoButton;
+    [SerializeField] private Button audioButton;
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Toggle fullScreenToggle;
     [SerializeField] private Toggle timerToggle;
@@ -70,7 +73,7 @@ public class OptionsController : MonoBehaviour
         if (creditsPanel.activeSelf)
         {
             mainMenuButtons.SetActive(false);
-            creditsBackButton.Select();
+            creditsButton.Select();
         }
         else
         {
@@ -85,28 +88,27 @@ public class OptionsController : MonoBehaviour
 
         if (optionsPanel.activeSelf)
         {
-            mainMenuButtons.SetActive(false);
             optionsFirstButton.Select();
         }
         else
         {
-            mainMenuButtons.SetActive(true);
             mainMenuButton.Select();
         }
     }
 
     public void TurnControls()
     {
-        controlsPanel.SetActive(!controlsPanel.activeSelf);
+        controlsPanel.SetActive(true);
 
         if (controlsPanel.activeSelf)
         {
-            optionsPanel.SetActive(false);
-            controlsBackButton.Select();
+            videoPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            
+            controlsButton.Select();
         }
         else
         {
-            optionsPanel.SetActive(true);
             optionsFirstButton.Select();
         }
     }
@@ -115,34 +117,48 @@ public class OptionsController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        videoPanel.SetActive(!videoPanel.activeSelf);
+
+        videoPanel.SetActive(true);
 
         if (videoPanel.activeSelf)
         {
-            optionsPanel.SetActive(false);
-            videoFirstButton.Select();
+            controlsPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            
+            videoButton.Select();
         }
         else
         {
-            optionsPanel.SetActive(true);
             optionsFirstButton.Select();
         }
     }
-
+    
     public void TurnAudio()
     {
-        audioPanel.SetActive(!audioPanel.activeSelf);
+        audioPanel.SetActive(true);
 
         if (audioPanel.activeSelf)
         {
-            optionsPanel.SetActive(false);
-            audioFirstButton.Select();
+            controlsPanel.SetActive(false);
+            videoPanel.SetActive(false);
+            
+            audioButton.Select();
         }
         else
         {
-            optionsPanel.SetActive(true);
             optionsFirstButton.Select();
         }
+    }
+    
+    private void Update()
+    {
+        if(EventSystem.current.currentSelectedGameObject == controlsButton.gameObject)
+            TurnControls();
+        else if(EventSystem.current.currentSelectedGameObject == audioButton.gameObject)
+            TurnAudio();
+        else if(EventSystem.current.currentSelectedGameObject == videoButton.gameObject)
+            TurnVideo();
+        
     }
 
     public void OnChangedMusicVolume()
