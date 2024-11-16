@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Level;
+using Code.Scripts.Menu;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +16,8 @@ namespace Code.Scripts.UI
         [SerializeField] private GameObject pauseCanvas;
         [SerializeField] private Button pauseResumeButton;
         [SerializeField] private TextMeshProUGUI pauseTimerText;
-    
+        [SerializeField] private TextMeshProUGUI deathsText;
+
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private string defaultMap = "World";
         [SerializeField] private string uiMap = "UI";
@@ -46,6 +49,7 @@ namespace Code.Scripts.UI
             {
                 pauseTimerText.text = GameManager.Instance.GetTimerText().text;
                 GameManager.Instance.GetTimerText().gameObject.SetActive(false);
+                deathsText.text = Stats.GetDeaths().ToString();
                 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
