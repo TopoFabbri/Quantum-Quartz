@@ -21,7 +21,6 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
-            // Solo inicializa pantalla completa en la escena principal
             if (SceneManager.GetActiveScene().name == "SelectControllerMenu")
             {
                 FullScreenManager.InitializeFullScreen();

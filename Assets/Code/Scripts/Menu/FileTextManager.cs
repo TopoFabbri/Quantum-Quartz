@@ -25,7 +25,7 @@ namespace Code.Scripts.Menu
         {
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             
-            if (stateInfo.IsName("IdleHighLighted"))
+            if (stateInfo.IsName("IdleHighLighted") || stateInfo.IsName("Pressed"))
             {
                 totalTimerText.gameObject.SetActive(true);
                 deathsText.gameObject.SetActive(true);
