@@ -484,6 +484,17 @@
                 },
                 {
                     "name": "",
+                    "id": "18b5376e-1b35-47fe-ba49-ce7707046ac3",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ce1aa622-e8a8-4859-84db-7308c00e15c9",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -600,6 +611,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UIBack",
+                    "type": "Button",
+                    "id": "4f21c26b-d876-4095-8f23-d1b2251137a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -609,7 +629,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -620,7 +640,7 @@
                     "path": "<DualShockGamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DS4",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -631,7 +651,7 @@
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -642,7 +662,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -653,7 +673,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -664,7 +684,7 @@
                     "path": "<DualShockGamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DS4",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -675,7 +695,7 @@
                     "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -686,7 +706,7 @@
                     "path": "<DualShockGamepad>/dpad",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DS4",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -708,7 +728,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -719,7 +739,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -730,7 +750,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -741,7 +761,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -763,7 +783,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -774,7 +794,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -785,7 +805,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -796,21 +816,10 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UINavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "9e8f7ca6-ca3d-4bf7-a31c-3860d0f0ccbc",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UISubmit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -818,7 +827,7 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UISubmit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -829,7 +838,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "UISubmit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -840,7 +849,7 @@
                     "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DS4",
                     "action": "UISubmit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -851,19 +860,8 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "UISubmit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8d059c33-27e4-4689-a64e-7cea8b702ac9",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UIScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -873,7 +871,7 @@
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "UIScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -884,8 +882,41 @@
                     "path": "<DualShockGamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DS4",
                     "action": "UIScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fb01e29-093c-4ada-bf93-f0bee17fcaa4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "UIBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38b863c3-4cd3-44c9-9857-a08f280a561e",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "UIBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "572132f3-ebb4-431f-88bd-3beac7dc72c7",
+                    "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DS4",
+                    "action": "UIBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
