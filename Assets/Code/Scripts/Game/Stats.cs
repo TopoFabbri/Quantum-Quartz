@@ -106,15 +106,15 @@ namespace Code.Scripts.Game
         /// <summary>
         // Get level time
         /// <summary>
-        public static float GetLevelTime(int level)
+        public static Timer GetLevelTime(int level)
         {
             return level switch
             {
-                1 => Instance.level1Time.time,
-                2 => Instance.level2Time.time,
-                3 => Instance.level3Time.time,
-                4 => Instance.level4Time.time,
-                _ => 0
+                1 => Instance.level1Time,
+                2 => Instance.level2Time,
+                3 => Instance.level3Time,
+                4 => Instance.level4Time,
+                _ => new Timer()
             };
         }
 
