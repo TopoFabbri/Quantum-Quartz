@@ -74,5 +74,13 @@ namespace Code.Scripts.Level
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        
+        /// <summary>
+        /// Get Timer text
+        /// </summary>
+        public TextMeshProUGUI GetTimerText()
+        {
+            return timerTxt;
+        }
     }
 }

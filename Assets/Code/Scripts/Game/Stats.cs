@@ -48,20 +48,15 @@ namespace Code.Scripts.Game
         /// <summary>
         /// Update the provided UI texts with the player's saved stats.
         /// </summary>
-        public static void LoadTexts(TextMeshProUGUI totalTimerText, TextMeshProUGUI level1TimerText,TextMeshProUGUI level2TimerText, TextMeshProUGUI level3TimerText, TextMeshProUGUI level4TimerText, TextMeshProUGUI deathsText)
+        public static void LoadTexts(TextMeshProUGUI totalTimerText,TextMeshProUGUI deathsText)
         {
-            float totalTime = Instance.level1Time.time + Instance.level2Time.time + Instance.level3Time.time + Instance.level4Time.time;
-            Instance.totalTimer = totalTime.ToString();
-
-            Instance.level1Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level1Time", 0);
-            Instance.level2Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level2Time", 0);
-            Instance.level3Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level3Time", 0);
-            Instance.level4Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level4Time", 0);
-            
-            level1TimerText.text = Instance.level1Time.ToStr;
-            level2TimerText.text = Instance.level2Time.ToStr;
-            level3TimerText.text = Instance.level3Time.ToStr;
-            level4TimerText.text = Instance.level4Time.ToStr;
+            // Instance.level1Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level1Time", 0);
+            // Instance.level2Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level2Time", 0);
+            // Instance.level3Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level3Time", 0);
+            // Instance.level4Time.time = PlayerPrefs.GetFloat($"SaveSlot_{Instance.saveSlot}_Level4Time", 0);
+            //
+            // float totalTime = Instance.level1Time.time + Instance.level2Time.time + Instance.level3Time.time + Instance.level4Time.time;
+            // Instance.totalTimer = totalTime.ToString();
             
             if(PlayerPrefs.GetString($"SaveSlot_{Instance.saveSlot}_TotalTimer", "00:00:00") == "0")
                 Instance.totalTimer = "00:00:00";

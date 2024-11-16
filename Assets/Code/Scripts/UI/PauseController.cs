@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using Code.Scripts.Input;
+using Code.Scripts.Level;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,6 +13,7 @@ namespace Code.Scripts.UI
     {
         [SerializeField] private GameObject pauseCanvas;
         [SerializeField] private Button pauseResumeButton;
+        [SerializeField] private TextMeshProUGUI pauseTimerText;
     
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private string defaultMap = "World";
@@ -40,31 +44,27 @@ namespace Code.Scripts.UI
         
             if (isPaused)
             {
+                pauseTimerText.text = GameManager.Instance.GetTimerText().text;
+                GameManager.Instance.GetTimerText().gameObject.SetActive(false);
+                
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
                 playerInput.SwitchCurrentActionMap(uiMap);
                 AkSoundEngine.PostEvent(pauseEvent, gameObject);
                 
-                StartCoroutine(PauseTimeScale(0.9f));
+                Time.timeScale = 0;
             }
             else
             {
                 Time.timeScale = 1;
                 pauseCanvas.SetActive(false);
                 AkSoundEngine.PostEvent(unPauseEvent, gameObject);
+                GameManager.Instance.GetTimerText().gameObject.SetActive(true);
                 
                 playerInput.SwitchCurrentActionMap(defaultMap);
             }
         }
         
-        private IEnumerator PauseTimeScale(float time)
-        {
-            inCoroutine = true;
-            yield return new WaitForSeconds(time);
-            
-            Time.timeScale = 0;
-            inCoroutine = false;
-        }
 
         private void OnDestroy()
         {
