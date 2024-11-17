@@ -12,7 +12,6 @@ namespace Code.Scripts.States
         private WallSettings WallSettings => settings as WallSettings;
 
         private float savedGravityScale;
-        private static GameObject _wall;
 
         public bool FacingRight { get; set; }
 
@@ -43,12 +42,6 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             savedGravityScale = rb.gravityScale;
-            
-            if (_wall)
-            {
-                if (_wall.transform.TryGetComponent(out ObjMovement objMovement))
-                    objMovement.AddPlayer(transform);
-            }
             
             PositionPlayer();
             mb.StartCoroutine(SpawnDusts());
@@ -87,11 +80,9 @@ namespace Code.Scripts.States
 
                 if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D)) continue;
                 
-                _wall = collider.gameObject;
                 return true;
             }
 
-            _wall = null;
             return false;
         }
 
@@ -107,6 +98,9 @@ namespace Code.Scripts.States
             if (!hit.collider || !hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
                 return;
 
+            if (hit.collider.TryGetComponent(out ObjMovement objMovement))
+                objMovement.AddPlayer(transform);
+            
             Vector3 newPos = transform.position;
             newPos.x = hit.point.x + (FacingRight ? -1f : 1f) * WallSettings.wallDis;
 
