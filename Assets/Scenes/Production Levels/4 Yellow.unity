@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 601177240}
   - component: {fileID: 601177239}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: EndLevelCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,7 +943,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4175369740277262741, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2302499670245500733, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3076891057320368079, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       insertIndex: -1
@@ -966,39 +967,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3076891057320368079, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
   m_PrefabInstance: {fileID: 729438772}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &729438775 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2392113301461369526, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-  m_PrefabInstance: {fileID: 729438772}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &729438776 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3289560169752849213, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-  m_PrefabInstance: {fileID: 729438772}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &729438777 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3869172363604315217, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
-  m_PrefabInstance: {fileID: 729438772}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1009948248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,9 +1016,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e849f83ca0c1c4a8e589cefeedc40c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTxt: {fileID: 729438777}
-  collectiblesTxt: {fileID: 729438776}
-  deathsTxt: {fileID: 729438775}
+  timeTxt: {fileID: 0}
+  collectiblesTxt: {fileID: 0}
+  deathsTxt: {fileID: 0}
 --- !u!1001 &1247720398
 PrefabInstance:
   m_ObjectHideFlags: 0
