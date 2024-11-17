@@ -72,12 +72,10 @@ public class OptionsController : MonoBehaviour
 
         if (creditsPanel.activeSelf)
         {
-            mainMenuButtons.SetActive(false);
             creditsButton.Select();
         }
         else
         {
-            mainMenuButtons.SetActive(true);
             mainMenuButton.Select();
         }
     }
