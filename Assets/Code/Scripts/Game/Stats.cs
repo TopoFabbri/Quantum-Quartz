@@ -65,7 +65,7 @@ namespace Code.Scripts.Game
             PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level2Time", Instance.level2Time.time);
             PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level3Time", Instance.level3Time.time);
             PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level4Time", Instance.level4Time.time);
-            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Deaths", Instance.deaths);
+            PlayerPrefs.SetInt($"SaveSlot_{slot}_Deaths", Instance.deaths);
             PlayerPrefs.Save();
             
             Timer timerDebug = new()
@@ -74,6 +74,7 @@ namespace Code.Scripts.Game
             };
             
             Debug.Log("Saved, total timer: " + timerDebug.ToStr);
+            Debug.Log("Saved, total deaths: " + Instance.deaths);
         }
 
         /// <summary>

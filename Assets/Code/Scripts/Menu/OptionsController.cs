@@ -14,8 +14,10 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private GameObject videoPanel;
     [SerializeField] private GameObject audioPanel;
     [SerializeField] private GameObject mainMenuButtons;
+    [SerializeField] private GameObject levelSelectorPanel;
 
     [SerializeField] private Button optionsFirstButton;
+    [SerializeField] private Button levelSelectorFirstButton;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button controlsButton;
     [SerializeField] private Button videoButton;
@@ -36,6 +38,7 @@ public class OptionsController : MonoBehaviour
         controlsPanel.SetActive(false);
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
+        levelSelectorPanel.SetActive(false);
 
 
         bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
@@ -72,12 +75,10 @@ public class OptionsController : MonoBehaviour
 
         if (creditsPanel.activeSelf)
         {
-            mainMenuButtons.SetActive(false);
             creditsButton.Select();
         }
         else
         {
-            mainMenuButtons.SetActive(true);
             mainMenuButton.Select();
         }
     }
@@ -89,6 +90,20 @@ public class OptionsController : MonoBehaviour
         if (optionsPanel.activeSelf)
         {
             optionsFirstButton.Select();
+        }
+        else
+        {
+            mainMenuButton.Select();
+        }
+    }
+
+    public void TurnLevelSelector()
+    {
+        levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
+
+        if (levelSelectorPanel.activeSelf)
+        {
+            levelSelectorFirstButton.Select();
         }
         else
         {

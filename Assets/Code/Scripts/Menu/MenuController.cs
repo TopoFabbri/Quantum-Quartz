@@ -42,6 +42,7 @@ namespace Code.Scripts.Menu
 
         public void GoMainMenu()
         {
+            Stats.SaveStats();
             LoadScene(mainMenuSceneName);
         }
 
