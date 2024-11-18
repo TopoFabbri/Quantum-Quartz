@@ -17,6 +17,7 @@ namespace Code.Scripts.UI
         [SerializeField] private Button pauseResumeButton;
         [SerializeField] private TextMeshProUGUI pauseTimerText;
         [SerializeField] private TextMeshProUGUI deathsText;
+        [SerializeField] private GameObject endLevelCanvas;
 
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private string defaultMap = "World";
@@ -31,7 +32,7 @@ namespace Code.Scripts.UI
         {
             InputManager.Pause += Pause;
         }
-    
+
         private void OnDisable()
         {
             InputManager.Pause -= Pause;
@@ -42,20 +43,21 @@ namespace Code.Scripts.UI
         public void Pause()
         {
             if (inCoroutine) return;
-            
-            isPaused = !isPaused;
-        
+
+            if (!endLevelCanvas.gameObject.activeSelf)
+                isPaused = !isPaused;
+
             if (isPaused)
             {
                 pauseTimerText.text = GameManager.Instance.GetTimerText().text;
                 GameManager.Instance.GetTimerText().gameObject.SetActive(false);
                 deathsText.text = Stats.GetDeaths().ToString();
-                
+
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
                 playerInput.SwitchCurrentActionMap(uiMap);
                 AkSoundEngine.PostEvent(pauseEvent, gameObject);
-                
+
                 Time.timeScale = 0;
             }
             else
@@ -64,11 +66,11 @@ namespace Code.Scripts.UI
                 pauseCanvas.SetActive(false);
                 AkSoundEngine.PostEvent(unPauseEvent, gameObject);
                 GameManager.Instance.GetTimerText().gameObject.SetActive(true);
-                
+
                 playerInput.SwitchCurrentActionMap(defaultMap);
             }
         }
-        
+
 
         private void OnDestroy()
         {
