@@ -33,12 +33,12 @@ public class OptionsController : MonoBehaviour
 
     private void Start()
     {
-        optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
+         optionsPanel.SetActive(false);
+        // creditsPanel.SetActive(false);
         controlsPanel.SetActive(false);
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
-        levelSelectorPanel.SetActive(false);
+        // levelSelectorPanel.SetActive(false);
 
 
         bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
