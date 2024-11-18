@@ -25,8 +25,8 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private Button mainMenuButton;
     [SerializeField] private Toggle fullScreenToggle;
     [SerializeField] private Toggle timerToggle;
-    [SerializeField] private Scrollbar musicSlider;
-    [SerializeField] private Scrollbar sfxSlider;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
 
     private bool isFullScreen;
     private bool isTimerOn;
@@ -44,14 +44,24 @@ public class OptionsController : MonoBehaviour
         bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
         isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
 
-        fullScreenToggle.isOn = isFullScreen;
-        timerToggle.isOn = isTimerOn;
+        //fullScreenToggle.isOn = isFullScreen;
+        //timerToggle.isOn = isTimerOn;
         
         if (sfxSlider)
             sfxSlider.value = Settings.SfxVol / 100f;
         
         if (musicSlider)
             musicSlider.value = Settings.MusicVol / 100f;
+    }
+    
+    public void SetMusicVolume()
+    {
+        Settings.MusicVol = musicSlider.value * 100f;
+    }
+
+    public void SetSfxVolume()
+    {
+        Settings.SfxVol = sfxSlider.value * 100f;
     }
 
     public void SetFullScreen()
