@@ -91,6 +91,9 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnRestart()
         {
+            if (!Application.isEditor)
+                return;
+
             Restart?.Invoke();
         }
 
@@ -120,6 +123,9 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnDevMode()
         {
+            if (!Application.isEditor)
+                return;
+            
             DevMode?.Invoke();
         }
     }
