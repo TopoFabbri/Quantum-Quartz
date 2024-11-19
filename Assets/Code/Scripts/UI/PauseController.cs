@@ -18,6 +18,7 @@ namespace Code.Scripts.UI
         [SerializeField] private TextMeshProUGUI pauseTimerText;
         [SerializeField] private TextMeshProUGUI deathsText;
         [SerializeField] private GameObject endLevelCanvas;
+        [SerializeField] private GameObject optionsCanvas;
 
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private string defaultMap = "World";
@@ -64,6 +65,7 @@ namespace Code.Scripts.UI
             {
                 Time.timeScale = 1;
                 pauseCanvas.SetActive(false);
+                optionsCanvas.SetActive(false);
                 AkSoundEngine.PostEvent(unPauseEvent, gameObject);
                 GameManager.Instance.GetTimerText().gameObject.SetActive(true);
 
@@ -77,5 +79,9 @@ namespace Code.Scripts.UI
             AkSoundEngine.PostEvent(unPauseEvent, gameObject);
         }
         
+        private void OnUIBack()
+        {
+            Pause();
+        }
     }
 }
