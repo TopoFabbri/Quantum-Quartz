@@ -93,6 +93,7 @@ namespace Code.Scripts.Player
             djmpState.onEnter += OnEnterDjmpHandler;
             tlptState.onEnter += OnEnterTpHandler;
             dethState.onEnter += OnEnterDeathHandler;
+            wallState.onEnter += OnEnterWallHandler;
             wallJumpState.onEnter += OnEnterWallJumpHandler;
             gldeState.onEnter += OnEnterGlideHandler;
 
@@ -126,6 +127,7 @@ namespace Code.Scripts.Player
             dashState.onEnter -= OnEnterDashHandler;
             djmpState.onEnter -= OnEnterDjmpHandler;
             dethState.onEnter -= OnEnterDeathHandler;
+            wallState.onEnter -= OnEnterWallHandler;
             wallJumpState.onEnter -= OnEnterWallJumpHandler;
             gldeState.onEnter -= OnEnterGlideHandler;
 
@@ -161,8 +163,11 @@ namespace Code.Scripts.Player
 
             fsm.Update();
 
-            if (facingRight && moveState.Speed < 0f || !facingRight && moveState.Speed > 0f)
-                Flip();
+            if (fsm.CurrentState != wallState && fsm.CurrentState != wallJumpState && fsm.CurrentState != grabState)
+            {
+                if (facingRight && moveState.Speed < 0f || !facingRight && moveState.Speed > 0f)
+                    Flip();
+            }
 
             if (stateTxt)
                 stateTxt.text = fsm.CurrentState.ID;
@@ -346,7 +351,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
             fsm.AddTransition(fallState, dethState, () => died);
             fsm.AddTransition(fallState, tlptState, () => shouldTp);
-            fsm.AddTransition(fallState, wallState, wallState.CanWallJump);
+            fsm.AddTransition(fallState, wallState, wallState.CanEnterWall);
             fsm.AddTransition(fallState, edgeState, () => rb.velocity.y >= 0f && edgeState.IsOnEdge());
 
             fsm.AddTransition(dashState, fallState, () => dashState.Ended);
@@ -368,7 +373,7 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(wallState, wallJumpState, () => jumpPressed);
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
-            fsm.AddTransition(wallState, fallState, () => !wallState.CanWallJump());
+            fsm.AddTransition(wallState, fallState, () => !wallState.IsTouchingWall() || ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green);
             fsm.AddTransition(wallState, dethState, () => died);
             fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.depleted);
 
@@ -707,12 +712,20 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
+        /// Handle player entered wall
+        /// </summary>
+        private void OnEnterWallHandler()
+        {
+            if (fsm.PreviousState != grabState)
+                Flip();
+        }
+        
+        /// <summary>
         /// Handle player started wall jump
         /// </summary>
         private void OnEnterWallJumpHandler()
         {
             moveState.ResetSpeed();
-            Flip();
         }
 
         /// <summary>
