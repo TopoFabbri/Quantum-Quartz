@@ -76,5 +76,6 @@ namespace Code.Scripts.UI
         {
             AkSoundEngine.PostEvent(unPauseEvent, gameObject);
         }
+        
     }
 }
