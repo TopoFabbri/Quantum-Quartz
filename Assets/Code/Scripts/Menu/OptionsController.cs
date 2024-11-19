@@ -34,11 +34,11 @@ public class OptionsController : MonoBehaviour
     private void Start()
     {
         optionsPanel.SetActive(false);
-        creditsPanel.SetActive(false);
+        // creditsPanel.SetActive(false);
         controlsPanel.SetActive(false);
         videoPanel.SetActive(false);
         audioPanel.SetActive(false);
-        levelSelectorPanel.SetActive(false);
+        // levelSelectorPanel.SetActive(false);
 
 
         bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
@@ -46,14 +46,14 @@ public class OptionsController : MonoBehaviour
 
         //fullScreenToggle.isOn = isFullScreen;
         //timerToggle.isOn = isTimerOn;
-        
+
         if (sfxSlider)
             sfxSlider.value = Settings.SfxVol / 100f;
-        
+
         if (musicSlider)
             musicSlider.value = Settings.MusicVol / 100f;
     }
-    
+
     public void SetMusicVolume()
     {
         Settings.MusicVol = musicSlider.value * 100f;
@@ -129,7 +129,7 @@ public class OptionsController : MonoBehaviour
         {
             videoPanel.SetActive(false);
             audioPanel.SetActive(false);
-            
+
             controlsButton.Select();
         }
         else
@@ -149,7 +149,7 @@ public class OptionsController : MonoBehaviour
         {
             controlsPanel.SetActive(false);
             audioPanel.SetActive(false);
-            
+
             videoButton.Select();
         }
         else
@@ -157,7 +157,7 @@ public class OptionsController : MonoBehaviour
             optionsFirstButton.Select();
         }
     }
-    
+
     public void TurnAudio()
     {
         audioPanel.SetActive(true);
@@ -166,7 +166,7 @@ public class OptionsController : MonoBehaviour
         {
             controlsPanel.SetActive(false);
             videoPanel.SetActive(false);
-            
+
             audioButton.Select();
         }
         else
@@ -174,25 +174,26 @@ public class OptionsController : MonoBehaviour
             optionsFirstButton.Select();
         }
     }
-    
+
     private void Update()
     {
-        if(EventSystem.current.currentSelectedGameObject == controlsButton.gameObject)
+        if (EventSystem.current.currentSelectedGameObject == controlsButton.gameObject)
             TurnControls();
-        else if(EventSystem.current.currentSelectedGameObject == audioButton.gameObject)
+        else if (EventSystem.current.currentSelectedGameObject == audioButton.gameObject)
             TurnAudio();
-        else if(EventSystem.current.currentSelectedGameObject == videoButton.gameObject)
+        else if (EventSystem.current.currentSelectedGameObject == videoButton.gameObject)
             TurnVideo();
-        
     }
 
-    public void OnChangedMusicVolume()
+    private void OnUIBack()
     {
-        Settings.MusicVol = musicSlider.value * 100f;
-    }
+        if (optionsPanel)
+            optionsPanel.SetActive(false);
+        if (levelSelectorPanel)
+            levelSelectorPanel.SetActive(false);
+        if (creditsPanel)
+            creditsPanel.SetActive(false);
         
-    public void OnChangedSFXVolume()
-    {
-        Settings.SfxVol = sfxSlider.value * 100f;
+        mainMenuButton.Select();
     }
 }
