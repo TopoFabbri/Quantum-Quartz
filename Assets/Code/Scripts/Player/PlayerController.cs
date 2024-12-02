@@ -74,6 +74,7 @@ namespace Code.Scripts.Player
         private bool grabPressed;
         
         private event Action<bool> OnFlip;
+        public float Speed => moveState.Speed;
 
         private void Awake()
         {
