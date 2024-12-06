@@ -5,8 +5,8 @@ namespace Code.Scripts.Level
 {
     public class ChainEndController : MonoBehaviour
     {
-        [SerializeField] private float minForce = 1f;
-        [SerializeField] private float maxForce = 2f;
+        [SerializeField] private float minForce = 2f;
+        [SerializeField] private float maxForce = 3f;
         
         private Rigidbody2D rb;
 

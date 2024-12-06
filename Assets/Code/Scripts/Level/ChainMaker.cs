@@ -12,7 +12,7 @@ namespace Code.Scripts.Level
 
         [Header("Style")] [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
-        [SerializeField] private Sprite endSprite;
+        [SerializeField] private InteractableController2D psController;
 
         [Header("Generation")] [SerializeField]
         private bool generate;
@@ -38,9 +38,9 @@ namespace Code.Scripts.Level
 
             generate = false;
 
-            if (!linkSprite || (!endSprite && hasEnd))
+            if (!linkSprite || (!psController && hasEnd))
             {
-                Debug.LogError("No sprite provided");
+                Debug.LogError("No sprite or end provided");
                 return;
             }
 
@@ -98,32 +98,24 @@ namespace Code.Scripts.Level
 
         private void GenerateEnd()
         {
-            end = new GameObject
-            {
-                name = "End",
-                transform =
-                {
-                    parent = transform
-                }
-            };
+            end = Instantiate(psController).gameObject;
+            end.name = "End";
+            end.transform.parent = transform;
 
             joint = gameObject.AddComponent<DistanceJoint2D>();
 
-            joint.connectedBody = end.AddComponent<Rigidbody2D>();
+            end.AddComponent<Rigidbody2D>();
             joint.connectedAnchor = new Vector2(0f, .5f);
             joint.maxDistanceOnly = true;
 
-            end.AddComponent<SpriteRenderer>().sprite = endSprite;
-            end.AddComponent<CircleCollider2D>();
-            end.AddComponent<ChainEndController>();
             end.transform.position = transform.position + Vector3.down * (linkSize * chainLength + .5f);
         
             CircleCollider2D endCollider = end.GetComponent<CircleCollider2D>();
             Rigidbody2D endRb = end.GetComponent<Rigidbody2D>();
-        
+
+            joint.connectedBody = endRb;
             endCollider.isTrigger = true;
             endRb.mass = 10f;
-            endRb.angularDrag = .2f;
         
             hinges.Last().connectedBody = end.GetComponent<Rigidbody2D>();
         }
@@ -142,16 +134,20 @@ namespace Code.Scripts.Level
             hinges[i].useLimits = true;
         
             tempLink.AddComponent<SpriteRenderer>().sprite = linkSprite;
+            
+            Rigidbody2D tempRb = tempLink.GetComponent<Rigidbody2D>();
+
+            tempRb.angularDrag = 10f;
         
             if (i > 0)
             {
-                tempLink.AddComponent<Rigidbody2D>();
-
-                hinges[i - 1].connectedBody = tempLink.GetComponent<Rigidbody2D>();
+                hinges[i - 1].connectedBody = tempRb;
             }
             else
             {
                 HingeJoint2D startHinge = tempLink.AddComponent<HingeJoint2D>();
+
+                startHinge.limits = new JointAngleLimits2D { min = 0f, max = 0f };
 
                 rb = gameObject.AddComponent<Rigidbody2D>();
 
