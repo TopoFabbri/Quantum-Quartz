@@ -1,6 +1,5 @@
 using Code.Scripts.Colors;
 using Code.Scripts.Level;
-using TMPro;
 using UnityEngine;
 
 namespace Code.Scripts.Screen
@@ -11,7 +10,6 @@ namespace Code.Scripts.Screen
     public class ScreenFXController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private TextMeshProUGUI levelTxt;
 
         private static readonly int Ended = Animator.StringToHash("Ended");
         private static readonly int SwitchedColor = Animator.StringToHash("SwitchedColor");
@@ -26,11 +24,6 @@ namespace Code.Scripts.Screen
         {
             LevelChanger.LevelEnd -= End;
             ColorSwitcher.ColorChanged -= OnSwitchColorHandler;
-        }
-
-        private void Start()
-        {
-            levelTxt.text = "Level " + (LevelChanger.Instance.CurrentLevel + 1);
         }
 
         /// <summary>
