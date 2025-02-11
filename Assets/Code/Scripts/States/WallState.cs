@@ -26,7 +26,6 @@ namespace Code.Scripts.States
             base.OnUpdate();
 
             rb.gravityScale = rb.velocity.y < 0 ? WallSettings.gravMultiplier : WallSettings.upwardsGravMultiplier;
-            PositionPlayer();
         }
 
         public override void OnFixedUpdate()
@@ -43,6 +42,8 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             savedGravityScale = rb.gravityScale;
+            
+            PositionPlayer();
             
             mb.StartCoroutine(SpawnDusts());
         }
