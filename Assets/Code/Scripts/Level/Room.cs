@@ -6,7 +6,7 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private BoxCollider2D roomTrigger;
         [SerializeField] private Vector2 moveRange;
-
+        
         private Vector2 camRange;
         
         private static UnityEngine.Camera _cam;
@@ -22,12 +22,17 @@ namespace Code.Scripts.Level
             }
         }
 
+        public Vector2 MoveRange => moveRange;
+        
         private static Transform Player { get; set; }
         public static Room ActiveRoom { get; private set; }
 
         private void OnDrawGizmosSelected()
         {
             CalculateCameraRange();
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(transform.position, camRange * 2f);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -47,17 +52,6 @@ namespace Code.Scripts.Level
                 return;
             
             CalculateCameraRange();
-            
-            Vector3 targetPos = Player.position;
-            targetPos.z = Cam.transform.position.z;
-            
-            Cam.transform.position = Vector3.Lerp(Cam.transform.position, targetPos, Time.deltaTime * 10f);
-            
-            Vector2 minMovement = (Vector2)transform.position - moveRange;
-            Vector2 maxMovement = (Vector2)transform.position + moveRange;
-            
-            Cam.transform.position = new Vector3(Mathf.Clamp(Cam.transform.position.x, minMovement.x, maxMovement.x),
-                Mathf.Clamp(Cam.transform.position.y, minMovement.y, maxMovement.y), Cam.transform.position.z);
         }
 
         private void CalculateCameraRange()
@@ -68,7 +62,7 @@ namespace Code.Scripts.Level
             
             camRange += moveRange;
             
-            roomTrigger.size = camRange * 2f;
+            roomTrigger.size = camRange * 2f - Vector2.one;
         }
     }
 }

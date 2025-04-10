@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts.Level;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,51 +12,87 @@ namespace Code.Scripts.Camera
     /// </summary>
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private float speed = 20f;
-        [SerializeField] private float moveDis = 10f;
-        [SerializeField] private float inputSpeed = 2f;
-        [SerializeField] private float moveTimeOffset = 0.5f;
+        [Header("References")] [SerializeField]
+        private UnityEngine.Camera cam;
+
+        [SerializeField] private Transform player;
+
+        [Header("Settings")] [SerializeField] private float changeRoomSpeed = 20f;
+        [SerializeField] private float followSpeed = 2f;
 
         private readonly Dictionary<int, bool> shakes = new();
-        private List<int> shakeIds = new();
+        private readonly List<int> shakeIds = new();
 
-        private Vector3 cameraPosition;
-        private float currentDis;
-
-        private bool isMoving;
+        private bool inRoom = true;
+        private Vector3 originalPos;
+        private Vector3 targetPos;
 
         public event Action MoveCam;
         public event Action StopCam;
 
-        private void Awake()
+        public Vector2 Center { get; set; }
+        private Vector2 MoveRange { get; set; }
+
+        private void Start()
         {
-            cameraPosition = transform.position;
+            originalPos = cam.transform.localPosition;
         }
 
         private void LateUpdate()
         {
-            if (!isMoving)
-                return;
-
-            transform.position = Vector3.MoveTowards(transform.position, cameraPosition, Time.deltaTime * speed);
-
-            if (transform.position == cameraPosition)
+            if (Room.ActiveRoom != null)
             {
-                StartCoroutine(WaitAndToggleMoving(moveTimeOffset));
+                Center = Room.ActiveRoom.transform.position;
+                MoveRange = Room.ActiveRoom.MoveRange;
             }
+            
+            CalculateTargetPos();
+            
+            if (IsCamInRoom())
+                Follow();
+            else
+                SwitchRoom();
         }
 
         /// <summary>
-        /// Start camera movement towards position
+        /// Move the camera to the room's center at a constant speed.
         /// </summary>
-        /// <param name="position"></param>
-        public void MoveTo(Vector3 position)
+        private void SwitchRoom()
         {
-            if (cameraPosition == position)
-                return;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, changeRoomSpeed * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// Move the camera to the player's position, but only inside the room's boundaries
+        /// </summary>
+        private void Follow()
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, followSpeed * Time.deltaTime);
+        }
+
+        private void CalculateTargetPos()
+        {
+            targetPos = player.position;
             
-            cameraPosition = position;
-            StartCoroutine(WaitAndToggleMoving(moveTimeOffset));
+            targetPos.x = Mathf.Clamp(targetPos.x, Center.x - MoveRange.x, Center.x + MoveRange.x);
+            targetPos.y = Mathf.Clamp(targetPos.y, Center.y - MoveRange.y, Center.y + MoveRange.y);
+        }
+        
+        private bool IsCamInRoom()
+        {
+            bool newInRoom = transform.position.x >= Center.x - MoveRange.x &&
+                             transform.position.x <= Center.x + MoveRange.x &&
+                             transform.position.y >= Center.y - MoveRange.y &&
+                             transform.position.y <= Center.y + MoveRange.y;
+
+            if (inRoom && !newInRoom)
+                MoveCam?.Invoke();
+
+            if (!inRoom && newInRoom)
+                StopCam?.Invoke();
+
+            inRoom = newInRoom;
+            return inRoom;
         }
 
         /// <summary>
@@ -86,7 +123,6 @@ namespace Code.Scripts.Camera
         /// <returns></returns>
         private IEnumerator ShakeForDuration(float duration, float magnitude, int shakeId)
         {
-            Vector3 originalPos = transform.localPosition;
             float elapsed = 0.0f;
 
             while (elapsed < duration && shakes[shakeId])
@@ -96,35 +132,15 @@ namespace Code.Scripts.Camera
                 float x = Random.Range(-1f, 1f) * magnitude;
                 float y = Random.Range(-1f, 1f) * magnitude;
 
-                transform.localPosition = originalPos + new Vector3(x, y, 0f);
+                cam.transform.localPosition = originalPos + new Vector3(x, y, 0f);
 
                 yield return null;
             }
 
             shakes.Remove(shakeId);
             shakeIds.Remove(shakeId);
-            transform.localPosition = originalPos;
-        }
-
-        /// <summary>
-        /// Wait time and start move camera
-        /// </summary>
-        /// <param name="time"> Time to wait</param>
-        /// <returns></returns>
-        private IEnumerator WaitAndToggleMoving(float time)
-        {
-            if (isMoving)
-            {
-                isMoving = false;
-                yield return new WaitForSeconds(time);
-                StopCam?.Invoke();
-            }
-            else
-            {
-                MoveCam?.Invoke();
-                yield return new WaitForSeconds(time);
-                isMoving = true;
-            }
+            
+            cam.transform.localPosition = originalPos;
         }
 
         /// <summary>
