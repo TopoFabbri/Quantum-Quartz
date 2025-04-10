@@ -6,6 +6,7 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private BoxCollider2D roomTrigger;
         [SerializeField] private Vector2 moveRange;
+        [SerializeField] private Color rectangleColor = Color.magenta;
         
         private Vector2 camRange;
         
@@ -31,7 +32,7 @@ namespace Code.Scripts.Level
         {
             CalculateCameraRange();
             
-            Gizmos.color = Color.blue;
+            Gizmos.color = rectangleColor;
             Gizmos.DrawWireCube(transform.position, camRange * 2f);
         }
 
