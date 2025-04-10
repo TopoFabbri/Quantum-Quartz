@@ -67,7 +67,7 @@ namespace Code.Scripts.Camera
         /// </summary>
         private void Follow()
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, followSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
         }
 
         private void CalculateTargetPos()
