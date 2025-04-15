@@ -200,12 +200,14 @@ namespace Code.Scripts.Player
                 falling = false;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (!collision.enabled) return;
+            
             if (fsm.CurrentState == fallState)
                 jumpState.SpawnDust();
             
-            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
+            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
                 return;
             
             if (!moveState.IsGrounded())
@@ -215,13 +217,15 @@ namespace Code.Scripts.Player
 
             falling = false;
 
-            if (other.gameObject.TryGetComponent(out ObjMovement obj))
+            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D collision)
         {
-            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
+            if (!collision.enabled) return;
+            
+            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
                 return;
 
             if (!moveState.IsGrounded())
@@ -231,18 +235,20 @@ namespace Code.Scripts.Player
 
             falling = false;
 
-            if (other.gameObject.TryGetComponent(out ObjMovement obj))
+            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
                 obj.AddPlayer(transform);
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void OnCollisionExit2D(Collision2D collision)
         {
-            if (!(other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Platform")))
+            if (!collision.enabled) return;
+            
+            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
                 return;
 
             touchingFloor = false;
 
-            if (other.gameObject.CompareTag("Platform"))
+            if (collision.gameObject.CompareTag("Platform"))
                 transform.parent = null;
         }
 

@@ -57,7 +57,7 @@ namespace Code.Scripts.Level
 
         private void CalculateCameraRange()
         {
-            if (Cam != null)
+            if (Cam)
                 camRange = (Cam.ViewportToWorldPoint(new Vector3(1, 1, Cam.nearClipPlane)) -
                             Cam.ViewportToWorldPoint(new Vector3(0, 0, Cam.nearClipPlane))) / 2f;
             
