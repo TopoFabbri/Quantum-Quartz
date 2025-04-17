@@ -27,6 +27,7 @@ namespace Code.Scripts.States
 
         private bool facingRight;
         private float gravScale;
+        private bool interrupted;
 
         public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, Transform transform,
             MonoBehaviour mb) : base(id,
@@ -45,6 +46,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
+            interrupted = false;
             gravScale = rb.gravityScale;
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
@@ -59,7 +61,9 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            rb.velocity = new Vector2(rb.velocity.x / 2f, 0f);
+            if (!interrupted)
+                rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
+            
             rb.gravityScale = gravScale;
 
             mb.StartCoroutine(StartCoolDown());
@@ -71,7 +75,12 @@ namespace Code.Scripts.States
 
             transform.position = Vector3.MoveTowards(transform.position,
                 transform.position + Vector3.right * (facingRight ? 1 : -1), DashSettings.speed * Time.deltaTime);
+        }
 
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            
             if (WallCheck())
                 Ended = true;
         }
@@ -116,13 +125,12 @@ namespace Code.Scripts.States
             facingRight = !facingRight;
         }
 
-        public bool WallCheck()
+        private bool WallCheck()
         {
             Vector2 pos = (Vector2)rb.gameObject.transform.position +
                           Vector2.right * (DashSettings.wallCheckDis * (facingRight ? 1 : -1));
 
-            Collider2D[] colliders =
-                Physics2D.OverlapBoxAll(pos, DashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, DashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
             foreach (Collider2D collider in colliders)
             {
@@ -131,6 +139,15 @@ namespace Code.Scripts.States
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Interrupt the dash state. This sets the state's Ended property to true.
+        /// </summary>
+        public void Interrupt()
+        {
+            interrupted = true;
+            Ended = true;
         }
     }
 }

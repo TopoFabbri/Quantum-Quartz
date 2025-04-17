@@ -11,7 +11,7 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class MoveState<T> : BaseState<T>
     {
-        protected MoveSettings moveSettings;
+        protected readonly MoveSettings moveSettings;
         
         protected readonly Rigidbody2D rb;
         protected readonly Transform transform;
@@ -63,7 +63,7 @@ namespace Code.Scripts.States
         /// <summary>
         /// Check if player is on ground
         /// </summary>
-        /// <returns>True if on ground</returns>
+        /// <returns>True if on the ground</returns>
         public bool IsGrounded()
         {
             RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + moveSettings.groundCheckOffset, Vector2.down, moveSettings.groundCheckRadius, moveSettings.groundLayer);
@@ -82,7 +82,7 @@ namespace Code.Scripts.States
         }
 
         /// <summary>
-        /// Check if player is moving
+        /// Check if the player is moving
         /// </summary>
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
@@ -94,7 +94,7 @@ namespace Code.Scripts.States
         }
 
         /// <summary>
-        /// Check if player is touching a wall
+        /// Check if the player is touching a wall
         /// </summary>
         public bool WallCheck()
         {
@@ -109,7 +109,7 @@ namespace Code.Scripts.States
 
                 if (!collider.gameObject.CompareTag("Platform")) continue;
                 
-                if (!collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
+                if (!collider.TryGetComponent(out PlatformEffector2D _))
                     return true;
             }
             

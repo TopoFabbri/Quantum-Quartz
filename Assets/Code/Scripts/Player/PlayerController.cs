@@ -6,6 +6,7 @@ using Code.Scripts.Camera;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Interfaces;
 using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
@@ -17,7 +18,7 @@ namespace Code.Scripts.Player
     /// <summary>
     /// Manage player actions
     /// </summary>
-    public class PlayerController : MonoBehaviour, IKillable
+    public class PlayerController : MonoBehaviour, IKillable, ISpringable
     {
         private FiniteStateMachine<string> fsm;
 
@@ -801,6 +802,16 @@ namespace Code.Scripts.Player
             died = true;
 
             dethState.Direction = new Vector2(-moveState.Input, -rb.velocity.normalized.y);
+        }
+
+        public IEnumerator Spring(Vector2 force, ForceMode2D mode)
+        {
+            dashState.Interrupt();
+            
+            yield return new WaitForFixedUpdate();
+            
+            rb.velocity = Vector2.zero;
+            rb.AddForce(force, mode);
         }
     }
 }

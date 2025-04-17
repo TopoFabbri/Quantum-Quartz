@@ -1,7 +1,7 @@
-﻿namespace Code.Scripts.Player
+﻿namespace Code.Scripts.Interfaces
 {
     /// <summary>
-    /// Interface for object that can die
+    /// Interface for an object that can die
     /// </summary>
     public interface IKillable
     {

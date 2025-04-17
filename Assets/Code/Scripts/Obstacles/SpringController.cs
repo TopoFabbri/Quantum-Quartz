@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Scripts.Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ namespace Code.Scripts.Obstacles
     {
         [Header("Spring:")] [SerializeField] private float force = 20f;
         [SerializeField] private Vector2 addedForce = new(0f, 10f);
+        [SerializeField] private ForceMode2D forceMode;
 
         [Header("Animation:")] [SerializeField]
         private Animator animator;
@@ -20,7 +22,7 @@ namespace Code.Scripts.Obstacles
         [SerializeField] private float scaleLength = 1f;
         [SerializeField] private float arrowSize = .2f;
 
-        private readonly List<Rigidbody2D> rbs = new();
+        private readonly List<ISpringable> springables = new();
 
         private void OnDrawGizmosSelected()
         {
@@ -37,29 +39,24 @@ namespace Code.Scripts.Obstacles
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!collision.transform.CompareTag("Player")) return;
-
-            Activate(collision);
+            collision.TryGetComponent(out ISpringable springable);
+            Activate(springable);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.gameObject.TryGetComponent(out Rigidbody2D rb)) return;
+            if (!other.gameObject.TryGetComponent(out ISpringable springable)) return;
             
-            rbs.Remove(rb);
+            springables.Remove(springable);
         }
 
-        private void Activate(Collider2D other)
+        private void Activate(ISpringable springable)
         {
-            if (!other.gameObject.TryGetComponent(out Rigidbody2D rb)) return;
+            if (springables.Contains(springable)) return;
 
-            if (rbs.Contains(rb)) return;
+            springables.Add(springable);
 
-            rbs.Add(rb);
-
-            rb.velocity = Vector2.zero;
-            
-            StartCoroutine(AddForceOnFixedUpdate(rb, transform.up * force + (Vector3)addedForce, ForceMode2D.Impulse));
+            StartCoroutine(springable.Spring((Vector2)transform.up * force + addedForce, forceMode));
 
             animator.SetBool(activateTrigger, true);
         }
@@ -67,13 +64,6 @@ namespace Code.Scripts.Obstacles
         private void EndAnimation()
         {
             animator.SetBool(activateTrigger, false);
-        }
-
-        private static IEnumerator AddForceOnFixedUpdate(Rigidbody2D rb, Vector2 forceToAdd, ForceMode2D forceMode)
-        {
-            yield return new WaitForFixedUpdate();
-            
-            rb.AddForce(forceToAdd, forceMode);
         }
     }
 }
