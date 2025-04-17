@@ -325,7 +325,7 @@ namespace Code.Scripts.Player
         {
             fsm.AddTransition(idleState, moveState, ShouldEnterMove);
             fsm.AddTransition(idleState, jumpState, () => jumpPressed && moveState.IsGrounded());
-            fsm.AddTransition(idleState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded());
+            fsm.AddTransition(idleState, fallState, () => rb.velocity.y is < 0f or > 0f && !moveState.IsGrounded());
             fsm.AddTransition(idleState, dashState, () => dashPressed);
             fsm.AddTransition(idleState, djmpState, () => djmpPressed);
             fsm.AddTransition(idleState, dethState, () => died);
@@ -334,7 +334,7 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
             fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
-            fsm.AddTransition(moveState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded());
+            fsm.AddTransition(moveState, fallState, () => rb.velocity.y is < 0f or > 0f && !moveState.IsGrounded());
             fsm.AddTransition(moveState, dashState, () => dashPressed);
             fsm.AddTransition(moveState, djmpState, () => djmpPressed);
             fsm.AddTransition(moveState, dethState, () => died);

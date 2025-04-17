@@ -1,3 +1,4 @@
+using System.Linq;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -103,7 +104,7 @@ namespace Code.Scripts.States
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
+                if (moveSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
                     return true;
 
                 if (!collider.gameObject.CompareTag("Platform")) continue;

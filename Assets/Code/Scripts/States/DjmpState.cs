@@ -30,7 +30,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             
-            rb.velocity = new Vector2(0f, 0f);
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
             
             if (camController)
                 camController.Shake(DjmpSettings.shakeDur, DjmpSettings.shakeMag);

@@ -33,14 +33,6 @@ namespace Code.Scripts.States
                 playerSfx.Land();
         }
 
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-
-            if (Input != 0)
-                rb.velocity = new Vector2(0f, rb.velocity.y);
-        }
-
         public void StartCoyoteTime()
         {
             CanCoyoteJump = true;

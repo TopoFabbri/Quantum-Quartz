@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scripts.StateSettings
 {
@@ -21,5 +23,6 @@ namespace Code.Scripts.StateSettings
         [Header("Wall Check:")]
         public float wallCheckDis;
         public Vector2 wallCheckSize;
+        public List<string> tags;
     }
 }

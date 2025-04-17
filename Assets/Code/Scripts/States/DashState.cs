@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
@@ -125,7 +126,7 @@ namespace Code.Scripts.States
 
             foreach (Collider2D collider in colliders)
             {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
+                if (DashSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
                     return true;
             }
 
