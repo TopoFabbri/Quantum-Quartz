@@ -810,6 +810,8 @@ namespace Code.Scripts.Player
             
             yield return new WaitForFixedUpdate();
             
+            djmpState.Reset();
+            
             rb.velocity = Vector2.zero;
             rb.AddForce(force, mode);
         }
