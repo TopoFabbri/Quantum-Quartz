@@ -53,10 +53,10 @@ namespace Code.Scripts.Platforms
             {
                 if (time <= 0f)
                     time = 1f;
-                
+
                 transform.position = Vector2.Lerp(fromPos.pos, toPos.pos, timer / time);
                 transform.rotation = Quaternion.Slerp(prevRot, nextRot, timer / time);
-                
+
                 timer += Time.deltaTime;
 
                 while (timer >= time)
@@ -67,18 +67,28 @@ namespace Code.Scripts.Platforms
             }
             else
             {
-                if ((Vector2)transform.position == relativePoints[curPoint].pos)
-                    curPoint = (curPoint + 1) % relativePoints.Count;
+                float moveAmount = speed * Time.deltaTime;
 
-                transform.position = Vector2.MoveTowards(transform.position, toPos.pos, speed * Time.deltaTime);
-                transform.rotation = Quaternion.Slerp(prevRot, nextRot,
-                    ((Vector2)transform.position - fromPos.pos).magnitude / (toPos.pos - fromPos.pos).magnitude);
+                Vector2 prevPos = transform.position;
+
+                transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
+
+                moveAmount -= Vector2.Distance(prevPos, relativePoints[curPoint].pos);
+
+                if (moveAmount > 0f)
+                {
+                    curPoint = (curPoint + 1) % relativePoints.Count;
+                    
+                    transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
+                }
+
+                transform.rotation = Quaternion.Slerp(prevRot, nextRot, ((Vector2)transform.position - fromPos.pos).magnitude / (toPos.pos - fromPos.pos).magnitude);
             }
         }
 
         private void OnDrawGizmosSelected()
         {
-            if (initPos.pos == Vector2.zero)
+            if (!Application.isPlaying)
             {
                 initPos.pos = transform.position;
                 initPos.rotation = transform.rotation.z;
@@ -103,13 +113,10 @@ namespace Code.Scripts.Platforms
 
                 float rotLength = .5f;
 
-                Gizmos.DrawLine(relativePoints[i].pos,
-                    (Vector3)relativePoints[i].pos +
-                    Quaternion.Euler(0f, 0f, relativePoints[i].rotation) * Vector2.up * rotLength);
+                Gizmos.DrawLine(relativePoints[i].pos, (Vector3)relativePoints[i].pos + Quaternion.Euler(0f, 0f, relativePoints[i].rotation) * Vector2.up * rotLength);
 
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(relativePoints[i].pos,
-                    i < relativePoints.Count - 1 ? relativePoints[i + 1].pos : relativePoints[0].pos);
+                Gizmos.DrawLine(relativePoints[i].pos, i < relativePoints.Count - 1 ? relativePoints[i + 1].pos : relativePoints[0].pos);
             }
 
             Gizmos.color = Color.blue;
