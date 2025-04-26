@@ -75,7 +75,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{89799443-86E0-6564-675D-10674BDE990D}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{861C7F33-F7BB-5053-85CF-D3E773EDB777}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -234,6 +234,10 @@
 				<File Id="302420005" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-022.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-022_10C4C929.wem</CachePath>
+				</File>
+				<File Id="308795105" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpringBase.wav</ShortName>
+					<CachePath>SFX/SpringBase_10C4C929.wem</CachePath>
 				</File>
 				<File Id="311291390" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_26.wav</ShortName>
@@ -499,6 +503,10 @@
 					<ShortName>Concrete_Footstep-010.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-010_10C4C929.wem</CachePath>
 				</File>
+				<File Id="886791020" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpringDesinflada.wav</ShortName>
+					<CachePath>SFX/SpringDesinflada_10C4C929.wem</CachePath>
+				</File>
 				<File Id="903032575" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_6.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_6_10C4C929.wem</CachePath>
@@ -570,6 +578,10 @@
 				<File Id="1044412963" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-015.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-015_10C4C929.wem</CachePath>
+				</File>
+				<File Id="1051899157" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SpringPitch.wav</ShortName>
+					<CachePath>SFX/SpringPitch_10C4C929.wem</CachePath>
 				</File>
 			</Media>
 			<Plugins>
@@ -834,6 +846,13 @@
 						<MediaRef Id="243405919"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="358772238" Name="Play_Steam_Spring" DurationType="OneShot" DurationMin="1.0977292" DurationMax="1.1463298">
+					<MediaRefs>
+						<MediaRef Id="308795105"/>
+						<MediaRef Id="886791020"/>
+						<MediaRef Id="1051899157"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="400230657"/>
@@ -897,5 +916,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0EA16C06-87DF-6C9F-CA69-0AAAB8DCBD19}</FileHash>
+	<FileHash>{0FE43F5A-8102-6939-48FA-5AEC79B50C94}</FileHash>
 </SoundBanksInfo>
