@@ -75,7 +75,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{861C7F33-F7BB-5053-85CF-D3E773EDB777}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{59CD6251-B623-8548-B1B2-FB7829F82B2C}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -218,6 +218,10 @@
 				<File Id="271393065" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-003.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-003_10C4C929.wem</CachePath>
+				</File>
+				<File Id="274510724" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Buzz_Death.wav</ShortName>
+					<CachePath>SFX/Buzz_Death_5032D137.wem</CachePath>
 				</File>
 				<File Id="279424501" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_1.wav</ShortName>
@@ -610,6 +614,11 @@
 						<MediaRef Id="139537908"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2938714251" Name="Play_Buzz_Hit" DurationType="OneShot" DurationMin="0.7962371" DurationMax="0.8435838">
+					<MediaRefs>
+						<MediaRef Id="274510724"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1763377455" Name="Play_Change_Quartz_B" DurationType="OneShot" DurationMin="0.080770835" DurationMax="0.080770835">
 					<MediaRefs>
 						<MediaRef Id="1017393183"/>
@@ -916,5 +925,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{410F6CD2-9B37-4658-D6DD-DA966A3088C1}</FileHash>
+	<FileHash>{D08CFFEB-69CE-BB86-E7E3-4752C5E2EC5B}</FileHash>
 </SoundBanksInfo>
