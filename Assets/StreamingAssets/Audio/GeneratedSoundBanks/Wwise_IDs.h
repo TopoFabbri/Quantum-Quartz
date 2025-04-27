@@ -102,6 +102,7 @@ namespace AK
     {
         static const AkUniqueID DISTANCE = 1240670792U;
         static const AkUniqueID MUSIC_VOLUME = 1006694123U;
+        static const AkUniqueID SAWS_ON_SCREEN = 3281672992U;
         static const AkUniqueID SFX_VOLUME = 1564184899U;
     } // namespace GAME_PARAMETERS
 
