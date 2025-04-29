@@ -17,6 +17,7 @@ namespace AK
         static const AkUniqueID PLAY_BEAM_LASER = 1231329179U;
         static const AkUniqueID PLAY_BLOCKED_QUARTZ = 3010479856U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
+        static const AkUniqueID PLAY_BUZZ_HIT = 2938714251U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_B = 1763377455U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_G = 1763377450U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_R = 1763377471U;
@@ -29,6 +30,7 @@ namespace AK
         static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
+        static const AkUniqueID PLAY_STEAM_SPRING = 358772238U;
         static const AkUniqueID PLAY_STEAMPUNK_MUSIC = 4292865938U;
         static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
         static const AkUniqueID SET_STATE_MUSIC_INGAME = 2405722263U;
@@ -100,6 +102,7 @@ namespace AK
     {
         static const AkUniqueID DISTANCE = 1240670792U;
         static const AkUniqueID MUSIC_VOLUME = 1006694123U;
+        static const AkUniqueID SAWS_ON_SCREEN = 3281672992U;
         static const AkUniqueID SFX_VOLUME = 1564184899U;
     } // namespace GAME_PARAMETERS
 
