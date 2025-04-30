@@ -363,8 +363,10 @@
 										<AudioFileSource Name="Buzz_Death" ID="{041A8ED4-B9ED-4B25-B6FE-500DDE51DD92}">
 											<PropertyList>
 												<Property Name="FadeInDuration" Type="Real64" Value="0.0200710685483871"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.137152301747312"/>
 												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
 												<Property Name="TrimBegin" Type="Real64" Value="0.0100355342741935"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.685761508736559"/>
 											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Buzz_Death.wav</AudioFile>
@@ -377,6 +379,229 @@
 										<ActiveSource Name="Buzz_Death" ID="{041A8ED4-B9ED-4B25-B6FE-500DDE51DD92}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+							</ChildrenList>
+						</BlendContainer>
+						<BlendContainer Name="Chains" ID="{0B584474-AC6C-491A-9439-B2B17C7AB3EE}" ShortID="663921569">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="Chains_SFXs" ID="{F1BDC902-1780-457A-BBBC-EA34DB0A0624}" ShortID="95506300">
+									<PropertyList>
+										<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{AB5EB91F-3B65-4008-AEBA-E2839A60BAB5}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="100"/>
+															<Property Name="Min" Type="Real64" Value="-100"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Chain-001" ID="{835E02B4-0401-4798-9704-D3619FE46D14}" ShortID="281298865">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-001" ID="{A24E5829-4784-47C1-AA1F-72206B15F003}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-001.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="199955854"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-001" ID="{A24E5829-4784-47C1-AA1F-72206B15F003}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-002" ID="{895A8C08-701B-46F4-992F-1B4BE1526B3A}" ShortID="46700520">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-002" ID="{4AFD4BCA-F6BE-4C67-9190-0CF1EDE021B1}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-002.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="28884919"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-002" ID="{4AFD4BCA-F6BE-4C67-9190-0CF1EDE021B1}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-003" ID="{C6336E7D-C278-480D-87FF-F367AAB46795}" ShortID="894037391">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-003" ID="{900E3BEA-CB0F-4400-98CD-B5DDD65B0B2C}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-003.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="834497291"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-003" ID="{900E3BEA-CB0F-4400-98CD-B5DDD65B0B2C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-004" ID="{CAB3B926-C627-484B-906D-910DF23F4F80}" ShortID="811140857">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-004" ID="{B96903AB-98B5-4EDC-B5D2-0D4F959B6DC8}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-004.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="41801733"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-004" ID="{B96903AB-98B5-4EDC-B5D2-0D4F959B6DC8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-005" ID="{40F8E030-3281-43A9-816A-5AC73BEC6F5E}" ShortID="642140746">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-005" ID="{93AD2C17-3A76-424D-A12D-D8BACCECE252}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-005.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="623820011"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-005" ID="{93AD2C17-3A76-424D-A12D-D8BACCECE252}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-006" ID="{5FF68AD5-737A-4306-A11E-0954D0F4BBF1}" ShortID="304322374">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-006" ID="{10C415B3-CCC7-40BD-9442-F440A93F05F9}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-006.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="488034920"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-006" ID="{10C415B3-CCC7-40BD-9442-F440A93F05F9}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-007" ID="{0F97E898-7FE5-42FE-936C-9B92CF591C10}" ShortID="346110327">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-007" ID="{2EBE062F-36A2-4165-B7D2-C25EC4B24EE8}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-007.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="11060747"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-007" ID="{2EBE062F-36A2-4165-B7D2-C25EC4B24EE8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Chain-008" ID="{7B979578-3F31-4FEF-9E20-91680A75E8AF}" ShortID="873624525">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Chain-008" ID="{C7FFBF32-0C16-4F16-B553-11E56C3E00F3}">
+													<Language>SFX</Language>
+													<AudioFile>Chain-008.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="866113773"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Chain-008" ID="{C7FFBF32-0C16-4F16-B553-11E56C3E00F3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
 							</ChildrenList>
 						</BlendContainer>
 					</ChildrenList>

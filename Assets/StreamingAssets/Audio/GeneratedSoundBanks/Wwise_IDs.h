@@ -27,6 +27,7 @@ namespace AK
         static const AkUniqueID PLAY_DASH_R = 1886667249U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
         static const AkUniqueID PLAY_FOOTSTEPS = 3854155799U;
+        static const AkUniqueID PLAY_HIT_CHAINS = 2170076162U;
         static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
