@@ -12,6 +12,7 @@ namespace Code.Scripts.Tools
         private const string PlayMusicEvent = "Play_Steampunk_Music";
         private const string StopMusicEvent = "Stop_Steampunk_Music";
         private const string BlockedCrystalEvent = "Play_Blocked_Quartz";
+        private const string SpringEvent = "Play_Steam_Spring";
 
         private const string BlueEvent = "Play_Change_Quartz_B";
         private const string RedEvent = "Play_Change_Quartz_R";
@@ -56,6 +57,11 @@ namespace Code.Scripts.Tools
 
             if (!string.IsNullOrEmpty(colorEvent))
                 AkSoundEngine.PostEvent(colorEvent, gameObject);
+        }
+        
+        public static void PlaySpring(GameObject go)
+        {
+            AkSoundEngine.PostEvent(SpringEvent, go);
         }
     }
 }

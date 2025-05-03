@@ -9,12 +9,6 @@ namespace Code.Scripts.Player
     /// </summary>
     public class PlayerSfx : MonoBehaviour
     {
-        [Serializable] private struct SoundBySprite
-        {
-            public Sprite sprite;
-            public string soundEvent;
-        }
-            
         [SerializeField] private string stepEvent;
         [SerializeField] private string jumpEvent;
         [SerializeField] private string landEvent;
