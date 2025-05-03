@@ -37,8 +37,10 @@ namespace Code.Scripts.States
 
         public override void OnUpdate()
         {
-            if (canMove)
-                base.OnUpdate();
+            base.OnUpdate();
+
+            if (!canMove)
+                Input = 0f;
         }
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace Code.Scripts.States
         private IEnumerator WaitAndReturnInput(float noInputTime)
         {
             yield return new WaitForSeconds(noInputTime);
+
             canMove = true;
         }
 
