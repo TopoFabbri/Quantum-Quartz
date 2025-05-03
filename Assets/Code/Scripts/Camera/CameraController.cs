@@ -19,7 +19,7 @@ namespace Code.Scripts.Camera
 
         [Header("Settings")] [SerializeField] private float changeRoomSpeed = 20f;
         [SerializeField] private float followSpeed = 2f;
-
+        
         private readonly Dictionary<int, bool> shakes = new();
         private readonly List<int> shakeIds = new();
 
@@ -30,8 +30,9 @@ namespace Code.Scripts.Camera
         public event Action MoveCam;
         public event Action StopCam;
 
-        public Vector2 Center { get; set; }
+        private Vector2 Center { get; set; }
         private Vector2 MoveRange { get; set; }
+        private Vector2 FollowOffset { get; set; }
 
         private void Start()
         {
@@ -40,10 +41,11 @@ namespace Code.Scripts.Camera
 
         private void LateUpdate()
         {
-            if (Room.ActiveRoom != null)
+            if (Room.Active)
             {
-                Center = Room.ActiveRoom.transform.position;
-                MoveRange = Room.ActiveRoom.MoveRange;
+                Center = Room.Active.transform.position;
+                MoveRange = Room.Active.MoveRange;
+                FollowOffset = Room.Active.FollowOffset;
             }
             
             CalculateTargetPos();
@@ -72,7 +74,7 @@ namespace Code.Scripts.Camera
 
         private void CalculateTargetPos()
         {
-            targetPos = player.position;
+            targetPos = player.position + (Vector3)FollowOffset;
             
             targetPos.x = Mathf.Clamp(targetPos.x, Center.x - MoveRange.x, Center.x + MoveRange.x);
             targetPos.y = Mathf.Clamp(targetPos.y, Center.y - MoveRange.y, Center.y + MoveRange.y);

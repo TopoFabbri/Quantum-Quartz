@@ -7,6 +7,7 @@ namespace Code.Scripts.Level
         [SerializeField] private BoxCollider2D roomTrigger;
         [SerializeField] private Vector2 moveRange;
         [SerializeField] private Color rectangleColor = Color.magenta;
+        [SerializeField] private Vector2 followOffset;
         
         private Vector2 camRange;
         
@@ -24,9 +25,10 @@ namespace Code.Scripts.Level
         }
 
         public Vector2 MoveRange => moveRange;
+        public Vector2 FollowOffset => followOffset;
         
         private static Transform Player { get; set; }
-        public static Room ActiveRoom { get; private set; }
+        public static Room Active { get; private set; }
 
         private void OnDrawGizmosSelected()
         {
@@ -44,12 +46,12 @@ namespace Code.Scripts.Level
             if (!Player)
                 Player = other.transform;
             
-            ActiveRoom = this;
+            Active = this;
         }
         
         private void Update()
         {
-            if (ActiveRoom != this)
+            if (Active != this)
                 return;
             
             CalculateCameraRange();
