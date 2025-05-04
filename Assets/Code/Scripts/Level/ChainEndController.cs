@@ -1,5 +1,6 @@
 ﻿using Code.Scripts.Player;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Level
 {
@@ -7,6 +8,7 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private float minForce = 2f;
         [SerializeField] private float maxForce = 3f;
+        [SerializeField] private Event hitChainsEvent;
         
         private Rigidbody2D rb;
 
@@ -20,8 +22,10 @@ namespace Code.Scripts.Level
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController player))
-                rb.AddForce(Vector2.right * player.Speed * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
+            if (!other.TryGetComponent(out PlayerController player)) return;
+            
+            hitChainsEvent?.Post(gameObject);
+            rb.AddForce(Vector2.right * player.Speed * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
         }
     }
 }

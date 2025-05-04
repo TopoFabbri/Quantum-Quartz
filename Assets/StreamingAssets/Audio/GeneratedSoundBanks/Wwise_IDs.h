@@ -18,6 +18,7 @@ namespace AK
         static const AkUniqueID PLAY_BLOCKED_QUARTZ = 3010479856U;
         static const AkUniqueID PLAY_BLUE_QUARTZ_JUMP = 3128279563U;
         static const AkUniqueID PLAY_BUZZ_HIT = 2938714251U;
+        static const AkUniqueID PLAY_BUZZ_SAW = 3077319667U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_B = 1763377455U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_G = 1763377450U;
         static const AkUniqueID PLAY_CHANGE_QUARTZ_R = 1763377471U;

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Scripts.Interfaces;
+using Code.Scripts.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Scripts.Obstacles
 {
@@ -64,6 +62,11 @@ namespace Code.Scripts.Obstacles
         private void EndAnimation()
         {
             animator.SetBool(activateTrigger, false);
+        }
+
+        public void PlaySound()
+        {
+            SfxController.PlaySpring(gameObject);
         }
     }
 }

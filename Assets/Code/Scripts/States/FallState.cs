@@ -16,8 +16,9 @@ namespace Code.Scripts.States
         protected readonly MonoBehaviour mb;
         private readonly PlayerSfx playerSfx;
         public bool CanCoyoteJump { get; private set; }
-        
-        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform)
+
+        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb,
+            transform)
         {
             settings = stateSettings;
 
@@ -28,9 +29,16 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-            
+
             if (IsGrounded())
                 playerSfx.Land();
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
         public void StartCoyoteTime()
@@ -38,7 +46,7 @@ namespace Code.Scripts.States
             CanCoyoteJump = true;
             mb.StartCoroutine(StopCoyoteTime());
         }
-        
+
         private IEnumerator StopCoyoteTime()
         {
             yield return new WaitForSeconds(FallSettings.coyoteTime);

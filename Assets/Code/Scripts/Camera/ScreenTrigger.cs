@@ -26,8 +26,6 @@ namespace Code.Scripts.Camera
             if (last)
                 TimeCounter.Stop();
             
-            camera.Center = cameraPosition.position;
-            
             if (other.TryGetComponent(out DeathController deathController))
                 deathController.CheckPoint(transform.position);
         }
