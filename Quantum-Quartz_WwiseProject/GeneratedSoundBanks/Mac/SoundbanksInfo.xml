@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B4CAF52D-0918-7EF1-04A4-7500ECFBA9B2}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{5985C769-C55D-0839-BD48-AE798EA30D66}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -39,20 +39,30 @@
 				<AuxBus Id="3545700988" Name="Reverbs"/>
 			</AuxBusses>
 			<GameParameters>
-				<GameParameter Id="1006694123" Name="music_volume"/>
-				<GameParameter Id="1240670792" Name="Distance"/>
-				<GameParameter Id="1564184899" Name="sfx_volume"/>
-				<GameParameter Id="3281672992" Name="saws_on_screen"/>
+				<GameParameter Id="262290038" Name="RTPC_Distance"/>
+				<GameParameter Id="1354283134" Name="RTPC_SawsOnScreen"/>
+				<GameParameter Id="2378823330" Name="RTPC_Musicvolume"/>
+				<GameParameter Id="2644490154" Name="RTPC_SfxVolume"/>
 			</GameParameters>
 			<StateGroups>
-				<StateGroup Id="2978222038" Name="General_Game_State">
+				<StateGroup Id="185713839" Name="RoomState">
+					<States>
+						<State Id="748895195" Name="None"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="1021618141" Name="MusicState">
 					<States>
 						<State Id="748895195" Name="None"/>
 						<State Id="984691642" Name="Ingame"/>
 						<State Id="3092587493" Name="Pause"/>
 					</States>
 				</StateGroup>
-				<StateGroup Id="3322003828" Name="Steampunk_Music_States">
+				<StateGroup Id="2064552269" Name="AreaState">
+					<States>
+						<State Id="748895195" Name="None"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="4091656514" Name="GameState">
 					<States>
 						<State Id="748895195" Name="None"/>
 						<State Id="984691642" Name="Ingame"/>
@@ -61,13 +71,13 @@
 				</StateGroup>
 			</StateGroups>
 			<SwitchGroups>
-				<SwitchGroup Id="96434573" Name="Level1_Music_Switch">
+				<SwitchGroup Id="1445037870" Name="MusicSwitch">
 					<Switches>
 						<Switch Id="782826392" Name="Default"/>
 						<Switch Id="3092587493" Name="Pause"/>
 					</Switches>
 				</SwitchGroup>
-				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
+				<SwitchGroup Id="3586861854" Name="FootstepsSwitch">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
 						<Switch Id="1403804780" Name="Cristal_Platforms"/>
@@ -76,7 +86,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{C6389939-C098-E40B-5E7E-C7092AA93EB0}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{8CC5DC7B-79DE-FAF7-76C8-C9E1854D1A0D}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -716,10 +726,10 @@
 				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.54836726">
 					<SwitchContainers>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
 									<MediaRefs>
 										<MediaRef Id="5402978"/>
 										<MediaRef Id="49726500"/>
@@ -761,7 +771,7 @@
 									</MediaRefs>
 									<Children>
 										<SwitchContainer>
-											<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+											<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
 											<MediaRefs>
 												<MediaRef Id="10333130"/>
 												<MediaRef Id="735533881"/>
@@ -773,10 +783,10 @@
 							</Children>
 						</SwitchContainer>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
 									<MediaRefs>
 										<MediaRef Id="17443080"/>
 										<MediaRef Id="28636868"/>
@@ -795,10 +805,10 @@
 							</Children>
 						</SwitchContainer>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246" Default="true"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246" Default="true"/>
 									<MediaRefs>
 										<MediaRef Id="17366721"/>
 										<MediaRef Id="30026640"/>
@@ -858,10 +868,10 @@
 				<Event Id="1019246482" Name="Play_Landings" DurationType="OneShot" DurationMin="0.103164546" DurationMax="0.48643556">
 					<SwitchContainers>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="841620460" Default="true"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
 									<MediaRefs>
 										<MediaRef Id="10333130"/>
 										<MediaRef Id="735533881"/>
@@ -871,10 +881,10 @@
 							</Children>
 						</SwitchContainer>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="1403804780"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
 									<MediaRefs>
 										<MediaRef Id="67995237"/>
 										<MediaRef Id="104324263"/>
@@ -892,10 +902,10 @@
 							</Children>
 						</SwitchContainer>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246"/>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246"/>
 							<Children>
 								<SwitchContainer>
-									<SwitchValue GroupType="Switch" GroupId="3395986341" Id="2473969246" Default="true"/>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246" Default="true"/>
 									<MediaRefs>
 										<MediaRef Id="155892356"/>
 										<MediaRef Id="869910401"/>
@@ -944,27 +954,27 @@
 				</Event>
 				<Event Id="2405722263" Name="Set_State_Music_Ingame" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetState>
-						<ActionSetStateEntry GroupId="3322003828" Id="984691642" Name="Ingame"/>
+						<ActionSetStateEntry GroupId="1021618141" Id="984691642" Name="Ingame"/>
 					</ActionSetState>
 				</Event>
 				<Event Id="2666093702" Name="Set_State_Music_Pause" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetState>
-						<ActionSetStateEntry GroupId="3322003828" Id="3092587493" Name="Pause"/>
+						<ActionSetStateEntry GroupId="1021618141" Id="3092587493" Name="Pause"/>
 					</ActionSetState>
 				</Event>
 				<Event Id="3543386712" Name="Set_Switch_Concrete" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
-						<ActionSetSwitchEntry GroupId="3395986341" Id="841620460" Name="Concrete"/>
+						<ActionSetSwitchEntry GroupId="3586861854" Id="841620460" Name="Concrete"/>
 					</ActionSetSwitch>
 				</Event>
 				<Event Id="4131070040" Name="Set_Switch_Cristal_Platforms" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
-						<ActionSetSwitchEntry GroupId="3395986341" Id="1403804780" Name="Cristal_Platforms"/>
+						<ActionSetSwitchEntry GroupId="3586861854" Id="1403804780" Name="Cristal_Platforms"/>
 					</ActionSetSwitch>
 				</Event>
 				<Event Id="708957530" Name="Set_Switch_Metal" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
-						<ActionSetSwitchEntry GroupId="3395986341" Id="2473969246" Name="Metal"/>
+						<ActionSetSwitchEntry GroupId="3586861854" Id="2473969246" Name="Metal"/>
 					</ActionSetSwitch>
 				</Event>
 				<Event Id="1386925776" Name="Stop_Laser_LP" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
@@ -972,10 +982,10 @@
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 			</Events>
 			<GameParameters>
-				<GameParameter Id="3281672992" Name="saws_on_screen"/>
+				<GameParameter Id="1354283134" Name="RTPC_SawsOnScreen"/>
 			</GameParameters>
 			<StateGroups>
-				<StateGroup Id="3322003828" Name="Steampunk_Music_States">
+				<StateGroup Id="1021618141" Name="MusicState">
 					<States>
 						<State Id="748895195" Name="None"/>
 						<State Id="984691642" Name="Ingame"/>
@@ -984,7 +994,7 @@
 				</StateGroup>
 			</StateGroups>
 			<SwitchGroups>
-				<SwitchGroup Id="3395986341" Name="Switch_Footsteps">
+				<SwitchGroup Id="3586861854" Name="FootstepsSwitch">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
 						<Switch Id="1403804780" Name="Cristal_Platforms"/>
@@ -994,5 +1004,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{705C9CC9-9DC4-DA78-956D-6DF0A4EC06D7}</FileHash>
+	<FileHash>{2A30B68E-D72C-56A7-8B52-D88295AEA929}</FileHash>
 </SoundBanksInfo>

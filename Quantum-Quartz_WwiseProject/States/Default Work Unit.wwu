@@ -3,14 +3,14 @@
 	<States>
 		<WorkUnit Name="Default Work Unit" ID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}" PersistMode="Standalone">
 			<ChildrenList>
-				<StateGroup Name="Steampunk_Music_States" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}">
+				<StateGroup Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}">
 					<ChildrenList>
 						<State Name="None" ID="{2D57F902-21E8-423C-94D3-2F39261D1955}"/>
 						<State Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
 						<State Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
 					</ChildrenList>
 				</StateGroup>
-				<StateGroup Name="General_Game_State" ID="{A7ED838C-4205-4FAB-8AD1-6E459636A92F}">
+				<StateGroup Name="GameState" ID="{A7ED838C-4205-4FAB-8AD1-6E459636A92F}">
 					<PropertyList>
 						<Property Name="DefaultTransitionTime" Type="Real64" Value="0.1"/>
 					</PropertyList>
@@ -18,6 +18,16 @@
 						<State Name="None" ID="{79E72A00-1C6E-49A8-B63B-21CE93FECDA0}"/>
 						<State Name="Ingame" ID="{3BF0ED54-309C-48A9-A7D8-B70EF90DFA68}"/>
 						<State Name="Pause" ID="{5FEBCF9B-8699-4C53-833F-125C116B6B43}"/>
+					</ChildrenList>
+				</StateGroup>
+				<StateGroup Name="RoomState" ID="{757AD8E1-E071-43C2-BF5A-76F7F72F03F3}">
+					<ChildrenList>
+						<State Name="None" ID="{C8BE66C0-3A02-48E1-AA1D-CBCACCAF06FE}"/>
+					</ChildrenList>
+				</StateGroup>
+				<StateGroup Name="AreaState" ID="{E330AD6C-B695-4A04-96C3-0E4292E6D8CE}">
+					<ChildrenList>
+						<State Name="None" ID="{C105AA97-EDA0-4FCE-8AB1-F2E8F07F1F4C}"/>
 					</ChildrenList>
 				</StateGroup>
 			</ChildrenList>
