@@ -13,6 +13,7 @@ namespace Code.Scripts.Level
         [Header("Style")] [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
         [SerializeField] private InteractableController2D psController;
+        [SerializeField] private int linkOrderInLayer = -1;
 
         [Header("Generation")] [SerializeField]
         private bool generate;
@@ -133,7 +134,10 @@ namespace Code.Scripts.Level
             hinges[i].limits = new JointAngleLimits2D { min = -90f, max = 90f };
             hinges[i].useLimits = true;
         
-            tempLink.AddComponent<SpriteRenderer>().sprite = linkSprite;
+            SpriteRenderer tmpLinkRenderer = tempLink.AddComponent<SpriteRenderer>();
+
+            tmpLinkRenderer.sprite = linkSprite;
+            tmpLinkRenderer.sortingOrder = linkOrderInLayer;
             
             Rigidbody2D tempRb = tempLink.GetComponent<Rigidbody2D>();
 
