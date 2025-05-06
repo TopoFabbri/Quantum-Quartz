@@ -31,31 +31,31 @@ Event	ID	Name			Wwise Object Path	Notes
 	4292865938	Play_Steampunk_Music			\Stages\Steampunk_Level\Steampunk_Music\Play_Steampunk_Music	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
-	96434573	Level1_Music_Switch			\Default Work Unit\Level1_Music_Switch	
-	3395986341	Switch_Footsteps			\Default Work Unit\Switch_Footsteps	
+	1445037870	MusicSwitch			\Default Work Unit\MusicSwitch	
+	3586861854	FootstepsSwitch			\Default Work Unit\FootstepsSwitch	
 
 Switch	ID	Name	Switch Group			Notes
-	782826392	Default	Level1_Music_Switch			
-	3092587493	Pause	Level1_Music_Switch			
-	841620460	Concrete	Switch_Footsteps			
-	1403804780	Cristal_Platforms	Switch_Footsteps			
-	2473969246	Metal	Switch_Footsteps			
+	782826392	Default	MusicSwitch			
+	3092587493	Pause	MusicSwitch			
+	841620460	Concrete	FootstepsSwitch			
+	1403804780	Cristal_Platforms	FootstepsSwitch			
+	2473969246	Metal	FootstepsSwitch			
 
 State Group	ID	Name			Wwise Object Path	Notes
-	3322003828	Steampunk_Music_States			\Default Work Unit\Steampunk_Music_States	
+	1021618141	MusicState			\Default Work Unit\MusicState	
 
 State	ID	Name	State Group			Notes
-	748895195	None	Steampunk_Music_States			
-	984691642	Ingame	Steampunk_Music_States			
-	3092587493	Pause	Steampunk_Music_States			
+	748895195	None	MusicState			
+	984691642	Ingame	MusicState			
+	3092587493	Pause	MusicState			
 
 Custom State	ID	Name	State Group	Owner		Notes
-	61059452	Pause	Steampunk_Music_States	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music		
-	140870055	Pause	Steampunk_Music_States	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Objects\Steampunk_Objects		
-	246963863	Pause	Steampunk_Music_States	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs		
+	61059452	Pause	MusicState	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music		
+	140870055	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Objects\Steampunk_Objects		
+	246963863	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
-	3281672992	saws_on_screen			\Default Work Unit\saws_on_screen	
+	1354283134	RTPC_SawsOnScreen			\Default Work Unit\RTPC_SawsOnScreen	
 
 Modulator Envelope	ID	Name			Wwise Object Path	Notes
 	672827090	Modulator Envelope (Custom)				

@@ -47,9 +47,19 @@ namespace AK
 
     namespace STATES
     {
-        namespace GENERAL_GAME_STATE
+        namespace AREASTATE
         {
-            static const AkUniqueID GROUP = 2978222038U;
+            static const AkUniqueID GROUP = 2064552269U;
+
+            namespace STATE
+            {
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace AREASTATE
+
+        namespace GAMESTATE
+        {
+            static const AkUniqueID GROUP = 4091656514U;
 
             namespace STATE
             {
@@ -57,11 +67,11 @@ namespace AK
                 static const AkUniqueID NONE = 748895195U;
                 static const AkUniqueID PAUSE = 3092587493U;
             } // namespace STATE
-        } // namespace GENERAL_GAME_STATE
+        } // namespace GAMESTATE
 
-        namespace STEAMPUNK_MUSIC_STATES
+        namespace MUSICSTATE
         {
-            static const AkUniqueID GROUP = 3322003828U;
+            static const AkUniqueID GROUP = 1021618141U;
 
             namespace STATE
             {
@@ -69,26 +79,25 @@ namespace AK
                 static const AkUniqueID NONE = 748895195U;
                 static const AkUniqueID PAUSE = 3092587493U;
             } // namespace STATE
-        } // namespace STEAMPUNK_MUSIC_STATES
+        } // namespace MUSICSTATE
+
+        namespace ROOMSTATE
+        {
+            static const AkUniqueID GROUP = 185713839U;
+
+            namespace STATE
+            {
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace ROOMSTATE
 
     } // namespace STATES
 
     namespace SWITCHES
     {
-        namespace LEVEL1_MUSIC_SWITCH
+        namespace FOOTSTEPSSWITCH
         {
-            static const AkUniqueID GROUP = 96434573U;
-
-            namespace SWITCH
-            {
-                static const AkUniqueID DEFAULT = 782826392U;
-                static const AkUniqueID PAUSE = 3092587493U;
-            } // namespace SWITCH
-        } // namespace LEVEL1_MUSIC_SWITCH
-
-        namespace SWITCH_FOOTSTEPS
-        {
-            static const AkUniqueID GROUP = 3395986341U;
+            static const AkUniqueID GROUP = 3586861854U;
 
             namespace SWITCH
             {
@@ -96,16 +105,27 @@ namespace AK
                 static const AkUniqueID CRISTAL_PLATFORMS = 1403804780U;
                 static const AkUniqueID METAL = 2473969246U;
             } // namespace SWITCH
-        } // namespace SWITCH_FOOTSTEPS
+        } // namespace FOOTSTEPSSWITCH
+
+        namespace MUSICSWITCH
+        {
+            static const AkUniqueID GROUP = 1445037870U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID DEFAULT = 782826392U;
+                static const AkUniqueID PAUSE = 3092587493U;
+            } // namespace SWITCH
+        } // namespace MUSICSWITCH
 
     } // namespace SWITCHES
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID DISTANCE = 1240670792U;
-        static const AkUniqueID MUSIC_VOLUME = 1006694123U;
-        static const AkUniqueID SAWS_ON_SCREEN = 3281672992U;
-        static const AkUniqueID SFX_VOLUME = 1564184899U;
+        static const AkUniqueID RTPC_DISTANCE = 262290038U;
+        static const AkUniqueID RTPC_MUSICVOLUME = 2378823330U;
+        static const AkUniqueID RTPC_SAWSONSCREEN = 1354283134U;
+        static const AkUniqueID RTPC_SFXVOLUME = 2644490154U;
     } // namespace GAME_PARAMETERS
 
     namespace BANKS
