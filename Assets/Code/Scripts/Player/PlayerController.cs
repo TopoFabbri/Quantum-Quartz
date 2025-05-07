@@ -508,10 +508,7 @@ namespace Code.Scripts.Player
         {
             if (color != ColorSwitcher.QColor.Red)
                 dashState.Reset();
-
-            if (color != ColorSwitcher.QColor.Blue)
-                djmpState.Reset();
-
+            
             if (color != ColorSwitcher.QColor.Yellow)
                 glidePressed = false;
             
