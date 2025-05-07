@@ -1,4 +1,5 @@
 using Code.Scripts.Game;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,15 +10,11 @@ namespace Code.Scripts.Menu
         [SerializeField] private string levelSelectorScene;
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private string fileSaveSceneName;
-        [SerializeField] private string level1SceneName;
-        [SerializeField] private string level2SceneName;
-        [SerializeField] private string level3SceneName;
-        [SerializeField] private string level4SceneName;
+
+        [SerializeField] private List<string> levelSceneNames = new List<string>();
 
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private OptionsController optionsController;
-
-        private bool isFullScreen;
 
         private void Start()
         {
@@ -57,24 +54,18 @@ namespace Code.Scripts.Menu
             optionsController.TurnOptions();
         }
 
-        public void LoadLevel1()
+        public void LoadLevel(int levelNumber)
         {
-            LoadScene(level1SceneName);
-        }
+            int index = levelNumber - 1;
 
-        public void LoadLevel2()
-        {
-            LoadScene(level2SceneName);
-        }
-
-        public void LoadLevel3()
-        {
-            LoadScene(level3SceneName);
-        }
-
-        public void LoadLevel4()
-        {
-            LoadScene(level4SceneName);
+            if (index >= 0 && index < levelSceneNames.Count)
+            {
+                LoadScene(levelSceneNames[index]);
+            }
+            else
+            {
+                Debug.LogError($"Nivel {levelNumber} no existe en la lista de niveles.");
+            }
         }
 
         public void QuitGame()
@@ -87,7 +78,6 @@ namespace Code.Scripts.Menu
         {
             fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
             Invoke(nameof(GoFileSaves), 2);
-            //GoMainMenu();
         }
 
         public void OnFileSelection(int saveSlot)
