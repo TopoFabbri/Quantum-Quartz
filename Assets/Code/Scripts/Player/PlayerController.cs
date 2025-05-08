@@ -373,7 +373,6 @@ namespace Code.Scripts.Player
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
-            fsm.AddTransition(djmpState, wallState, wallState.CanEnterWall);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
 
