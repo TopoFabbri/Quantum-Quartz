@@ -73,6 +73,7 @@ namespace Code.Scripts.Player
         private bool shouldTp;
         private bool glidePressed;
         private bool grabPressed;
+        private Vector2 moveInput = Vector2.zero;
         
         private event Action<bool> OnFlip;
         public float Speed => moveState.Speed;
@@ -167,7 +168,9 @@ namespace Code.Scripts.Player
 
             if (fsm.CurrentState != wallState && fsm.CurrentState != wallJumpState && fsm.CurrentState != grabState)
             {
-                if (facingRight && moveState.Speed < 0f || !facingRight && moveState.Speed > 0f)
+                bool leftMove = moveState.Speed < 0f || (moveState.Speed == 0f && moveInput.x < 0f);
+                bool rightMove = moveState.Speed > 0f || (moveState.Speed == 0f && moveInput.x > 0f);
+                if (facingRight && leftMove || !facingRight && rightMove)
                     Flip();
             }
 
@@ -350,6 +353,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
+            fsm.AddTransition(jumpState, wallState, wallState.CanEnterWall);
 
             fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.depleted);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
@@ -370,6 +374,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
+            fsm.AddTransition(djmpState, wallState, wallState.CanEnterWall);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
 
@@ -392,7 +397,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
-            
+            fsm.AddTransition(djmpState, wallState, wallState.CanEnterWall);
+
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
@@ -530,6 +536,7 @@ namespace Code.Scripts.Player
         /// <param name="input">Input value</param>
         private void OnMoveHandler(Vector2 input)
         {
+            moveInput = input;
             moveState.SetInput(input.x);
             jumpState.SetInput(input.x);
             fallState.SetInput(input.x);

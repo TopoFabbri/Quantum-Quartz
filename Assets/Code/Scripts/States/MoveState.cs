@@ -35,9 +35,9 @@ namespace Code.Scripts.States
             Input = input;
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
             
             FlipCheck();
             

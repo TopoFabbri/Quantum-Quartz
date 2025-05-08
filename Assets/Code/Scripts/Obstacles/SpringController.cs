@@ -37,7 +37,7 @@ namespace Code.Scripts.Obstacles
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            collision.TryGetComponent(out ISpringable springable);
+            if (!collision.TryGetComponent(out ISpringable springable)) return;
             Activate(springable);
         }
 
