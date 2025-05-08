@@ -14,8 +14,7 @@ namespace Code.Scripts.Camera
         
         private void Start()
         {
-            if (UnityEngine.Camera.main != null)
-                camera = UnityEngine.Camera.main.GetComponent<CameraController>();
+            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camera);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

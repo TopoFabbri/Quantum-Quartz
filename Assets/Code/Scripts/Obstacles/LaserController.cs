@@ -61,7 +61,8 @@ namespace Code.Scripts.Obstacles
 
         private void FindCollisionPoint()
         {
-            RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
+            RaycastHit2D hit = Physics2D.BoxCast(origin.position, new Vector2(width, 0.1f), 0, origin.right, maxDis, mask);
+            //RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
 
             float dis = hit ? hit.distance : maxDis;
             
@@ -72,7 +73,7 @@ namespace Code.Scripts.Obstacles
                 return;
             }
 
-            end.position = hit.point;
+            end.position = origin.position + origin.right * Vector2.Dot(hit.point - new Vector2(origin.position.x, origin.position.y), origin.right);
             end.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
             if (hit.collider.TryGetComponent(out IKillable killable))

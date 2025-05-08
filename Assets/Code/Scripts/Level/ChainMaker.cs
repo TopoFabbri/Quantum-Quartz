@@ -38,6 +38,9 @@ namespace Code.Scripts.Level
                 return;
 
             generate = false;
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
 
             if (!linkSprite || (!psController && hasEnd))
             {

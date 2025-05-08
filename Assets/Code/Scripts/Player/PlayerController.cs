@@ -73,6 +73,7 @@ namespace Code.Scripts.Player
         private bool shouldTp;
         private bool glidePressed;
         private bool grabPressed;
+        private Vector2 moveInput = Vector2.zero;
         
         private event Action<bool> OnFlip;
         public float Speed => moveState.Speed;
@@ -167,7 +168,9 @@ namespace Code.Scripts.Player
 
             if (fsm.CurrentState != wallState && fsm.CurrentState != wallJumpState && fsm.CurrentState != grabState)
             {
-                if (facingRight && moveState.Speed < 0f || !facingRight && moveState.Speed > 0f)
+                bool leftMove = moveState.Speed < 0f || (moveState.Speed == 0f && moveInput.x < 0f);
+                bool rightMove = moveState.Speed > 0f || (moveState.Speed == 0f && moveInput.x > 0f);
+                if (facingRight && leftMove || !facingRight && rightMove)
                     Flip();
             }
 
@@ -530,6 +533,7 @@ namespace Code.Scripts.Player
         /// <param name="input">Input value</param>
         private void OnMoveHandler(Vector2 input)
         {
+            moveInput = input;
             moveState.SetInput(input.x);
             jumpState.SetInput(input.x);
             fallState.SetInput(input.x);

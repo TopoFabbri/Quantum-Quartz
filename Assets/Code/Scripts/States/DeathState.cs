@@ -33,8 +33,7 @@ namespace Code.Scripts.States
             this.rb = rb;
             this.mb = mb;
 
-            if (UnityEngine.Camera.main != null)
-                UnityEngine.Camera.main.TryGetComponent(out camController);
+            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
         }
 
         public override void OnEnter()

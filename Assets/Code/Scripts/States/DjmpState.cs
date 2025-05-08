@@ -20,8 +20,7 @@ namespace Code.Scripts.States
         public DjmpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
             Transform transform) : base(id, stateSettings, mb, rb, transform)
         {
-            if (UnityEngine.Camera.main != null)
-                UnityEngine.Camera.main.TryGetComponent(out camController);
+            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
                     
             Reset();
         }
