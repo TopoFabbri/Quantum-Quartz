@@ -42,14 +42,14 @@ namespace Code.Scripts.States
             FlipCheck();
             
             if (Input != 0)
-                _speed = Mathf.Clamp(_speed + Input * Time.deltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
+                _speed = Mathf.Clamp(_speed + Input * Time.fixedDeltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
                 DecreaseSpeed();
             
             if (WallCheck())
                 _speed = 0f;
             
-            transform.Translate(Vector2.right * (_speed * Time.deltaTime));
+            transform.Translate(Vector2.right * (_speed * Time.fixedDeltaTime));
         }
         
         /// <summary>
@@ -57,7 +57,7 @@ namespace Code.Scripts.States
         /// </summary>
         public void DecreaseSpeed()
         {
-            _speed = Mathf.Lerp(_speed, 0, Time.deltaTime * moveSettings.groundFriction);
+            _speed = Mathf.Lerp(_speed, 0, Time.fixedDeltaTime * moveSettings.groundFriction);
         }
         
         /// <summary>
@@ -87,7 +87,7 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (!(Mathf.Abs(_speed * Time.deltaTime) < moveSettings.minSpeed) || Input != 0f) return false;
+            if (!(Mathf.Abs(_speed * Time.fixedDeltaTime) < moveSettings.minSpeed) || Input != 0f) return false;
             
             _speed = 0f;
             return true;
