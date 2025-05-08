@@ -353,7 +353,6 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(jumpState, wallState, wallState.CanEnterWall);
 
             fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.depleted);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
@@ -397,8 +396,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(djmpState, wallState, wallState.CanEnterWall);
-
+            
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
