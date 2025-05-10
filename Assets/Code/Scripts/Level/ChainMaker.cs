@@ -1,24 +1,21 @@
+using Code.Scripts.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Code.Scripts.Level
 {
-    [ExecuteInEditMode]
     public class ChainMaker : MonoBehaviour
     {
-        [Header("Size")] [SerializeField] private int chainLength = 3;
+        [Header("Size")]
+        [SerializeField] private int chainLength = 3;
         [SerializeField] private float linkSize = 1f;
 
-        [Header("Style")] [SerializeField] private Sprite linkSprite;
+        [Header("Style")]
+        [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
         [SerializeField] private InteractableController2D psController;
         [SerializeField] private int linkOrderInLayer = -1;
-
-        [Header("Generation")] [SerializeField]
-        private bool generate;
-
-        [SerializeField] private bool clear;
 
         private readonly List<GameObject> links = new();
         private readonly List<HingeJoint2D> hinges = new();
@@ -26,33 +23,8 @@ namespace Code.Scripts.Level
         private DistanceJoint2D joint;
         private Rigidbody2D rb;
 
-        private void Update()
-        {
-            if (clear)
-            {
-                clear = false;
-                ClearChain();
-            }
-
-            if (!generate)
-                return;
-
-            generate = false;
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
-#endif
-
-            if (!linkSprite || (!psController && hasEnd))
-            {
-                Debug.LogError("No sprite or end provided");
-                return;
-            }
-
-            ClearChain();
-
-            GenerateChain();
-        }
-
+        [HeaderPlus("Generation")]
+        [InspectorButton("Clear")]
         private void ClearChain()
         {
             hinges.Clear();
@@ -81,8 +53,17 @@ namespace Code.Scripts.Level
             links.Clear();
         }
 
+        [InspectorButton("Generate")]
         private void GenerateChain()
         {
+            if (!linkSprite || (!psController && hasEnd))
+            {
+                Debug.LogError("No sprite or end provided");
+                return;
+            }
+
+            ClearChain();
+
             for (int i = 0; i < chainLength; i++)
             {
                 GameObject tempLink = new()
