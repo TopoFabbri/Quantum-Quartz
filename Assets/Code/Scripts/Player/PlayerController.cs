@@ -345,14 +345,13 @@ namespace Code.Scripts.Player
             fsm.AddTransition(moveState, tlptState, () => shouldTp);
 
             fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState,
-                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(jumpState, moveState,
-                () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(jumpState, moveState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(jumpState, dashState, () => dashPressed);
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
+            fsm.AddTransition(jumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
 
             fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.depleted);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
@@ -373,6 +372,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
+            fsm.AddTransition(djmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
 
@@ -389,13 +389,13 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.depleted);
 
             fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(wallJumpState, idleState,
-                () => moveState.IsGrounded() && wallJumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(wallJumpState, idleState, () => moveState.IsGrounded() && wallJumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(wallJumpState, dashState, () => dashPressed);
             fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
-            
+            fsm.AddTransition(wallJumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
+
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
