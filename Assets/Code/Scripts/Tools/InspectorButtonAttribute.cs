@@ -20,11 +20,11 @@ namespace Code.Scripts.Tools
             ButtonText = text;
         }
 
-        public override void Draw(MemberInfo target)
+        public override AttributeProcessing? Draw(MemberInfo target, object obj)
         {
             MethodInfo method = target as MethodInfo;
             if (method == null)
-                return;
+                return AttributeProcessing.Normal;
 
             if (method.GetParameters().Length > 0)
             {
@@ -37,6 +37,8 @@ namespace Code.Scripts.Tools
                     method.Invoke(target, null);
                 }
             }
+
+            return AttributeProcessing.Normal;
         }
     }
 }

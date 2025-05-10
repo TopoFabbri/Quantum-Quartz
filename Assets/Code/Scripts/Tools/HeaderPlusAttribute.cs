@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Code.Scripts.Tools;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +12,7 @@ namespace Code.Scripts.Tools
     [System.AttributeUsage(System.AttributeTargets.All, Inherited = true, AllowMultiple = true)]
     public class HeaderPlusAttribute : CustomAttribute
     {
-        public string header;
+        public readonly string header;
         static GUIStyle _style;
         static GUIStyle Style
         {
@@ -30,10 +29,19 @@ namespace Code.Scripts.Tools
         public HeaderPlusAttribute(string header)
         {
             this.header = header;
+            this.order = -1;
         }
 
 #if UNITY_EDITOR
-        public override void Draw(MemberInfo target)
+        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        {
+            if (target is FieldInfo) return AttributeProcessing.Normal;
+
+            DrawHeader();
+            return AttributeProcessing.Normal;
+        }
+
+        public void DrawHeader()
         {
             GUILayout.Space(EditorGUIUtility.singleLineHeight * 0.5f + 2); // No clue why I need to add 2 to match Unity's headers
             GUILayout.Label(header, ObjectEditor.IndentStyle(Style));

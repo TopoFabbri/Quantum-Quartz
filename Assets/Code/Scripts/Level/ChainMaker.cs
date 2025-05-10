@@ -7,11 +7,11 @@ namespace Code.Scripts.Level
 {
     public class ChainMaker : MonoBehaviour
     {
-        [Header("Size")]
+        [HeaderPlus("Size")]
         [SerializeField] private int chainLength = 3;
         [SerializeField] private float linkSize = 1f;
 
-        [Header("Style")]
+        [HeaderPlus("Style")]
         [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
         [SerializeField] private InteractableController2D psController;

@@ -1,4 +1,3 @@
-using Code.Scripts.Level;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,33 +6,21 @@ using UnityEngine;
 
 namespace Code.Scripts.Tools
 {
-    public abstract class CustomAttribute : System.Attribute
+    [System.Flags]
+    public enum AttributeProcessing
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Matching Unity's built-in PropertyAttribute's order field")]
-        public int order { get; set; }
-
-#if UNITY_EDITOR
-        public abstract void Draw(MemberInfo target);
-#endif
+        Normal = 0,
+        None = 1 << 0,
+        Disabled = 1 << 1,
+        Indent = 1 << 2,
+        Expand = 1 << 3,
     }
 
-    [System.AttributeUsage(System.AttributeTargets.Property | System.AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
-    public class ExpandAttribute : System.Attribute
+    public abstract class CustomAttribute : PropertyAttribute
     {
-        readonly HeaderPlusAttribute title;
-
-        public ExpandAttribute() { }
-
-        public ExpandAttribute(string title)
-        {
-            this.title = new HeaderPlusAttribute(title);
-        }
-
-        public bool Draw(MemberInfo target)
-        {
-            title?.Draw(target);
-            return title != null;
-        }
+#if UNITY_EDITOR
+        public abstract AttributeProcessing? Draw(MemberInfo target, object obj);
+#endif
     }
 
 #if UNITY_EDITOR
@@ -42,7 +29,7 @@ namespace Code.Scripts.Tools
     public class ObjectEditor : Editor
     {
         const int MAX_DEPTH = 10;
-        const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
+        public const BindingFlags ALL_FLAGS = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
         readonly Comparer<CustomAttribute> customAttributeComparer = Comparer<CustomAttribute>.Create((a, b) => a.order.CompareTo(b.order));
 
         public static int Indent { get; private set; }
@@ -66,45 +53,63 @@ namespace Code.Scripts.Tools
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-
+            
             GUILayout.Box(GUIContent.none, HorizontalLine);
 
             foreach (Object target in targets)
             {
-                DrawInspector(target.GetType());
+                DrawInspector(target);
             }
         }
 
-        void DrawInspector(System.Type type, int depth = 0)
+        void DrawInspector(object obj, int depth = 0)
         {
             if (depth > MAX_DEPTH) return;
 
-            List<MemberInfo> members = new List<MemberInfo>(type.GetMembers(flags));
+            System.Type type = obj.GetType();
+            List<MemberInfo> members = new List<MemberInfo>(type.GetMembers(ALL_FLAGS));
             List<MemberInfo> sortedMembers = members.FindAll((MemberInfo mem) => !(mem is MethodInfo));
             sortedMembers.AddRange(members.FindAll((MemberInfo mem) => (mem is MethodInfo)));
 
             foreach (MemberInfo member in sortedMembers)
             {
                 List<CustomAttribute> attrs = new List<CustomAttribute>(member.GetCustomAttributes<CustomAttribute>(true));
+                AttributeProcessing processingFlags = AttributeProcessing.Normal;
                 if (attrs.Count > 0)
                 {
                     attrs.Sort(customAttributeComparer);
                     foreach (CustomAttribute attr in attrs)
                     {
-                        attr.Draw(member);
+                        AttributeProcessing? processing = attr.Draw(member, obj);
+
+                        if (processing.HasValue)
+                        {
+                            processingFlags |= processing.Value;
+                            if (processing.Value.HasFlag(AttributeProcessing.None))
+                            {
+                                break;
+                            }
+                        }
                     }
                 }
 
-                FieldInfo field = member as FieldInfo;
-                ExpandAttribute expandAttr = member.GetCustomAttribute<ExpandAttribute>();
-                if (field != null && expandAttr != null)
+                if (processingFlags.HasFlag(AttributeProcessing.Disabled))
                 {
-                    if (expandAttr.Draw(member))
+                    GUI.enabled = true;
+                }
+                else
+                {
+                    FieldInfo field = member as FieldInfo;
+                    if (field != null && processingFlags.HasFlag(AttributeProcessing.Expand))
                     {
-                        Indent += 1;
+                        if (processingFlags.HasFlag(AttributeProcessing.Indent))
+                        {
+                            Indent += 1;
+                        }
+
+                        DrawInspector(field.GetValue(obj), depth + 1);
+                        Indent -= 1;
                     }
-                    DrawInspector(field.FieldType, depth + 1);
-                    Indent -= 1;
                 }
             }
         }
