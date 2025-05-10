@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1071673626116873846}
   - component: {fileID: 7377946851925771106}
+  - component: {fileID: 657766517999213158}
   - component: {fileID: 1493537210109348200}
   - component: {fileID: 3087653745520979586}
   - component: {fileID: 6581186032706341729}
@@ -50,13 +51,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687921f3a320f004580ecfd8c3277077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6581186032706341729}
-  qColor: 0
   spriteRenderer: {fileID: 3087653745520979586}
   ps: {fileID: 3387757842940568987}
   particleQty: 5.75
   solid: 1
   matSoundEvent: Set_Switch_Cristal_Platforms
+--- !u!114 &657766517999213158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206685543716980669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf34f8a49a54beab1ffb9e5fe8b5635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qColor: 0
+  animator: {fileID: 6581186032706341729}
+  animatorOnParameterName: On
 --- !u!61 &1493537210109348200
 BoxCollider2D:
   m_ObjectHideFlags: 0
