@@ -278,7 +278,7 @@ namespace Code.Scripts.Player
             grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
             pausState = new PauseState<string>("Pause", rb);
             edgeState = new EdgeState<string>("Edge", stateSettings[11], transform, fsmAnimController);
-            springState = new SpringState<string>("Spring", stateSettings[1], rb, transform);
+            springState = new SpringState<string>("Spring", stateSettings[12], rb, transform);
 
             fsm = new FiniteStateMachine<string>();
 

@@ -1,4 +1,3 @@
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -6,10 +5,9 @@ namespace Code.Scripts.States
 {
     public class SpringState<T> : MoveState<T>
     {
-        protected JumpSettings JumpSettings => settings as JumpSettings;
+        protected SpringSettings SpringSettings => settings as SpringSettings;
 
-        bool active = false;
-        public bool IsActivated => active;
+        public bool IsActivated { get; private set; }
 
         public SpringState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform)
             : base(id, stateSettings, rb, transform) {}
@@ -17,8 +15,8 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            active = false;
-            rb.sharedMaterial.friction = JumpSettings.airFriction;
+            IsActivated = false;
+            rb.sharedMaterial.friction = SpringSettings.airFriction;
         }
 
         public override void OnExit()
@@ -29,7 +27,7 @@ namespace Code.Scripts.States
 
         public void Activate()
         {
-            active = true;
+            IsActivated = true;
         }
     }
 }
