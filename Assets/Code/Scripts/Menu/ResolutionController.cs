@@ -6,36 +6,23 @@ using TMPro;
 public class ResolutionController : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown resolutionDropdown;
-    private Resolution[] resolutions;
     private List<Resolution> filteredResolutions;
 
-    private float currentRefreshRate;
     private int currentResolutionIndex = 0;
     private void Start()
     {
-        resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
         
         resolutionDropdown.ClearOptions();
-        currentRefreshRate = Screen.currentResolution.refreshRate;
         
-        // for (int i = 0; i < resolutions.Length; i++)
-        // {
-        //     if (resolutions[i].refreshRate == currentRefreshRate)
-        //     {
-        //         filteredResolutions.Add(resolutions[i]);
-        //     }
-        // }
-        
-        
-        filteredResolutions.Add(addResolution(1280, 720, Screen.currentResolution.refreshRateRatio));
-        filteredResolutions.Add(addResolution(1600, 900, Screen.currentResolution.refreshRateRatio));
-        filteredResolutions.Add(addResolution(1920, 1080, Screen.currentResolution.refreshRateRatio));
+        filteredResolutions.Add(AddResolution(1280, 720, Screen.currentResolution.refreshRateRatio));
+        filteredResolutions.Add(AddResolution(1600, 900, Screen.currentResolution.refreshRateRatio));
+        filteredResolutions.Add(AddResolution(1920, 1080, Screen.currentResolution.refreshRateRatio));
         
         List<string> options = new List<string>();
         for (int i = 0; i < filteredResolutions.Count; i++)
         {
-            string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + " " + filteredResolutions[i].refreshRate + "Hz";
+            string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + " " + filteredResolutions[i].refreshRateRatio.value + "Hz";
             options.Add(resolutionOption);
             
             if (filteredResolutions[i].width == Screen.width && filteredResolutions[i].height == Screen.height)
@@ -69,13 +56,13 @@ public class ResolutionController : MonoBehaviour
         Screen.SetResolution(width, height, Screen.fullScreen);
     }
 
-    private Resolution addResolution(int width, int height, RefreshRate refreshRate )
+    private Resolution AddResolution(int width, int height, RefreshRate refreshRate )
     {
-        Resolution resolution = new Resolution();
-        resolution.width = width;
-        resolution.height = height;
-        resolution.refreshRateRatio = refreshRate;
-        
-        return resolution;
+        return new Resolution
+        {
+            width = width,
+            height = height,
+            refreshRateRatio = refreshRate
+        };
     }
 }
