@@ -23,10 +23,14 @@ namespace Code.Scripts.Tools
         }
 
 #if UNITY_EDITOR
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        public override AttributeProcessing GetProcessingType(MemberInfo target, object obj)
+        {
+            return AttributeProcessing.Expand | (DoIndent ? AttributeProcessing.Indent : AttributeProcessing.Normal);
+        }
+
+        public override void Draw(MemberInfo target, object obj)
         {
             title?.DrawHeader();
-            return AttributeProcessing.Expand | (DoIndent ? AttributeProcessing.Indent : AttributeProcessing.Normal);
         }
 #endif
     }

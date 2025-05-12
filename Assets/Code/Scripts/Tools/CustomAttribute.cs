@@ -18,7 +18,12 @@ namespace Code.Scripts.Tools
     public abstract class CustomAttribute : PropertyAttribute
     {
 #if UNITY_EDITOR
-        public abstract AttributeProcessing? Draw(MemberInfo target, object obj);
+        public virtual AttributeProcessing GetProcessingType(MemberInfo target, object obj)
+        {
+            return AttributeProcessing.Normal;
+        }
+
+        public abstract void Draw(MemberInfo target, object obj);
 #endif
     }
 }

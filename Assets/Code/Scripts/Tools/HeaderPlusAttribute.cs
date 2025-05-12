@@ -34,12 +34,12 @@ namespace Code.Scripts.Tools
             }
         }
 
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        public override void Draw(MemberInfo target, object obj)
         {
-            if (target is FieldInfo) return AttributeProcessing.Normal;
+            if (target is FieldInfo) return;
 
             DrawHeader();
-            return AttributeProcessing.Normal;
+            return;
         }
 
         public void DrawHeader()

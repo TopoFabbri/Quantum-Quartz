@@ -20,11 +20,11 @@ namespace Code.Scripts.Tools
         }
 
 #if UNITY_EDITOR
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        public override void Draw(MemberInfo target, object obj)
         {
             MethodInfo method = target as MethodInfo;
             if (method == null)
-                return AttributeProcessing.Normal;
+                return;
 
             if (method.GetParameters().Length > 0)
             {
@@ -38,7 +38,7 @@ namespace Code.Scripts.Tools
                 }
             }
 
-            return AttributeProcessing.Normal;
+            return;
         }
 #endif
     }

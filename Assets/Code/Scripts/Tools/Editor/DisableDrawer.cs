@@ -11,7 +11,8 @@ namespace Code.Scripts.Tools.Editor
 		// Necessary since some properties tend to collapse smaller than their content
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-			return EditorGUI.GetPropertyHeight(property, label, (attribute as DisableAttribute).Show);
+			DisableAttribute attr = (attribute as DisableAttribute);
+			return EditorGUI.GetPropertyHeight(property, label, !attr.hideValue);
 		}
 
 		// Draw a disabled property field
@@ -31,12 +32,12 @@ namespace Code.Scripts.Tools.Editor
 					if (property.hasVisibleChildren)
 					{
 						EditorGUI.indentLevel--;
-						EditorGUI.PropertyField(position, property, label, true);
+						EditorGUI.PropertyField(position, property, label, false); // This sets GUI.enabled = true if includeChildren is true
 						EditorGUI.indentLevel++;
 					}
 					else
 					{
-						EditorGUI.PropertyField(position, property, label, true);
+						EditorGUI.PropertyField(position, property, label, false); // This sets GUI.enabled = true if includeChildren is true
 					}
 				}
 			}

@@ -10,8 +10,8 @@ namespace Code.Scripts.Tools
     {
         readonly bool inEdit = true;
         readonly bool inPlay = true;
-        public bool Show => Application.isPlaying ? !inPlay : !inEdit;
-        public readonly bool hideValue = true;
+        public bool Show => GUI.enabled && (Application.isPlaying ? !inPlay : !inEdit);
+        public readonly bool hideValue = false;
 
         public DisableAttribute(bool inEdit = true, bool inPlay = true, bool hideValue = false)
         {
@@ -22,10 +22,14 @@ namespace Code.Scripts.Tools
         }
 
 #if UNITY_EDITOR
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        public override AttributeProcessing GetProcessingType(MemberInfo target, object obj)
         {
-            GUI.enabled = Show;
             return Show ? AttributeProcessing.Normal : AttributeProcessing.Disabled | (hideValue ? AttributeProcessing.None : 0);
+        }
+
+        public override void Draw(MemberInfo target, object obj)
+        {
+            return;
         }
 #endif
     }

@@ -15,11 +15,11 @@ namespace Code.Scripts.Tools
         {
             this.checkboxName = checkboxName;
             this.invert = invert;
-            this.order = int.MinValue;
+            //this.order = int.MinValue;
         }
 
 #if UNITY_EDITOR
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
+        public override AttributeProcessing GetProcessingType(MemberInfo target, object obj)
         {
             bool show = false;
             // Find the field corresponding to the name provided to the ToggleShow attribute
@@ -37,6 +37,11 @@ namespace Code.Scripts.Tools
             }
 
             return show ? AttributeProcessing.Normal : AttributeProcessing.None;
+        }
+
+        public override void Draw(MemberInfo target, object obj)
+        {
+            return;
         }
 #endif
     }
