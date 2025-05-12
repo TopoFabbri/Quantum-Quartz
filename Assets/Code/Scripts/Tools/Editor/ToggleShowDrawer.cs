@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using dninosores.UnityEditorAttributes;
 
-
 namespace Code.Scripts.Tools.Editor
 {
 	[CustomPropertyDrawer(typeof(ToggleShow))]
@@ -26,7 +25,8 @@ namespace Code.Scripts.Tools.Editor
 				}
 				else
 				{
-					EditorGUI.PropertyField(position, property, label, true);
+					// Would use EditorGUI.PropertyField, but it has a bug in it, so a custom version without the bug is used instead
+					DrawPropertyFieldReflection.Execute(position, property, label, true);
 				}
 			}
 			GUI.enabled = true;
@@ -37,7 +37,8 @@ namespace Code.Scripts.Tools.Editor
 			ToggleShow toggle = attribute as ToggleShow;
 
 			// Find the property corresponding to the name provided to the ToggleShow attribute
-			SerializedProperty checkboxProperty = property.serializedObject.FindProperty(toggle.checkboxName);
+
+			SerializedProperty checkboxProperty = property.FindParentProperty()?.FindPropertyRelative(toggle.checkboxName) ?? property.serializedObject.FindProperty(toggle.checkboxName);
 
 			if (checkboxProperty != null && checkboxProperty.type == "bool")
 			{

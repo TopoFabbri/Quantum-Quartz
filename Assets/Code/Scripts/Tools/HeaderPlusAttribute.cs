@@ -13,6 +13,14 @@ namespace Code.Scripts.Tools
     public class HeaderPlusAttribute : CustomAttribute
     {
         public readonly string header;
+
+        public HeaderPlusAttribute(string header)
+        {
+            this.header = header;
+            this.order = -1;
+        }
+
+#if UNITY_EDITOR
         static GUIStyle _style;
         static GUIStyle Style
         {
@@ -26,13 +34,6 @@ namespace Code.Scripts.Tools
             }
         }
 
-        public HeaderPlusAttribute(string header)
-        {
-            this.header = header;
-            this.order = -1;
-        }
-
-#if UNITY_EDITOR
         public override AttributeProcessing? Draw(MemberInfo target, object obj)
         {
             if (target is FieldInfo) return AttributeProcessing.Normal;

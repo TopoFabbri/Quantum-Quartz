@@ -91,6 +91,10 @@ namespace Code.Scripts.Tools.Editor
 				property.FindPropertyRelative("_difference").floatValue = value.Difference;
 				property.FindPropertyRelative("_average").floatValue = value.Average;
 			}
+			else
+            {
+				Debug.LogError("MinMaxRange can't be applied to property of type " + property.type + " (" + property.name + ")");
+            }
 
 			static (float, float) ClampValues(float minValue, float maxValue, float minLimit, float maxLimit)
 			{
@@ -108,6 +112,9 @@ namespace Code.Scripts.Tools.Editor
 
 				// Field name
 				consumedX += DrawFieldName(firstLineRect, property);
+
+				int indentLevel = EditorGUI.indentLevel;
+				EditorGUI.indentLevel = 0;
 
 				// Min label
 				var minLabel = buildLabel(min);
@@ -133,6 +140,8 @@ namespace Code.Scripts.Tools.Editor
 				DrawValueLabel(labelsPosition, x, min, max, true, buildLabel);
 				// Label
 				DrawValueLabel(labelsPosition, y, min, max, false, buildLabel);
+
+				EditorGUI.indentLevel = indentLevel;
 
 				static float DrawFieldName(Rect position, SerializedProperty property)
 				{

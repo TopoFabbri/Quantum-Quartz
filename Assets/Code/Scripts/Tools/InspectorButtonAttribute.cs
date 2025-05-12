@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Code.Scripts.Tools;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -20,6 +19,7 @@ namespace Code.Scripts.Tools
             ButtonText = text;
         }
 
+#if UNITY_EDITOR
         public override AttributeProcessing? Draw(MemberInfo target, object obj)
         {
             MethodInfo method = target as MethodInfo;
@@ -40,5 +40,6 @@ namespace Code.Scripts.Tools
 
             return AttributeProcessing.Normal;
         }
+#endif
     }
 }

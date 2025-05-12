@@ -1,28 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Code.Scripts.Tools
 {
-    [System.Flags]
-    public enum AttributeProcessing
-    {
-        Normal = 0,
-        None = 1 << 0,
-        Disabled = 1 << 1,
-        Indent = 1 << 2,
-        Expand = 1 << 3,
-    }
-
-    public abstract class CustomAttribute : PropertyAttribute
-    {
-#if UNITY_EDITOR
-        public abstract AttributeProcessing? Draw(MemberInfo target, object obj);
-#endif
-    }
-
 #if UNITY_EDITOR
     [CustomEditor(typeof(Object), true)]
     [CanEditMultipleObjects]
@@ -64,7 +50,7 @@ namespace Code.Scripts.Tools
 
         void DrawInspector(object obj, int depth = 0)
         {
-            if (depth > MAX_DEPTH) return;
+            if (depth > MAX_DEPTH || obj == null) return;
 
             System.Type type = obj.GetType();
             List<MemberInfo> members = new List<MemberInfo>(type.GetMembers(ALL_FLAGS));
@@ -102,13 +88,20 @@ namespace Code.Scripts.Tools
                     FieldInfo field = member as FieldInfo;
                     if (field != null && processingFlags.HasFlag(AttributeProcessing.Expand))
                     {
-                        if (processingFlags.HasFlag(AttributeProcessing.Indent))
+                        if (obj.GetType().IsAssignableFrom(field.FieldType))
                         {
-                            Indent += 1;
+                            Debug.LogError("Can't expand '" + obj.GetType() + "." + field.Name + "' as it is of type '" + field.FieldType + "', which is a derived class of '" + obj.GetType() + "'");
                         }
+                        else
+                        {
+                            if (processingFlags.HasFlag(AttributeProcessing.Indent))
+                            {
+                                Indent += 1;
+                            }
 
-                        DrawInspector(field.GetValue(obj), depth + 1);
-                        Indent -= 1;
+                            DrawInspector(field.GetValue(obj), depth + 1);
+                            Indent -= 1;
+                        }
                     }
                 }
             }
