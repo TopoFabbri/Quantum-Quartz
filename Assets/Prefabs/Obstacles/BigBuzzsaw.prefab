@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5641406874059021716}
   - component: {fileID: 898969913459022524}
   - component: {fileID: 1100613888022402750}
+  - component: {fileID: 8612527704856210089}
   m_Layer: 7
   m_Name: BigBuzzsaw
   m_TagString: Obstacle
@@ -159,3 +160,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8612527704856210089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435401146990975331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf34f8a49a54beab1ffb9e5fe8b5635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qColor: 0
+  animator: {fileID: 1100613888022402750}
+  animatorOnParameterName: On
