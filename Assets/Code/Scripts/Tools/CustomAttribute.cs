@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Code.Scripts.Tools
 {
     [System.Flags]
@@ -24,6 +28,21 @@ namespace Code.Scripts.Tools
         }
 
         public abstract void Draw(MemberInfo target, object obj);
+
+        public virtual float? TryGetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return null;
+        }
+
+        public virtual System.Action OnPreGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            return null;
+        }
+
+        public virtual bool DoCustomOnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            return false;
+        }
 #endif
     }
 }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Code.Scripts.Tools
 {
     [System.AttributeUsage(System.AttributeTargets.All, Inherited = false, AllowMultiple = false)]
@@ -18,7 +22,6 @@ namespace Code.Scripts.Tools
             this.inEdit = inEdit;
             this.inPlay = inPlay;
             this.hideValue = hideValue;
-            this.order = int.MinValue + 1;
         }
 
 #if UNITY_EDITOR
@@ -30,6 +33,37 @@ namespace Code.Scripts.Tools
         public override void Draw(MemberInfo target, object obj)
         {
             return;
+        }
+
+        public override float? TryGetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return Show || !hideValue ? null : EditorGUI.GetPropertyHeight(property, label, false);
+        }
+
+        public override System.Action OnPreGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (GUI.enabled)
+            {
+                if (!Show)
+                {
+                    GUI.enabled = false;
+                    return () =>
+                    {
+                        GUI.enabled = true;
+                    };
+                }
+            }
+            return null;
+        }
+
+        public override bool DoCustomOnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            if (!Show && hideValue)
+            {
+                EditorGUI.LabelField(position, label);
+                return true;
+            }
+            return false;
         }
 #endif
     }

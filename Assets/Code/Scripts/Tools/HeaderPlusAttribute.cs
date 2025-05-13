@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using System.Reflection;
 #endif
 
 namespace Code.Scripts.Tools
@@ -17,7 +17,6 @@ namespace Code.Scripts.Tools
         public HeaderPlusAttribute(string header)
         {
             this.header = header;
-            this.order = -1;
         }
 
 #if UNITY_EDITOR

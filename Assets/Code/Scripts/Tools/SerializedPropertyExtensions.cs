@@ -2,12 +2,16 @@
 
 using System.Linq;
 using System.Text.RegularExpressions;
-using UnityEditor;
 
-namespace Code.Scripts.Tools.Editor
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace Code.Scripts.Tools
 {
     public static class SerializedPropertyExtensions
     {
+#if UNITY_EDITOR
         public static SerializedProperty FindParentProperty(this SerializedProperty serializedProperty)
         {
             var propertyPaths = serializedProperty.propertyPath.Split('.');
@@ -34,5 +38,6 @@ namespace Code.Scripts.Tools.Editor
 
             return parentSerializedProperty;
         }
+#endif
     }
 }

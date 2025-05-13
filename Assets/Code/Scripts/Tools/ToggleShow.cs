@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Code.Scripts.Tools
 {
     [System.AttributeUsage(System.AttributeTargets.All, Inherited = false, AllowMultiple = false)]
-    public class ToggleShow : CustomAttribute
+    public class ToggleShowAttribute : CustomAttribute
     {
         public string checkboxName;
         public bool invert;
 
-        public ToggleShow(string checkboxName, bool invert = false)
+        public ToggleShowAttribute(string checkboxName, bool invert = false)
         {
             this.checkboxName = checkboxName;
             this.invert = invert;
-            //this.order = int.MinValue;
+            this.order = int.MinValue;
         }
 
 #if UNITY_EDITOR
@@ -42,6 +46,33 @@ namespace Code.Scripts.Tools
         public override void Draw(MemberInfo target, object obj)
         {
             return;
+        }
+
+        public override float? TryGetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return (ShowProperty(property) ? null : -2);
+        }
+
+        public override bool DoCustomOnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            return !ShowProperty(property);
+        }
+
+        bool ShowProperty(SerializedProperty property)
+        {
+            // Find the property corresponding to the name provided to the ToggleShow attribute
+            SerializedProperty checkboxProperty = property.FindParentProperty()?.FindPropertyRelative(checkboxName) ?? property.serializedObject.FindProperty(checkboxName);
+
+            if (checkboxProperty != null && checkboxProperty.type == "bool")
+            {
+                bool checkboxValue = checkboxProperty.boolValue;
+                return (checkboxValue != invert);
+            }
+            else
+            {
+                Debug.LogError("Error: Boolean '" + checkboxName + "' in ToggleShow attribute is not valid");
+                return false;
+            }
         }
 #endif
     }

@@ -19,7 +19,6 @@ namespace Code.Scripts.Tools
         public ExpandAttribute(string title)
         {
             this.title = new HeaderPlusAttribute(title);
-            this.order = int.MaxValue;
         }
 
 #if UNITY_EDITOR
