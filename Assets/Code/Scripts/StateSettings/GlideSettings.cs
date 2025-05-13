@@ -9,5 +9,6 @@ namespace Code.Scripts.StateSettings
         public float fallSpeed = .1f;
         public float staminaMitigation = .05f;
         public float initStaminaCut = 3f;
+        public float regenSpeed = 1.5f;
     }
 }

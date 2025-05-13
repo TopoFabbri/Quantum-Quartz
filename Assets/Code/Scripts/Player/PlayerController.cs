@@ -86,6 +86,9 @@ namespace Code.Scripts.Player
 
         private void Start()
         {
+            staminaBar.GetBar(ColorSwitcher.QColour.Green).AddNoRegenCondition(() => !moveState.IsGrounded());
+            staminaBar.GetBar(ColorSwitcher.QColour.Yellow).AddNoRegenCondition(() => !moveState.IsGrounded());
+            
             FaceRight();
         }
 
@@ -181,9 +184,6 @@ namespace Code.Scripts.Player
             if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState &&
                 fsm.CurrentState != djmpState)
                 moveState.DecreaseSpeed();
-            
-            if (fsm.CurrentState != gldeState && fsm.CurrentState != grabState && moveState.IsGrounded())
-                staminaBar.FillValue += 1.5f * Time.deltaTime;
         }
 
         private void FixedUpdate()
@@ -258,7 +258,7 @@ namespace Code.Scripts.Player
         }
 
         /// <summary>
-        /// Initialize the finite state machine
+        /// Initialise the finite state machine
         /// </summary>
         private void InitFsm()
         {
@@ -266,7 +266,7 @@ namespace Code.Scripts.Player
             moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
             jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
             fallState = new FallState<string>("Fall", stateSettings[2], rb, transform, this, playerSfx);
-            dashState = new DashState<string>("Dash", stateSettings[3], rb, transform, this);
+            dashState = new DashState<string>("Dash", stateSettings[3], rb, transform, this, staminaBar);
             djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
             dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
             spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
@@ -357,10 +357,10 @@ namespace Code.Scripts.Player
             fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(jumpState, dethState, () => died);
             fsm.AddTransition(jumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(jumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
+            fsm.AddTransition(jumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(jumpState, springState, () => springState.IsActivated);
 
-            fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.depleted);
+            fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
             fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
             fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
             fsm.AddTransition(fallState, dashState, () => dashPressed);
@@ -381,7 +381,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(djmpState, dethState, () => died);
             fsm.AddTransition(djmpState, tlptState, () => shouldTp);
-            fsm.AddTransition(djmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
+            fsm.AddTransition(djmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(djmpState, springState, () => springState.IsActivated);
 
             fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
@@ -394,9 +394,9 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(wallState, wallJumpState, () => jumpPressed);
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
-            fsm.AddTransition(wallState, fallState, () => !wallState.IsTouchingWall() || ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green);
+            fsm.AddTransition(wallState, fallState, () => !wallState.IsTouchingWall() || ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green);
             fsm.AddTransition(wallState, dethState, () => died);
-            fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.depleted);
+            fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(wallState, springState, () => springState.IsActivated);
 
             fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
@@ -405,16 +405,16 @@ namespace Code.Scripts.Player
             fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
             fsm.AddTransition(wallJumpState, dethState, () => died);
             fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(wallJumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
+            fsm.AddTransition(wallJumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(wallJumpState, springState, () => springState.IsActivated);
 
-            fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.depleted);
+            fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
             fsm.AddTransition(gldeState, dethState, () => died);
             fsm.AddTransition(gldeState, edgeState, edgeState.IsOnEdge);
             fsm.AddTransition(gldeState, springState, () => springState.IsActivated);
 
-            fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.depleted);
+            fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
             fsm.AddTransition(grabState, dethState, () => died);
 
@@ -435,7 +435,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(springState, djmpState, () => djmpPressed);
             fsm.AddTransition(springState, dethState, () => died);
             fsm.AddTransition(springState, tlptState, () => shouldTp);
-            fsm.AddTransition(springState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.depleted);
+            fsm.AddTransition(springState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
         }
 
         /// <summary>
@@ -529,16 +529,13 @@ namespace Code.Scripts.Player
         /// <summary>
         /// Manage player actions when color is changed
         /// </summary>
-        /// <param name="color">New color</param>
-        private void OnChangedColorHandler(ColorSwitcher.QColor color)
+        /// <param name="colour">New color</param>
+        private void OnChangedColorHandler(ColorSwitcher.QColour colour)
         {
-            if (color != ColorSwitcher.QColor.Red)
-                dashState.Reset();
-            
-            if (color != ColorSwitcher.QColor.Yellow)
+            if (colour != ColorSwitcher.QColour.Yellow)
                 glidePressed = false;
             
-            if (color != ColorSwitcher.QColor.Green)
+            if (colour != ColorSwitcher.QColour.Green)
                 grabPressed = false;
         }
 
@@ -582,20 +579,20 @@ namespace Code.Scripts.Player
         /// <returns>True if player can dash</returns>
         private void OnAbilityPressHandler()
         {
-            switch (ColorSwitcher.Instance.CurrentColor)
+            switch (ColorSwitcher.Instance.CurrentColour)
             {
-                case ColorSwitcher.QColor.None:
+                case ColorSwitcher.QColour.None:
                     break;
-                case ColorSwitcher.QColor.Red:
+                case ColorSwitcher.QColour.Red:
                     OnDashHandler();
                     break;
-                case ColorSwitcher.QColor.Blue:
+                case ColorSwitcher.QColour.Blue:
                     OnDjmpHandler();
                     break;
-                case ColorSwitcher.QColor.Green:
+                case ColorSwitcher.QColour.Green:
                     OnGrabHandler();
                     break;
-                case ColorSwitcher.QColor.Yellow:
+                case ColorSwitcher.QColour.Yellow:
                     OnGlideHandler();
                     break;
                 default:
@@ -609,18 +606,18 @@ namespace Code.Scripts.Player
         /// <returns>True if player can dash</returns>
         private void OnAbilityReleaseHandler()
         {
-            switch (ColorSwitcher.Instance.CurrentColor)
+            switch (ColorSwitcher.Instance.CurrentColour)
             {
-                case ColorSwitcher.QColor.None:
+                case ColorSwitcher.QColour.None:
                     break;
-                case ColorSwitcher.QColor.Red:
+                case ColorSwitcher.QColour.Red:
                     break;
-                case ColorSwitcher.QColor.Blue:
+                case ColorSwitcher.QColour.Blue:
                     break;
-                case ColorSwitcher.QColor.Green:
+                case ColorSwitcher.QColour.Green:
                     OnGrabReleaseHandler();
                     break;
-                case ColorSwitcher.QColor.Yellow:
+                case ColorSwitcher.QColour.Yellow:
                     OnGlideReleaseHandler();
                     break;
                 default:
@@ -633,7 +630,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnDashHandler()
         {
-            if (dashState.DashAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+            if (!staminaBar.GetBar(ColorSwitcher.QColour.Red).Depleted && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
                 dashPressed = true;
         }
 
@@ -642,7 +639,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnDjmpHandler()
         {
-            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
                 djmpPressed = true;
         }
         

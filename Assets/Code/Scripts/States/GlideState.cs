@@ -1,4 +1,5 @@
-﻿using Code.Scripts.Player;
+﻿using Code.Scripts.Colors;
+using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -14,15 +15,13 @@ namespace Code.Scripts.States
         public GlideState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings, rb, transform, mb, playerSfx)
         {
             this.barController = barController;
+            
+            barController.AddBar(ColorSwitcher.QColour.Yellow, Settings.regenSpeed, Settings.staminaMitigation);
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-
-            barController.FillValue -= Settings.staminaMitigation * Settings.initStaminaCut;
-
-            barController.SetVisibility(true);
             
             prevGravScale = rb.gravityScale;
             rb.gravityScale = 0f;
@@ -48,8 +47,8 @@ namespace Code.Scripts.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-            
-            barController.FillValue -= Settings.staminaMitigation * Time.deltaTime;
+
+            barController.GetBar(ColorSwitcher.QColour.Yellow).Use();
         }
     }
 }

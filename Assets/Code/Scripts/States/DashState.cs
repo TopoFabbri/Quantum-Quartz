@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Code.Scripts.Camera;
+using Code.Scripts.Colors;
 using Code.Scripts.FSM;
+using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -17,11 +19,11 @@ namespace Code.Scripts.States
         private DashSettings DashSettings => settings as DashSettings;
 
         public bool Ended { get; private set; }
-        public bool DashAvailable { get; private set; }
 
         private readonly Rigidbody2D rb;
         private readonly MonoBehaviour mb;
         private readonly Transform transform;
+        private readonly BarController barController;
 
         private readonly CameraController camController;
 
@@ -30,15 +32,17 @@ namespace Code.Scripts.States
         private bool interrupted;
 
         public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, Transform transform,
-            MonoBehaviour mb) : base(id,
+            MonoBehaviour mb, BarController barController) : base(id,
             settings)
         {
-            DashAvailable = true;
             this.rb = rb;
             this.mb = mb;
             this.transform = transform;
+            this.barController = barController;
 
             UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
+            
+            barController.AddBar(ColorSwitcher.QColour.Red, DashSettings.staminaRegenSpeed, DashSettings.staminaMitigationAmount);
         }
 
         public override void OnEnter()
@@ -64,8 +68,8 @@ namespace Code.Scripts.States
                 rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
             
             rb.gravityScale = gravScale;
-
-            mb.StartCoroutine(StartCoolDown());
+            
+            barController.GetBar(ColorSwitcher.QColour.Red).Use();
         }
 
         public override void OnFixedUpdate()
@@ -92,30 +96,10 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator EndDash()
         {
-            DashAvailable = false;
             Ended = false;
 
             yield return new WaitForSeconds(DashSettings.duration);
             Ended = true;
-        }
-
-        /// <summary>
-        /// Wait cooldown and reset
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator StartCoolDown()
-        {
-            yield return new WaitForSeconds(DashSettings.cooldown);
-
-            Reset();
-        }
-
-        /// <summary>
-        /// Reset dash
-        /// </summary>
-        public void Reset()
-        {
-            DashAvailable = true;
         }
 
         /// <summary>

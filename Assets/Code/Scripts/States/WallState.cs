@@ -63,7 +63,7 @@ namespace Code.Scripts.States
         /// <returns>True if touching a wall</returns>
         public bool CanEnterWall()
         {
-            if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green)
+            if (ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green)
                 return false;
 
             Vector2 pos = (Vector2)transform.position +

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Code.Scripts.Colors;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,16 +12,9 @@ namespace Code.Scripts.Player
     {
         [SerializeField] private Image fill;
         [SerializeField] private float strides = float.Epsilon;
-
-        public float FillValue
-        {
-            get => fillValue;
-            set => fillValue = Mathf.Clamp01(value);
-        }
-
-    public bool depleted;
-
-        private float fillValue = 1f;
+        [SerializeField] private GameObject barObject;
+        
+        private readonly Dictionary<ColorSwitcher.QColour, StaminaBar> barsByColors = new();
         
         private void Start()
         {
@@ -31,55 +25,57 @@ namespace Code.Scripts.Player
         {
             ColorSwitcher.ColorChanged -= SwitchColor;
         }
-        
+
         private void Update()
         {
-            if (FillValue <= 0f)
-                depleted = true;
-            else if (depleted && FillValue >= 1f)
-                depleted = false;
-            
-            SetVisibility(FillValue < 1f);
-            
-            fill.fillAmount = FillValue - FillValue % strides;
-        }
-        
-        /// <summary>
-        /// Set bar visibility
-        /// </summary>
-        /// <param name="visible"> Visibility value</param>
-        public void SetVisibility(bool visible)
-        {
-            if (depleted)
+            if (!barsByColors.TryGetValue(ColorSwitcher.Instance.CurrentColour, out StaminaBar staminaBar))
             {
-                gameObject.SetActive(true);
+                barObject.SetActive(false);
                 return;
             }
             
-            gameObject.SetActive(visible);
+            barObject.SetActive(!staminaBar.Full);
+            fill.fillAmount = staminaBar.FillValue - staminaBar.FillValue % strides;
+        }
+
+        private void LateUpdate()
+        {
+            foreach (KeyValuePair<ColorSwitcher.QColour, StaminaBar> barByColor in barsByColors)
+                barByColor.Value.LateUpdate();
         }
 
         /// <summary>
-        /// Reset bar value
+        /// Retrieves the stamina bar associated with the specified colour.
         /// </summary>
-        public void Reset()
+        /// <param name="colour">The colour of the stamina bar to retrieve</param>
+        /// <returns>The StaminaBar instance associated with the specified colour, or null if not found</returns>
+        public StaminaBar GetBar(ColorSwitcher.QColour colour)
         {
-            FillValue = 1f;
+            return barsByColors.GetValueOrDefault(colour);
         }
-
+        
         /// <summary>
-        /// Change bar color and reset
+        /// Adds a new stamina bar for a specific colour to the controller.
         /// </summary>
-        /// <param name="color"></param>
-        private void SwitchColor(ColorSwitcher.QColor color)
+        /// <param name="colour">The colour associated with the stamina bar</param>
+        /// <param name="regenSpeed">The regeneration speed of the stamina bar</param>
+        /// <param name="depleteSpeed">The depletion speed of the stamina bar</param>
+        public void AddBar(ColorSwitcher.QColour colour, float regenSpeed, float depleteSpeed)
         {
-            Reset();
-            SetVisibility(false);
-
-            fill.color = color switch
+            barsByColors.Add(colour, new StaminaBar(regenSpeed, depleteSpeed));
+        }
+        
+        /// <summary>
+        /// Change bar colour and reset
+        /// </summary>
+        /// <param name="colour"></param>
+        private void SwitchColor(ColorSwitcher.QColour colour)
+        {
+            fill.color = colour switch
             {
-                ColorSwitcher.QColor.Green => Color.green,
-                ColorSwitcher.QColor.Yellow => Color.yellow,
+                ColorSwitcher.QColour.Green => Color.green,
+                ColorSwitcher.QColour.Yellow => Color.yellow,
+                ColorSwitcher.QColour.Red => Color.red,
                 _ => fill.color
             };
         }

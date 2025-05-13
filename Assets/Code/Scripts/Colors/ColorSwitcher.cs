@@ -15,7 +15,7 @@ namespace Code.Scripts.Colors
         [SerializeField] private bool green;
         [SerializeField] private bool yellow;
 
-        public enum QColor
+        public enum QColour
         {
             None,
             Red,
@@ -24,13 +24,13 @@ namespace Code.Scripts.Colors
             Yellow
         }
 
-        public QColor CurrentColor { get; private set; }
+        public QColour CurrentColour { get; private set; }
 
-        public static event Action<QColor> ColorChanged;
+        public static event Action<QColour> ColorChanged;
 
         private void Start()
         {
-            SetColor(QColor.None);
+            SetColor(QColour.None);
         }
 
         private void OnEnable()
@@ -55,7 +55,7 @@ namespace Code.Scripts.Colors
         private void OnColor1()
         {
             if (red)
-                SetColor(CurrentColor == QColor.Red ? QColor.None : QColor.Red);
+                SetColor(CurrentColour == QColour.Red ? QColour.None : QColour.Red);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -66,7 +66,7 @@ namespace Code.Scripts.Colors
         private void OnColor2()
         {
             if (blue)
-                SetColor(CurrentColor == QColor.Blue ? QColor.None : QColor.Blue);
+                SetColor(CurrentColour == QColour.Blue ? QColour.None : QColour.Blue);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -77,7 +77,7 @@ namespace Code.Scripts.Colors
         private void OnColor3()
         {
             if (green)
-                SetColor(CurrentColor == QColor.Green ? QColor.None : QColor.Green);
+                SetColor(CurrentColour == QColour.Green ? QColour.None : QColour.Green);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -88,7 +88,7 @@ namespace Code.Scripts.Colors
         private void OnColor4()
         {
             if (yellow)
-                SetColor(CurrentColor == QColor.Yellow ? QColor.None : QColor.Yellow);
+                SetColor(CurrentColour == QColour.Yellow ? QColour.None : QColour.Yellow);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -96,14 +96,14 @@ namespace Code.Scripts.Colors
         /// <summary>
         /// Change to new color
         /// </summary>
-        /// <param name="color"></param>
-        private void SetColor(QColor color)
+        /// <param name="colour"></param>
+        private void SetColor(QColour colour)
         {
-            ColorChanged?.Invoke(color);
+            ColorChanged?.Invoke(colour);
 
-            CurrentColor = color;
+            CurrentColour = colour;
             
-            SfxController.ChangeToCrystal(gameObject, color);
+            SfxController.ChangeToCrystal(gameObject, colour);
         }
     }
 }

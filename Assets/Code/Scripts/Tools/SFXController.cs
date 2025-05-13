@@ -41,18 +41,18 @@ namespace Code.Scripts.Tools
         /// Call change crystal sound event
         /// </summary>
         /// <param name="gameObject">Game Object</param>
-        /// <param name="color">New color</param>
+        /// <param name="colour">New color</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void ChangeToCrystal(GameObject gameObject, ColorSwitcher.QColor color)
+        public static void ChangeToCrystal(GameObject gameObject, ColorSwitcher.QColour colour)
         {
-            string colorEvent = color switch
+            string colorEvent = colour switch
             {
-                ColorSwitcher.QColor.None => "",
-                ColorSwitcher.QColor.Red => RedEvent,
-                ColorSwitcher.QColor.Blue => BlueEvent,
-                ColorSwitcher.QColor.Green => GreenEvent,
-                ColorSwitcher.QColor.Yellow => YellowEvent,
-                _ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+                ColorSwitcher.QColour.None => "",
+                ColorSwitcher.QColour.Red => RedEvent,
+                ColorSwitcher.QColour.Blue => BlueEvent,
+                ColorSwitcher.QColour.Green => GreenEvent,
+                ColorSwitcher.QColour.Yellow => YellowEvent,
+                _ => throw new ArgumentOutOfRangeException(nameof(colour), colour, null)
             };
 
             if (!string.IsNullOrEmpty(colorEvent))

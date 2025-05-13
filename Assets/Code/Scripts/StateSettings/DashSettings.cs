@@ -12,6 +12,8 @@ namespace Code.Scripts.StateSettings
         public float cooldown = 3f;
         public float shakeDur = 0.1f;
         public float shakeMag = 0.1f;
+        public float staminaRegenSpeed = .35f;
+        public float staminaMitigationAmount = 100f;
         
         [Header("Wall Check:")]
         public float wallCheckDis;

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using Code.Scripts.Colors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scripts.Platforms
 {
     public class ColorObjectController : MonoBehaviour
     {
-        [SerializeField] private ColorSwitcher.QColor qColor;
+        [FormerlySerializedAs("qColor")] [SerializeField] private ColorSwitcher.QColour qColour;
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
         [SerializeField] private List<Behaviour> objectsToToggle = new();
         
         private void Start()
         {
-            ToggleColor(ColorSwitcher.QColor.None);
+            ToggleColor(ColorSwitcher.QColour.None);
         }
 
         private void OnEnable()
@@ -29,10 +30,10 @@ namespace Code.Scripts.Platforms
         /// <summary>
         /// Toggle object on and off depending on color
         /// </summary>
-        /// <param name="color">New world color</param>
-        private void ToggleColor(ColorSwitcher.QColor color)
+        /// <param name="colour">New world color</param>
+        private void ToggleColor(ColorSwitcher.QColour colour)
         {
-            if (color == qColor || qColor == ColorSwitcher.QColor.None)
+            if (colour == qColour || qColour == ColorSwitcher.QColour.None)
                 Activate();
             else
                 Deactivate();

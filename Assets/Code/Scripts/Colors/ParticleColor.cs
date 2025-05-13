@@ -32,9 +32,9 @@ namespace Code.Scripts.Colors
             ColorSwitcher.ColorChanged -= OnColorSwitch;
         }
 
-        private void OnColorSwitch(ColorSwitcher.QColor color)
+        private void OnColorSwitch(ColorSwitcher.QColour colour)
         {
-            mainPs.startColor = colors[(int) color];
+            mainPs.startColor = colors[(int) colour];
         }
     }
 }
