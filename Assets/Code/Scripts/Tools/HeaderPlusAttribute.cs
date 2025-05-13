@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using System.Reflection;
 #endif
 
 namespace Code.Scripts.Tools
@@ -13,6 +13,13 @@ namespace Code.Scripts.Tools
     public class HeaderPlusAttribute : CustomAttribute
     {
         public readonly string header;
+
+        public HeaderPlusAttribute(string header)
+        {
+            this.header = header;
+        }
+
+#if UNITY_EDITOR
         static GUIStyle _style;
         static GUIStyle Style
         {
@@ -26,19 +33,12 @@ namespace Code.Scripts.Tools
             }
         }
 
-        public HeaderPlusAttribute(string header)
+        public override void Draw(MemberInfo target, object obj)
         {
-            this.header = header;
-            this.order = -1;
-        }
-
-#if UNITY_EDITOR
-        public override AttributeProcessing? Draw(MemberInfo target, object obj)
-        {
-            if (target is FieldInfo) return AttributeProcessing.Normal;
+            if (target is FieldInfo) return;
 
             DrawHeader();
-            return AttributeProcessing.Normal;
+            return;
         }
 
         public void DrawHeader()
