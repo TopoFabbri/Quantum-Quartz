@@ -11,10 +11,7 @@ namespace Code.Scripts.Tools
         readonly HeaderPlusAttribute title;
         public bool DoIndent => title != null;
 
-        public ExpandAttribute()
-        {
-            order = int.MaxValue;
-        }
+        public ExpandAttribute() {}
 
         public ExpandAttribute(string title)
         {
