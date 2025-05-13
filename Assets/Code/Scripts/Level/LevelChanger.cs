@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Code.Scripts.Game;
 using Code.Scripts.Tools;
+using Eflatun.SceneReference;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ namespace Code.Scripts.Level
 {
     public class LevelChanger : MonoBehaviourSingleton<LevelChanger>
     {
-        [SerializeField] private string[] levelScenes;
+        [SerializeField] private SceneReference nextScene;
         [SerializeField] private int currentLevel;
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
@@ -58,13 +59,9 @@ namespace Code.Scripts.Level
 
         public void LoadNextLevel()
         {
-            if (currentLevel < levelScenes.Length - 1)
+            if (nextScene.State == SceneReferenceState.Regular)
             {
-                SceneManager.LoadScene(levelScenes[currentLevel + 1]);
-            }
-            else
-            {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(nextScene.Path);
             }
         }
     }
