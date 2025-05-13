@@ -429,8 +429,8 @@ namespace Code.Scripts.Player
             fsm.AddTransition(edgeState, springState, () => springState.IsActivated);
 
             fsm.AddTransition(springState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(springState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(springState, moveState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(springState, idleState, () => moveState.IsGrounded() && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(springState, moveState, () => moveState.IsGrounded() && rb.velocity.y <= 0f && touchingFloor);
             fsm.AddTransition(springState, dashState, () => dashPressed);
             fsm.AddTransition(springState, djmpState, () => djmpPressed);
             fsm.AddTransition(springState, dethState, () => died);

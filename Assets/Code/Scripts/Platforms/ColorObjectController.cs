@@ -1,4 +1,5 @@
-﻿using Code.Scripts.Colors;
+﻿using System.Collections.Generic;
+using Code.Scripts.Colors;
 using UnityEngine;
 
 namespace Code.Scripts.Platforms
@@ -8,7 +9,8 @@ namespace Code.Scripts.Platforms
         [SerializeField] private ColorSwitcher.QColor qColor;
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
-
+        [SerializeField] private List<Behaviour> objectsToToggle = new();
+        
         private void Start()
         {
             ToggleColor(ColorSwitcher.QColor.None);
@@ -50,6 +52,16 @@ namespace Code.Scripts.Platforms
         private void Deactivate()
         {
             animator.SetBool(animatorOnParameterName, false);
+        }
+
+        /// <summary>
+        /// Toggles the enabled state of all MonoBehaviour components in the objectsToToggle list.
+        /// Each object's enabled state is switched to its opposite value (enabled becomes disabled and vice versa).
+        /// </summary>
+        public void ToggleObjects()
+        {
+            foreach (Behaviour component in objectsToToggle)
+                component.enabled = !component.enabled;
         }
     }
 }
