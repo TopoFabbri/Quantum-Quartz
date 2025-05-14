@@ -55,7 +55,7 @@ namespace Code.Scripts.Colors
         private void OnColor1()
         {
             if (red)
-                SetColor(CurrentColour == QColour.Red ? QColour.None : QColour.Red);
+                SetColor(QColour.Red);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -66,7 +66,7 @@ namespace Code.Scripts.Colors
         private void OnColor2()
         {
             if (blue)
-                SetColor(CurrentColour == QColour.Blue ? QColour.None : QColour.Blue);
+                SetColor(QColour.Blue);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -77,7 +77,7 @@ namespace Code.Scripts.Colors
         private void OnColor3()
         {
             if (green)
-                SetColor(CurrentColour == QColour.Green ? QColour.None : QColour.Green);
+                SetColor(QColour.Green);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
@@ -88,7 +88,7 @@ namespace Code.Scripts.Colors
         private void OnColor4()
         {
             if (yellow)
-                SetColor(CurrentColour == QColour.Yellow ? QColour.None : QColour.Yellow);
+                SetColor(QColour.Yellow);
             else
                 SfxController.BlockedCrystal(gameObject);
         }
