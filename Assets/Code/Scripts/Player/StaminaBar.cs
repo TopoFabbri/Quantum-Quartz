@@ -14,13 +14,15 @@ namespace Code.Scripts.Player
 
         private readonly float regenSpeed;
         private readonly float depleteSpeed;
+        private readonly float initCut;
 
         private readonly List<Func<bool>> noRegenConditions = new();
 
-        public StaminaBar(float regenSpeed, float depleteSpeed)
+        public StaminaBar(float regenSpeed, float depleteSpeed, float initCut)
         {
             this.regenSpeed = regenSpeed;
             this.depleteSpeed = depleteSpeed;
+            this.initCut = initCut;
             
             FillValue = 1f;
             AddNoRegenCondition(() => used);
@@ -34,23 +36,26 @@ namespace Code.Scripts.Player
             used = false;
         }
         
-        public bool Use()
+        public void Use()
         {
-            if (Depleted) return false;
-            
+            if (Depleted) return;
+
             FillValue -= depleteSpeed * Time.deltaTime;
             
             if (FillValue <= 0f)
             {
                 Depleted = true;
                 FillValue = 0f;
-                return false;
+                return;
             }
             
             Depleted = false;
             used = true;
-            
-            return true;
+        }
+        
+        public void FirstUseCut()
+        {
+            FillValue -= initCut * depleteSpeed;
         }
         
         public void AddNoRegenCondition(Func<bool> noRegenCondition)

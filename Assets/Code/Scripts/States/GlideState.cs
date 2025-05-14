@@ -16,7 +16,7 @@ namespace Code.Scripts.States
         {
             this.barController = barController;
             
-            barController.AddBar(ColorSwitcher.QColour.Yellow, Settings.regenSpeed, Settings.staminaMitigation);
+            barController.AddBar(ColorSwitcher.QColour.Yellow, Settings.regenSpeed, Settings.staminaMitigation, Settings.initStaminaCut);
         }
 
         public override void OnEnter()
@@ -26,6 +26,8 @@ namespace Code.Scripts.States
             prevGravScale = rb.gravityScale;
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
+            
+            barController.GetBar(ColorSwitcher.QColour.Yellow).FirstUseCut();
         }
 
         public override void OnExit()

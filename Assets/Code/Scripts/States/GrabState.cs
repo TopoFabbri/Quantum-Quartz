@@ -19,7 +19,7 @@ namespace Code.Scripts.States
         {
             this.barController = barController;
             
-            barController.AddBar(ColorSwitcher.QColour.Green, GrabSettings.staminaRegenSpeed, GrabSettings.staminaMitigation);
+            barController.AddBar(ColorSwitcher.QColour.Green, GrabSettings.staminaRegenSpeed, GrabSettings.staminaMitigation, GrabSettings.initStaminaCut);
         }
 
         public override void OnEnter()

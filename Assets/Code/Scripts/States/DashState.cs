@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using System.Threading.Tasks;
 using Code.Scripts.Camera;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
@@ -42,7 +41,7 @@ namespace Code.Scripts.States
 
             UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
             
-            barController.AddBar(ColorSwitcher.QColour.Red, DashSettings.staminaRegenSpeed, DashSettings.staminaMitigationAmount);
+            barController.AddBar(ColorSwitcher.QColour.Red, DashSettings.staminaRegenSpeed, DashSettings.staminaMitigationAmount, 0f);
         }
 
         public override void OnEnter()

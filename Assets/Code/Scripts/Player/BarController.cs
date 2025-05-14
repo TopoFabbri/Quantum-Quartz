@@ -60,9 +60,9 @@ namespace Code.Scripts.Player
         /// <param name="colour">The colour associated with the stamina bar</param>
         /// <param name="regenSpeed">The regeneration speed of the stamina bar</param>
         /// <param name="depleteSpeed">The depletion speed of the stamina bar</param>
-        public void AddBar(ColorSwitcher.QColour colour, float regenSpeed, float depleteSpeed)
+        public void AddBar(ColorSwitcher.QColour colour, float regenSpeed, float depleteSpeed, float initCut)
         {
-            barsByColors.Add(colour, new StaminaBar(regenSpeed, depleteSpeed));
+            barsByColors.Add(colour, new StaminaBar(regenSpeed, depleteSpeed, initCut));
         }
         
         /// <summary>
