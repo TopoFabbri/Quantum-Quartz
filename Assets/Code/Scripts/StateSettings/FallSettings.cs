@@ -7,6 +7,7 @@ namespace Code.Scripts.StateSettings
     {
         [Header("Fall")]
         public float coyoteTime = 0.1f;
+        public float maxFallSpeed = 10f;
         public string fallSoundName = "Play_Lab_Landing";
     }
 }

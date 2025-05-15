@@ -39,6 +39,9 @@ namespace Code.Scripts.States
             base.OnUpdate();
 
             rb.velocity = new Vector2(0f, rb.velocity.y);
+            
+            if (Mathf.Abs(rb.velocity.y) > FallSettings.maxFallSpeed)
+                rb.velocity = new Vector2(rb.velocity.x, -FallSettings.maxFallSpeed);
         }
 
         public void StartCoyoteTime()
