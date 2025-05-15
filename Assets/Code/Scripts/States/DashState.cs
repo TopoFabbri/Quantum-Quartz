@@ -15,7 +15,7 @@ namespace Code.Scripts.States
     /// <typeparam name="T">Id</typeparam>
     public class DashState<T> : BaseState<T>
     {
-        private DashSettings DashSettings => settings as DashSettings;
+        protected readonly DashSettings dashSettings;
 
         public bool Ended { get; private set; }
 
@@ -30,10 +30,9 @@ namespace Code.Scripts.States
         private float gravScale;
         private bool interrupted;
 
-        public DashState(T id, StateSettings.StateSettings settings, Rigidbody2D rb, Transform transform,
-            MonoBehaviour mb, BarController barController) : base(id,
-            settings)
+        public DashState(T id, DashSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, BarController barController) : base(id)
         {
+            this.dashSettings = stateSettings;
             this.rb = rb;
             this.mb = mb;
             this.transform = transform;
@@ -41,7 +40,7 @@ namespace Code.Scripts.States
 
             UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
             
-            barController.AddBar(ColorSwitcher.QColour.Red, DashSettings.staminaRegenSpeed, DashSettings.staminaMitigationAmount, 0f);
+            barController.AddBar(ColorSwitcher.QColour.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
         }
 
         public override void OnEnter()
@@ -54,7 +53,7 @@ namespace Code.Scripts.States
             rb.velocity = Vector2.zero;
 
             if (camController)
-                camController.Shake(DashSettings.shakeDur, DashSettings.shakeMag);
+                camController.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
             mb.StartCoroutine(EndDash());
         }
@@ -84,7 +83,7 @@ namespace Code.Scripts.States
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     transform.position + Vector3.right * (facingRight ? 1 : -1),
-                    DashSettings.speed * Time.fixedDeltaTime
+                    dashSettings.speed * Time.fixedDeltaTime
                 );
             }
         }
@@ -97,7 +96,7 @@ namespace Code.Scripts.States
         {
             Ended = false;
 
-            yield return new WaitForSeconds(DashSettings.duration);
+            yield return new WaitForSeconds(dashSettings.duration);
             Ended = true;
         }
 
@@ -111,14 +110,13 @@ namespace Code.Scripts.States
 
         private bool WallCheck()
         {
-            Vector2 pos = (Vector2)rb.gameObject.transform.position +
-                          Vector2.right * (DashSettings.wallCheckDis * (facingRight ? 1 : -1));
+            Vector2 pos = (Vector2)rb.gameObject.transform.position + Vector2.right * (dashSettings.wallCheckDis * (facingRight ? 1 : -1));
 
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, DashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, dashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
             foreach (Collider2D collider in colliders)
             {
-                if (DashSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
+                if (dashSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
                     return true;
             }
 

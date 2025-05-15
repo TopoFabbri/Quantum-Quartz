@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Code.Scripts.Tools;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Scripts.StateSettings
@@ -6,7 +7,7 @@ namespace Code.Scripts.StateSettings
     [CreateAssetMenu(menuName = "StateSettings/DashSettings", fileName = "DashSettings", order = 0)]
     public class DashSettings : StateSettings
     {
-        [Header("Dash:")]
+        [HeaderPlus("Dash Settings")]
         public float speed = 10f;
         public float duration = 0.5f;
         public float cooldown = 3f;
@@ -15,7 +16,7 @@ namespace Code.Scripts.StateSettings
         public float staminaRegenSpeed = .35f;
         public float staminaMitigationAmount = 100f;
         
-        [Header("Wall Check:")]
+        [HeaderPlus("Dash Wall Check")]
         public float wallCheckDis;
         public Vector2 wallCheckSize;
         public List<string> tags;

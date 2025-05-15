@@ -5,8 +5,6 @@ namespace Code.Scripts.FSM
 {
     public abstract class BaseState<T> : IState
     {
-        protected StateSettings.StateSettings settings;
-        
         public event Action onEnter;
         public event Action onExit;
         
@@ -15,11 +13,6 @@ namespace Code.Scripts.FSM
         protected BaseState(T id)
         {
             ID = id;
-        }
-        
-        protected BaseState(T id, StateSettings.StateSettings settings) : this(id)
-        {
-            this.settings = settings;
         }
 
         public virtual void OnEnter()

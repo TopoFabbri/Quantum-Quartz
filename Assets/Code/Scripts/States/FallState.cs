@@ -11,17 +11,15 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class FallState<T> : MoveState<T>
     {
-        private FallSettings FallSettings => settings as FallSettings;
+        protected readonly FallSettings fallSettings;
 
         protected readonly MonoBehaviour mb;
         private readonly PlayerSfx playerSfx;
         public bool CanCoyoteJump { get; private set; }
 
-        public FallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb,
-            transform)
+        public FallState(T id, FallSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings.moveSettings, rb, transform)
         {
-            settings = stateSettings;
-
+            this.fallSettings = stateSettings;
             this.mb = mb;
             this.playerSfx = playerSfx;
         }
@@ -40,8 +38,8 @@ namespace Code.Scripts.States
 
             rb.velocity = new Vector2(0f, rb.velocity.y);
             
-            if (Mathf.Abs(rb.velocity.y) > FallSettings.maxFallSpeed)
-                rb.velocity = new Vector2(rb.velocity.x, -FallSettings.maxFallSpeed);
+            if (Mathf.Abs(rb.velocity.y) > fallSettings.maxFallSpeed)
+                rb.velocity = new Vector2(rb.velocity.x, -fallSettings.maxFallSpeed);
         }
 
         public void StartCoyoteTime()
@@ -52,7 +50,7 @@ namespace Code.Scripts.States
 
         private IEnumerator StopCoyoteTime()
         {
-            yield return new WaitForSeconds(FallSettings.coyoteTime);
+            yield return new WaitForSeconds(fallSettings.coyoteTime);
             CanCoyoteJump = false;
         }
     }

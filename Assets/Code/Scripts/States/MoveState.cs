@@ -21,11 +21,9 @@ namespace Code.Scripts.States
         public float Input { get; protected set; }
         public float Speed => _speed;
 
-        public MoveState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings)
+        public MoveState(T id, MoveSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id)
         {
-            settings = stateSettings;
-            moveSettings = settings as MoveSettings;
-            
+            this.moveSettings = stateSettings;
             this.rb = rb;
             this.transform = transform;
         }

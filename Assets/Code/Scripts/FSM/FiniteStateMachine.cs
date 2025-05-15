@@ -19,8 +19,14 @@ namespace Code.Scripts.FSM
 
         private bool initialized;
         private bool interrupted;
+        private readonly int maxResolveDepth;
 
         public event Action<T> StateChanged;
+
+        public FiniteStateMachine(int maxResolveDepth = 1)
+        {
+            this.maxResolveDepth = maxResolveDepth;
+        }
 
         public void Init()
         {
@@ -30,10 +36,16 @@ namespace Code.Scripts.FSM
 
         public void Update()
         {
-            Transition<T> transition = GetTransition();
+            Transition<T> transition = null;
+            for (int resolveDepth = 0; resolveDepth < maxResolveDepth; resolveDepth++)
+            {
+                transition = GetTransition();
 
-            if (transition != null)
+                if (transition == null)
+                    break;
+
                 SetCurrentState(transition.To);
+            }
 
             if (initialized)
             {

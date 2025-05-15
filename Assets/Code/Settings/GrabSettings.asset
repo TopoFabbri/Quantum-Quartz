@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafc09365d3948d791d029d55df9fec0, type: 3}
-  m_Name: WallJumpSettings
+  m_Script: {fileID: 11500000, guid: 8ea8aa31d0c7459ca0b70196595101cd, type: 3}
+  m_Name: GrabSettings
   m_EditorClassIdentifier: 
   accel: 100
   maxSpeed: 9
@@ -23,13 +23,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   shouldDraw: 0
-  wallCheckDis: 0.3
+  wallCheckDis: 0.4
   wallCheckSize: {x: 0.2, y: 0.9}
-  tags:
-  - Wall
-  - Floor
-  jumpForce: 22
-  bufferTime: 0.12
+  tags: []
+  moveSettings: {fileID: 0}
+  coyoteTime: 0.05
+  maxFallSpeed: 0
+  fallSoundName: Play_Lab_Landing
+  fallSettings: {fileID: 0}
+  gravMultiplier: 0
+  upwardsGravMultiplier: 0
+  wallDis: 0.3
+  dustDelay: 0.15
+  dustOffset: 0.4
+  dustQty: 1
   dust: {fileID: 6527389880770261295, guid: 67b8ddbb0cb540a42b4bcc28bea8fa8b, type: 3}
-  noInputTime: 0.3
-  wallJumpForce: 8
+  wallSettings: {fileID: 11400000, guid: 985673281b05e264abf2a82787c29b8c, type: 2}
+  staminaMitigation: 0.2
+  initStaminaCut: 0.5
+  staminaRegenSpeed: 1.5

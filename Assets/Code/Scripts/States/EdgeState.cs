@@ -11,13 +11,14 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class EdgeState<T> : BaseState<T>
     {
+        protected readonly EdgeSettings edgeSettings;
+
         private readonly Transform transform;
         private readonly FsmAnimationController animator;
         
-        private EdgeSettings EdgeSettings => settings as EdgeSettings;
-        
-        public EdgeState(T id, StateSettings.StateSettings settings, Transform transform, FsmAnimationController animator) : base(id, settings)
+        public EdgeState(T id, EdgeSettings stateSettings, Transform transform, FsmAnimationController animator) : base(id)
         {
+            this.edgeSettings = stateSettings;
             this.transform = transform;
             this.animator = animator;
         }
@@ -33,15 +34,17 @@ namespace Code.Scripts.States
         /// <returns>True if player has an edge to the right</returns>
         private bool GetRightEdge()
         {
-            Vector2 startPosition = (Vector2)transform.position + EdgeSettings.edgeCheckOffset + Vector2.right * EdgeSettings.edgeCheckDis;
-            RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, EdgeSettings.edgeCheckLength, EdgeSettings.edgeLayer);
+            Vector2 startPosition = (Vector2)transform.position + edgeSettings.edgeCheckOffset + Vector2.right * edgeSettings.edgeCheckDis;
+            RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, edgeSettings.edgeCheckLength, edgeSettings.edgeLayer);
             
-            if (EdgeSettings.shouldDraw)
-                Debug.DrawLine(startPosition, startPosition + Vector2.down * EdgeSettings.edgeCheckLength, edge.transform ? Color.green : Color.red);
+            if (edgeSettings.shouldDraw)
+                Debug.DrawLine(startPosition, startPosition + Vector2.down * edgeSettings.edgeCheckLength, edge.transform ? Color.green : Color.red);
 
-            if (!edge) return false;
+            if (!edge)
+                return false;
             
-            if (!edge.transform.CompareTag("Floor") && !edge.transform.CompareTag("Platform")) return false;
+            if (!edge.transform.CompareTag("Floor") && !edge.transform.CompareTag("Platform"))
+                return false;
             
             animator.SetEdgeSide(true);
             return true;
@@ -53,15 +56,17 @@ namespace Code.Scripts.States
         /// <returns>True if player has an edge to the left</returns>
         private bool GetLeftEdge()
         {
-            Vector2 startPosition = (Vector2)transform.position + EdgeSettings.edgeCheckOffset + Vector2.left * EdgeSettings.edgeCheckDis;
-            RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, EdgeSettings.edgeCheckLength, EdgeSettings.edgeLayer);
+            Vector2 startPosition = (Vector2)transform.position + edgeSettings.edgeCheckOffset + Vector2.left * edgeSettings.edgeCheckDis;
+            RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, edgeSettings.edgeCheckLength, edgeSettings.edgeLayer);
             
-            if (EdgeSettings.shouldDraw)
-                Debug.DrawLine(startPosition, startPosition + Vector2.down * EdgeSettings.edgeCheckLength, edge.transform ? Color.green : Color.red);
+            if (edgeSettings.shouldDraw)
+                Debug.DrawLine(startPosition, startPosition + Vector2.down * edgeSettings.edgeCheckLength, edge.transform ? Color.green : Color.red);
 
-            if (!edge) return false;
+            if (!edge)
+                return false;
             
-            if (!edge.transform.CompareTag("Floor") && !edge.transform.CompareTag("Platform")) return false;
+            if (!edge.transform.CompareTag("Floor") && !edge.transform.CompareTag("Platform"))
+                return false;
             
             animator.SetEdgeSide(false);
             return true;

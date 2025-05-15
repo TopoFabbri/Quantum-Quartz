@@ -9,32 +9,32 @@ namespace Code.Scripts.States
 {
     public class WallState<T> : FallState<T>
     {
-        private WallSettings WallSettings => settings as WallSettings;
+        protected readonly WallSettings wallSettings;
 
         private float savedGravityScale;
-        private RaycastHit2D wallContact;
         
         public bool FacingRight { get; set; }
 
-        public WallState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform,
-            MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings, rb, transform, mb, playerSfx)
+        public WallState(T id, WallSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx) : base(id, stateSettings.fallSettings, rb, transform, mb, playerSfx)
         {
+            wallSettings = stateSettings;
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
 
-            rb.gravityScale = rb.velocity.y < 0 ? WallSettings.gravMultiplier : WallSettings.upwardsGravMultiplier;
+            rb.gravityScale = rb.velocity.y < 0 ? wallSettings.gravMultiplier : wallSettings.upwardsGravMultiplier;
         }
 
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
 
-            rb.velocity = new Vector2(rb.velocity.x,
-                Mathf.Clamp(rb.velocity.y, -WallSettings.maxFallSpeed * Time.fixedDeltaTime,
-                    WallSettings.maxFallSpeed * Time.fixedDeltaTime));
+            rb.velocity = new Vector2(
+                rb.velocity.x,
+                Mathf.Clamp(rb.velocity.y, -fallSettings.maxFallSpeed * Time.fixedDeltaTime, fallSettings.maxFallSpeed * Time.fixedDeltaTime)
+            );
         }
 
         public override void OnEnter()
@@ -66,20 +66,20 @@ namespace Code.Scripts.States
             if (ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green)
                 return false;
 
-            Vector2 pos = (Vector2)transform.position +
-                          Vector2.right * (FacingRight ? WallSettings.wallCheckDis : -WallSettings.wallCheckDis);
+            Vector2 pos = (Vector2)transform.position + Vector2.right * (FacingRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis);
 
-            Collider2D[] colliders =
-                Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
                     return true;
 
-                if (!collider.gameObject.CompareTag("Platform")) continue;
+                if (!collider.gameObject.CompareTag("Platform"))
+                    continue;
 
-                if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D)) continue;
+                if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
+                    continue;
                 
                 return true;
             }
@@ -94,7 +94,7 @@ namespace Code.Scripts.States
         public bool IsTouchingWall()
         {
             Vector2 pos = (Vector2)transform.position +
-                          Vector2.right * (FacingRight ? -WallSettings.wallCheckDis : WallSettings.wallCheckDis);
+                          Vector2.right * (FacingRight ? -moveSettings.wallCheckDis : moveSettings.wallCheckDis);
 
             Collider2D[] colliders =
                 Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
@@ -120,7 +120,7 @@ namespace Code.Scripts.States
         private void PositionPlayer()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position + (FacingRight ? Vector3.right : Vector3.left),
-                FacingRight ? Vector2.left : Vector2.right, WallSettings.wallCheckDis * 4f,
+                FacingRight ? Vector2.left : Vector2.right, moveSettings.wallCheckDis * 4f,
                 LayerMask.GetMask("Default"));
             
             if (!hit.collider || !hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
@@ -130,7 +130,7 @@ namespace Code.Scripts.States
                 objMovement.AddPlayer(transform);
             
             Vector3 newPos = transform.position;
-            newPos.x = hit.point.x + (FacingRight ? 1f : -1f) * WallSettings.wallDis;
+            newPos.x = hit.point.x + (FacingRight ? 1f : -1f) * wallSettings.wallDis;
 
             transform.position = newPos;
         }
@@ -141,10 +141,10 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator SpawnDusts()
         {
-            for (int i = 0; i < WallSettings.dustQty; i++)
+            for (int i = 0; i < wallSettings.dustQty; i++)
             {
                 SpawnDust();
-                yield return new WaitForSeconds(WallSettings.dustDelay);
+                yield return new WaitForSeconds(wallSettings.dustDelay);
             }
         }
 
@@ -154,18 +154,18 @@ namespace Code.Scripts.States
         private void SpawnDust()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position + (FacingRight ? Vector3.right : Vector3.left),
-                FacingRight ? Vector2.left : Vector2.right, WallSettings.wallDis,
+                FacingRight ? Vector2.left : Vector2.right, wallSettings.wallDis,
                 LayerMask.GetMask("Default"));
 
             if (!hit.collider)
                 return;
             
             Vector2 position = transform.position +
-                               (FacingRight ? Vector3.right : Vector3.left) * WallSettings.wallDis +
-                               Vector3.down * WallSettings.dustOffset;
+                               (FacingRight ? Vector3.right : Vector3.left) * wallSettings.wallDis +
+                               Vector3.down * wallSettings.dustOffset;
             Quaternion rotation = Quaternion.Euler(0f, 0f, FacingRight ? 90f : -90f);
 
-            Object.Instantiate(WallSettings.dust, position, rotation);
+            Object.Instantiate(wallSettings.dust, position, rotation);
         }
     }
 }
