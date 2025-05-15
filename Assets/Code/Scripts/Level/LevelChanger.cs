@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Code.Scripts.Game;
+using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using Eflatun.SceneReference;
 using UnityEngine;
@@ -18,8 +19,7 @@ namespace Code.Scripts.Level
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
         [SerializeField] private GameObject playerGO;
-        [SerializeField] private PlayerInput playerInput;
-        [SerializeField] private string uiMap = "UI";
+        [SerializeField] private InputManager inputManager;
 
         public int CurrentLevel => currentLevel;
 
@@ -49,12 +49,17 @@ namespace Code.Scripts.Level
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);
             endLevelFirstSelectedButton.Select();
-            playerInput.SwitchCurrentActionMap(uiMap);
+            inputManager.EnableUIMap();
         }
 
         public static void EndLevel()
         {
             LevelEnd?.Invoke();
+        }
+
+        public void ReloadLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
         }
 
         public void LoadNextLevel()

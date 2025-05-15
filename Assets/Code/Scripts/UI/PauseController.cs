@@ -20,9 +20,7 @@ namespace Code.Scripts.UI
         [SerializeField] private GameObject endLevelCanvas;
         [SerializeField] private GameObject optionsCanvas;
 
-        [SerializeField] private PlayerInput playerInput;
-        [SerializeField] private string defaultMap = "World";
-        [SerializeField] private string uiMap = "UI";
+        [SerializeField] private InputManager inputManager;
         [SerializeField] private string pauseEvent = "Set_State_Music_Pause";
         [SerializeField] private string unPauseEvent = "Set_State_Music_Ingame";
 
@@ -56,7 +54,7 @@ namespace Code.Scripts.UI
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
-                playerInput.SwitchCurrentActionMap(uiMap);
+                inputManager.EnableUIMap();
                 AkSoundEngine.PostEvent(pauseEvent, gameObject);
 
                 Time.timeScale = 0;
@@ -69,7 +67,7 @@ namespace Code.Scripts.UI
                 AkSoundEngine.PostEvent(unPauseEvent, gameObject);
                 GameManager.Instance.GetTimerText().gameObject.SetActive(true);
 
-                playerInput.SwitchCurrentActionMap(defaultMap);
+                inputManager.EnableGameMap();
             }
         }
 
