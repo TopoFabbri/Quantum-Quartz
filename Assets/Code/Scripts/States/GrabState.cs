@@ -11,15 +11,16 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class GrabState<T> : WallState<T>
     {
-        private GrabSettings GrabSettings => settings as GrabSettings;
+        protected readonly GrabSettings grabSettings;
         
         private readonly BarController barController;
         
-        public GrabState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings, rb, transform, mb, playerSfx)
+        public GrabState(T id, GrabSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings.wallSettings, rb, transform, mb, playerSfx)
         {
+            this.grabSettings = stateSettings;
             this.barController = barController;
             
-            barController.AddBar(ColorSwitcher.QColour.Green, GrabSettings.staminaRegenSpeed, GrabSettings.staminaMitigation, GrabSettings.initStaminaCut);
+            barController.AddBar(ColorSwitcher.QColour.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
         }
 
         public override void OnEnter()

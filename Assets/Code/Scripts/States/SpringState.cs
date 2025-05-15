@@ -5,18 +5,20 @@ namespace Code.Scripts.States
 {
     public class SpringState<T> : MoveState<T>
     {
-        protected SpringSettings SpringSettings => settings as SpringSettings;
+        protected readonly SpringSettings springSettings;
 
         public bool IsActivated { get; private set; }
 
-        public SpringState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform)
-            : base(id, stateSettings, rb, transform) {}
+        public SpringState(T id, SpringSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings.moveSettings, rb, transform)
+        {
+            this.springSettings = stateSettings;
+        }
 
         public override void OnEnter()
         {
             base.OnEnter();
             IsActivated = false;
-            rb.sharedMaterial.friction = SpringSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
         }
 
         public override void OnExit()

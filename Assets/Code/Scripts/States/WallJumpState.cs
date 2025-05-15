@@ -6,14 +6,15 @@ namespace Code.Scripts.States
 {
     public class WallJumpState<T> : JumpState<T>
     {
-        protected WjmpSettings WjmpSettings => settings as WjmpSettings;
+        protected readonly WjmpSettings wjmpSettings;
         
         public bool FacingRight { get; set; }
 
         private bool canMove;
         
-        public WallJumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb, Transform transform) : base(id, stateSettings, mb, rb, transform)
+        public WallJumpState(T id, WjmpSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings.jumpSettings, rb, transform, mb)
         {
+            this.wjmpSettings = stateSettings;
         }
 
         public override void OnEnter()
@@ -22,10 +23,10 @@ namespace Code.Scripts.States
             
             base.OnEnter();
             
-            rb.velocity = new Vector2(FacingRight ? WjmpSettings.wallJumpForce : -WjmpSettings.wallJumpForce, rb.velocity.y);
+            rb.velocity = new Vector2(FacingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce, rb.velocity.y);
             
             canMove = false;
-            mb.StartCoroutine(WaitAndReturnInput(WjmpSettings.noInputTime));
+            mb.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
         }
 
         public override void OnExit()
@@ -60,9 +61,9 @@ namespace Code.Scripts.States
             Vector2 position = transform.position;
             Vector2 direction = FacingRight ? Vector2.left : Vector2.right;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, direction, WjmpSettings.wallCheckDis, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, direction, moveSettings.wallCheckDis, LayerMask.GetMask("Default"));
             
-            Debug.DrawLine(position, position + direction * WjmpSettings.wallCheckDis, Color.red, 0.1f);
+            Debug.DrawLine(position, position + direction * moveSettings.wallCheckDis, Color.red, 0.1f);
             
             if (hit.collider == null)
                 return;
@@ -74,7 +75,7 @@ namespace Code.Scripts.States
             
             Quaternion rotation = Quaternion.Euler(0f, 0f, FacingRight ? -90f : 90f);
             
-            Object.Instantiate(WjmpSettings.dust, hit.point, rotation, parent);
+            Object.Instantiate(jumpSettings.dust, hit.point, rotation, parent);
         }
     }
 }

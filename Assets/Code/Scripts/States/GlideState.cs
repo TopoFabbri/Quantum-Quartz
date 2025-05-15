@@ -7,16 +7,17 @@ namespace Code.Scripts.States
 {
     public class GlideState<T> : FallState<T>
     {
-        protected GlideSettings Settings => settings as GlideSettings;
+        protected readonly GlideSettings glideSettings;
 
         private float prevGravScale;
         private readonly BarController barController;
         
-        public GlideState(T id, StateSettings.StateSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings, rb, transform, mb, playerSfx)
+        public GlideState(T id, GlideSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings.fallSettings, rb, transform, mb, playerSfx)
         {
+            this.glideSettings = stateSettings;
             this.barController = barController;
             
-            barController.AddBar(ColorSwitcher.QColour.Yellow, Settings.regenSpeed, Settings.staminaMitigation, Settings.initStaminaCut);
+            barController.AddBar(ColorSwitcher.QColour.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
         }
 
         public override void OnEnter()
@@ -42,7 +43,7 @@ namespace Code.Scripts.States
             base.OnFixedUpdate();
 
             Vector2 vector2 = rb.velocity;
-            vector2.y = -Settings.fallSpeed * Time.fixedDeltaTime;
+            vector2.y = -glideSettings.fallSpeed * Time.fixedDeltaTime;
             rb.velocity = vector2;
         }
 

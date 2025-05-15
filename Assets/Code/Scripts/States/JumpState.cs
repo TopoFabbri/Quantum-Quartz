@@ -10,17 +10,16 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class JumpState<T> : MoveState<T>
     {
-        protected JumpSettings JumpSettings => settings as JumpSettings;
-
+        protected readonly JumpSettings jumpSettings;
         protected readonly MonoBehaviour mb;
 
         public bool HasJumped { get; protected set; }
-        public float JumpForce => JumpSettings.jumpForce;
-        public float JumpBufferTime => JumpSettings.bufferTime;
+        public float JumpForce => jumpSettings.jumpForce;
+        public float JumpBufferTime => jumpSettings.bufferTime;
         
-        public JumpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
-            Transform transform) : base(id, stateSettings, rb, transform)
+        public JumpState(T id, JumpSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings.moveSettings, rb, transform)
         {
+            this.jumpSettings = stateSettings;
             this.mb = mb;
         }
 
@@ -30,7 +29,7 @@ namespace Code.Scripts.States
 
             mb.StartCoroutine(JumpOnFU());
 
-            rb.sharedMaterial.friction = JumpSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
             
             SpawnDust();
         }
@@ -60,7 +59,7 @@ namespace Code.Scripts.States
         {
             yield return new WaitForFixedUpdate();
 
-            rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
         /// <summary>
@@ -68,9 +67,9 @@ namespace Code.Scripts.States
         /// </summary>
         public virtual void SpawnDust()
         {
-            Vector2 position = (Vector2)transform.position + JumpSettings.groundCheckOffset;
+            Vector2 position = (Vector2)transform.position + moveSettings.groundCheckOffset;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, JumpSettings.groundCheckRadius, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, moveSettings.groundCheckRadius, LayerMask.GetMask("Default"));
             
             if (hit.collider == null)
                 return;
@@ -80,7 +79,7 @@ namespace Code.Scripts.States
             
             Transform parent = hit.collider.transform;
             
-            Object.Instantiate(JumpSettings.dust, hit.point, Quaternion.identity, parent);
+            Object.Instantiate(jumpSettings.dust, hit.point, Quaternion.identity, parent);
         }
     }
 }

@@ -11,15 +11,16 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class DjmpState<T> : JumpState<T>
     {
-        private DjmpSettings DjmpSettings => settings as DjmpSettings;
+        protected readonly DjmpSettings djmpSettings;
         
         public bool JumpAvailable { get; private set; }
 
         private readonly CameraController camController;
         
-        public DjmpState(T id, StateSettings.StateSettings stateSettings, MonoBehaviour mb, Rigidbody2D rb,
-            Transform transform) : base(id, stateSettings, mb, rb, transform)
+        public DjmpState(T id, DjmpSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings.jumpSettings, rb, transform, mb)
         {
+            this.djmpSettings = stateSettings;
+
             UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
                     
             Reset();
@@ -32,7 +33,7 @@ namespace Code.Scripts.States
             rb.velocity = Vector2.zero;
             
             if (camController)
-                camController.Shake(DjmpSettings.shakeDur, DjmpSettings.shakeMag);
+                camController.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
         }
 
         public override void OnExit()
@@ -54,7 +55,7 @@ namespace Code.Scripts.States
         {
             yield return new WaitForFixedUpdate();
             
-            rb.AddForce(JumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
             JumpAvailable = false;
         }
         

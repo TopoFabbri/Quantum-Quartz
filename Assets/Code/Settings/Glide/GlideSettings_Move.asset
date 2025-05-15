@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea8aa31d0c7459ca0b70196595101cd, type: 3}
-  m_Name: GrabSettings
+  m_Script: {fileID: 11500000, guid: fbf7eb99daea49ecb08a92d9d123b7e5, type: 3}
+  m_Name: GlideSettings_Move
   m_EditorClassIdentifier: 
-  accel: 100
+  accel: 130
   maxSpeed: 9
   minSpeed: 0.5
   groundFriction: 20
@@ -22,16 +22,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  shouldDraw: 0
   wallCheckDis: 0.4
   wallCheckSize: {x: 0.2, y: 0.9}
-  coyoteTime: 0.05
-  fallSoundName: Play_Lab_Landing
-  gravMultiplier: 0
-  upwardsGravMultiplier: 0
-  wallDis: 0.3
-  maxFallSpeed: 0
-  dustDelay: 0.15
-  dustOffset: 0.4
-  dustQty: 1
-  dust: {fileID: 6527389880770261295, guid: 67b8ddbb0cb540a42b4bcc28bea8fa8b, type: 3}
-  staminaMitigation: 0.2
+  tags:
+  - Wall
+  - Floor

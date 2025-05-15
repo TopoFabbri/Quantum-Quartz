@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e1f6da8a51488fad487a8ed31a7b75, type: 3}
-  m_Name: GlideSettings
+  m_Script: {fileID: 11500000, guid: 1c1a25d21622415abe0043c9827d0308, type: 3}
+  m_Name: FallSettings
   m_EditorClassIdentifier: 
-  accel: 130
+  accel: 100
   maxSpeed: 9
   minSpeed: 0.5
   groundFriction: 20
@@ -23,12 +23,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   shouldDraw: 0
-  wallCheckDis: 0.4
+  wallCheckDis: 0.3
   wallCheckSize: {x: 0.2, y: 0.9}
-  tags: []
+  tags:
+  - Wall
+  - Floor
+  moveSettings: {fileID: 11400000, guid: c46327f8512b0214d8f1b824ca1ffb78, type: 2}
   coyoteTime: 0.05
+  maxFallSpeed: 10
   fallSoundName: Play_Lab_Landing
-  fallSpeed: 130
-  staminaMitigation: 0.2
-  initStaminaCut: 0.7
-  regenSpeed: 1.5

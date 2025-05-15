@@ -11,7 +11,7 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class SpawnState<T> : BaseState<T>
     {
-        private SpawnSettings SpawnSettings => settings as SpawnSettings;
+        protected readonly SpawnSettings spawnSettings;
         
         private readonly Transform transform;
         private readonly Rigidbody2D rb;
@@ -19,8 +19,9 @@ namespace Code.Scripts.States
         
         public bool Ended { get; private set; }
         
-        public SpawnState(T id, StateSettings.StateSettings settings, Transform transform, Rigidbody2D rb, MonoBehaviour mb) : base(id, settings)
+        public SpawnState(T id, SpawnSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id)
         {
+            this.spawnSettings = stateSettings;
             this.transform = transform;
             this.rb = rb;
             this.mb = mb;
@@ -51,7 +52,7 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator WaitAndEnd()
         {
-            yield return new WaitForSeconds(SpawnSettings.duration);
+            yield return new WaitForSeconds(spawnSettings.duration);
             Ended = true;
         }
         
@@ -60,7 +61,7 @@ namespace Code.Scripts.States
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
             
             if(hit)
-                transform.position = hit.point + Vector2.up * SpawnSettings.height;
+                transform.position = hit.point + Vector2.up * spawnSettings.height;
         }
     }
 }

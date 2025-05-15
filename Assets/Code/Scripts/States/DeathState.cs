@@ -13,7 +13,7 @@ namespace Code.Scripts.States
     /// <typeparam name="T"></typeparam>
     public class DeathState<T> : BaseState<T>
     {
-        protected DeathSettings DeathSettings => (DeathSettings)settings;
+        protected readonly DeathSettings deathSettings;
 
         private readonly Transform transform;
         private readonly Rigidbody2D rb;
@@ -26,9 +26,9 @@ namespace Code.Scripts.States
         private bool moving;
         private float speed;
 
-        public DeathState(T id, StateSettings.StateSettings settings, Transform transform, Rigidbody2D rb,
-            MonoBehaviour mb) : base(id, settings)
+        public DeathState(T id, DeathSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id)
         {
+            this.deathSettings = stateSettings;
             this.transform = transform;
             this.rb = rb;
             this.mb = mb;
@@ -46,7 +46,7 @@ namespace Code.Scripts.States
             rb.isKinematic = true;
 
             if (camController)
-                camController.Shake(DeathSettings.shakeDur, DeathSettings.shakeMag);
+                camController.Shake(deathSettings.shakeDur, deathSettings.shakeMag);
             
             mb.StartCoroutine(WaitAndEnd());
         }
@@ -63,10 +63,10 @@ namespace Code.Scripts.States
             base.OnUpdate();
 
             speed = moving
-                ? speed + DeathSettings.accel * Time.deltaTime
-                : speed - DeathSettings.accel * Time.deltaTime;
+                ? speed + deathSettings.accel * Time.deltaTime
+                : speed - deathSettings.accel * Time.deltaTime;
 
-            speed = Mathf.Clamp(speed, 0f, DeathSettings.maxSpeed);
+            speed = Mathf.Clamp(speed, 0f, deathSettings.maxSpeed);
 
             Vector2 target = (Vector2)transform.position + Direction;
             transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
@@ -78,10 +78,10 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator WaitAndEnd()
         {
-            yield return new WaitForSeconds(DeathSettings.movingDuration);
+            yield return new WaitForSeconds(deathSettings.movingDuration);
             moving = false;
 
-            yield return new WaitForSeconds(DeathSettings.duration - DeathSettings.movingDuration);
+            yield return new WaitForSeconds(deathSettings.duration - deathSettings.movingDuration);
             Ended = true;
         }
     }

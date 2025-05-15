@@ -10,6 +10,7 @@ using Code.Scripts.Interfaces;
 using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
+using Code.Scripts.StateSettings;
 using TMPro;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Code.Scripts.Player
         private TpState<string> tlptState;
         private ExitTpState<string> extpState;
         private WallState<string> wallState;
-        private WallJumpState<string> wallJumpState;
+        private WallJumpState<string> wJmpState;
         private GlideState<string> gldeState;
         private GrabState<string> grabState;
         private PauseState<string> pausState;
@@ -101,7 +102,7 @@ namespace Code.Scripts.Player
             tlptState.onEnter += OnEnterTpHandler;
             dethState.onEnter += OnEnterDeathHandler;
             wallState.onEnter += OnEnterWallHandler;
-            wallJumpState.onEnter += OnEnterWallJumpHandler;
+            wJmpState.onEnter += OnEnterWallJumpHandler;
             gldeState.onEnter += OnEnterGlideHandler;
 
             dethState.onExit += OnExitDeathHandler;
@@ -135,7 +136,7 @@ namespace Code.Scripts.Player
             djmpState.onEnter -= OnEnterDjmpHandler;
             dethState.onEnter -= OnEnterDeathHandler;
             wallState.onEnter -= OnEnterWallHandler;
-            wallJumpState.onEnter -= OnEnterWallJumpHandler;
+            wJmpState.onEnter -= OnEnterWallJumpHandler;
             gldeState.onEnter -= OnEnterGlideHandler;
 
             dethState.onExit -= OnExitDeathHandler;
@@ -170,7 +171,7 @@ namespace Code.Scripts.Player
 
             fsm.Update();
 
-            if (fsm.CurrentState != wallState && fsm.CurrentState != wallJumpState && fsm.CurrentState != grabState)
+            if (fsm.CurrentState != wallState && fsm.CurrentState != wJmpState && fsm.CurrentState != grabState)
             {
                 bool leftMove = moveState.Speed < 0f || (moveState.Speed == 0f && moveInput.x < 0f);
                 bool rightMove = moveState.Speed > 0f || (moveState.Speed == 0f && moveInput.x > 0f);
@@ -262,25 +263,25 @@ namespace Code.Scripts.Player
         /// </summary>
         private void InitFsm()
         {
-            idleState = new IdleState<string>("Idle");
-            moveState = new MoveState<string>("Move", stateSettings[0], rb, transform);
-            jumpState = new JumpState<string>("Jump", stateSettings[1], this, rb, transform);
-            fallState = new FallState<string>("Fall", stateSettings[2], rb, transform, this, playerSfx);
-            dashState = new DashState<string>("Dash", stateSettings[3], rb, transform, this, staminaBar);
-            djmpState = new DjmpState<string>("Djmp", stateSettings[4], this, rb, transform);
-            dethState = new DeathState<string>("Death", stateSettings[5], transform, rb, this);
-            spwnState = new SpawnState<string>("Spawn", stateSettings[6], transform, rb, this);
-            tlptState = new TpState<string>("TP", rb);
-            extpState = new ExitTpState<string>("ExitTP", rb);
-            wallState = new WallState<string>("Wall", stateSettings[7], rb, transform, this, playerSfx);
-            wallJumpState = new WallJumpState<string>("Wjmp", stateSettings[8], this, rb, transform);
-            gldeState = new GlideState<string>("Glide", stateSettings[9], rb, transform, this, playerSfx, staminaBar);
-            grabState = new GrabState<string>("Grab", stateSettings[10], rb, transform, this, playerSfx, staminaBar);
-            pausState = new PauseState<string>("Pause", rb);
-            edgeState = new EdgeState<string>("Edge", stateSettings[11], transform, fsmAnimController);
-            springState = new SpringState<string>("Spring", stateSettings[12], rb, transform);
+            idleState   = new IdleState<string>(     "Idle");
+            moveState   = new MoveState<string>(     "Move",   stateSettings[00] as MoveSettings,   rb,        transform);
+            jumpState   = new JumpState<string>(     "Jump",   stateSettings[01] as JumpSettings,   rb,        transform,          this);
+            fallState   = new FallState<string>(     "Fall",   stateSettings[02] as FallSettings,   rb,        transform,          this,  playerSfx);
+            dashState   = new DashState<string>(     "Dash",   stateSettings[03] as DashSettings,   rb,        transform,          this,  staminaBar);
+            djmpState   = new DjmpState<string>(     "Djmp",   stateSettings[04] as DjmpSettings,   rb,        transform,          this);
+            dethState   = new DeathState<string>(    "Death",  stateSettings[05] as DeathSettings,  rb,        transform,          this);
+            spwnState   = new SpawnState<string>(    "Spawn",  stateSettings[06] as SpawnSettings,  rb,        transform,          this);
+            tlptState   = new TpState<string>(       "TP",     rb);
+            extpState   = new ExitTpState<string>(   "ExitTP", rb);
+            wallState   = new WallState<string>(     "Wall",   stateSettings[07] as WallSettings,   rb,        transform,          this,  playerSfx);
+            wJmpState   = new WallJumpState<string>( "Wjmp",   stateSettings[08] as WjmpSettings,   rb,        transform,          this);
+            gldeState   = new GlideState<string>(    "Glide",  stateSettings[09] as GlideSettings,  rb,        transform,          this,  playerSfx, staminaBar);
+            grabState   = new GrabState<string>(     "Grab",   stateSettings[10] as GrabSettings,   rb,        transform,          this,  playerSfx, staminaBar);
+            pausState   = new PauseState<string>(    "Pause",  rb);
+            edgeState   = new EdgeState<string>(     "Edge",   stateSettings[11] as EdgeSettings,   transform, fsmAnimController);
+            springState = new SpringState<string>(   "Spring", stateSettings[12] as SpringSettings, rb,        transform);
 
-            fsm = new FiniteStateMachine<string>();
+            fsm = new FiniteStateMachine<string>(2);
 
             fsm.AddState(idleState);
             fsm.AddState(moveState);
@@ -293,7 +294,7 @@ namespace Code.Scripts.Player
             fsm.AddState(tlptState);
             fsm.AddState(extpState);
             fsm.AddState(wallState);
-            fsm.AddState(wallJumpState);
+            fsm.AddState(wJmpState);
             fsm.AddState(gldeState);
             fsm.AddState(grabState);
             fsm.AddState(pausState);
@@ -319,7 +320,7 @@ namespace Code.Scripts.Player
             fsmAnimController.AddState(tlptState.ID, 8);
             fsmAnimController.AddState(extpState.ID, 9);
             fsmAnimController.AddState(wallState.ID, 10);
-            fsmAnimController.AddState(wallJumpState.ID, 11);
+            fsmAnimController.AddState(wJmpState.ID, 11);
             fsmAnimController.AddState(gldeState.ID, 12);
             fsmAnimController.AddState(grabState.ID, 13);
             fsmAnimController.AddState(edgeState.ID, 14);
@@ -392,21 +393,21 @@ namespace Code.Scripts.Player
 
             fsm.AddTransition(extpState, idleState, () => extpState.Ended);
 
-            fsm.AddTransition(wallState, wallJumpState, () => jumpPressed);
+            fsm.AddTransition(wallState, wJmpState, () => jumpPressed);
             fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
             fsm.AddTransition(wallState, fallState, () => !wallState.IsTouchingWall() || ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green);
             fsm.AddTransition(wallState, dethState, () => died);
             fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
             fsm.AddTransition(wallState, springState, () => springState.IsActivated);
 
-            fsm.AddTransition(wallJumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(wallJumpState, idleState, () => moveState.IsGrounded() && wallJumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(wallJumpState, dashState, () => dashPressed);
-            fsm.AddTransition(wallJumpState, djmpState, () => djmpPressed);
-            fsm.AddTransition(wallJumpState, dethState, () => died);
-            fsm.AddTransition(wallJumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(wallJumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(wallJumpState, springState, () => springState.IsActivated);
+            fsm.AddTransition(wJmpState, fallState, () => rb.velocity.y < 0);
+            fsm.AddTransition(wJmpState, idleState, () => moveState.IsGrounded() && wJmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
+            fsm.AddTransition(wJmpState, dashState, () => dashPressed);
+            fsm.AddTransition(wJmpState, djmpState, () => djmpPressed);
+            fsm.AddTransition(wJmpState, dethState, () => died);
+            fsm.AddTransition(wJmpState, tlptState, () => shouldTp);
+            fsm.AddTransition(wJmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
+            fsm.AddTransition(wJmpState, springState, () => springState.IsActivated);
 
             fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
             fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
@@ -415,7 +416,7 @@ namespace Code.Scripts.Player
             fsm.AddTransition(gldeState, springState, () => springState.IsActivated);
 
             fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(grabState, wallJumpState, () => jumpPressed);
+            fsm.AddTransition(grabState, wJmpState, () => jumpPressed);
             fsm.AddTransition(grabState, dethState, () => died);
 
             fsm.AddTransition(edgeState, idleState, () => moveState.IsGrounded() && !edgeState.IsOnEdge());
@@ -466,7 +467,7 @@ namespace Code.Scripts.Player
             }
 
             wallState.FacingRight = facingRight;
-            wallJumpState.FacingRight = facingRight;
+            wJmpState.FacingRight = facingRight;
             grabState.FacingRight = facingRight;
 
             OnFlip?.Invoke(facingRight);
@@ -560,7 +561,7 @@ namespace Code.Scripts.Player
             djmpState.SetInput(input.x);
             wallState.SetInput(input.x);
             gldeState.SetInput(input.x);
-            wallJumpState.SetInput(input.x);
+            wJmpState.SetInput(input.x);
             springState.SetInput(input.x);
         }
 
@@ -699,7 +700,7 @@ namespace Code.Scripts.Player
             falling = true;
 
             if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState &&
-                fsm.PreviousState != wallJumpState && fsm.PreviousState != wallState)
+                fsm.PreviousState != wJmpState && fsm.PreviousState != wallState)
                 fallState.StartCoyoteTime();
         }
 
