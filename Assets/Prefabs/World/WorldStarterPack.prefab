@@ -6104,9 +6104,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7185024096679200443}
-        m_TargetAssemblyTypeName: Code.Scripts.Menu.MenuController, Assembly-CSharp
-        m_MethodName: LoadLevel2
+      - m_Target: {fileID: 4518552091734184841}
+        m_TargetAssemblyTypeName: Code.Scripts.Level.LevelChanger, Assembly-CSharp
+        m_MethodName: ReloadLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16974,10 +16974,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.24166666
-    width: 0.12552084
-    height: 0.12552083
+    x: 0.18072918
+    y: 0
+    width: 0.27592593
+    height: 0.27592593
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -29536,11 +29536,9 @@ MonoBehaviour:
   pauseResumeButton: {fileID: 8960664738102584993}
   pauseTimerText: {fileID: 4052410777789506720}
   deathsText: {fileID: 9076230424593969833}
-  endLevelCanvas: {fileID: 0}
+  endLevelCanvas: {fileID: 4952346574600320430}
   optionsCanvas: {fileID: 8196858630742073691}
-  playerInput: {fileID: 6271191338240243199}
-  defaultMap: World
-  uiMap: UI
+  inputManager: {fileID: 2555153298109442474}
   pauseEvent: Set_State_Music_Pause
   unPauseEvent: Set_State_Music_Ingame
 --- !u!1 &8697262131561620077
@@ -30178,6 +30176,10 @@ PrefabInstance:
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 6271191338240243199}
+    - target: {fileID: 1770253459593370714, guid: 6b3d585a7b582c24285bb8c1e81e5ae6, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 2555153298109442474}
     - target: {fileID: 1770253459593370714, guid: 6b3d585a7b582c24285bb8c1e81e5ae6, type: 3}
       propertyPath: endLevelCanvas
       value: 

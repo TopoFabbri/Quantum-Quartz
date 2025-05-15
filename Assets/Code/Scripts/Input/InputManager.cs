@@ -24,6 +24,8 @@ namespace Code.Scripts.Input
         [SerializeField] private float moveDeadzone = .5f;
 
         public static PlayerInput Input { get; private set; }
+        private string gameMap = "World";
+        private string uiMap = "UI";
 
         private void OnEnable()
         {
@@ -33,6 +35,21 @@ namespace Code.Scripts.Input
         private void OnDisable()
         {
             Input = null;
+        }
+
+        public void EnableGameMap()
+        {
+            Input.SwitchCurrentActionMap(gameMap);
+        }
+
+        public void EnableUIMap()
+        {
+            Input.SwitchCurrentActionMap(uiMap);
+        }
+
+        public void SwitchGameMap(InputActionMap map)
+        {
+            gameMap = map.name;
         }
 
         /// <summary>
@@ -127,6 +144,66 @@ namespace Code.Scripts.Input
                 return;
             
             DevMode?.Invoke();
+        }
+
+        private void OnColor1Power(InputValue input)
+        {
+            float value = input.Get<float>();
+
+            if (value != 0)
+            {
+                Color1?.Invoke();
+                AbilityPress?.Invoke();
+            }
+            else
+            {
+                AbilityRelease?.Invoke();
+            }
+        }
+
+        private void OnColor2Power(InputValue input)
+        {
+            float value = input.Get<float>();
+
+            if (value != 0)
+            {
+                Color2?.Invoke();
+                AbilityPress?.Invoke();
+            }
+            else
+            {
+                AbilityRelease?.Invoke();
+            }
+        }
+
+        private void OnColor3Power(InputValue input)
+        {
+            float value = input.Get<float>();
+
+            if (value != 0)
+            {
+                Color3?.Invoke();
+                AbilityPress?.Invoke();
+            }
+            else
+            {
+                AbilityRelease?.Invoke();
+            }
+        }
+
+        private void OnColor4Power(InputValue input)
+        {
+            float value = input.Get<float>();
+
+            if (value != 0)
+            {
+                Color4?.Invoke();
+                AbilityPress?.Invoke();
+            }
+            else
+            {
+                AbilityRelease?.Invoke();
+            }
         }
     }
 }
