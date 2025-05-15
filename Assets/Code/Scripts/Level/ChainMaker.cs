@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
+
 namespace Code.Scripts.Level
 {
     public class ChainMaker : MonoBehaviour
@@ -23,6 +28,7 @@ namespace Code.Scripts.Level
         private DistanceJoint2D joint;
         private Rigidbody2D rb;
 
+#if UNITY_EDITOR
         [HeaderPlus("Generation")]
         [InspectorButton("Clear")]
         private void ClearChain()
@@ -79,6 +85,36 @@ namespace Code.Scripts.Level
 
             if (hasEnd)
                 GenerateEnd();
+        }
+
+        [MenuItem("Tools/Custom/Generate All Chains")]
+        private static void GenerateAllChains()
+        {
+            List<ChainMaker> chainObjs;
+            if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+            {
+                //In Prefab Mode
+                chainObjs = PrefabStageUtility.GetCurrentPrefabStage().FindComponentsOfType<ChainMaker>().ToList();
+            }
+            else if (Selection.gameObjects.Length > 0 && Selection.gameObjects.Any((item) => item.GetComponentInChildren<ChainMaker>(true) != null))
+            {
+                //Selecting ChainMaker GameObjects
+                chainObjs = new List<ChainMaker>();
+                foreach (GameObject go in Selection.gameObjects)
+                {
+                    chainObjs.AddRange(go.GetComponentsInChildren<ChainMaker>(true));
+                }
+            }
+            else
+            {
+                //In Scene Mode not selecting anything
+                chainObjs = GameObject.FindObjectsOfType<ChainMaker>(true).ToList();
+            }
+
+            foreach (ChainMaker chainMaker in chainObjs)
+            {
+                chainMaker.GenerateChain();
+            }
         }
 
         private void GenerateEnd()
@@ -145,5 +181,6 @@ namespace Code.Scripts.Level
                 startHinge.anchor = Vector2.up * linkSize / 2f;
             }
         }
+#endif
     }
 }

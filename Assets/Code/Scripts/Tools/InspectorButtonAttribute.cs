@@ -34,7 +34,7 @@ namespace Code.Scripts.Tools
             {
                 if (GUILayout.Button(ButtonText, ObjectEditor.IndentStyle(EditorStyles.miniButton)))
                 {
-                    method.Invoke(target, null);
+                    method.Invoke(obj, null);
                 }
             }
 
