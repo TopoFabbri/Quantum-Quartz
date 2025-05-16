@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using UnityEngine;
@@ -25,34 +26,55 @@ namespace Code.Scripts.Colors
         }
 
         public QColour CurrentColour { get; private set; }
+        public static IReadOnlyList<QColour> EnabledColours { get; private set; }
 
         public static event Action<QColour> ColorChanged;
 
         private void Start()
         {
             SetColor(QColour.None);
+            UpdateEnabledColours();
         }
 
         private void OnEnable()
         {
-            InputManager.Color1 += OnColor1;
-            InputManager.Color2 += OnColor2;
-            InputManager.Color3 += OnColor3;
-            InputManager.Color4 += OnColor4;
+            InputManager.ColorRed += OnColorRed;
+            InputManager.ColorBlue += OnColorBlue;
+            InputManager.ColorGreen += OnColorGreen;
+            InputManager.ColorYellow += OnColorYellow;
         }
 
         private void OnDisable()
         {
-            InputManager.Color1 -= OnColor1;
-            InputManager.Color2 -= OnColor2;
-            InputManager.Color3 -= OnColor3;
-            InputManager.Color4 -= OnColor4;
+            InputManager.ColorRed -= OnColorRed;
+            InputManager.ColorBlue -= OnColorBlue;
+            InputManager.ColorGreen -= OnColorGreen;
+            InputManager.ColorYellow -= OnColorYellow;
+        }
+
+        private void OnValidate()
+        {
+            UpdateEnabledColours();
+        }
+
+        private void UpdateEnabledColours()
+        {
+            List<QColour> temp = new List<QColour>();
+            if (blue)
+                temp.Add(QColour.Blue);
+            if (red)
+                temp.Add(QColour.Red);
+            if (green)
+                temp.Add(QColour.Green);
+            if (yellow)
+                temp.Add(QColour.Yellow);
+            EnabledColours = temp;
         }
 
         /// <summary>
-        /// Handle when color 1 is pressed
+        /// Handle when color red is pressed
         /// </summary>
-        private void OnColor1()
+        private void OnColorRed()
         {
             if (red)
                 SetColor(QColour.Red);
@@ -61,9 +83,9 @@ namespace Code.Scripts.Colors
         }
 
         /// <summary>
-        /// Handle when color 2 is pressed
+        /// Handle when color blue is pressed
         /// </summary>
-        private void OnColor2()
+        private void OnColorBlue()
         {
             if (blue)
                 SetColor(QColour.Blue);
@@ -72,9 +94,9 @@ namespace Code.Scripts.Colors
         }
 
         /// <summary>
-        /// Handle when color 3 is pressed
+        /// Handle when color green is pressed
         /// </summary>
-        private void OnColor3()
+        private void OnColorGreen()
         {
             if (green)
                 SetColor(QColour.Green);
@@ -83,9 +105,9 @@ namespace Code.Scripts.Colors
         }
 
         /// <summary>
-        /// Handle when color 4 is pressed
+        /// Handle when color yellow is pressed
         /// </summary>
-        private void OnColor4()
+        private void OnColorYellow()
         {
             if (yellow)
                 SetColor(QColour.Yellow);
