@@ -38,7 +38,7 @@ namespace Code.Scripts.States
 
             rb.velocity = new Vector2(0f, rb.velocity.y);
             
-            if (Mathf.Abs(rb.velocity.y) > fallSettings.maxFallSpeed)
+            if (-rb.velocity.y > fallSettings.maxFallSpeed)
                 rb.velocity = new Vector2(rb.velocity.x, -fallSettings.maxFallSpeed);
         }
 
