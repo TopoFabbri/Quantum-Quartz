@@ -829,7 +829,7 @@ namespace Code.Scripts.Player
 
         public IEnumerator Spring(Vector2 force, ForceMode2D mode)
         {
-            springState.Activate();
+            //springState.Activate(); //Deactivated for now
             dashState.Interrupt();
             
             yield return new WaitForFixedUpdate();
