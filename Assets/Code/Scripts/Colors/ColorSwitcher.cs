@@ -26,7 +26,7 @@ namespace Code.Scripts.Colors
         }
 
         public QColour CurrentColour { get; private set; }
-        public static IReadOnlyList<QColour> EnabledColours { get; private set; }
+        public IReadOnlyList<QColour> EnabledColours { get; private set; }
 
         public static event Action<QColour> ColorChanged;
 
