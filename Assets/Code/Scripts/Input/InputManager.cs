@@ -34,6 +34,7 @@ namespace Code.Scripts.Input
         public static event Action DevMode;
 
         [SerializeField] private float moveDeadzone = .5f;
+        [SerializeField] private GameObject eventSystem;
         [SerializeField] private List<InputMap> inputMaps;
         private int inputMapIndex = 0;
         private InputMap activeMap;
@@ -68,11 +69,13 @@ namespace Code.Scripts.Input
 
         public void EnableGameMap()
         {
+            eventSystem.SetActive(false);
             Input.SwitchCurrentActionMap(gameMap);
         }
 
         public void EnableUIMap()
         {
+            eventSystem.SetActive(true);
             Input.SwitchCurrentActionMap(uiMap);
         }
 

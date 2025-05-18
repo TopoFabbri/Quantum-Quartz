@@ -13,7 +13,6 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private GameObject controlsPanel;
     [SerializeField] private GameObject videoPanel;
     [SerializeField] private GameObject audioPanel;
-    [SerializeField] private GameObject mainMenuButtons;
     [SerializeField] private GameObject levelSelectorPanel;
 
     [SerializeField] private Button optionsFirstButton;
@@ -28,24 +27,13 @@ public class OptionsController : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-    private bool isFullScreen;
     private bool isTimerOn;
 
     private void Start()
     {
-        optionsPanel.SetActive(false);
-        // creditsPanel.SetActive(false);
-        controlsPanel.SetActive(false);
-        videoPanel.SetActive(false);
-        audioPanel.SetActive(false);
-        // levelSelectorPanel.SetActive(false);
-
-
-        bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
         isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
-
-        //fullScreenToggle.isOn = isFullScreen;
-        //timerToggle.isOn = isTimerOn;
+        if (timerToggle)
+            timerToggle.isOn = isTimerOn;
 
         if (sfxSlider)
             sfxSlider.value = Settings.SfxVol / 100f;
@@ -175,24 +163,11 @@ public class OptionsController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (EventSystem.current.currentSelectedGameObject == controlsButton.gameObject)
-            TurnControls();
-        else if (EventSystem.current.currentSelectedGameObject == audioButton.gameObject)
-            TurnAudio();
-        else if (EventSystem.current.currentSelectedGameObject == videoButton.gameObject)
-            TurnVideo();
-    }
-
     private void OnUIBack()
     {
-        if (optionsPanel)
-            optionsPanel.SetActive(false);
-        if (levelSelectorPanel)
-            levelSelectorPanel.SetActive(false);
-        if (creditsPanel)
-            creditsPanel.SetActive(false);
+        optionsPanel?.SetActive(false);
+        levelSelectorPanel?.SetActive(false);
+        creditsPanel?.SetActive(false);
         
         mainMenuButton.Select();
     }

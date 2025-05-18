@@ -48,13 +48,14 @@ namespace Code.Scripts.UI
 
             if (isPaused)
             {
+                inputManager.EnableUIMap();
+
                 pauseTimerText.text = GameManager.Instance.GetTimerText().text;
                 GameManager.Instance.GetTimerText().gameObject.SetActive(false);
                 deathsText.text = Stats.GetDeaths().ToString();
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
-                inputManager.EnableUIMap();
                 AkSoundEngine.PostEvent(pauseEvent, gameObject);
 
                 Time.timeScale = 0;
