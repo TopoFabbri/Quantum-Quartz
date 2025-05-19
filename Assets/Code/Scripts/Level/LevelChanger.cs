@@ -46,10 +46,10 @@ namespace Code.Scripts.Level
             TimeCounter.Stop();
             Stats.SetLevelTime(currentLevel + 1, TimeCounter.Time.time);
             yield return new WaitForSeconds(time);
+            inputManager.EnableUIMap();
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);
             endLevelFirstSelectedButton.Select();
-            inputManager.EnableUIMap();
         }
 
         public static void EndLevel()
