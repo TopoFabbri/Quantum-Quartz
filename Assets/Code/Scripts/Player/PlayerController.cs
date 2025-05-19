@@ -571,14 +571,21 @@ namespace Code.Scripts.Player
         /// <summary>
         /// Handle player jump action
         /// </summary>
-        private void OnJumpPressedHandler()
+        private void OnJumpPressedHandler(float value)
         {
-            if (InputManager.activeMap.GetContextualPower() && !fallState.CanCoyoteJump && (falling || !moveState.IsGrounded()))
+            if (InputManager.activeMap.GetContextualPower() && value == 0 || (!fallState.CanCoyoteJump && (falling || !moveState.IsGrounded())))
             {
                 // If in air with a contextual power mapping, use ability
-                OnAbilityPressHandler();
+                if (value != 0)
+                {
+                    OnAbilityPressHandler();
+                }
+                else
+                {
+                    OnAbilityReleaseHandler();
+                }
             }
-            else
+            else if (value != 0)
             {
                 jumpPressed = true;
                 StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));

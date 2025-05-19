@@ -32,7 +32,7 @@ namespace Code.Scripts.Input
         }
 
         public static event Action<Vector2> Move;
-        public static event Action Jump;
+        public static event Action<float> Jump;
         public static event Action ColorRed;
         public static event Action ColorBlue;
         public static event Action ColorGreen;
@@ -155,9 +155,18 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Called when input jump is pressed
         /// </summary>
-        protected void OnJump()
+        protected void OnJump(InputValue input)
         {
-            Jump?.Invoke();
+            Debug.Log("Jump " + input.Get<float>());
+            if (input.Get<float>() != 0)
+            {
+                Jump?.Invoke(1);
+            }
+            else if (activeMap.GetContextualPower())
+            {
+                Debug.LogWarning("Jump 0!!!");
+                Jump?.Invoke(0);
+            }
         }
 
         /// <summary>
@@ -165,7 +174,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorRed(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
             {
                 OnAbility(input);
             }
@@ -180,7 +189,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorBlue(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
             {
                 OnAbility(input);
             }
@@ -195,7 +204,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorGreen(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
             {
                 OnAbility(input);
             }
@@ -210,7 +219,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorYellow(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
             {
                 OnAbility(input);
             }
