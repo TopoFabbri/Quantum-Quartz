@@ -72,7 +72,15 @@ namespace Code.Scripts.Input
         private void OnEnable()
         {
             Input = GetComponent<PlayerInput>();
-            SwitchGameMap(0);
+            string controlsMapping = PlayerPrefs.GetString("ControlsMapping", "");
+            if (string.IsNullOrWhiteSpace(controlsMapping))
+            {
+                SwitchGameMap(0);
+            }
+            else
+            {
+                SwitchGameMap(controlsMapping);
+            }
         }
         
         private void OnDisable()

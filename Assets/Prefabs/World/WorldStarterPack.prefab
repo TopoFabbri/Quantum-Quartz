@@ -11746,6 +11746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDeadzone: 0.5
   eventSystem: {fileID: 7092098530253659318}
+  gameMap: World
   inputMaps:
   - mapName: World
     contextualPower: 0
@@ -16989,10 +16990,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.18703704
-    width: 0.12916668
-    height: 0.12916666
+    x: 0.15208334
+    y: 0
+    width: 0.37314817
+    height: 0.37314814
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -30059,6 +30060,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 2555153298109442474}
     - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: mainMenuButton
       value: 
