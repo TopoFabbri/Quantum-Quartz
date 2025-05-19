@@ -208,7 +208,8 @@ namespace Code.Scripts.Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
+            if (!collision.enabled)
+                return;
             
             if (fsm.CurrentState == fallState)
                 jumpState.SpawnDust();
@@ -229,7 +230,8 @@ namespace Code.Scripts.Player
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
+            if (!collision.enabled)
+                return;
             
             if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
                 return;
@@ -247,7 +249,8 @@ namespace Code.Scripts.Player
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
+            if (!collision.enabled)
+                return;
             
             if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
                 return;
@@ -570,8 +573,16 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler()
         {
-            jumpPressed = true;
-            StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
+            if (InputManager.activeMap.GetContextualPower() && !fallState.CanCoyoteJump && (falling || !moveState.IsGrounded()))
+            {
+                // If in air with a contextual power mapping, use ability
+                OnAbilityPressHandler();
+            }
+            else
+            {
+                jumpPressed = true;
+                StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
+            }
         }
 
         /// <summary>

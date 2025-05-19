@@ -13,12 +13,22 @@ namespace Code.Scripts.Input
     /// </summary>
     public class InputManager : MonoBehaviour
     {
+        public abstract class ReadOnlyInputMap
+        {
+            public abstract string GetMapName();
+            public abstract bool GetContextualPower();
+            public abstract bool GetDoubleClickPower();
+        }
+
         [System.Serializable]
-        struct InputMap
+        class InputMap : ReadOnlyInputMap
         {
             public string mapName;
             public bool contextualPower;
             public bool doubleClickPower;
+            public override string GetMapName() => mapName;
+            public override bool GetContextualPower() => contextualPower;
+            public override bool GetDoubleClickPower() => doubleClickPower;
         }
 
         public static event Action<Vector2> Move;
@@ -35,13 +45,16 @@ namespace Code.Scripts.Input
 
         [SerializeField] private float moveDeadzone = .5f;
         [SerializeField] private GameObject eventSystem;
-        [SerializeField] private List<InputMap> inputMaps;
-        private int inputMapIndex = 0;
-        private InputMap activeMap;
 
         public static PlayerInput Input { get; private set; }
+        public static ReadOnlyInputMap activeMap;
+
+        [SerializeField, Disable]
         private string gameMap = "World";
         private string uiMap = "UI";
+        private int inputMapIndex = 0;
+
+        [SerializeField] private List<InputMap> inputMaps;
 
         [HeaderPlus("Debug")]
         [InspectorButton("Next Input Map")]
@@ -144,7 +157,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorRed(InputValue input)
         {
-            if (activeMap.doubleClickPower && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
+            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
             {
                 OnAbility(input);
             }
@@ -159,7 +172,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorBlue(InputValue input)
         {
-            if (activeMap.doubleClickPower && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
+            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
             {
                 OnAbility(input);
             }
@@ -174,7 +187,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorGreen(InputValue input)
         {
-            if (activeMap.doubleClickPower && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
+            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
             {
                 OnAbility(input);
             }
@@ -189,7 +202,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorYellow(InputValue input)
         {
-            if (activeMap.doubleClickPower && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
+            if (activeMap.GetDoubleClickPower() && input.Get<float>() != 0 && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
             {
                 OnAbility(input);
             }
