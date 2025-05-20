@@ -96,23 +96,31 @@ public class OptionsController : MonoBehaviour
         string controlsMapping = controlsDropdown.options[controlsDropdown.value].text;
         PlayerPrefs.SetString("ControlsMapping", controlsMapping);
         inputManager?.SwitchGameMap(controlsMapping);
-        foreach (InputDevice device in InputManager.Input.devices)
+        MappingImages mappingImages;
+        if (controlMappingImages.TryGetValue(controlsMapping, out mappingImages))
         {
-            if (device is UnityEngine.InputSystem.DualShock.DualShockGamepad)
+            foreach (InputDevice device in InputManager.Input.devices)
             {
-                controlsImage.sprite = controlMappingImages[controlsMapping].playstation;
-                break;
+                if (device is UnityEngine.InputSystem.DualShock.DualShockGamepad)
+                {
+                    controlsImage.sprite = mappingImages.playstation;
+                    break;
+                }
+                else if (device is UnityEngine.InputSystem.XInput.XInputController)
+                {
+                    controlsImage.sprite = mappingImages.xbox;
+                    break;
+                }
+                else
+                {
+                    controlsImage.sprite = mappingImages.keyboard;
+                    break;
+                }
             }
-            else if (device is UnityEngine.InputSystem.XInput.XInputController)
-            {
-                controlsImage.sprite = controlMappingImages[controlsMapping].xbox;
-                break;
-            }
-            else
-            {
-                controlsImage.sprite = controlMappingImages[controlsMapping].keyboard;
-                break;
-            }
+        }
+        else
+        {
+            controlsImage.sprite = null;
         }
     }
 
