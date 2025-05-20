@@ -573,7 +573,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler(float value)
         {
-            if (InputManager.activeMap.GetContextualPower() && value == 0 || (!fallState.CanCoyoteJump && (falling || !moveState.IsGrounded())))
+            if (InputManager.activeMap.GetContextualPower() && (value == 0 || (!fallState.CanCoyoteJump && (falling || !moveState.IsGrounded()))))
             {
                 // If in air with a contextual power mapping, use ability
                 if (value != 0)
