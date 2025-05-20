@@ -17,6 +17,7 @@ namespace Code.Scripts.Input
         {
             public abstract string GetMapName();
             public abstract bool GetContextualPower();
+            public abstract bool GetContextualBYPower();
             public abstract bool GetDoubleClickPower();
         }
 
@@ -25,9 +26,11 @@ namespace Code.Scripts.Input
         {
             public string mapName;
             public bool contextualPower;
+            public bool contextualBYPower;
             public bool doubleClickPower;
             public override string GetMapName() => mapName;
             public override bool GetContextualPower() => contextualPower;
+            public override bool GetContextualBYPower() => contextualBYPower;
             public override bool GetDoubleClickPower() => doubleClickPower;
         }
 
@@ -161,7 +164,7 @@ namespace Code.Scripts.Input
             {
                 Jump?.Invoke(1);
             }
-            else if (activeMap.GetContextualPower())
+            else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
             {
                 Jump?.Invoke(0);
             }

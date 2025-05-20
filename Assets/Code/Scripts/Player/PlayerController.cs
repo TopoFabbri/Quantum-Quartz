@@ -573,7 +573,9 @@ namespace Code.Scripts.Player
         /// </summary>
         private void OnJumpPressedHandler(float value)
         {
-            if (InputManager.activeMap.GetContextualPower() && (value == 0 || (!fallState.CanCoyoteJump && (falling || !moveState.IsGrounded()))))
+        	bool contextualColor = ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue || ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow;
+        	bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
+            if (doContextual && (value == 0 || (!fallState.CanCoyoteJump && (falling || !moveState.IsGrounded()))))
             {
                 // If in air with a contextual power mapping, use ability
                 if (value != 0)
