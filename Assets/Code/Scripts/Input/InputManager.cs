@@ -160,14 +160,12 @@ namespace Code.Scripts.Input
         /// </summary>
         protected void OnJump(InputValue input)
         {
-            Debug.Log("Jump " + input.Get<float>());
             if (input.Get<float>() != 0)
             {
                 Jump?.Invoke(1);
             }
             else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
             {
-                Debug.LogWarning("Jump 0!!!");
                 Jump?.Invoke(0);
             }
         }
