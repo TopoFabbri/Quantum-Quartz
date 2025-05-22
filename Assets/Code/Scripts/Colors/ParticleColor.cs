@@ -7,14 +7,17 @@ namespace Code.Scripts.Colors
     {
         [SerializeField] private List<Color> colors = new();
         [SerializeField] private ParticleSystem ps;
-
-        private ParticleSystem.MainModule mainPs;
+        [SerializeField] private ColorSwitcher.QColour qColour;
         
+        private ParticleSystem.MainModule mainPs;
+
+        private bool on;
+
         private void Awake()
         {
             mainPs = ps.main;
             if (colors.Count > 0) return;
-            
+
             colors.Add(Color.white);
             colors.Add(Color.red);
             colors.Add(Color.blue);
@@ -26,7 +29,7 @@ namespace Code.Scripts.Colors
         {
             ColorSwitcher.ColorChanged += OnColorSwitch;
         }
-        
+
         private void OnDisable()
         {
             ColorSwitcher.ColorChanged -= OnColorSwitch;
@@ -34,7 +37,12 @@ namespace Code.Scripts.Colors
 
         private void OnColorSwitch(ColorSwitcher.QColour colour)
         {
-            mainPs.startColor = colors[(int) colour];
+            mainPs.startColor = colors[(int)colour];
+        }
+        
+        private void RestartPs()
+        {
+            ps.Clear();
         }
     }
 }
