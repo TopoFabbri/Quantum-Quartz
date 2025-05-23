@@ -16742,7 +16742,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5658685984602118092}
   - component: {fileID: 5011673250015572329}
-  - component: {fileID: 2757243908388736042}
   - component: {fileID: 7418189334097761856}
   - component: {fileID: 2090065662981346448}
   - component: {fileID: 5633411915053908958}
@@ -16790,63 +16789,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e71f36dd8e5cea4a9dc3e2c94b9a992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerState: {fileID: 2757243908388736042}
-  flipObjects: []
-  fallShakeMagnitudeMultiplier: 0.015
-  fallShakeDurationMultiplier: 0.015
-  minShakeValue: 16.5
---- !u!114 &2757243908388736042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb3e20569ceb11488214cd10f465d89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stateSettings:
+  - {fileID: 11400000, guid: c46327f8512b0214d8f1b824ca1ffb78, type: 2}
+  - {fileID: 11400000, guid: e0201efd0a6345d4abfc8133b07fe12f, type: 2}
+  - {fileID: 11400000, guid: 70412005b14e0a84a9ab993f0454114d, type: 2}
+  - {fileID: 11400000, guid: 1607158f203a9984bb41044bf8928270, type: 2}
+  - {fileID: 11400000, guid: 9a1a5656370aa6248b81754e0e4b053b, type: 2}
+  - {fileID: 11400000, guid: f21bfe181a1a0b04d8e6aba632596cb0, type: 2}
+  - {fileID: 11400000, guid: 7c92be13ff35f684bab8d986b9749059, type: 2}
+  - {fileID: 11400000, guid: c1f23b0849ef43047aa1d4bc009bf18d, type: 2}
+  - {fileID: 11400000, guid: 43c338fd6e4749b46a07877f9ab07b0b, type: 2}
+  - {fileID: 11400000, guid: 42829502fd2ee344bb9c831b0d749ab8, type: 2}
+  - {fileID: 11400000, guid: b94b8aa67cd5e2441a536e59e2508413, type: 2}
+  - {fileID: 11400000, guid: 6dd0f41c52ed5b74591bb4cca3fff6e3, type: 2}
+  - {fileID: 11400000, guid: 5fe2d58c5e6d60241ad3a51821384172, type: 2}
   rb: {fileID: 5336747697084548560}
-  staminaBar: {fileID: 8225620126934593600}
-  stateDebugText: {fileID: 8413274154481050696}
-  playerSfx: {fileID: 5633411915053908958}
-  animController: {fileID: 7418189334097761856}
+  stateTxt: {fileID: 8413274154481050696}
+  flipObjects: []
+  fsmAnimController: {fileID: 7418189334097761856}
   deathController: {fileID: 2090065662981346448}
   dashPs: {fileID: 2237095473829572802}
   djmpPs: {fileID: 7311720099816871810}
   djmpPs2: {fileID: 4520975705858632179}
   gldePs: {fileID: 8199315992593810069}
   wjmpPs: {fileID: 0}
-  globalSettings: {fileID: 11400000, guid: f98aa9d504867bf4e865aaf0b5a922f1, type: 2}
-  settings:
-    _serializedList:
-    - Key: Move
-      Value: {fileID: 11400000, guid: c46327f8512b0214d8f1b824ca1ffb78, type: 2}
-    - Key: Spring
-      Value: {fileID: 11400000, guid: 5fe2d58c5e6d60241ad3a51821384172, type: 2}
-    - Key: Jump
-      Value: {fileID: 11400000, guid: e0201efd0a6345d4abfc8133b07fe12f, type: 2}
-    - Key: Djmp
-      Value: {fileID: 11400000, guid: 9a1a5656370aa6248b81754e0e4b053b, type: 2}
-    - Key: Death
-      Value: {fileID: 11400000, guid: f21bfe181a1a0b04d8e6aba632596cb0, type: 2}
-    - Key: Spawn
-      Value: {fileID: 11400000, guid: 7c92be13ff35f684bab8d986b9749059, type: 2}
-    - Key: Wjmp
-      Value: {fileID: 11400000, guid: 43c338fd6e4749b46a07877f9ab07b0b, type: 2}
-    - Key: Fall
-      Value: {fileID: 11400000, guid: 70412005b14e0a84a9ab993f0454114d, type: 2}
-    - Key: Wall
-      Value: {fileID: 11400000, guid: c1f23b0849ef43047aa1d4bc009bf18d, type: 2}
-    - Key: Dash
-      Value: {fileID: 11400000, guid: 1607158f203a9984bb41044bf8928270, type: 2}
-    - Key: Glide
-      Value: {fileID: 11400000, guid: 42829502fd2ee344bb9c831b0d749ab8, type: 2}
-    - Key: Grab
-      Value: {fileID: 11400000, guid: b94b8aa67cd5e2441a536e59e2508413, type: 2}
-    - Key: Edge
-      Value: {fileID: 11400000, guid: 6dd0f41c52ed5b74591bb4cca3fff6e3, type: 2}
+  camController: {fileID: 7800799084454452230}
+  staminaBar: {fileID: 8225620126934593600}
+  sprite: {fileID: 6340732406567318058}
+  playerSfx: {fileID: 5633411915053908958}
+  fallShakeMagnitudeMultiplier: 0.015
+  fallShakeDurationMultiplier: 0.015
+  minShakeValue: 16.5
 --- !u!114 &7418189334097761856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17084,10 +17057,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.14687501
-    y: 0
-    width: 0.3240741
-    height: 0.32407406
+    x: 0
+    y: 0.18796296
+    width: 0.24947917
+    height: 0.24947916
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

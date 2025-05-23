@@ -1,6 +1,5 @@
 ﻿using Code.Scripts.Animation;
 using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -14,13 +13,13 @@ namespace Code.Scripts.States
     {
         protected readonly EdgeSettings edgeSettings;
 
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly Transform transform;
         private readonly FsmAnimationController animator;
         
-        public EdgeState(T id, EdgeSettings stateSettings, PlayerState.SharedContext sharedContext, FsmAnimationController animator) : base(id)
+        public EdgeState(T id, EdgeSettings stateSettings, Transform transform, FsmAnimationController animator) : base(id)
         {
             this.edgeSettings = stateSettings;
-            this.sharedContext = sharedContext;
+            this.transform = transform;
             this.animator = animator;
         }
 
@@ -35,7 +34,7 @@ namespace Code.Scripts.States
         /// <returns>True if player has an edge to the right</returns>
         private bool GetRightEdge()
         {
-            Vector2 startPosition = (Vector2)sharedContext.Transform.position + edgeSettings.edgeCheckOffset + Vector2.right * edgeSettings.edgeCheckDis;
+            Vector2 startPosition = (Vector2)transform.position + edgeSettings.edgeCheckOffset + Vector2.right * edgeSettings.edgeCheckDis;
             RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, edgeSettings.edgeCheckLength, edgeSettings.edgeLayer);
             
             if (edgeSettings.shouldDraw)
@@ -57,7 +56,7 @@ namespace Code.Scripts.States
         /// <returns>True if player has an edge to the left</returns>
         private bool GetLeftEdge()
         {
-            Vector2 startPosition = (Vector2)sharedContext.Transform.position + edgeSettings.edgeCheckOffset + Vector2.left * edgeSettings.edgeCheckDis;
+            Vector2 startPosition = (Vector2)transform.position + edgeSettings.edgeCheckOffset + Vector2.left * edgeSettings.edgeCheckDis;
             RaycastHit2D edge = Physics2D.Raycast(startPosition, Vector2.down, edgeSettings.edgeCheckLength, edgeSettings.edgeLayer);
             
             if (edgeSettings.shouldDraw)

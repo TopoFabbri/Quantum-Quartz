@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -13,31 +11,25 @@ namespace Code.Scripts.States
     public class JumpState<T> : MoveState<T>
     {
         protected readonly JumpSettings jumpSettings;
+        protected readonly MonoBehaviour mb;
 
         public bool HasJumped { get; protected set; }
         public float JumpForce => jumpSettings.jumpForce;
+        public float JumpBufferTime => jumpSettings.bufferTime;
         
-        public JumpState(T id, JumpSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public JumpState(T id, JumpSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings.moveSettings, rb, transform)
         {
             this.jumpSettings = stateSettings;
+            this.mb = mb;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            sharedContext.PlayerSfx.Jump();
 
-            if (sharedContext.PreviousStateType == typeof(FallState<T>))
-            {
-                Vector2 vector2 = sharedContext.Rigidbody.velocity;
-                vector2.y = 0f;
-                sharedContext.Rigidbody.velocity = vector2;
-            }
+            mb.StartCoroutine(JumpOnFU());
 
-
-            sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
-
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
             
             SpawnDust();
         }
@@ -46,7 +38,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
+            rb.sharedMaterial.friction = moveSettings.groundFriction;
             
             HasJumped = false;
         }
@@ -55,7 +47,7 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
 
-            if (!sharedContext.IsGrounded())
+            if (!IsGrounded())
                 HasJumped = true;
         }
 
@@ -67,7 +59,7 @@ namespace Code.Scripts.States
         {
             yield return new WaitForFixedUpdate();
 
-            sharedContext.Rigidbody.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rb.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
         /// <summary>
@@ -75,9 +67,9 @@ namespace Code.Scripts.States
         /// </summary>
         public virtual void SpawnDust()
         {
-            Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
+            Vector2 position = (Vector2)transform.position + moveSettings.groundCheckOffset;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, moveSettings.groundCheckRadius, LayerMask.GetMask("Default"));
             
             if (hit.collider == null)
                 return;

@@ -1,5 +1,4 @@
 ﻿using Code.Scripts.Colors;
-using Code.Scripts.FSM;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -12,27 +11,22 @@ namespace Code.Scripts.States
 
         private float prevGravScale;
         private readonly BarController barController;
-        private readonly ParticleSystem glideParticleSystem;
-
-        public GlideState(T id, GlideSettings stateSettings, PlayerState.SharedContext sharedContext, BarController barController, ParticleSystem glideParticleSystem) : base(id, stateSettings.fallSettings, sharedContext)
+        
+        public GlideState(T id, GlideSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, BarController barController) : base(id, stateSettings.fallSettings, rb, transform, mb, playerSfx)
         {
             this.glideSettings = stateSettings;
             this.barController = barController;
-            this.glideParticleSystem = glideParticleSystem;
-
+            
             barController.AddBar(ColorSwitcher.QColour.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Yellow).AddNoRegenCondition(() => !sharedContext.IsGrounded());
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            sharedContext.PlayerSfx.PlayGlide();
-            glideParticleSystem.Play();
-
-            prevGravScale = sharedContext.Rigidbody.gravityScale;
-            sharedContext.Rigidbody.gravityScale = 0f;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
+            
+            prevGravScale = rb.gravityScale;
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
             
             barController.GetBar(ColorSwitcher.QColour.Yellow).FirstUseCut();
         }
@@ -40,19 +34,17 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-
-            sharedContext.PlayerSfx.StopGlide();
-            glideParticleSystem.Stop();
-            sharedContext.Rigidbody.gravityScale = prevGravScale;
+            
+            rb.gravityScale = prevGravScale;
         }
 
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
 
-            Vector2 vector2 = sharedContext.Rigidbody.velocity;
+            Vector2 vector2 = rb.velocity;
             vector2.y = -glideSettings.fallSpeed * Time.fixedDeltaTime;
-            sharedContext.Rigidbody.velocity = vector2;
+            rb.velocity = vector2;
         }
 
         public override void OnUpdate()

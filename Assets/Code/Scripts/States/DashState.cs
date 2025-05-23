@@ -19,19 +19,26 @@ namespace Code.Scripts.States
 
         public bool Ended { get; private set; }
 
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly Rigidbody2D rb;
+        private readonly MonoBehaviour mb;
+        private readonly Transform transform;
         private readonly BarController barController;
-        private readonly ParticleSystem dashParticleSystem;
 
+        private readonly CameraController camController;
+
+        private bool facingRight;
         private float gravScale;
         private bool interrupted;
 
-        public DashState(T id, DashSettings stateSettings, PlayerState.SharedContext sharedContext, BarController barController, ParticleSystem dashParticleSystem) : base(id)
+        public DashState(T id, DashSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb, BarController barController) : base(id)
         {
             this.dashSettings = stateSettings;
-            this.sharedContext = sharedContext;
+            this.rb = rb;
+            this.mb = mb;
+            this.transform = transform;
             this.barController = barController;
-            this.dashParticleSystem = dashParticleSystem;
+
+            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
             
             barController.AddBar(ColorSwitcher.QColour.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
         }
@@ -39,16 +46,16 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            dashParticleSystem.Play();
 
             interrupted = false;
-            gravScale = sharedContext.Rigidbody.gravityScale;
-            sharedContext.Rigidbody.gravityScale = 0f;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
+            gravScale = rb.gravityScale;
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
 
-            sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
+            if (camController)
+                camController.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
-            sharedContext.MonoBehaviour.StartCoroutine(EndDash());
+            mb.StartCoroutine(EndDash());
         }
 
         public override void OnExit()
@@ -56,9 +63,9 @@ namespace Code.Scripts.States
             base.OnExit();
 
             if (!interrupted)
-                sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x / 2f, sharedContext.Rigidbody.velocity.y);
-
-            sharedContext.Rigidbody.gravityScale = gravScale;
+                rb.velocity = new Vector2(rb.velocity.x / 2f, rb.velocity.y);
+            
+            rb.gravityScale = gravScale;
             
             barController.GetBar(ColorSwitcher.QColour.Red).Use();
         }
@@ -73,9 +80,9 @@ namespace Code.Scripts.States
             }
             else
             {
-                sharedContext.Transform.position = Vector3.MoveTowards(
-                    sharedContext.Transform.position,
-                    sharedContext.Transform.position + Vector3.right * (sharedContext.facingRight ? 1 : -1),
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    transform.position + Vector3.right * (facingRight ? 1 : -1),
                     dashSettings.speed * Time.fixedDeltaTime
                 );
             }
@@ -93,9 +100,17 @@ namespace Code.Scripts.States
             Ended = true;
         }
 
+        /// <summary>
+        /// Flip dash direction
+        /// </summary>
+        public void Flip()
+        {
+            facingRight = !facingRight;
+        }
+
         private bool WallCheck()
         {
-            Vector2 pos = (Vector2)sharedContext.Rigidbody.gameObject.transform.position + Vector2.right * (dashSettings.wallCheckDis * (sharedContext.facingRight ? 1 : -1));
+            Vector2 pos = (Vector2)rb.gameObject.transform.position + Vector2.right * (dashSettings.wallCheckDis * (facingRight ? 1 : -1));
 
             Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, dashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 

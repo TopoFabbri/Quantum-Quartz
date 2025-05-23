@@ -2,7 +2,6 @@ using System.Linq;
 using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
-using Code.Scripts.Player;
 
 namespace Code.Scripts.States
 {
@@ -13,18 +12,25 @@ namespace Code.Scripts.States
     public class MoveState<T> : BaseState<T>
     {
         protected readonly MoveSettings moveSettings;
-
-        protected readonly PlayerState.SharedContext sharedContext;
+        
+        protected readonly Rigidbody2D rb;
+        protected readonly Transform transform;
 
         private static float _speed;
-        protected bool canMove = true;
 
+        public float Input { get; protected set; }
         public float Speed => _speed;
 
-        public MoveState(T id, MoveSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id)
+        public MoveState(T id, MoveSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id)
         {
             this.moveSettings = stateSettings;
-            this.sharedContext = sharedContext;
+            this.rb = rb;
+            this.transform = transform;
+        }
+
+        public void SetInput(float input)
+        {
+            Input = input;
         }
 
         public override void OnFixedUpdate()
@@ -32,16 +38,16 @@ namespace Code.Scripts.States
             base.OnFixedUpdate();
             
             FlipCheck();
-
-            if (canMove && sharedContext.Input != 0)
-                _speed = Mathf.Clamp(_speed + sharedContext.Input * Time.fixedDeltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
+            
+            if (Input != 0)
+                _speed = Mathf.Clamp(_speed + Input * Time.fixedDeltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
             else
                 DecreaseSpeed();
             
             if (WallCheck())
                 _speed = 0f;
-
-            sharedContext.Transform.Translate(Vector2.right * (_speed * Time.fixedDeltaTime));
+            
+            transform.Translate(Vector2.right * (_speed * Time.fixedDeltaTime));
         }
         
         /// <summary>
@@ -51,6 +57,27 @@ namespace Code.Scripts.States
         {
             _speed = Mathf.Lerp(_speed, 0, Time.fixedDeltaTime * moveSettings.groundFriction);
         }
+        
+        /// <summary>
+        /// Check if player is on ground
+        /// </summary>
+        /// <returns>True if on the ground</returns>
+        public bool IsGrounded()
+        {
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + moveSettings.groundCheckOffset, Vector2.down, moveSettings.groundCheckRadius, moveSettings.groundLayer);
+            bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
+            
+            if (moveSettings.shouldDraw)
+            {
+                Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset,
+                    (Vector2)transform.position + moveSettings.groundCheckOffset +
+                    Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+                Debug.DrawLine((Vector2)transform.position + moveSettings.groundCheckOffset,
+                    (Vector2)transform.position + moveSettings.groundCheckOffset +
+                    Vector2.down * moveSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+            }       
+            return grounded;
+        }
 
         /// <summary>
         /// Check if the player is moving
@@ -58,7 +85,7 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (!(Mathf.Abs(_speed * Time.fixedDeltaTime) < moveSettings.minSpeed) || sharedContext.Input != 0f) return false;
+            if (!(Mathf.Abs(_speed * Time.fixedDeltaTime) < moveSettings.minSpeed) || Input != 0f) return false;
             
             _speed = 0f;
             return true;
@@ -69,7 +96,7 @@ namespace Code.Scripts.States
         /// </summary>
         public bool WallCheck()
         {
-            Vector2 pos = (Vector2)sharedContext.Transform.position + Vector2.right * (moveSettings.wallCheckDis * sharedContext.Input);
+            Vector2 pos = (Vector2)transform.position + Vector2.right * (moveSettings.wallCheckDis * Input);
             
             Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
@@ -97,7 +124,7 @@ namespace Code.Scripts.States
         
         private void FlipCheck()
         {
-            if (sharedContext.Input > 0f && _speed < 0f || sharedContext.Input < 0f && _speed > 0f)
+            if (Input > 0f && _speed < 0f || Input < 0f && _speed > 0f)
                 _speed = 0f;
         }
     }

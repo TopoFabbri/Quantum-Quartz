@@ -1,4 +1,3 @@
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace Code.Scripts.States
 
         public bool IsActivated { get; private set; }
 
-        public SpringState(T id, SpringSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public SpringState(T id, SpringSettings stateSettings, Rigidbody2D rb, Transform transform) : base(id, stateSettings.moveSettings, rb, transform)
         {
             this.springSettings = stateSettings;
         }
@@ -19,13 +18,13 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             IsActivated = false;
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
+            rb.sharedMaterial.friction = moveSettings.airFriction;
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
+            rb.sharedMaterial.friction = moveSettings.groundFriction;
         }
 
         public void Activate()

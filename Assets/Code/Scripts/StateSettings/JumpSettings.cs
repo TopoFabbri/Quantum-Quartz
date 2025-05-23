@@ -11,6 +11,7 @@ namespace Code.Scripts.StateSettings
 
         [HeaderPlus("Jump Settings")]
         public float jumpForce = 10f;
+        public float bufferTime = 0.1f;
         public GameObject dust;
     }
 }

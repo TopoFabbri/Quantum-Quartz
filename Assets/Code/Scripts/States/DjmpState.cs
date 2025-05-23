@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using Code.Scripts.Camera;
-using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -14,18 +12,14 @@ namespace Code.Scripts.States
     public class DjmpState<T> : JumpState<T>
     {
         protected readonly DjmpSettings djmpSettings;
-        private readonly ParticleSystem djmpParticleSystem;
-        private readonly ParticleSystem djmpParticleSystem2;
-
+        
         public bool JumpAvailable { get; private set; }
 
         private readonly CameraController camController;
         
-        public DjmpState(T id, DjmpSettings stateSettings, PlayerState.SharedContext sharedContext, ParticleSystem djmpParticleSystem, ParticleSystem djmpParticleSystem2) : base(id, stateSettings.jumpSettings, sharedContext)
+        public DjmpState(T id, DjmpSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id, stateSettings.jumpSettings, rb, transform, mb)
         {
             this.djmpSettings = stateSettings;
-            this.djmpParticleSystem = djmpParticleSystem;
-            this.djmpParticleSystem2 = djmpParticleSystem2;
 
             UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
                     
@@ -35,12 +29,8 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            sharedContext.PlayerSfx.Djmp();
-
-            djmpParticleSystem.Play();
-            djmpParticleSystem2.Play();
-
-            sharedContext.Rigidbody.velocity = Vector2.zero;
+            
+            rb.velocity = Vector2.zero;
             
             if (camController)
                 camController.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
@@ -57,15 +47,15 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
             
-            if (!sharedContext.IsGrounded())
+            if (!IsGrounded())
                 HasJumped = true;
         }
 
         protected override IEnumerator JumpOnFU()
         {
             yield return new WaitForFixedUpdate();
-
-            sharedContext.Rigidbody.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+            
+            rb.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
             JumpAvailable = false;
         }
         

@@ -1,5 +1,4 @@
 ﻿using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using UnityEngine;
 
 namespace Code.Scripts.States
@@ -8,27 +7,27 @@ namespace Code.Scripts.States
     {
         public bool Ended { get; private set; }
         
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly Rigidbody2D rb;
         
-        public TpState(T id, PlayerState.SharedContext sharedContext) : base(id)
+        public TpState(T id, Rigidbody2D rb) : base(id)
         {
-            this.sharedContext = sharedContext;
+            this.rb = rb;
         }
         
         public override void OnEnter()
         {
             base.OnEnter();
-
-            sharedContext.Rigidbody.velocity = Vector2.zero;
-            sharedContext.Rigidbody.isKinematic = true;
+            
+            rb.velocity = Vector2.zero;
+            rb.isKinematic = true;
             Ended = false;
         }
 
         public override void OnExit()
         {
             base.OnExit();
-
-            sharedContext.Rigidbody.isKinematic = false;
+            
+            rb.isKinematic = false;
         }
         
         public void OnEnd()

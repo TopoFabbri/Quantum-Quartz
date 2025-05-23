@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Code.Scripts.FSM;
-using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -14,35 +13,37 @@ namespace Code.Scripts.States
     {
         protected readonly SpawnSettings spawnSettings;
         
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly Transform transform;
+        private readonly Rigidbody2D rb;
+        private readonly MonoBehaviour mb;
         
         public bool Ended { get; private set; }
         
-        public SpawnState(T id, SpawnSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id)
+        public SpawnState(T id, SpawnSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id)
         {
             this.spawnSettings = stateSettings;
-            this.sharedContext = sharedContext;
+            this.transform = transform;
+            this.rb = rb;
+            this.mb = mb;
         }
         
         public override void OnEnter()
         {
             base.OnEnter();
-
-            sharedContext.Rigidbody.isKinematic = true;
+            
+            rb.isKinematic = true;
             
             Reposition();
             
             Ended = false;
-            sharedContext.MonoBehaviour.StartCoroutine(WaitAndEnd());
+            mb.StartCoroutine(WaitAndEnd());
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            sharedContext.falling = false;
-            sharedContext.died = false;
-
-            sharedContext.Rigidbody.isKinematic = false;
+            
+            rb.isKinematic = false;
         }
 
         /// <summary>
@@ -57,10 +58,10 @@ namespace Code.Scripts.States
         
         private void Reposition()
         {
-            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
             
-            if (hit)
-                sharedContext.Transform.position = hit.point + Vector2.up * spawnSettings.height;
+            if(hit)
+                transform.position = hit.point + Vector2.up * spawnSettings.height;
         }
     }
 }
