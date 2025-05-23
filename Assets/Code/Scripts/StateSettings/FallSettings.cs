@@ -13,5 +13,6 @@ namespace Code.Scripts.StateSettings
         public float coyoteTime = 0.1f;
         public float maxFallSpeed = 10f;
         public string fallSoundName = "Play_Lab_Landing";
+        public GameObject dust;
     }
 }
