@@ -2,6 +2,8 @@
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Game;
+using Code.Scripts.Level;
+using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -15,10 +17,8 @@ namespace Code.Scripts.States
     {
         protected readonly DeathSettings deathSettings;
 
-        private readonly Transform transform;
-        private readonly Rigidbody2D rb;
-        private readonly MonoBehaviour mb;
-        private readonly CameraController camController;
+        private readonly PlayerState.SharedContext sharedContext;
+        private readonly DeathController deathController;
 
         public Vector2 Direction { get; set; }
         public bool Ended { get; private set; }
@@ -26,35 +26,36 @@ namespace Code.Scripts.States
         private bool moving;
         private float speed;
 
-        public DeathState(T id, DeathSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id)
+        public DeathState(T id, DeathSettings stateSettings, PlayerState.SharedContext sharedContext, DeathController deathController) : base(id)
         {
             this.deathSettings = stateSettings;
-            this.transform = transform;
-            this.rb = rb;
-            this.mb = mb;
-
-            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
+            this.sharedContext = sharedContext;
+            this.deathController = deathController;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
+            sharedContext.PlayerSfx.Death();
+
+            Direction = new Vector2(-sharedContext.Input, -sharedContext.Rigidbody.velocity.normalized.y);
 
             Ended = false;
             moving = true;
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true;
+            sharedContext.Rigidbody.velocity = Vector2.zero;
+            sharedContext.Rigidbody.isKinematic = true;
 
-            if (camController)
-                camController.Shake(deathSettings.shakeDur, deathSettings.shakeMag);
-            
-            mb.StartCoroutine(WaitAndEnd());
+            sharedContext.CamController?.Shake(deathSettings.shakeDur, deathSettings.shakeMag);
+
+            sharedContext.MonoBehaviour.StartCoroutine(WaitAndEnd());
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            
+            deathController.Die();
+            sharedContext.died = false;
+
             Stats.SetDeaths(Stats.GetDeaths() + 1);
         }
 
@@ -68,8 +69,8 @@ namespace Code.Scripts.States
 
             speed = Mathf.Clamp(speed, 0f, deathSettings.maxSpeed);
 
-            Vector2 target = (Vector2)transform.position + Direction;
-            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            Vector2 target = (Vector2)sharedContext.Transform.position + Direction;
+            sharedContext.Transform.position = Vector2.MoveTowards(sharedContext.Transform.position, target, speed * Time.deltaTime);
         }
 
         /// <summary>

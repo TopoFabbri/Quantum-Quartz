@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Code.Scripts.FSM;
+using Code.Scripts.Player;
+using UnityEngine;
 
-namespace Code.Scripts.FSM
+namespace Code.Scripts.States
 {
     public class PauseState<T> : BaseState<T>
     {
-        private readonly Rigidbody2D rb;
+        private readonly PlayerState.SharedContext sharedContext;
         
         private Vector2 velocity;
         private float angularVelocity;
@@ -12,37 +14,37 @@ namespace Code.Scripts.FSM
         private float gravityScale;
         private bool isKinematic;
 
-        public PauseState(T id, Rigidbody2D rb) : base(id)
+        public PauseState(T id, PlayerState.SharedContext sharedContext) : base(id)
         {
-            this.rb = rb;
+            this.sharedContext = sharedContext;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
             
-            velocity = rb.velocity;
-            angularVelocity = rb.angularVelocity;
-            drag = rb.drag;
-            gravityScale = rb.gravityScale;
-            isKinematic = rb.isKinematic;
-            
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            rb.drag = 0f;
-            rb.gravityScale = 0f;
-            rb.isKinematic = true;
+            velocity = sharedContext.Rigidbody.velocity;
+            angularVelocity = sharedContext.Rigidbody.angularVelocity;
+            drag = sharedContext.Rigidbody.drag;
+            gravityScale = sharedContext.Rigidbody.gravityScale;
+            isKinematic = sharedContext.Rigidbody.isKinematic;
+
+            sharedContext.Rigidbody.velocity = Vector2.zero;
+            sharedContext.Rigidbody.angularVelocity = 0f;
+            sharedContext.Rigidbody.drag = 0f;
+            sharedContext.Rigidbody.gravityScale = 0f;
+            sharedContext.Rigidbody.isKinematic = true;
         }
         
         public override void OnExit()
         {
             base.OnExit();
-            
-            rb.isKinematic = isKinematic;
-            rb.gravityScale = gravityScale;
-            rb.drag = drag;
-            rb.angularVelocity = angularVelocity;
-            rb.velocity = velocity;
+
+            sharedContext.Rigidbody.isKinematic = isKinematic;
+            sharedContext.Rigidbody.gravityScale = gravityScale;
+            sharedContext.Rigidbody.drag = drag;
+            sharedContext.Rigidbody.angularVelocity = angularVelocity;
+            sharedContext.Rigidbody.velocity = velocity;
         }
     }
 }
