@@ -378,7 +378,7 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(wjmp, fall, new[] { "DownVelocity" });
             stateMachine.AddTransition(spng, fall, new[] { "DownVelocity" });
             stateMachine.AddTransition(dash, fall, new[] { "ExitDash" });
-            stateMachine.AddTransition(wall, fall, () => !wall.IsTouchingWall() || context.IsFalse("IsGreen"));
+            stateMachine.AddTransition(wall, fall, () => Mathf.Sign(sharedContext.Input) == (sharedContext.facingRight ? 1 : -1) || !wall.IsTouchingWall(!sharedContext.facingRight) || context.IsFalse("IsGreen"));
             stateMachine.AddTransition(glde, fall, () => context.IsFalse("GlidePressed") || context.IsFalse("HasYellowStamina"));
 
             // Dash transitions

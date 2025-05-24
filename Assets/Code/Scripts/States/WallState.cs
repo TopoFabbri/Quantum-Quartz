@@ -5,6 +5,7 @@ using Code.Scripts.Platforms;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
+using System.Linq;
 
 namespace Code.Scripts.States
 {
@@ -34,6 +35,8 @@ namespace Code.Scripts.States
                 sharedContext.Rigidbody.velocity.x,
                 Mathf.Clamp(sharedContext.Rigidbody.velocity.y, -fallSettings.maxFallSpeed * Time.fixedDeltaTime, fallSettings.maxFallSpeed * Time.fixedDeltaTime)
             );
+
+            PositionPlayer();
         }
 
         public override void OnEnter()
@@ -65,7 +68,16 @@ namespace Code.Scripts.States
             if (ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green)
                 return false;
 
-            Vector2 pos = (Vector2)sharedContext.Transform.position + Vector2.right * (sharedContext.facingRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis);
+            return IsTouchingWall(sharedContext.facingRight);
+        }
+
+        /// <summary>
+        /// Check if player is touching a wall
+        /// </summary>
+        /// <returns> True if touching a wall</returns>
+        public bool IsTouchingWall(bool checkRight)
+        {
+            Vector2 pos = (Vector2)sharedContext.Transform.position + Vector2.right * (checkRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis);
 
             Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
 
@@ -87,51 +99,32 @@ namespace Code.Scripts.States
         }
 
         /// <summary>
-        /// Check if player is touching a wall
-        /// </summary>
-        /// <returns> True if touching a wall</returns>
-        public bool IsTouchingWall()
-        {
-            Vector2 pos = (Vector2)sharedContext.Transform.position +
-                          Vector2.right * (sharedContext.facingRight ? -moveSettings.wallCheckDis : moveSettings.wallCheckDis);
-
-            Collider2D[] colliders =
-                Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
-
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
-                    return true;
-
-                if (!collider.gameObject.CompareTag("Platform")) continue;
-
-                if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D)) continue;
-                
-                return true;
-            }
-
-            return false;
-        }
-        
-        /// <summary>
         /// Place player at a certain distance from the wall
         /// </summary>
         private void PositionPlayer()
         {
-            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position + (sharedContext.facingRight ? Vector3.right : Vector3.left),
-                sharedContext.facingRight ? Vector2.left : Vector2.right, moveSettings.wallCheckDis * 4f,
-                LayerMask.GetMask("Default"));
-            
-            if (!hit.collider || !hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
-                return;
+            Vector2 lookDir = sharedContext.facingRight ? Vector3.right : Vector3.left;
+            Vector2 checkOrigin = (Vector2)sharedContext.Transform.position;
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(checkOrigin, moveSettings.wallCheckSize, 0f, -lookDir, moveSettings.wallCheckDis * 4f, LayerMask.GetMask("Default"));
 
-            if (hit.collider.TryGetComponent(out ObjMovement objMovement))
-                objMovement.AddPlayer(sharedContext.Transform);
-            
-            Vector3 newPos = sharedContext.Transform.position;
-            newPos.x = hit.point.x + (sharedContext.facingRight ? 1f : -1f) * wallSettings.wallDis;
+            hits = hits.Where((hit) => hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"))).ToArray();
 
-            sharedContext.Transform.position = newPos;
+            if (hits.Length > 0)
+            {
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    if (hits[i].collider.TryGetComponent(out ObjMovement objMovement))
+                    {
+                        objMovement.AddPlayer(sharedContext.Transform);
+                        break;
+                    }
+                }
+
+                Vector3 newPos = sharedContext.Transform.position;
+                newPos.x = hits[0].point.x + (sharedContext.facingRight ? 1f : -1f) * wallSettings.wallDis;
+
+                sharedContext.Transform.position = newPos;
+            }
         }
 
         /// <summary>

@@ -63,18 +63,6 @@ namespace Code.Scripts.Player
                     playerState.Flip();
                 }
             }
-
-            // What do all these states have in common that require the moveState.DecreaseSpeed() to be called?
-            if (
-                curStateType != typeof(MoveState<string>)
-                && curStateType != typeof(FallState<string>)
-                && curStateType != typeof(JumpState<string>)
-                && curStateType != typeof(DjmpState<string>)
-            )
-            {
-                playerState.tempMoveState.DecreaseSpeed();
-                // !! Posiblemente al pedo
-            }
         }
 
         private void FixedUpdate()
