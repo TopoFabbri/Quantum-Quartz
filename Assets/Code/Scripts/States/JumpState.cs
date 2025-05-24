@@ -16,6 +16,8 @@ namespace Code.Scripts.States
 
         public bool HasJumped { get; protected set; }
         public float JumpForce => jumpSettings.jumpForce;
+
+        private Coroutine jumpCoroutine;
         
         public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
         {
@@ -34,8 +36,7 @@ namespace Code.Scripts.States
                 sharedContext.Rigidbody.velocity = vector2;
             }
 
-
-            sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
+            jumpCoroutine = sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
@@ -49,11 +50,12 @@ namespace Code.Scripts.States
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
             
             HasJumped = false;
+            sharedContext.MonoBehaviour.StopCoroutine(jumpCoroutine);
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
 
             if (!sharedContext.IsGrounded())
                 HasJumped = true;

@@ -46,26 +46,10 @@ namespace Code.Scripts.States
                 camController.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-            
-            HasJumped = false;
-        }
-
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-            
-            if (!sharedContext.IsGrounded())
-                HasJumped = true;
-        }
-
         protected override IEnumerator JumpOnFU()
         {
-            yield return new WaitForFixedUpdate();
+            yield return base.JumpOnFU();
 
-            sharedContext.Rigidbody.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
             JumpAvailable = false;
         }
         
