@@ -94,7 +94,7 @@ namespace Code.Scripts.Player
                         grounded ? Color.green : Color.red
                     );
                 }
-                return grounded;
+                return grounded || ((stateMachine.CurrentState as EdgeState<string>)?.IsOnEdge() == true);
             }
         }
 
