@@ -15,7 +15,7 @@ namespace Code.Scripts.States
 
         private float savedGravityScale;
 
-        public WallState(T id, WallSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.fallSettings, sharedContext)
+        public WallState(T id, WallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.fallSettings, sharedContext)
         {
             wallSettings = stateSettings;
         }

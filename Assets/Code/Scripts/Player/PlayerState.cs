@@ -20,84 +20,6 @@ namespace Code.Scripts.Player
 
     public class PlayerState : MonoBehaviour
     {
-        public class SharedContext
-        {
-            public Rigidbody2D Rigidbody { get; private set; }
-            public Transform Transform { get; private set; }
-            public MonoBehaviour MonoBehaviour { get; private set; }
-            public PlayerSfx PlayerSfx { get; private set; }
-            public GlobalSettings GlobalSettings { get; private set; }
-            public CameraController CamController { get; private set; }
-            public float Input { get; private set; }
-            public Type PreviousStateType => stateMachine.PreviousState?.GetType();
-            public Type CurrentStateType => stateMachine.CurrentState?.GetType();
-
-            public bool facingRight = false;
-            public bool falling = false;
-            public bool died = false;
-            public bool canCoyoteJump = false;
-
-            private readonly FiniteStateMachine<string> stateMachine;
-
-            public SharedContext(Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
-            {
-                Rigidbody = rb;
-                Transform = transform;
-                MonoBehaviour = mb;
-                PlayerSfx = playerSfx;
-                GlobalSettings = globalSettings;
-                this.stateMachine = stateMachine;
-
-                InputManager.Move += OnMoveHandler;
-
-                if (UnityEngine.Camera.main?.transform.parent != null)
-                {
-                    UnityEngine.Camera.main.transform.parent.TryGetComponent(out CameraController camController);
-                    CamController = camController;
-                }
-            }
-
-            ~SharedContext()
-            {
-                InputManager.Move -= OnMoveHandler;
-            }
-
-            /// <summary>
-            /// Handle player move action
-            /// </summary>
-            /// <param name="input">Input value</param>
-            void OnMoveHandler(Vector2 input)
-            {
-                Input = input.x;
-            }
-
-            /// <summary>
-            /// Check if player is on ground
-            /// </summary>
-            /// <returns>True if on the ground</returns>
-            public bool IsGrounded()
-            {
-                Vector2 pos = Transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(pos + GlobalSettings.groundCheckOffset, Vector2.down, GlobalSettings.groundCheckRadius, GlobalSettings.groundLayer);
-                bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
-
-                if (GlobalSettings.shouldDraw)
-                {
-                    Debug.DrawLine(
-                        pos + GlobalSettings.groundCheckOffset,
-                        pos + GlobalSettings.groundCheckOffset + Vector2.down * GlobalSettings.groundCheckRadius,
-                        grounded ? Color.green : Color.red
-                    );
-                    Debug.DrawLine(
-                        pos + GlobalSettings.groundCheckOffset,
-                        pos + GlobalSettings.groundCheckOffset + Vector2.down * GlobalSettings.groundCheckRadius,
-                        grounded ? Color.green : Color.red
-                    );
-                }
-                return grounded || ((stateMachine.CurrentState as EdgeState<string>)?.IsOnEdge() == true);
-            }
-        }
-
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private BarController staminaBar;
         [SerializeField] private TextMeshProUGUI stateDebugText;
@@ -118,12 +40,11 @@ namespace Code.Scripts.Player
 
         public static event Action<bool> OnFlip;
 
-        public MoveState<string> tempMoveState;
-        public JumpState<string> tempJumpState;
-        public DashState<string> tempDashState;
+        public MoveState<string> tempMoveState; // Speed
+        public DashState<string> tempDashState; // Interrupt
         public DjmpState<string> tempDjmpState; // <-------------------------- Used to check if double jump is available, and to reset the double jump
-        public TpState<string> tempTlptState;
-        public ExitTpState<string> tempExtpState;
+        public TpState<string> tempTlptState; // Animation events
+        public ExitTpState<string> tempExtpState; // Animation events
 
         Action unsubscribeTemp;
 
@@ -236,7 +157,6 @@ namespace Code.Scripts.Player
             // - These need to be replaced/modified whenever possible
 
             tempMoveState = move;
-            tempJumpState = jump;
             tempDashState = dash;
             tempDjmpState = djmp;
             tempTlptState = tlpt;

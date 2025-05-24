@@ -19,14 +19,14 @@ namespace Code.Scripts.States
 
         public bool Ended { get; private set; }
 
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         private readonly BarController barController;
         private readonly ParticleSystem dashParticleSystem;
 
         private float gravScale;
         private bool interrupted;
 
-        public DashState(T id, DashSettings stateSettings, PlayerState.SharedContext sharedContext, BarController barController, ParticleSystem dashParticleSystem) : base(id)
+        public DashState(T id, DashSettings stateSettings, SharedContext sharedContext, BarController barController, ParticleSystem dashParticleSystem) : base(id)
         {
             this.dashSettings = stateSettings;
             this.sharedContext = sharedContext;
@@ -34,6 +34,7 @@ namespace Code.Scripts.States
             this.dashParticleSystem = dashParticleSystem;
             
             barController.AddBar(ColorSwitcher.QColour.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
+            barController.GetBar(ColorSwitcher.QColour.Red).AddConditionalRegenSpeed(() => sharedContext.IsGrounded() ? dashSettings.staminaFloorRegenSpeed : null);
         }
 
         public override void OnEnter()
@@ -49,6 +50,7 @@ namespace Code.Scripts.States
             sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
             sharedContext.MonoBehaviour.StartCoroutine(EndDash());
+            barController.GetBar(ColorSwitcher.QColour.Red).Use();
         }
 
         public override void OnExit()
@@ -66,7 +68,8 @@ namespace Code.Scripts.States
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            
+            barController.GetBar(ColorSwitcher.QColour.Red).Use();
+
             if (WallCheck())
             {
                 Ended = true;

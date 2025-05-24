@@ -21,7 +21,7 @@ namespace Code.Scripts.States
 
         private readonly CameraController camController;
         
-        public DjmpState(T id, DjmpSettings stateSettings, PlayerState.SharedContext sharedContext, ParticleSystem djmpParticleSystem, ParticleSystem djmpParticleSystem2) : base(id, stateSettings.jumpSettings, sharedContext)
+        public DjmpState(T id, DjmpSettings stateSettings, SharedContext sharedContext, ParticleSystem djmpParticleSystem, ParticleSystem djmpParticleSystem2) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.djmpSettings = stateSettings;
             this.djmpParticleSystem = djmpParticleSystem;

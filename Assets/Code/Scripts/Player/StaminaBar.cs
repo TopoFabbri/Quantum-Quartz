@@ -12,33 +12,32 @@ namespace Code.Scripts.Player
         public bool Full => FillValue >= 1f;
         public float FillValue { get; private set; }
 
-        private readonly float regenSpeed;
+        private readonly float defaultRegenSpeed;
         private readonly float depleteSpeed;
         private readonly float initCut;
 
-        private readonly List<Func<bool>> noRegenConditions = new();
+        private readonly List<Func<float?>> conditionalRegenSpeeds = new();
 
         public StaminaBar(float regenSpeed, float depleteSpeed, float initCut)
         {
-            this.regenSpeed = regenSpeed;
+            this.defaultRegenSpeed = regenSpeed;
             this.depleteSpeed = depleteSpeed;
             this.initCut = initCut;
             
             FillValue = 1f;
-            AddNoRegenCondition(() => used);
+            AddConditionalRegenSpeed(() => used ? 0 : null);
         }
 
         public void LateUpdate()
         {
-            if (!noRegenConditions.Any(noRegenCondition => noRegenCondition()))
-                Regen();
-            
+            Regen(conditionalRegenSpeeds.Aggregate(float.MaxValue, (min, next) => Mathf.Min(min, next() ?? float.MaxValue)));
             used = false;
         }
         
         public void Use()
         {
-            if (Depleted) return;
+            if (Depleted)
+                return;
 
             FillValue -= depleteSpeed * Time.deltaTime;
             
@@ -58,21 +57,25 @@ namespace Code.Scripts.Player
             FillValue -= initCut * depleteSpeed;
         }
         
-        public void AddNoRegenCondition(Func<bool> noRegenCondition)
+        public void AddConditionalRegenSpeed(Func<float?> conditionalRegenSpeed)
         {
-            noRegenConditions.Add(noRegenCondition);
+            conditionalRegenSpeeds.Add(conditionalRegenSpeed);
         }
         
-        public void RemoveNoRegenCondition(Func<bool> noRegenCondition)
+        public void RemoveConditionalRegenSpeed(Func<float?> conditionalRegenSpeed)
         {
-            noRegenConditions.Remove(noRegenCondition);
+            conditionalRegenSpeeds.Remove(conditionalRegenSpeed);
         }
 
-        private void Regen()
+        private void Regen(float speed)
         {
-            FillValue += regenSpeed * Time.deltaTime;
+            if (speed == float.MaxValue)
+                speed = defaultRegenSpeed;
 
-            if (!(FillValue >= 1f)) return;
+            FillValue += speed * Time.deltaTime;
+
+            if (!(FillValue >= 1f))
+                return;
             
             FillValue = 1f;
             Depleted = false;

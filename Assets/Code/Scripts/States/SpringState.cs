@@ -10,7 +10,7 @@ namespace Code.Scripts.States
 
         public bool IsActivated { get; private set; }
 
-        public SpringState(T id, SpringSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public SpringState(T id, SpringSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
         {
             this.springSettings = stateSettings;
         }

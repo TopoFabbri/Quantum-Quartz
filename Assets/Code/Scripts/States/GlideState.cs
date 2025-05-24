@@ -14,14 +14,14 @@ namespace Code.Scripts.States
         private readonly BarController barController;
         private readonly ParticleSystem glideParticleSystem;
 
-        public GlideState(T id, GlideSettings stateSettings, PlayerState.SharedContext sharedContext, BarController barController, ParticleSystem glideParticleSystem) : base(id, stateSettings.fallSettings, sharedContext)
+        public GlideState(T id, GlideSettings stateSettings, SharedContext sharedContext, BarController barController, ParticleSystem glideParticleSystem) : base(id, stateSettings.fallSettings, sharedContext)
         {
             this.glideSettings = stateSettings;
             this.barController = barController;
             this.glideParticleSystem = glideParticleSystem;
 
             barController.AddBar(ColorSwitcher.QColour.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Yellow).AddNoRegenCondition(() => !sharedContext.IsGrounded());
+            barController.GetBar(ColorSwitcher.QColour.Yellow).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded() ? 0 : null);
         }
 
         public override void OnEnter()

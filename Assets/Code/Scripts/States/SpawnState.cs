@@ -14,11 +14,11 @@ namespace Code.Scripts.States
     {
         protected readonly SpawnSettings spawnSettings;
         
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         
         public bool Ended { get; private set; }
         
-        public SpawnState(T id, SpawnSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id)
+        public SpawnState(T id, SpawnSettings stateSettings, SharedContext sharedContext) : base(id)
         {
             this.spawnSettings = stateSettings;
             this.sharedContext = sharedContext;

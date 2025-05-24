@@ -14,10 +14,10 @@ namespace Code.Scripts.States
     {
         protected readonly EdgeSettings edgeSettings;
 
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         private readonly FsmAnimationController animator;
         
-        public EdgeState(T id, EdgeSettings stateSettings, PlayerState.SharedContext sharedContext, FsmAnimationController animator) : base(id)
+        public EdgeState(T id, EdgeSettings stateSettings, SharedContext sharedContext, FsmAnimationController animator) : base(id)
         {
             this.edgeSettings = stateSettings;
             this.sharedContext = sharedContext;

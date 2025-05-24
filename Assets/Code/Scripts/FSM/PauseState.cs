@@ -6,7 +6,7 @@ namespace Code.Scripts.States
 {
     public class PauseState<T> : BaseState<T>
     {
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         
         private Vector2 velocity;
         private float angularVelocity;
@@ -14,7 +14,7 @@ namespace Code.Scripts.States
         private float gravityScale;
         private bool isKinematic;
 
-        public PauseState(T id, PlayerState.SharedContext sharedContext) : base(id)
+        public PauseState(T id, SharedContext sharedContext) : base(id)
         {
             this.sharedContext = sharedContext;
         }

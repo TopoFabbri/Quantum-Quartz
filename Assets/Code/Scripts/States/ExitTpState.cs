@@ -8,9 +8,9 @@ namespace Code.Scripts.States
     {
         public bool Ended { get; private set; }
         
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         
-        public ExitTpState(T id, PlayerState.SharedContext sharedContext) : base(id)
+        public ExitTpState(T id, SharedContext sharedContext) : base(id)
         {
             this.sharedContext = sharedContext;
         }

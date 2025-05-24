@@ -10,7 +10,7 @@ namespace Code.Scripts.States
     {
         protected readonly WjmpSettings wjmpSettings;
         
-        public WallJumpState(T id, WjmpSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
+        public WallJumpState(T id, WjmpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.wjmpSettings = stateSettings;
         }

@@ -14,7 +14,7 @@ namespace Code.Scripts.States
     {
         protected readonly FallSettings fallSettings;
 
-        public FallState(T id, FallSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
         {
             this.fallSettings = stateSettings;
         }

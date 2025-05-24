@@ -16,13 +16,13 @@ namespace Code.Scripts.States
         
         private readonly BarController barController;
         
-        public GrabState(T id, GrabSettings stateSettings, PlayerState.SharedContext sharedContext, BarController barController) : base(id, stateSettings.wallSettings, sharedContext)
+        public GrabState(T id, GrabSettings stateSettings, SharedContext sharedContext, BarController barController) : base(id, stateSettings.wallSettings, sharedContext)
         {
             this.grabSettings = stateSettings;
             this.barController = barController;
             
             barController.AddBar(ColorSwitcher.QColour.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Green).AddNoRegenCondition(() => !sharedContext.IsGrounded());
+            barController.GetBar(ColorSwitcher.QColour.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded() ? 0 : null);
         }
 
         public override void OnEnter()

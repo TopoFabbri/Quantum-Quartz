@@ -14,14 +14,14 @@ namespace Code.Scripts.States
     {
         protected readonly MoveSettings moveSettings;
 
-        protected readonly PlayerState.SharedContext sharedContext;
+        protected readonly SharedContext sharedContext;
 
         private static float _speed;
         protected bool canMove = true;
 
         public float Speed => _speed;
 
-        public MoveState(T id, MoveSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id)
+        public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext) : base(id)
         {
             this.moveSettings = stateSettings;
             this.sharedContext = sharedContext;

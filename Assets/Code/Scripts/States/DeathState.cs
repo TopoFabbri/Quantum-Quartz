@@ -17,7 +17,7 @@ namespace Code.Scripts.States
     {
         protected readonly DeathSettings deathSettings;
 
-        private readonly PlayerState.SharedContext sharedContext;
+        private readonly SharedContext sharedContext;
         private readonly DeathController deathController;
 
         public Vector2 Direction { get; set; }
@@ -26,7 +26,7 @@ namespace Code.Scripts.States
         private bool moving;
         private float speed;
 
-        public DeathState(T id, DeathSettings stateSettings, PlayerState.SharedContext sharedContext, DeathController deathController) : base(id)
+        public DeathState(T id, DeathSettings stateSettings, SharedContext sharedContext, DeathController deathController) : base(id)
         {
             this.deathSettings = stateSettings;
             this.sharedContext = sharedContext;

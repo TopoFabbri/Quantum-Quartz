@@ -17,7 +17,7 @@ namespace Code.Scripts.States
         public bool HasJumped { get; protected set; }
         public float JumpForce => jumpSettings.jumpForce;
         
-        public JumpState(T id, JumpSettings stateSettings, PlayerState.SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
         {
             this.jumpSettings = stateSettings;
         }
