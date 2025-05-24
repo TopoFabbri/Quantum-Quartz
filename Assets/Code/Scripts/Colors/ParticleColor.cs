@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Scripts.Colors
 {
     public class ParticleColor : MonoBehaviour
     {
-        [SerializeField] private List<Color> colors = new();
+        [FormerlySerializedAs("colors")] [SerializeField] private List<Color> colours = new();
         [SerializeField] private ParticleSystem ps;
         [SerializeField] private ColorSwitcher.QColour qColour;
         
@@ -16,13 +17,13 @@ namespace Code.Scripts.Colors
         private void Awake()
         {
             mainPs = ps.main;
-            if (colors.Count > 0) return;
+            if (colours.Count > 0) return;
 
-            colors.Add(Color.white);
-            colors.Add(Color.red);
-            colors.Add(Color.blue);
-            colors.Add(Color.green);
-            colors.Add(Color.yellow);
+            colours.Add(Color.white);
+            colours.Add(Color.red);
+            colours.Add(Color.blue);
+            colours.Add(Color.green);
+            colours.Add(Color.yellow);
         }
 
         private void OnEnable()
@@ -37,12 +38,7 @@ namespace Code.Scripts.Colors
 
         private void OnColorSwitch(ColorSwitcher.QColour colour)
         {
-            mainPs.startColor = colors[(int)colour];
-        }
-        
-        private void RestartPs()
-        {
-            ps.Clear();
+            mainPs.startColor = colours[(int)colour];
         }
     }
 }

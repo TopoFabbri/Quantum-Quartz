@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4128495714051251647}
   - component: {fileID: 5920962432190977857}
   - component: {fileID: 4675355794037197908}
-  - component: {fileID: 8494154645579703080}
   m_Layer: 0
   m_Name: SemisolidPlat
   m_TagString: Platform
@@ -53,7 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 5920962432190977857}
-  ps: {fileID: 2433623079028513407}
+  psOn: {fileID: 2433623079028513407}
+  psOff: {fileID: 2640127898017719874}
   particleQty: 17
   solid: 0
   matSoundEvent: Set_Switch_Concrete
@@ -210,26 +210,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8494154645579703080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 456758865959664435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  ps: {fileID: 2433623079028513407}
-  qColour: 0
 --- !u!1 &710421054034667825
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4574348293732473199}
+  - component: {fileID: 1174040383486861613}
   - component: {fileID: 2366878952832769275}
   - component: {fileID: 2433623079028513407}
   m_Layer: 0
@@ -263,6 +244,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9014703106631401419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1174040383486861613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710421054034667825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colours:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  ps: {fileID: 2433623079028513407}
+  qColour: 0
 --- !u!199 &2366878952832769275
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -527,7 +528,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0, b: 0, a: 0}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5087,6 +5088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4628833694258434251}
+  - component: {fileID: 5333811394582513006}
   - component: {fileID: 5209013270255879354}
   - component: {fileID: 2640127898017719874}
   m_Layer: 0
@@ -5111,6 +5113,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9014703106631401419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5333811394582513006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8834544715503665235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colours:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  ps: {fileID: 2640127898017719874}
+  qColour: 0
 --- !u!199 &5209013270255879354
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5201,8 +5223,8 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
-  playOnAwake: 0
+  prewarm: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5268,8 +5290,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 0.5
+      scalar: 3
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5375,7 +5397,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0, b: 0, a: 0}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -7195,7 +7217,7 @@ ParticleSystem:
     speedModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
