@@ -41,8 +41,8 @@ namespace Code.Scripts.FSM
             public bool IsTrue(string name) => results.Contains(name);
             public bool IsTrue(IEnumerable<string> names) => results.IsSupersetOf(names);
 
-            public bool IsFalse(string name) => !IsTrue(name);
-            public bool IsFalse(IEnumerable<string> names) => !IsTrue(names); 
+            public bool IsFalse(string name) => !results.Contains(name);
+            public bool IsFalse(IEnumerable<string> names) => !results.Overlaps(names); 
         }
 
         private readonly Dictionary<T, BaseState<T>> states = new();

@@ -651,17 +651,21 @@ namespace Code.Scripts.Player
         {
             bool contextualColor = ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue || ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow;
             bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
-            if (
-                value != 0
-                && (
-                    !doContextual
-                    || sharedContext.canCoyoteJump
-                    || (!sharedContext.falling && sharedContext.IsGrounded())
-                )
-            )
+            if (doContextual && (value == 0 || (!sharedContext.canCoyoteJump && (sharedContext.falling || !sharedContext.IsGrounded()))))
+            {
+                // If in air with a contextual power mapping, use ability
+                if (value != 0)
+                {
+                    OnAbilityPressHandler();
+                }
+                else
+                {
+                    OnAbilityReleaseHandler();
+                }
+            }
+            else if (value != 0)
             {
                 jumpPressed = true;
-
                 StartCoroutine(EndJumpBufferTime(globalSettings.jumpBufferTime));
             }
         }

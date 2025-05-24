@@ -169,7 +169,7 @@ namespace Code.Scripts.Player
         
         public void Kill()
         {
-            if (playerState.sharedContext.died)
+            if (typeof(IDeathImmune).IsAssignableFrom(playerState.sharedContext.CurrentStateType))
                 return;
 
             playerState.sharedContext.died = true;

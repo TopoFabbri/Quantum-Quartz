@@ -10,7 +10,7 @@ namespace Code.Scripts.States
     /// Spawn state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SpawnState<T> : BaseState<T>
+    public class SpawnState<T> : BaseState<T>, IDeathImmune
     {
         protected readonly SpawnSettings spawnSettings;
         
@@ -40,7 +40,6 @@ namespace Code.Scripts.States
         {
             base.OnExit();
             sharedContext.falling = false;
-            sharedContext.died = false;
 
             sharedContext.Rigidbody.isKinematic = false;
         }
