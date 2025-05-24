@@ -16860,11 +16860,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ac68fdc2b0411c865cf7d0163470ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepEvent: Play_Footsteps
-  jumpEvent: Play_Basic_Jump
-  landEvent: Play_Landings
-  djmpEvent: Play_Blue_Quartz_Jump
-  floorSwitchEvent: Set_Switch_Concrete
+  stepEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  jumpEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  landEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  djmpEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  dashEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  glideStartEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  glideStopEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  deathEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
+  floorSwitchEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!61 &2847745276369036443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17057,10 +17088,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0.18796296
-    width: 0.24947917
-    height: 0.24947916
+    x: 0.23229168
+    y: 0
+    width: 0.2425926
+    height: 0.24259259
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -24715,13 +24746,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
+  colours:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0.7134721, b: 1, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   ps: {fileID: 6439251786247561828}
+  qColour: 0
 --- !u!198 &6439251786247561828
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -30153,10 +30185,6 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5321966350739256073, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetMusicVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 5497559545267811367, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TurnOptions
@@ -30176,10 +30204,6 @@ PrefabInstance:
     - target: {fileID: 6250213848098758248, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6695821973942102427, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetSfxVolume
       objectReference: {fileID: 0}
     - target: {fileID: 6747140264487970001, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: m_Enabled
