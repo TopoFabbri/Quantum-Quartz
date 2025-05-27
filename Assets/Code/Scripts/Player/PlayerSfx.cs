@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Scripts.Platforms;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Player
 {
@@ -9,11 +10,16 @@ namespace Code.Scripts.Player
     /// </summary>
     public class PlayerSfx : MonoBehaviour
     {
-        [SerializeField] private string stepEvent;
-        [SerializeField] private string jumpEvent;
-        [SerializeField] private string landEvent;
-        [SerializeField] private string djmpEvent;
-        [SerializeField] private string floorSwitchEvent = "Set_Switch_Concrete";
+        [SerializeField] private Event stepEvent;
+        [SerializeField] private Event jumpEvent;
+        [SerializeField] private Event landEvent;
+        [SerializeField] private Event djmpEvent;
+        [SerializeField] private Event dashEvent;
+        [SerializeField] private Event glideStartEvent;
+        [SerializeField] private Event glideStopEvent;
+        [SerializeField] private Event deathEvent;
+        
+        [SerializeField] private Event floorSwitchEvent;
 
         /// <summary>
         /// Call step event
@@ -21,7 +27,7 @@ namespace Code.Scripts.Player
         public void Step()
         {
             CheckMaterial();
-            AkSoundEngine.PostEvent(stepEvent, gameObject);
+            stepEvent.Post(gameObject);
         }
         
         /// <summary>
@@ -29,7 +35,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Jump()
         {
-            AkSoundEngine.PostEvent(jumpEvent, gameObject);
+            jumpEvent.Post(gameObject);
         }
         
         /// <summary>
@@ -38,7 +44,7 @@ namespace Code.Scripts.Player
         public void Land()
         {
             CheckMaterial();
-            AkSoundEngine.PostEvent(landEvent, gameObject);
+            landEvent.Post(gameObject);
         }
         
         /// <summary>
@@ -46,7 +52,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Djmp()
         {
-            AkSoundEngine.PostEvent(djmpEvent, gameObject);
+            djmpEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -54,7 +60,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void DashL()
         {
-            AkSoundEngine.PostEvent("Play_Dash_L", gameObject);
+            dashEvent.Post(gameObject);
         }
         
         /// <summary>
@@ -62,7 +68,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void DashR()
         {
-            AkSoundEngine.PostEvent("Play_Dash_R", gameObject);
+            dashEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -70,7 +76,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void PlayGlide()
         {
-            AkSoundEngine.PostEvent("Play_Yellow_Quartz", gameObject);
+            glideStartEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -78,7 +84,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void StopGlide()
         {
-            AkSoundEngine.PostEvent("Stop_Yellow_Quartz", gameObject);
+            glideStopEvent.Post(gameObject);
         }
         
         /// <summary>
@@ -86,7 +92,7 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Death()
         {
-            AkSoundEngine.PostEvent("Play_Death", gameObject);
+            deathEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -100,8 +106,10 @@ namespace Code.Scripts.Player
             
             GameObject other = hit.collider.gameObject;
 
-            AkSoundEngine.PostEvent(
-                other.TryGetComponent(out PlatformController plat) ? plat.matSoundEvent : floorSwitchEvent, gameObject);
+            if (other.TryGetComponent(out PlatformController plat))
+                plat.matSoundEvent.Post(gameObject);
+            else
+                floorSwitchEvent.Post(gameObject);
         }
     }
 }

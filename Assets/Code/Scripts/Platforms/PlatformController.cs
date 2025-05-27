@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Platforms
 {
@@ -18,7 +18,7 @@ namespace Code.Scripts.Platforms
         [SerializeField] private float particleQty;
         [SerializeField] private bool solid;
 
-        public string matSoundEvent;
+        public Event matSoundEvent;
 
         private void Start()
         {
