@@ -34,7 +34,7 @@ namespace Code.Scripts.States
             this.dashParticleSystem = dashParticleSystem;
             
             barController.AddBar(ColorSwitcher.QColour.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
-            barController.GetBar(ColorSwitcher.QColour.Red).AddConditionalRegenSpeed(() => sharedContext.IsGrounded() ? dashSettings.staminaFloorRegenSpeed : null);
+            barController.GetBar(ColorSwitcher.QColour.Red).AddConditionalRegenSpeed(() => sharedContext.IsGrounded ? dashSettings.staminaFloorRegenSpeed : null);
         }
 
         public override void OnEnter()

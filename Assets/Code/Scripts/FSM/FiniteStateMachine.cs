@@ -77,18 +77,6 @@ namespace Code.Scripts.FSM
 
         public void Update()
         {
-            Transition<T> transition;
-            for (int resolveDepth = 0; resolveDepth < maxResolveDepth; resolveDepth++)
-            {
-                Context.RecalculateConditions();
-                transition = GetTransition();
-
-                if (transition == null)
-                    break;
-
-                SetCurrentState(transition.To);
-            }
-
             if (initialized)
             {
                 CurrentState.OnUpdate();
@@ -101,6 +89,18 @@ namespace Code.Scripts.FSM
 
         public void FixedUpdate()
         {
+            Transition<T> transition;
+            for (int resolveDepth = 0; resolveDepth < maxResolveDepth; resolveDepth++)
+            {
+                Context.RecalculateConditions();
+                transition = GetTransition();
+
+                if (transition == null)
+                    break;
+
+                SetCurrentState(transition.To);
+            }
+
             if (initialized)
             {
                 CurrentState.OnFixedUpdate();

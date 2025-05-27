@@ -40,7 +40,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            if (sharedContext.IsGrounded())
+            if (sharedContext.IsGrounded)
             {
                 sharedContext.PlayerSfx.Land();
                 SpawnDust();

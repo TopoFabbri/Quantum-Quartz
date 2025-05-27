@@ -39,7 +39,6 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-            sharedContext.falling = false;
 
             sharedContext.Rigidbody.isKinematic = false;
         }

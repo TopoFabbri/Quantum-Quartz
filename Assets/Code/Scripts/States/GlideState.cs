@@ -21,7 +21,7 @@ namespace Code.Scripts.States
             this.glideParticleSystem = glideParticleSystem;
 
             barController.AddBar(ColorSwitcher.QColour.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Yellow).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded() ? 0 : null);
+            barController.GetBar(ColorSwitcher.QColour.Yellow).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
         }
 
         public override void OnEnter()

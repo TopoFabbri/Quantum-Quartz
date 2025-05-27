@@ -22,7 +22,7 @@ namespace Code.Scripts.States
             this.barController = barController;
             
             barController.AddBar(ColorSwitcher.QColour.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded() ? 0 : null);
+            barController.GetBar(ColorSwitcher.QColour.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
         }
 
         public override void OnEnter()

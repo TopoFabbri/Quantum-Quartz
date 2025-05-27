@@ -57,7 +57,7 @@ namespace Code.Scripts.States
         {
             base.OnFixedUpdate();
 
-            if (!sharedContext.IsGrounded())
+            if (!sharedContext.IsGrounded)
                 HasJumped = true;
         }
 

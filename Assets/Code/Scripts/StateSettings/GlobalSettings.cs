@@ -11,11 +11,14 @@ namespace Code.Scripts.StateSettings
         [HeaderPlus("Ground Check")]
         public Vector2 groundCheckOffset;
         public float groundCheckRadius;
+        public float edgeCheckDis = 0.3f;
+        public float edgeCheckLength = 0.3f;
         public LayerMask groundLayer;
-        public bool shouldDraw;
-
 
         [HeaderPlus("Jump Settings")]
         public float jumpBufferTime = 0.1f;
+
+        [HeaderPlus("Debug")]
+        public bool shouldDraw;
     }
 }

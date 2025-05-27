@@ -80,54 +80,29 @@ namespace Code.Scripts.Player
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.enabled)
-                return;
-
-            if (
-                !(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform"))
-                || !playerState.sharedContext.IsGrounded()
-            )
+            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
             {
-                return;
-            }
-
-            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
-            {
-                obj.AddPlayer(transform);
+                if (collision.gameObject.TryGetComponent(out ObjMovement obj))
+                {
+                    obj.AddPlayer(transform);
+                }
             }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (
-                !collision.enabled
-                || !(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform"))
-                || !playerState.sharedContext.IsGrounded()
-            )
-            {
-                return;
-            }
-
-            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
-            {
-                obj.AddPlayer(transform);
-            }
+            OnCollisionEnter2D(collision);
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (
-                !collision.enabled
-                || !(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform"))
-            )
+            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
             {
-                return;
-            }
-
-            if (collision.gameObject.CompareTag("Platform")) // Why is this check different than the one in OnCollisionEnter/Stay
-            {
-                transform.parent = null;
-                // No clear reason, maybe use the same condition
+                if (collision.gameObject.TryGetComponent(out ObjMovement obj) && transform.parent.Equals(obj.transform))
+                {
+                    Debug.Log("Exit " + collision.gameObject);
+                    transform.parent = null;
+                }
             }
         }
 
