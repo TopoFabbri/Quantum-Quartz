@@ -14,6 +14,7 @@ namespace Code.Scripts.StateSettings
         public float shakeDur = 0.1f;
         public float shakeMag = 0.1f;
         public float staminaRegenSpeed = .35f;
+        public float staminaFloorRegenSpeed = 1.5f;
         public float staminaMitigationAmount = 100f;
         
         [HeaderPlus("Dash Wall Check")]

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Code.Scripts.FSM;
+using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 
@@ -9,41 +10,37 @@ namespace Code.Scripts.States
     /// Spawn state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SpawnState<T> : BaseState<T>
+    public class SpawnState<T> : BaseState<T>, IDeathImmune
     {
         protected readonly SpawnSettings spawnSettings;
         
-        private readonly Transform transform;
-        private readonly Rigidbody2D rb;
-        private readonly MonoBehaviour mb;
+        private readonly SharedContext sharedContext;
         
         public bool Ended { get; private set; }
         
-        public SpawnState(T id, SpawnSettings stateSettings, Rigidbody2D rb, Transform transform, MonoBehaviour mb) : base(id)
+        public SpawnState(T id, SpawnSettings stateSettings, SharedContext sharedContext) : base(id)
         {
             this.spawnSettings = stateSettings;
-            this.transform = transform;
-            this.rb = rb;
-            this.mb = mb;
+            this.sharedContext = sharedContext;
         }
         
         public override void OnEnter()
         {
             base.OnEnter();
-            
-            rb.isKinematic = true;
+
+            sharedContext.Rigidbody.isKinematic = true;
             
             Reposition();
             
             Ended = false;
-            mb.StartCoroutine(WaitAndEnd());
+            sharedContext.MonoBehaviour.StartCoroutine(WaitAndEnd());
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            
-            rb.isKinematic = false;
+
+            sharedContext.Rigidbody.isKinematic = false;
         }
 
         /// <summary>
@@ -58,10 +55,10 @@ namespace Code.Scripts.States
         
         private void Reposition()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
             
-            if(hit)
-                transform.position = hit.point + Vector2.up * spawnSettings.height;
+            if (hit)
+                sharedContext.Transform.position = hit.point + Vector2.up * spawnSettings.height;
         }
     }
 }
