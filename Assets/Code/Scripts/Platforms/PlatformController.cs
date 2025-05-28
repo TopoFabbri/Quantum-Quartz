@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Platforms
 {
@@ -8,30 +8,53 @@ namespace Code.Scripts.Platforms
     /// </summary>
     public class PlatformController : MonoBehaviour
     {
+        private const float EdgeOffset = 1f;
+        private const float RadiusOffset = 2f;
+        private const float OffMultiplier = .5f;
+
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private ParticleSystem ps;
+        [SerializeField] private ParticleSystem psOn;
+        [SerializeField] private ParticleSystem psOff;
         [SerializeField] private float particleQty;
         [SerializeField] private bool solid;
 
-        public string matSoundEvent;
-        
+        public Event matSoundEvent;
+
         private void Start()
         {
+            ConfigureParticleSystem(psOn, 1);
+            ConfigureParticleSystem(psOff, OffMultiplier);
+        }
+
+        private void ConfigureParticleSystem(ParticleSystem ps, float multiplier)
+        {
             if (!ps) return;
-            
+
             ParticleSystem.ShapeModule psShape = ps.shape;
-            ParticleSystem.EmissionModule module = ps.emission;
+            ParticleSystem.EmissionModule emission = ps.emission;
 
             if (solid)
             {
-                psShape.scale = spriteRenderer.bounds.size - new Vector3(1f, 1f, 0f);
-                module.rateOverTime = psShape.scale.x * psShape.scale.y * particleQty;
+                Vector3 adjustedSize = spriteRenderer.bounds.size - new Vector3(EdgeOffset, EdgeOffset, 0f);
+                psShape.scale = adjustedSize;
+                emission.rateOverTime = CalculateAreaEmissionRate(adjustedSize) * multiplier;
             }
             else
             {
-                psShape.radius = (spriteRenderer.bounds.size.x - 2f) / 2f;
-                module.rateOverTime = psShape.radius * particleQty;
+                float radius = CalculateRadius(spriteRenderer.bounds.size.x);
+                psShape.radius = radius;
+                emission.rateOverTime = CalculateRadialEmissionRate(radius) * multiplier;
             }
         }
+        
+        private void ClearPsOff() => psOff.Clear();
+        
+        private void ClearPsOn() => psOn.Clear();
+
+        private static float CalculateRadius(float width) => (width - RadiusOffset) / 2f;
+
+        private float CalculateAreaEmissionRate(Vector3 scale) => scale.x * scale.y * particleQty;
+
+        private float CalculateRadialEmissionRate(float radius) => radius * particleQty;
     }
 }

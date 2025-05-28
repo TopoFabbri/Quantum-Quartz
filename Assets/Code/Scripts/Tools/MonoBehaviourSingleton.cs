@@ -10,13 +10,12 @@ namespace Code.Scripts.Tools
         {
             get 
             {
-                if (_instance == null)
+                if (!_instance)
                     _instance = FindObjectOfType<MonoBehaviourSingleton<T>>();
 
-                if (_instance != null) return (T)_instance;
+                if (_instance) return (T)_instance;
 
-                GameObject obj = Instantiate(new GameObject());
-                obj.name = typeof(T).Name;
+                GameObject obj = new() { name = typeof(T).Name };
                 _instance = obj.AddComponent<T>();
 
                 return (T)_instance;

@@ -13,16 +13,29 @@ namespace Code.Scripts.Input
     /// </summary>
     public class InputManager : MonoBehaviour
     {
+        public abstract class ReadOnlyInputMap
+        {
+            public abstract string GetMapName();
+            public abstract bool GetContextualPower();
+            public abstract bool GetContextualBYPower();
+            public abstract bool GetDoubleClickPower();
+        }
+
         [System.Serializable]
-        struct InputMap
+        class InputMap : ReadOnlyInputMap
         {
             public string mapName;
             public bool contextualPower;
+            public bool contextualBYPower;
             public bool doubleClickPower;
+            public override string GetMapName() => mapName;
+            public override bool GetContextualPower() => contextualPower;
+            public override bool GetContextualBYPower() => contextualBYPower;
+            public override bool GetDoubleClickPower() => doubleClickPower;
         }
 
         public static event Action<Vector2> Move;
-        public static event Action Jump;
+        public static event Action<float> Jump;
         public static event Action ColorRed;
         public static event Action ColorBlue;
         public static event Action ColorGreen;
@@ -34,12 +47,17 @@ namespace Code.Scripts.Input
         public static event Action DevMode;
 
         [SerializeField] private float moveDeadzone = .5f;
-        [SerializeField] private List<InputMap> inputMaps;
-        private int inputMapIndex = 0;
+        [SerializeField] private GameObject eventSystem;
 
         public static PlayerInput Input { get; private set; }
+        public static ReadOnlyInputMap activeMap;
+
+        [SerializeField, Disable]
         private string gameMap = "World";
         private string uiMap = "UI";
+        private int inputMapIndex = 0;
+
+        [SerializeField] private List<InputMap> inputMaps;
 
         [HeaderPlus("Debug")]
         [InspectorButton("Next Input Map")]
@@ -57,7 +75,15 @@ namespace Code.Scripts.Input
         private void OnEnable()
         {
             Input = GetComponent<PlayerInput>();
-            SwitchGameMap(0);
+            string controlsMapping = PlayerPrefs.GetString("ControlsMapping", "");
+            if (string.IsNullOrWhiteSpace(controlsMapping))
+            {
+                SwitchGameMap(0);
+            }
+            else
+            {
+                SwitchGameMap(controlsMapping);
+            }
         }
         
         private void OnDisable()
@@ -67,18 +93,20 @@ namespace Code.Scripts.Input
 
         public void EnableGameMap()
         {
+            eventSystem.SetActive(false);
             Input.SwitchCurrentActionMap(gameMap);
         }
 
         public void EnableUIMap()
         {
+            eventSystem.SetActive(true);
             Input.SwitchCurrentActionMap(uiMap);
         }
 
         public void SwitchGameMap(int offset)
         {
-            inputMapIndex = Mathf.FloorToInt(Mathf.Repeat(inputMapIndex + offset, inputMaps.Count));
-            SwitchGameMap(inputMaps[inputMapIndex].mapName);
+            int newIndex = Mathf.FloorToInt(Mathf.Repeat(inputMapIndex + offset, inputMaps.Count));
+            SwitchGameMap(inputMaps[newIndex].mapName);
         }
 
         public void SwitchGameMap(string mapName)
@@ -90,18 +118,17 @@ namespace Code.Scripts.Input
                 return;
             }
 
-            bool inList = false;
-            foreach (InputMap inputMap in inputMaps)
+            int newIndex = -1;
+            for (int i = 0; i < inputMaps.Count; i++)
             {
-                if (inputMap.mapName.Equals(mapName))
+                if (inputMaps[i].mapName.Equals(mapName))
                 {
-                    inList = true;
-                    // Here the boolean settings should be processed
+                    newIndex = i;
                     break;
                 }
             }
 
-            if (!inList)
+            if (newIndex < 0)
             {
                 Debug.LogError("Input map '" + mapName + "' is not listed in InputManager's list of input maps");
                 return;
@@ -109,6 +136,8 @@ namespace Code.Scripts.Input
 
             bool inGame = Input.currentActionMap.name.Equals(gameMap);
             gameMap = mapName;
+            inputMapIndex = newIndex;
+            activeMap = inputMaps[inputMapIndex];
             if (inGame)
             {
                 EnableGameMap();
@@ -129,41 +158,76 @@ namespace Code.Scripts.Input
         /// <summary>
         /// Called when input jump is pressed
         /// </summary>
-        protected void OnJump()
+        protected void OnJump(InputValue input)
         {
-            Jump?.Invoke();
+            if (input.Get<float>() != 0)
+            {
+                Jump?.Invoke(1);
+            }
+            else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
+            {
+                Jump?.Invoke(0);
+            }
         }
 
         /// <summary>
         /// Call when change to color red input
         /// </summary>
-        private void OnColorRed()
+        private void OnColorRed(InputValue input)
         {
-            ColorRed?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
+            {
+                OnAbility(input);
+            }
+            else
+            {
+                ColorRed?.Invoke();
+            }
         }
 
         /// <summary>
         /// Call when change to color blue input
         /// </summary>
-        private void OnColorBlue()
+        private void OnColorBlue(InputValue input)
         {
-            ColorBlue?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
+            {
+                OnAbility(input);
+            }
+            else
+            {
+                ColorBlue?.Invoke();
+            }
         }
 
         /// <summary>
         /// Call when change to color green input
         /// </summary>
-        private void OnColorGreen()
+        private void OnColorGreen(InputValue input)
         {
-            ColorGreen?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
+            {
+                OnAbility(input);
+            }
+            else
+            {
+                ColorGreen?.Invoke();
+            }
         }
 
         /// <summary>
         /// Call when change to color yellow input
         /// </summary>
-        private void OnColorYellow()
+        private void OnColorYellow(InputValue input)
         {
-            ColorYellow?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
+            {
+                OnAbility(input);
+            }
+            else
+            {
+                ColorYellow?.Invoke();
+            }
         }
 
         /// <summary>
@@ -211,74 +275,50 @@ namespace Code.Scripts.Input
 
         private void OnColorRedAbility(InputValue input)
         {
-            if (!ColorSwitcher.EnabledColours.Contains(ColorSwitcher.QColour.Red))
+            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Red))
                 return;
 
-            float value = input.Get<float>();
-
-            if (value != 0)
+            if (input.Get<float>() != 0)
             {
                 ColorRed?.Invoke();
-                AbilityPress?.Invoke();
             }
-            else
-            {
-                AbilityRelease?.Invoke();
-            }
+            OnAbility(input);
         }
 
         private void OnColorBlueAbility(InputValue input)
         {
-            if (!ColorSwitcher.EnabledColours.Contains(ColorSwitcher.QColour.Blue))
+            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Blue))
                 return;
 
-            float value = input.Get<float>();
-
-            if (value != 0)
+            if (input.Get<float>() != 0)
             {
                 ColorBlue?.Invoke();
-                AbilityPress?.Invoke();
             }
-            else
-            {
-                AbilityRelease?.Invoke();
-            }
+            OnAbility(input);
         }
 
         private void OnColorGreenAbility(InputValue input)
         {
-            if (!ColorSwitcher.EnabledColours.Contains(ColorSwitcher.QColour.Green))
+            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Green))
                 return;
 
-            float value = input.Get<float>();
-
-            if (value != 0)
+            if (input.Get<float>() != 0)
             {
                 ColorGreen?.Invoke();
-                AbilityPress?.Invoke();
             }
-            else
-            {
-                AbilityRelease?.Invoke();
-            }
+            OnAbility(input);
         }
 
         private void OnColorYellowAbility(InputValue input)
         {
-            if (!ColorSwitcher.EnabledColours.Contains(ColorSwitcher.QColour.Yellow))
+            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Yellow))
                 return;
 
-            float value = input.Get<float>();
-
-            if (value != 0)
+            if (input.Get<float>() != 0)
             {
                 ColorYellow?.Invoke();
-                AbilityPress?.Invoke();
             }
-            else
-            {
-                AbilityRelease?.Invoke();
-            }
+            OnAbility(input);
         }
     }
 }

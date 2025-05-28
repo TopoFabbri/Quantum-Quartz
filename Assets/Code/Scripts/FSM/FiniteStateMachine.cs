@@ -6,11 +6,51 @@ namespace Code.Scripts.FSM
 {
     public class FiniteStateMachine<T>
     {
+        public class TransitionContext
+        {
+            public IReadOnlyCollection<string> Results { get { return results; } }
+
+            private readonly HashSet<string> results;
+            private readonly Dictionary<string, Func<bool>> conditions;
+
+            public TransitionContext()
+            {
+                results = new HashSet<string>();
+                conditions = new Dictionary<string, Func<bool>>();
+            }
+
+            public void AddCondition(string name, Func<bool> condition)
+            {
+                conditions.Add(name, condition);
+            }
+
+            public void RecalculateConditions()
+            {
+                results.Clear();
+                foreach (KeyValuePair<string, Func<bool>> keyValue in conditions)
+                {
+                    if (keyValue.Value())
+                    {
+                        results.Add(keyValue.Key);
+                    }
+                }
+            }
+
+            public bool HasCondition(string name) => conditions.ContainsKey(name);
+
+            public bool IsTrue(string name) => results.Contains(name);
+            public bool IsTrue(IEnumerable<string> names) => results.IsSupersetOf(names);
+
+            public bool IsFalse(string name) => !results.Contains(name);
+            public bool IsFalse(IEnumerable<string> names) => !results.Overlaps(names); 
+        }
+
         private readonly Dictionary<T, BaseState<T>> states = new();
 
         public BaseState<T> CurrentState { get; private set; }
         public BaseState<T> PreviousState { get; private set; }
         public BaseState<T> InterruptedState { get; private set; }
+        public TransitionContext Context { get; private set; }
 
         private readonly Dictionary<Type, List<Transition<T>>> transitions = new();
         private List<Transition<T>> currentTransitions = new();
@@ -26,6 +66,7 @@ namespace Code.Scripts.FSM
         public FiniteStateMachine(int maxResolveDepth = 1)
         {
             this.maxResolveDepth = maxResolveDepth;
+            Context = new TransitionContext();
         }
 
         public void Init()
@@ -36,17 +77,6 @@ namespace Code.Scripts.FSM
 
         public void Update()
         {
-            Transition<T> transition = null;
-            for (int resolveDepth = 0; resolveDepth < maxResolveDepth; resolveDepth++)
-            {
-                transition = GetTransition();
-
-                if (transition == null)
-                    break;
-
-                SetCurrentState(transition.To);
-            }
-
             if (initialized)
             {
                 CurrentState.OnUpdate();
@@ -59,6 +89,18 @@ namespace Code.Scripts.FSM
 
         public void FixedUpdate()
         {
+            Transition<T> transition;
+            for (int resolveDepth = 0; resolveDepth < maxResolveDepth; resolveDepth++)
+            {
+                Context.RecalculateConditions();
+                transition = GetTransition();
+
+                if (transition == null)
+                    break;
+
+                SetCurrentState(transition.To);
+            }
+
             if (initialized)
             {
                 CurrentState.OnFixedUpdate();
@@ -143,6 +185,89 @@ namespace Code.Scripts.FSM
             }
 
             transitions.Add(new Transition<T>(to, condition));
+        }
+
+        public void AddGlobalTransition(BaseState<T> to, Func<bool> condition)
+        {
+            foreach (KeyValuePair<T, BaseState<T>> keyValue in states)
+            {
+                BaseState<T> state = keyValue.Value;
+                if (!state.ID.Equals(to.ID))
+                {
+                    AddTransition(state, to, condition);
+                }
+            }
+        }
+
+        public void AddTransition(BaseState<T> from, BaseState<T> to, string[] trueConditions, string[] falseConditions = null)
+        {
+            // Clean up trueConditions array
+            if ((trueConditions?.Length ?? 0) != 0)
+            {
+                List<string> validValues = new List<string>();
+                for (int i = 0; i < trueConditions.Length; i++)
+                {
+                    if (!string.IsNullOrWhiteSpace(trueConditions[i]) && Context.HasCondition(trueConditions[i]))
+                    {
+                        validValues.Add(trueConditions[i]);
+                    }
+                }
+                trueConditions = validValues.ToArray();
+            }
+
+            // Clean up falseConditions array
+            if ((falseConditions?.Length ?? 0) != 0)
+            {
+                List<string> validValues = new List<string>();
+                for (int i = 0; i < falseConditions.Length; i++)
+                {
+                    if (!string.IsNullOrWhiteSpace(falseConditions[i]) && Context.HasCondition(falseConditions[i]))
+                    {
+                        validValues.Add(falseConditions[i]);
+                    }
+                }
+                falseConditions = validValues.ToArray();
+            }
+
+            // Create the transition based on whether trueConditions and/or falseConditions contain elements
+            if ((trueConditions?.Length ?? 0) == 0)
+            {
+                if ((falseConditions?.Length ?? 0) == 0)
+                {
+                    // No true or false conditions
+                    return;
+                }
+                else
+                {
+                    // Only false conditions
+                    AddTransition(from, to, () => Context.IsFalse(falseConditions));
+                }
+            }
+            else
+            {
+                if ((falseConditions?.Length ?? 0) == 0)
+                {
+                    // Only true conditions
+                    AddTransition(from, to, () => Context.IsTrue(trueConditions));
+                }
+                else
+                {
+                    // True and false conditions
+                    AddTransition(from, to, () => Context.IsTrue(trueConditions) && Context.IsFalse(falseConditions));
+                }
+            }
+        }
+
+        public void AddGlobalTransition(BaseState<T> to, string[] trueConditions, string[] falseConditions = null)
+        {
+            foreach (KeyValuePair<T, BaseState<T>> keyValue in states)
+            {
+                BaseState<T> state = keyValue.Value;
+                if (!state.ID.Equals(to.ID))
+                {
+                    AddTransition(state, to, trueConditions, falseConditions);
+                }
+            }
         }
 
         private Transition<T> GetTransition()

@@ -1,3 +1,5 @@
+using AK.Wwise;
+
 namespace Code.Scripts.Game
 {
     public class Settings
@@ -16,7 +18,7 @@ namespace Code.Scripts.Game
             set
             {
                 Instance.musicVol = value;
-                AkSoundEngine.SetRTPCValue("music_volume", value);
+                AkSoundEngine.SetRTPCValue("RTPC_MusicVolume", value);
             }
         }
         
@@ -26,7 +28,7 @@ namespace Code.Scripts.Game
             set
             {
                 Instance.sfxVol = value;
-                AkSoundEngine.SetRTPCValue("sfx_volume", value);
+                AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", value);
             }
         }
     }

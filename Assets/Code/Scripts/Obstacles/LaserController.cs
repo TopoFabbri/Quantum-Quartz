@@ -41,7 +41,7 @@ namespace Code.Scripts.Obstacles
             StartCoroutine(ToggleOnOff());
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (!isOn)
             {

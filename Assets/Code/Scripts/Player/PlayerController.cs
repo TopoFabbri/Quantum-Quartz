@@ -7,7 +7,6 @@ using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
-using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
@@ -19,791 +18,104 @@ namespace Code.Scripts.Player
     /// <summary>
     /// Manage player actions
     /// </summary>
+    [RequireComponent(typeof(PlayerState))]
     public class PlayerController : MonoBehaviour, IKillable, ISpringable
     {
-        private FiniteStateMachine<string> fsm;
+        [SerializeField] private PlayerState playerState;
 
-        // States
-        private IdleState<string> idleState;
-        private MoveState<string> moveState;
-        private JumpState<string> jumpState;
-        private FallState<string> fallState;
-        private DashState<string> dashState;
-        private DjmpState<string> djmpState;
-        private DeathState<string> dethState;
-        private SpawnState<string> spwnState;
-        private TpState<string> tlptState;
-        private ExitTpState<string> extpState;
-        private WallState<string> wallState;
-        private WallJumpState<string> wJmpState;
-        private GlideState<string> gldeState;
-        private GrabState<string> grabState;
-        private PauseState<string> pausState;
-        private EdgeState<string> edgeState;
-        private SpringState<string> springState;
+        // States (TRY TO REMOVE!)
+        //private MoveState<string> moveState;     // Multiple -> Speed & ResetSpeed()
+        //private DashState<string> dashState;     // Spring -> dashState.Interrupt();
+        //private DjmpState<string> djmpState;     // Update & Spring -> djmpState.Reset();
 
-        [SerializeField] private StateSettings.StateSettings[] stateSettings;
-        [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private TextMeshProUGUI stateTxt;
         [SerializeField] private List<GameObject> flipObjects = new();
-        [SerializeField] private FsmAnimationController fsmAnimController;
-        [SerializeField] private DeathController deathController;
-        [SerializeField] private ParticleSystem dashPs;
-        [SerializeField] private ParticleSystem djmpPs;
-        [SerializeField] private ParticleSystem djmpPs2;
-        [SerializeField] private ParticleSystem gldePs;
-        [SerializeField] private ParticleSystem wjmpPs;
-        [SerializeField] private CameraController camController;
-        [SerializeField] private BarController staminaBar;
         
-        [SerializeField] private SpriteRenderer sprite;
-        [SerializeField] private PlayerSfx playerSfx;
-
         [Header("Shake Settings")] [SerializeField]
         private float fallShakeMagnitudeMultiplier = 0.05f;
 
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
-        
-        private bool facingRight;
-        private bool jumpPressed;
-        private bool dashPressed;
-        private bool djmpPressed;
-        private bool falling;
-        private bool died;
-        private bool touchingFloor;
-        private bool shouldTp;
-        private bool glidePressed;
-        private bool grabPressed;
-        private Vector2 moveInput = Vector2.zero;
-        
-        private event Action<bool> OnFlip;
-        public float Speed => moveState.Speed;
 
-        private void Awake()
-        {
-            InitFsm();
-        }
-
-        private void Start()
-        {
-            staminaBar.GetBar(ColorSwitcher.QColour.Green).AddNoRegenCondition(() => !moveState.IsGrounded());
-            staminaBar.GetBar(ColorSwitcher.QColour.Yellow).AddNoRegenCondition(() => !moveState.IsGrounded());
-            
-            FaceRight();
-        }
+        private float MoveInput => playerState.sharedContext.Input;
+        
+        public float Speed => playerState.tempMoveState.Speed;
 
         private void OnEnable()
         {
-            jumpState.onEnter += OnEnterJumpHandler;
-            fallState.onEnter += OnEnterFallHandler;
-            dashState.onEnter += OnEnterDashHandler;
-            djmpState.onEnter += OnEnterDjmpHandler;
-            tlptState.onEnter += OnEnterTpHandler;
-            dethState.onEnter += OnEnterDeathHandler;
-            wallState.onEnter += OnEnterWallHandler;
-            wJmpState.onEnter += OnEnterWallJumpHandler;
-            gldeState.onEnter += OnEnterGlideHandler;
-
-            dethState.onExit += OnExitDeathHandler;
-            spwnState.onExit += OnExitSpawnHandler;
-            tlptState.onExit += OnExitTpHandler;
-            gldeState.onExit += OnExitGlideHandler;
-
-            camController.MoveCam += PausePlayer;
-            camController.StopCam += ResumePlayer;
-            
-            InputManager.Move += OnMoveHandler;
-            InputManager.Jump += OnJumpPressedHandler;
-            InputManager.AbilityPress += OnAbilityPressHandler;
-            InputManager.AbilityRelease += OnAbilityReleaseHandler;
-
-            ColorSwitcher.ColorChanged += OnChangedColorHandler;
-            LevelChanger.PlayerTp += OnTpHandler;
-
-            if (fsmAnimController)
-            {
-                fsm.StateChanged += fsmAnimController.OnStateChangedHandler;
-                OnFlip += fsmAnimController.OnFlipHandler;
-            }
+            PlayerState.OnFlip += OnFlipHandler;
         }
 
         private void OnDisable()
         {
-            jumpState.onEnter -= OnEnterJumpHandler;
-            fallState.onEnter -= OnEnterFallHandler;
-            dashState.onEnter -= OnEnterDashHandler;
-            djmpState.onEnter -= OnEnterDjmpHandler;
-            dethState.onEnter -= OnEnterDeathHandler;
-            wallState.onEnter -= OnEnterWallHandler;
-            wJmpState.onEnter -= OnEnterWallJumpHandler;
-            gldeState.onEnter -= OnEnterGlideHandler;
-
-            dethState.onExit -= OnExitDeathHandler;
-            spwnState.onExit -= OnExitSpawnHandler;
-            tlptState.onExit -= OnExitTpHandler;
-            gldeState.onExit -= OnExitGlideHandler;
-
-            camController.MoveCam -= PausePlayer;
-            camController.StopCam -= ResumePlayer;
-            
-            InputManager.Move -= OnMoveHandler;
-            InputManager.Jump -= OnJumpPressedHandler;
-            InputManager.AbilityPress -= OnAbilityPressHandler;
-            InputManager.AbilityRelease -= OnAbilityReleaseHandler;
-
-            ColorSwitcher.ColorChanged -= OnChangedColorHandler;
-            LevelChanger.PlayerTp -= OnTpHandler;
-
-            if (fsmAnimController)
-            {
-                fsm.StateChanged -= fsmAnimController.OnStateChangedHandler;
-                OnFlip -= fsmAnimController.OnFlipHandler;
-            }
-
-            fallState.OnExit();
+            PlayerState.OnFlip -= OnFlipHandler;
         }
 
         private void Update()
         {
-            if (moveState.IsGrounded())
-                djmpState.Reset();
-
-            fsm.Update();
-
-            if (fsm.CurrentState != wallState && fsm.CurrentState != wJmpState && fsm.CurrentState != grabState)
+            Type curStateType = playerState.sharedContext.CurrentStateType;
+            // What do all these states have in common that require the Flip() to be called?
+            if (curStateType != typeof(WallState<string>) && curStateType != typeof(WallJumpState<string>) && curStateType != typeof(GrabState<string>))
             {
-                bool leftMove = moveState.Speed < 0f || (moveState.Speed == 0f && moveInput.x < 0f);
-                bool rightMove = moveState.Speed > 0f || (moveState.Speed == 0f && moveInput.x > 0f);
-                if (facingRight && leftMove || !facingRight && rightMove)
-                    Flip();
+                bool leftMove = Speed < 0f || (Speed == 0f && MoveInput < 0f);
+                bool rightMove = Speed > 0f || (Speed == 0f && MoveInput > 0f);
+                if (playerState.sharedContext.facingRight && leftMove || !playerState.sharedContext.facingRight && rightMove)
+                {
+                    playerState.Flip();
+                }
             }
-
-            if (stateTxt)
-                stateTxt.text = fsm.CurrentState.ID;
-
-            if (fsm.CurrentState != moveState && fsm.CurrentState != fallState && fsm.CurrentState != jumpState &&
-                fsm.CurrentState != djmpState)
-                moveState.DecreaseSpeed();
         }
 
         private void FixedUpdate()
         {
-            fsm.FixedUpdate();
-
-            if (rb.velocity.y < 0f)
+            if (playerState.sharedContext.Rigidbody.velocity.y < 0f)
             {
                 if (CamShakeCheck())
                 {
-                    float absVel = Mathf.Abs(rb.velocity.y);
+                    float shakeValue = Mathf.Abs(playerState.sharedContext.Rigidbody.velocity.y) - minShakeValue;
 
-                    camController.Shake((absVel - minShakeValue) * fallShakeDurationMultiplier,
-                        (absVel - minShakeValue) * fallShakeMagnitudeMultiplier);
+                    playerState.sharedContext.CamController.Shake(shakeValue * fallShakeDurationMultiplier, shakeValue * fallShakeMagnitudeMultiplier);
                 }
             }
-
-            if (falling && rb.velocity.y == 0f)
-                falling = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
-            
-            if (fsm.CurrentState == fallState)
-                jumpState.SpawnDust();
-            
-            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
-                return;
-            
-            if (!moveState.IsGrounded())
-                return;
-
-            touchingFloor = true;
-
-            falling = false;
-
-            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
-                obj.AddPlayer(transform);
+            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
+            {
+                if (collision.gameObject.TryGetComponent(out ObjMovement obj))
+                {
+                    obj.AddPlayer(transform);
+                }
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
-            
-            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
-                return;
-
-            if (!moveState.IsGrounded())
-                return;
-
-            touchingFloor = true;
-
-            falling = false;
-
-            if (collision.gameObject.TryGetComponent(out ObjMovement obj))
-                obj.AddPlayer(transform);
+            OnCollisionEnter2D(collision);
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (!collision.enabled) return;
-            
-            if (!(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
-                return;
-
-            touchingFloor = false;
-
-            if (collision.gameObject.CompareTag("Platform"))
-                transform.parent = null;
-        }
-
-        /// <summary>
-        /// Initialise the finite state machine
-        /// </summary>
-        private void InitFsm()
-        {
-            idleState   = new IdleState<string>(     "Idle");
-            moveState   = new MoveState<string>(     "Move",   stateSettings[00] as MoveSettings,   rb,        transform);
-            jumpState   = new JumpState<string>(     "Jump",   stateSettings[01] as JumpSettings,   rb,        transform,          this);
-            fallState   = new FallState<string>(     "Fall",   stateSettings[02] as FallSettings,   rb,        transform,          this,  playerSfx);
-            dashState   = new DashState<string>(     "Dash",   stateSettings[03] as DashSettings,   rb,        transform,          this,  staminaBar);
-            djmpState   = new DjmpState<string>(     "Djmp",   stateSettings[04] as DjmpSettings,   rb,        transform,          this);
-            dethState   = new DeathState<string>(    "Death",  stateSettings[05] as DeathSettings,  rb,        transform,          this);
-            spwnState   = new SpawnState<string>(    "Spawn",  stateSettings[06] as SpawnSettings,  rb,        transform,          this);
-            tlptState   = new TpState<string>(       "TP",     rb);
-            extpState   = new ExitTpState<string>(   "ExitTP", rb);
-            wallState   = new WallState<string>(     "Wall",   stateSettings[07] as WallSettings,   rb,        transform,          this,  playerSfx);
-            wJmpState   = new WallJumpState<string>( "Wjmp",   stateSettings[08] as WjmpSettings,   rb,        transform,          this);
-            gldeState   = new GlideState<string>(    "Glide",  stateSettings[09] as GlideSettings,  rb,        transform,          this,  playerSfx, staminaBar);
-            grabState   = new GrabState<string>(     "Grab",   stateSettings[10] as GrabSettings,   rb,        transform,          this,  playerSfx, staminaBar);
-            pausState   = new PauseState<string>(    "Pause",  rb);
-            edgeState   = new EdgeState<string>(     "Edge",   stateSettings[11] as EdgeSettings,   transform, fsmAnimController);
-            springState = new SpringState<string>(   "Spring", stateSettings[12] as SpringSettings, rb,        transform);
-
-            fsm = new FiniteStateMachine<string>(2);
-
-            fsm.AddState(idleState);
-            fsm.AddState(moveState);
-            fsm.AddState(jumpState);
-            fsm.AddState(fallState);
-            fsm.AddState(dashState);
-            fsm.AddState(djmpState);
-            fsm.AddState(dethState);
-            fsm.AddState(spwnState);
-            fsm.AddState(tlptState);
-            fsm.AddState(extpState);
-            fsm.AddState(wallState);
-            fsm.AddState(wJmpState);
-            fsm.AddState(gldeState);
-            fsm.AddState(grabState);
-            fsm.AddState(pausState);
-            fsm.AddState(edgeState);
-            fsm.AddState(springState);
-
-            FsmTransitions();
-
-            fsm.SetCurrentState(extpState);
-
-            fsm.Init();
-
-            if (!fsmAnimController) return;
-
-            fsmAnimController.AddState(idleState.ID, 0);
-            fsmAnimController.AddState(moveState.ID, 1);
-            fsmAnimController.AddState(jumpState.ID, 2);
-            fsmAnimController.AddState(fallState.ID, 3);
-            fsmAnimController.AddState(dashState.ID, 4);
-            fsmAnimController.AddState(djmpState.ID, 5);
-            fsmAnimController.AddState(dethState.ID, 6);
-            fsmAnimController.AddState(spwnState.ID, 7);
-            fsmAnimController.AddState(tlptState.ID, 8);
-            fsmAnimController.AddState(extpState.ID, 9);
-            fsmAnimController.AddState(wallState.ID, 10);
-            fsmAnimController.AddState(wJmpState.ID, 11);
-            fsmAnimController.AddState(gldeState.ID, 12);
-            fsmAnimController.AddState(grabState.ID, 13);
-            fsmAnimController.AddState(edgeState.ID, 14);
-            fsmAnimController.AddState(springState.ID, 15);
-        }
-
-        /// <summary>
-        /// Add fsm transitions
-        /// </summary>
-        private void FsmTransitions()
-        {
-            fsm.AddTransition(idleState, moveState, ShouldEnterMove);
-            fsm.AddTransition(idleState, jumpState, () => jumpPressed && moveState.IsGrounded());
-            fsm.AddTransition(idleState, fallState, () => rb.velocity.y is < 0f or > 0f && !moveState.IsGrounded());
-            fsm.AddTransition(idleState, dashState, () => dashPressed);
-            fsm.AddTransition(idleState, djmpState, () => djmpPressed);
-            fsm.AddTransition(idleState, dethState, () => died);
-            fsm.AddTransition(idleState, tlptState, () => shouldTp);
-            fsm.AddTransition(idleState, edgeState, () => edgeState.IsOnEdge());
-            fsm.AddTransition(idleState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(moveState, idleState, moveState.StoppedMoving);
-            fsm.AddTransition(moveState, jumpState, () => jumpPressed && moveState.IsGrounded());
-            fsm.AddTransition(moveState, fallState, () => rb.velocity.y is < 0f or > 0f && !moveState.IsGrounded());
-            fsm.AddTransition(moveState, dashState, () => dashPressed);
-            fsm.AddTransition(moveState, djmpState, () => djmpPressed);
-            fsm.AddTransition(moveState, dethState, () => died);
-            fsm.AddTransition(moveState, tlptState, () => shouldTp);
-            fsm.AddTransition(moveState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(jumpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(jumpState, idleState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(jumpState, moveState, () => moveState.IsGrounded() && jumpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(jumpState, dashState, () => dashPressed);
-            fsm.AddTransition(jumpState, djmpState, () => djmpPressed);
-            fsm.AddTransition(jumpState, dethState, () => died);
-            fsm.AddTransition(jumpState, tlptState, () => shouldTp);
-            fsm.AddTransition(jumpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(jumpState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(fallState, gldeState, () => glidePressed && !staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
-            fsm.AddTransition(fallState, moveState, () => !falling && ShouldEnterMove() && moveState.IsGrounded());
-            fsm.AddTransition(fallState, idleState, () => !falling && moveState.IsGrounded());
-            fsm.AddTransition(fallState, dashState, () => dashPressed);
-            fsm.AddTransition(fallState, djmpState, () => djmpPressed);
-            fsm.AddTransition(fallState, jumpState, () => jumpPressed && fallState.CanCoyoteJump);
-            fsm.AddTransition(fallState, dethState, () => died);
-            fsm.AddTransition(fallState, tlptState, () => shouldTp);
-            fsm.AddTransition(fallState, wallState, wallState.CanEnterWall);
-            fsm.AddTransition(fallState, edgeState, () => rb.velocity.y >= 0f && edgeState.IsOnEdge());
-            fsm.AddTransition(fallState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(dashState, fallState, () => dashState.Ended);
-            fsm.AddTransition(dashState, dethState, () => died);
-            fsm.AddTransition(dashState, tlptState, () => shouldTp);
-            fsm.AddTransition(dashState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(djmpState, fallState, () => rb.velocity.y < 0f && !moveState.IsGrounded());
-            fsm.AddTransition(djmpState, idleState, () => moveState.IsGrounded() && djmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(djmpState, dethState, () => died);
-            fsm.AddTransition(djmpState, tlptState, () => shouldTp);
-            fsm.AddTransition(djmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(djmpState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(dethState, spwnState, () => dethState.Ended);
-
-            fsm.AddTransition(spwnState, idleState, () => spwnState.Ended);
-
-            fsm.AddTransition(tlptState, extpState, () => tlptState.Ended);
-
-            fsm.AddTransition(extpState, idleState, () => extpState.Ended);
-
-            fsm.AddTransition(wallState, wJmpState, () => jumpPressed);
-            fsm.AddTransition(wallState, idleState, moveState.IsGrounded);
-            fsm.AddTransition(wallState, fallState, () => !wallState.IsTouchingWall() || ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green);
-            fsm.AddTransition(wallState, dethState, () => died);
-            fsm.AddTransition(wallState, grabState, () => grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(wallState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(wJmpState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(wJmpState, idleState, () => moveState.IsGrounded() && wJmpState.HasJumped && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(wJmpState, dashState, () => dashPressed);
-            fsm.AddTransition(wJmpState, djmpState, () => djmpPressed);
-            fsm.AddTransition(wJmpState, dethState, () => died);
-            fsm.AddTransition(wJmpState, tlptState, () => shouldTp);
-            fsm.AddTransition(wJmpState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(wJmpState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(gldeState, fallState, () => !glidePressed || staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
-            fsm.AddTransition(gldeState, idleState, () => moveState.IsGrounded());
-            fsm.AddTransition(gldeState, dethState, () => died);
-            fsm.AddTransition(gldeState, edgeState, edgeState.IsOnEdge);
-            fsm.AddTransition(gldeState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(grabState, wallState, () => !grabPressed || staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            fsm.AddTransition(grabState, wJmpState, () => jumpPressed);
-            fsm.AddTransition(grabState, dethState, () => died);
-
-            fsm.AddTransition(edgeState, idleState, () => moveState.IsGrounded() && !edgeState.IsOnEdge());
-            fsm.AddTransition(edgeState, moveState, ShouldEnterMove);
-            fsm.AddTransition(edgeState, jumpState, () => jumpPressed && edgeState.IsOnEdge());
-            fsm.AddTransition(edgeState, fallState, () => rb.velocity.y < 0 && !moveState.IsGrounded() && !edgeState.IsOnEdge());
-            fsm.AddTransition(edgeState, dashState, () => dashPressed);
-            fsm.AddTransition(edgeState, djmpState, () => djmpPressed);
-            fsm.AddTransition(edgeState, dethState, () => died);
-            fsm.AddTransition(edgeState, tlptState, () => shouldTp);
-            fsm.AddTransition(edgeState, springState, () => springState.IsActivated);
-
-            fsm.AddTransition(springState, fallState, () => rb.velocity.y < 0);
-            fsm.AddTransition(springState, idleState, () => moveState.IsGrounded() && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(springState, moveState, () => moveState.IsGrounded() && rb.velocity.y <= 0f && touchingFloor);
-            fsm.AddTransition(springState, dashState, () => dashPressed);
-            fsm.AddTransition(springState, djmpState, () => djmpPressed);
-            fsm.AddTransition(springState, dethState, () => died);
-            fsm.AddTransition(springState, tlptState, () => shouldTp);
-            fsm.AddTransition(springState, wallState, () => wallState.CanEnterWall() && !moveState.IsGrounded() && grabPressed && !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-        }
-
-        /// <summary>
-        /// Force character to face right
-        /// </summary>
-        private void FaceRight()
-        {
-            if (!facingRight)
-                Flip();
+            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
+            {
+                if (collision.gameObject.TryGetComponent(out ObjMovement obj) && transform.parent.Equals(obj.transform))
+                {
+                    Debug.Log("Exit " + collision.gameObject);
+                    transform.parent = null;
+                }
+            }
         }
 
         /// <summary>
         /// Flip character
         /// </summary>
-        private void Flip()
+        public void OnFlipHandler(bool facingRight)
         {
-            if (fsm.CurrentState == dashState)
-                return;
-
-            facingRight = !facingRight;
-            dashState.Flip();
-
             foreach (GameObject flipObject in flipObjects)
             {
                 flipObject.transform.Rotate(0f, 180f, 0f);
-                flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x,
-                    flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
+                flipObject.transform.localPosition = new Vector3(-flipObject.transform.localPosition.x, flipObject.transform.localPosition.y, flipObject.transform.localPosition.z);
             }
-
-            wallState.FacingRight = facingRight;
-            wJmpState.FacingRight = facingRight;
-            grabState.FacingRight = facingRight;
-
-            OnFlip?.Invoke(facingRight);
-        }
-
-        /// <summary>
-        /// Pause player fsm
-        /// </summary>
-        private void PausePlayer()
-        {
-            fsmAnimController.TogglePauseAnim(true);
-            fsm.InterruptState(pausState);
-        }
-        
-        /// <summary>
-        /// Resume player fsm
-        /// </summary>
-        private void ResumePlayer()
-        {
-            fsmAnimController.TogglePauseAnim(false);
-            fsm.StopInterrupt();
-        }
-        
-        /// <summary>
-        /// Stop teleport state
-        /// </summary>
-        public void EndTp()
-        {
-            tlptState.OnEnd();
-        }
-
-        /// <summary>
-        /// Stop exit teleport state
-        /// </summary>
-        private void EndExitTp()
-        {
-            extpState.OnEnd();
-        }
-
-        /// <summary>
-        /// Count and end jump buffer time
-        /// </summary>
-        /// <param name="jumpBufferTime">Time to count</param>
-        /// <returns></returns>
-        private IEnumerator EndJumpBufferTime(float jumpBufferTime)
-        {
-            yield return new WaitForSeconds(jumpBufferTime);
-            jumpPressed = false;
-        }
-
-        /// <summary>
-        /// Check if player should move
-        /// </summary>
-        /// <returns>True if player should move</returns>
-        private bool ShouldEnterMove()
-        {
-            return moveState.Input != 0 && !moveState.WallCheck();
-        }
-
-        /// <summary>
-        /// Manage player actions when color is changed
-        /// </summary>
-        /// <param name="colour">New color</param>
-        private void OnChangedColorHandler(ColorSwitcher.QColour colour)
-        {
-            if (colour != ColorSwitcher.QColour.Yellow)
-                glidePressed = false;
-            
-            if (colour != ColorSwitcher.QColour.Green)
-                grabPressed = false;
-        }
-
-        /// <summary>
-        /// Handle player Teleport action
-        /// </summary>
-        private void OnTpHandler()
-        {
-            shouldTp = true;
-        }
-
-        /// <summary>
-        /// Handle player move action
-        /// </summary>
-        /// <param name="input">Input value</param>
-        private void OnMoveHandler(Vector2 input)
-        {
-            moveInput = input;
-            moveState.SetInput(input.x);
-            jumpState.SetInput(input.x);
-            fallState.SetInput(input.x);
-            djmpState.SetInput(input.x);
-            wallState.SetInput(input.x);
-            gldeState.SetInput(input.x);
-            wJmpState.SetInput(input.x);
-            springState.SetInput(input.x);
-        }
-
-        /// <summary>
-        /// Handle player jump action
-        /// </summary>
-        private void OnJumpPressedHandler()
-        {
-            jumpPressed = true;
-            StartCoroutine(EndJumpBufferTime(jumpState.JumpBufferTime));
-        }
-
-        /// <summary>
-        /// Handle player ability input
-        /// </summary>
-        /// <returns>True if player can dash</returns>
-        private void OnAbilityPressHandler()
-        {
-            switch (ColorSwitcher.Instance.CurrentColour)
-            {
-                case ColorSwitcher.QColour.None:
-                    break;
-                case ColorSwitcher.QColour.Red:
-                    OnDashHandler();
-                    break;
-                case ColorSwitcher.QColour.Blue:
-                    OnDjmpHandler();
-                    break;
-                case ColorSwitcher.QColour.Green:
-                    OnGrabHandler();
-                    break;
-                case ColorSwitcher.QColour.Yellow:
-                    OnGlideHandler();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        
-        /// <summary>
-        /// Handle player ability release input
-        /// </summary>
-        /// <returns>True if player can dash</returns>
-        private void OnAbilityReleaseHandler()
-        {
-            switch (ColorSwitcher.Instance.CurrentColour)
-            {
-                case ColorSwitcher.QColour.None:
-                    break;
-                case ColorSwitcher.QColour.Red:
-                    break;
-                case ColorSwitcher.QColour.Blue:
-                    break;
-                case ColorSwitcher.QColour.Green:
-                    OnGrabReleaseHandler();
-                    break;
-                case ColorSwitcher.QColour.Yellow:
-                    OnGlideReleaseHandler();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        /// <summary>
-        /// Handle player Dash input
-        /// </summary>
-        private void OnDashHandler()
-        {
-            if (!staminaBar.GetBar(ColorSwitcher.QColour.Red).Depleted && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
-                dashPressed = true;
-        }
-
-        /// <summary>
-        /// Handle player MiniJump input
-        /// </summary>
-        private void OnDjmpHandler()
-        {
-            if (djmpState.JumpAvailable && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
-                djmpPressed = true;
-        }
-        
-        /// <summary>
-        /// Handle player Grab input
-        /// </summary>
-        private void OnGrabHandler()
-        {
-            grabPressed = true;
-        }
-
-        /// <summary>
-        /// Handle player Glide input
-        /// </summary>
-        private void OnGlideHandler()
-        {
-            glidePressed = true;
-        }
-
-        /// <summary>
-        /// Handle player Glide release input
-        /// </summary>
-        private void OnGlideReleaseHandler()
-        {
-            glidePressed = false;
-        }
-
-        /// <summary>
-        /// Handle player Grab release input
-        /// </summary>
-        private void OnGrabReleaseHandler()
-        {
-            grabPressed = false;
-        }
-        
-        /// <summary>
-        /// Handle player HAS jumped
-        /// </summary>
-        private void OnEnterJumpHandler()
-        {
-            jumpPressed = false;
-
-            playerSfx.Jump();
-
-            if (fsm.PreviousState != fallState) return;
-
-            Vector2 vector2 = rb.velocity;
-            vector2.y = 0f;
-            rb.velocity = vector2;
-        }
-
-        /// <summary>
-        /// Handle player started falling
-        /// </summary>
-        private void OnEnterFallHandler()
-        {
-            falling = true;
-
-            if (fsm.PreviousState != jumpState && fsm.PreviousState != djmpState && fsm.PreviousState != dashState &&
-                fsm.PreviousState != wJmpState && fsm.PreviousState != wallState)
-                fallState.StartCoyoteTime();
-        }
-
-        /// <summary>
-        /// Handle player started dashing
-        /// </summary>
-        private void OnEnterDashHandler()
-        {
-            dashPressed = false;
-
-            dashPs.Play();
-        }
-
-        /// <summary>
-        /// Handle player started Djump
-        /// </summary>
-        private void OnEnterDjmpHandler()
-        {
-            playerSfx.Djmp();
-            djmpPressed = false;
-
-            djmpPs.Play();
-            djmpPs2.Play();
-        }
-
-        /// <summary>
-        /// Handle player died
-        /// </summary>
-        private void OnEnterDeathHandler()
-        {
-            playerSfx.Death();
-        }
-
-        /// <summary>
-        /// Handle player started teleport
-        /// </summary>
-        private void OnEnterTpHandler()
-        {
-            shouldTp = false;
-        }
-
-        /// <summary>
-        /// Handle player entered wall
-        /// </summary>
-        private void OnEnterWallHandler()
-        {
-            if (fsm.PreviousState != grabState)
-                Flip();
-        }
-        
-        /// <summary>
-        /// Handle player started wall jump
-        /// </summary>
-        private void OnEnterWallJumpHandler()
-        {
-            moveState.ResetSpeed();
-        }
-
-        /// <summary>
-        /// Handle player started glide
-        /// </summary>
-        private void OnEnterGlideHandler()
-        {
-            playerSfx.PlayGlide();
-            gldePs.Play();
-        }
-        
-        /// <summary>
-        /// Handle player exited death state
-        /// </summary>
-        private void OnExitDeathHandler()
-        {
-            deathController.Die();
-            died = false;
-        }
-
-        /// <summary>
-        /// Handle player exited spawn state
-        /// </summary>
-        private void OnExitSpawnHandler()
-        {
-            jumpPressed = false;
-            dashPressed = false;
-            djmpPressed = false;
-            falling = false;
-            died = false;
-        }
-
-        /// <summary>
-        /// Handle player exited teleport
-        /// </summary>
-        private void OnExitTpHandler()
-        {
-            //LevelChanger.EndLevel();
-        }
-
-        /// <summary>
-        /// Handle player exited glide
-        /// </summary>
-        private void OnExitGlideHandler()
-        {
-            playerSfx.StopGlide();
-            gldePs.Stop();
         }
         
         /// <summary>
@@ -820,24 +132,23 @@ namespace Code.Scripts.Player
         
         public void Kill()
         {
-            if (died) return;
+            if (typeof(IDeathImmune).IsAssignableFrom(playerState.sharedContext.CurrentStateType))
+                return;
 
-            died = true;
-
-            dethState.Direction = new Vector2(-moveState.Input, -rb.velocity.normalized.y);
+            playerState.sharedContext.died = true;
         }
 
         public IEnumerator Spring(Vector2 force, ForceMode2D mode)
         {
-            springState.Activate();
-            dashState.Interrupt();
+            //springState.Activate(); //Deactivated for now
+            playerState.tempDashState.Interrupt();
             
             yield return new WaitForFixedUpdate();
-            
-            djmpState.Reset();
-            
-            rb.velocity = Vector2.zero;
-            rb.AddForce(force, mode);
+
+            playerState.tempDjmpState.Reset();
+
+            playerState.sharedContext.Rigidbody.velocity = Vector2.zero;
+            playerState.sharedContext.Rigidbody.AddForce(force, mode);
         }
     }
 }
