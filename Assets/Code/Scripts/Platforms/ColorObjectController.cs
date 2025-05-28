@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Scripts.Colors;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,6 +12,8 @@ namespace Code.Scripts.Platforms
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
         [SerializeField] private List<Behaviour> objectsToToggle = new();
+        
+        public event Action<bool> Toggled;
         
         private void Start()
         {
@@ -45,6 +48,7 @@ namespace Code.Scripts.Platforms
         private void Activate()
         {
             animator.SetBool(animatorOnParameterName, true);
+            Toggled?.Invoke(true);
         }
 
         /// <summary>
@@ -53,6 +57,7 @@ namespace Code.Scripts.Platforms
         private void Deactivate()
         {
             animator.SetBool(animatorOnParameterName, false);
+            Toggled?.Invoke(false);
         }
 
         /// <summary>
