@@ -338,8 +338,7 @@ MonoBehaviour:
   linkSprite: {fileID: 21300000, guid: d695a7e34bf373645a3b3df03dc5392b, type: 3}
   hasEnd: 1
   psController: {fileID: 6296228543037376329, guid: 4ca9cd0aebf26f244afb5b385b7fc2a6, type: 3}
-  generate: 1
-  clear: 0
+  linkOrderInLayer: -4
 --- !u!50 &5711122041659211577
 Rigidbody2D:
   serializedVersion: 4
@@ -525,6 +524,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 1
   maxForce: 2
+  hitChainsEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!114 &2983372835300981953
 MonoBehaviour:
   m_ObjectHideFlags: 0
