@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Obstacles
 {
     public class LaserSfx : MonoBehaviour
     {
-        [SerializeField] private string laserEvent;
-        [SerializeField] private string windUpEvent;
-        [SerializeField] private string shootEvent;
+        [SerializeField] private Event laserEvent;
+        [SerializeField] private Event windUpEvent;
+        [SerializeField] private Event shootEvent;
 
         private new UnityEngine.Camera camera;
 
         private bool isOn;
         private uint laserEventId;
 
-        private void Awake()
+        private void Start()
         {
-            if (UnityEngine.Camera.main != null)
+            if (UnityEngine.Camera.main)
                 camera = UnityEngine.Camera.main;
         }
 
@@ -37,7 +38,8 @@ namespace Code.Scripts.Obstacles
             
             isOn = false;
             
-            AkSoundEngine.StopPlayingID(laserEventId);
+            laserEvent.Stop(gameObject);
+            shootEvent.Stop(gameObject);
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace Code.Scripts.Obstacles
             if (!IsOnScreen())
                 return;
 
-            AkSoundEngine.PostEvent(windUpEvent, gameObject);
+            windUpEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -61,8 +63,8 @@ namespace Code.Scripts.Obstacles
             
             isOn = true;
 
-            AkSoundEngine.PostEvent(shootEvent, gameObject);
-            laserEventId = AkSoundEngine.PostEvent(laserEvent, gameObject);
+            shootEvent.Post(gameObject);
+            laserEvent.Post(gameObject);
         }
 
         /// <summary>
@@ -75,9 +77,14 @@ namespace Code.Scripts.Obstacles
                 return false;
 
             Vector3 viewPos = camera.WorldToViewportPoint(transform.position);
-            bool onScreen = viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1;
+            bool onScreen = viewPos is { z: > 0, x: > 0 and < 1, y: > 0 and < 1 };
 
             return onScreen;
+        }
+
+        private void OnDestroy()
+        {
+            Off();
         }
     }
 }
