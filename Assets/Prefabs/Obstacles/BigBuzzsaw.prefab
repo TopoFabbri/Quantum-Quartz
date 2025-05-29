@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 898969913459022524}
   - component: {fileID: 1100613888022402750}
   - component: {fileID: 8612527704856210089}
+  - component: {fileID: 7618156562903104230}
   m_Layer: 7
   m_Name: BigBuzzsaw
   m_TagString: Obstacle
@@ -177,3 +178,20 @@ MonoBehaviour:
   animatorOnParameterName: On
   objectsToToggle:
   - {fileID: 5641406874059021716}
+--- !u!114 &7618156562903104230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435401146990975331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7acb038ec14923a03986cd2e024a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sawSfxRtpc:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 08cd47784f75e1a4096c3680c10e5485, type: 2}
+  colorObjectController: {fileID: 8612527704856210089}
