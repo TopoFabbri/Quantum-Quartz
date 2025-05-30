@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Code.Scripts.Tools
 {
     [CreateAssetMenu(menuName = "Custom/VelocityCurve", fileName = "VelocityCurve", order = 0)]
@@ -19,6 +23,8 @@ namespace Code.Scripts.Tools
 
         [HideInInspector]
         [SerializeField] private float lastDuration = 1;
+
+        public float Duration => duration;
 
         private void OnValidate()
         {
@@ -98,5 +104,65 @@ namespace Code.Scripts.Tools
         {
             return accelerationCurve.Evaluate(time / duration) * heightScale;
         }
+
+        public void Draw(Vector3 origin, bool showExtra, float customWidth = float.NaN)
+        {
+            float width = float.IsNaN(customWidth) ? duration : customWidth;
+            positionCurve.DrawCurveGizmos(origin, new Vector2(width, heightScale), Color.blue);
+            if (showExtra)
+            {
+                float GetHeight(AnimationCurve curve)
+                {
+                    float max = float.MinValue;
+                    float min = float.MaxValue;
+                    foreach (Keyframe key in curve.keys)
+                    {
+                        max = Mathf.Max(max, key.value);
+                        min = Mathf.Min(min, key.value);
+                    }
+                    return max - min;
+                }
+
+                velocityCurve.DrawCurveGizmos(origin, new Vector2(width, heightScale / GetHeight(velocityCurve)), Color.green);
+                accelerationCurve.DrawCurveGizmos(origin, new Vector2(width, heightScale / GetHeight(accelerationCurve)), Color.red);
+            }
+        }
+    }
+
+    [ExecuteInEditMode]
+    public class VelocityCurveVisualizer : MonoBehaviour
+    {
+        public VelocityCurve jumpCurve;
+        public VelocityCurve fallCurve;
+        public bool showExtra = false;
+        public bool useCustomWidth = false;
+        [ToggleShow(nameof(useCustomWidth))]
+        public float customWidth = 0;
+
+#if UNITY_EDITOR
+        [MenuItem("GameObject/Create Custom/Velocity Curve Visualizer", false, 10)]
+        static void Create(MenuCommand menuCommand)
+        {
+            // Create a custom game object
+            GameObject go = new GameObject("Velocity Curve Visualizer", typeof(VelocityCurveVisualizer));
+            // Ensure it gets reparented if this was a context click (otherwise does nothing)
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+            Selection.activeObject = go;
+        }
+
+        private void OnDrawGizmos()
+        {
+            float width = useCustomWidth ? customWidth : (jumpCurve?.Duration ?? 0 + fallCurve?.Duration ?? 0);
+            float jumpWidth = jumpCurve ? width * jumpCurve.Duration / (jumpCurve.Duration + (fallCurve?.Duration ?? 0)) : 0;
+            jumpCurve?.Draw(transform.position, showExtra, jumpWidth);
+            float height = jumpCurve?.SamplePosition(jumpCurve.Duration) ?? 0;
+            Vector3 fallOrigin = transform.position + (jumpCurve ? transform.right * jumpWidth + transform.up * height : Vector3.zero);
+            fallCurve?.Draw(fallOrigin, showExtra, width - jumpWidth);
+
+            
+        }
+#endif
     }
 }
