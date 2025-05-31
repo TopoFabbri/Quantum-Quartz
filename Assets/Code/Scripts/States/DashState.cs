@@ -13,7 +13,7 @@ namespace Code.Scripts.States
     /// Manage player dash state
     /// </summary>
     /// <typeparam name="T">Id</typeparam>
-    public class DashState<T> : BaseState<T>
+    public class DashState<T> : BaseState<T>, INoCoyoteTime
     {
         protected readonly DashSettings dashSettings;
 

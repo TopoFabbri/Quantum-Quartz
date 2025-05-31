@@ -4441,6 +4441,10 @@ PrefabInstance:
       propertyPath: m_CropFrame
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5336747697084548560, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5479122832091533549, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -8412,6 +8416,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65fcecc1593d28243805d90b0c466ccc, type: 3}
+--- !u!115 &1308784836
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: VelocityCurveVisualizer
+  m_Namespace: Code.Scripts.Tools
+  m_AssemblyName: Assembly-CSharp
 --- !u!1001 &1331802987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8607,6 +8626,55 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1354114673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354114675}
+  - component: {fileID: 1354114674}
+  m_Layer: 6
+  m_Name: Velocity Curve Visualizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1354114674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354114673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1308784836}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpCurve: {fileID: 11400000, guid: 42bf3d8dca3a56f4daa764ace093f463, type: 2}
+  fallCurve: {fileID: 11400000, guid: ff1cc7ac392390740b2e31e2d5cb44e4, type: 2}
+  showExtra: 1
+  useCustomWidth: 1
+  customWidthScale: 9
+--- !u!4 &1354114675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354114673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78, y: -41.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1376031049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63104,6 +63172,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1434330589}
   - {fileID: 7602229619044987849}
+  - {fileID: 1354114675}
   - {fileID: 729438772}
   - {fileID: 1331802987}
   - {fileID: 1073721877}

@@ -14,7 +14,7 @@ namespace Code.Scripts.States
     {
         protected readonly FallSettings fallSettings;
 
-        public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.fallCurve)
         {
             this.fallSettings = stateSettings;
         }
@@ -23,16 +23,12 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.falling = true;
+            sharedContext.SetFalling(true);
 
-            System.Type prevType = sharedContext.PreviousStateType;
-            if (
-                prevType != typeof(JumpState<string>) && prevType != typeof(DjmpState<string>)
-                && prevType != typeof(DashState<string>) && prevType != typeof(WallJumpState<string>)
-                && prevType != typeof(WallState<string>)
-            )
+            if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
             {
-                StartCoyoteTime();
+                sharedContext.canCoyoteJump = true;
+                sharedContext.MonoBehaviour.StartCoroutine(StopCoyoteTime());
             }
         }
 
@@ -51,16 +47,16 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
 
-            sharedContext.Rigidbody.velocity = new Vector2(0f, sharedContext.Rigidbody.velocity.y);
-            
-            if (-sharedContext.Rigidbody.velocity.y > fallSettings.maxFallSpeed)
-                sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x, -fallSettings.maxFallSpeed);
-        }
-
-        public void StartCoyoteTime()
-        {
-            sharedContext.canCoyoteJump = true;
-            sharedContext.MonoBehaviour.StartCoroutine(StopCoyoteTime());
+            if (sharedContext.Rigidbody.velocity.y != 0)
+            {
+                sharedContext.jumpFallTime += Time.deltaTime;
+                sharedContext.speed = new Vector2(0f, verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime));
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+            }
+            else if (sharedContext.IsGrounded)
+            {
+                sharedContext.SetFalling(false);
+            }
         }
 
         private IEnumerator StopCoyoteTime()

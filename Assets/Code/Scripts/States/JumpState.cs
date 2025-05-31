@@ -10,16 +10,15 @@ namespace Code.Scripts.States
     /// Jump up state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class JumpState<T> : MoveState<T>
+    public class JumpState<T> : MoveState<T>, INoCoyoteTime
     {
         protected readonly JumpSettings jumpSettings;
 
         public bool HasJumped { get; protected set; }
-        public float JumpForce => jumpSettings.jumpForce;
 
         private Coroutine jumpCoroutine;
         
-        public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.jumpCurve)
         {
             this.jumpSettings = stateSettings;
         }
@@ -29,14 +28,14 @@ namespace Code.Scripts.States
             base.OnEnter();
             sharedContext.PlayerSfx.Jump();
 
-            if (sharedContext.PreviousStateType == typeof(FallState<T>))
-            {
-                Vector2 vector2 = sharedContext.Rigidbody.velocity;
-                vector2.y = 0f;
-                sharedContext.Rigidbody.velocity = vector2;
-            }
+            Vector2 vector2 = sharedContext.Rigidbody.velocity;
+            vector2.y = 0f;
+            sharedContext.Rigidbody.velocity = vector2;
 
-            jumpCoroutine = sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
+            if (!jumpSettings.jumpCurve)
+            {
+                jumpCoroutine = sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
+            }
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
@@ -50,7 +49,22 @@ namespace Code.Scripts.States
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
             
             HasJumped = false;
-            sharedContext.MonoBehaviour.StopCoroutine(jumpCoroutine);
+            if (jumpCoroutine != null)
+            {
+                sharedContext.MonoBehaviour.StopCoroutine(jumpCoroutine);
+            }
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            if (jumpSettings.jumpCurve)
+            {
+                sharedContext.jumpFallTime += Time.deltaTime;
+                sharedContext.speed = new Vector2(0f, verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime));
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+            }
         }
 
         public override void OnFixedUpdate()

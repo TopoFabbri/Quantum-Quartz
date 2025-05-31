@@ -3,6 +3,7 @@ using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 using Code.Scripts.Player;
+using Code.Scripts.Tools;
 
 namespace Code.Scripts.States
 {
@@ -15,16 +16,18 @@ namespace Code.Scripts.States
         protected readonly MoveSettings moveSettings;
 
         protected readonly SharedContext sharedContext;
+        protected readonly VelocityCurve verticalVelocityCurve;
 
         private static float _speed;
         protected bool canMove = true;
 
         public float Speed => _speed;
 
-        public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext) : base(id)
+        public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext, VelocityCurve verticalVelocityCurve = null) : base(id)
         {
             this.moveSettings = stateSettings;
             this.sharedContext = sharedContext;
+            this.verticalVelocityCurve = verticalVelocityCurve;
         }
 
         public override void OnFixedUpdate()

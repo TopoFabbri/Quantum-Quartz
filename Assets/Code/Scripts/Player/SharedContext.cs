@@ -18,14 +18,16 @@ namespace Code.Scripts.Player
         public GlobalSettings GlobalSettings { get; private set; }
         public CameraController CamController { get; private set; }
         public float Input { get; private set; }
+        public bool Falling { get; private set; }
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
         public bool facingRight = false;
-        public bool falling = false;
         public bool died = false;
         public bool canCoyoteJump = false;
+        public Vector2 speed;
+        public float jumpFallTime = 0;
 
         private readonly FiniteStateMachine<string> stateMachine;
 
@@ -118,6 +120,12 @@ namespace Code.Scripts.Player
                 }
             }
             return false;
+        }
+
+        public void SetFalling(bool falling)
+        {
+            Falling = falling;
+            jumpFallTime = 0;
         }
     }
 }

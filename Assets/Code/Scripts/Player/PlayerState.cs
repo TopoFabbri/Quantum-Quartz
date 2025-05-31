@@ -217,7 +217,7 @@ namespace Code.Scripts.Player
             };
 
 
-            context.AddCondition("NotFalling", () => !sharedContext.falling);
+            context.AddCondition("NotFalling", () => !sharedContext.Falling);
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
             context.AddCondition("DashPressed", () => dashPressed);
@@ -504,10 +504,6 @@ namespace Code.Scripts.Player
             if (sharedContext.RecalculateIsGrounded())
             {
                 tempDjmpState.Reset();
-                if (rb.velocity.y == 0f)
-                {
-                    sharedContext.falling = false;
-                }
             }
         }
 
