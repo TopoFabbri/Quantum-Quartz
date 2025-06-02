@@ -27,10 +27,10 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.PlayerSfx.Jump();
+            sharedContext.SetFalling(false);
 
-            Vector2 vector2 = sharedContext.Rigidbody.velocity;
-            vector2.y = 0f;
-            sharedContext.Rigidbody.velocity = vector2;
+            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
 
             if (!jumpSettings.jumpCurve)
             {
@@ -55,24 +55,23 @@ namespace Code.Scripts.States
             }
         }
 
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-
-            if (jumpSettings.jumpCurve)
-            {
-                sharedContext.jumpFallTime += Time.deltaTime;
-                sharedContext.speed = new Vector2(0f, verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime));
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
-            }
-        }
-
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
 
-            if (!sharedContext.IsGrounded)
+            if (!HasJumped || (sharedContext.Rigidbody.velocity.y != 0 && sharedContext.jumpFallTime < verticalVelocityCurve.Duration))
+            {
                 HasJumped = true;
+                sharedContext.jumpFallTime = sharedContext.jumpFallTime + Time.fixedDeltaTime;
+                float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.speed.y = vel;
+            }
+            else
+            {
+                sharedContext.SetFalling(true);
+            }
         }
 
         /// <summary>

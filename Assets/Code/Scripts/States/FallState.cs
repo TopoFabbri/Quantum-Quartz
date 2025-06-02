@@ -25,6 +25,9 @@ namespace Code.Scripts.States
 
             sharedContext.SetFalling(true);
 
+            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
+
             if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
             {
                 sharedContext.canCoyoteJump = true;
@@ -43,17 +46,19 @@ namespace Code.Scripts.States
             }
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
 
-            if (sharedContext.Rigidbody.velocity.y != 0)
+            if (sharedContext.Rigidbody.velocity.y != 0 || !sharedContext.IsGrounded)
             {
-                sharedContext.jumpFallTime += Time.deltaTime;
-                sharedContext.speed = new Vector2(0f, verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime));
+                sharedContext.jumpFallTime = sharedContext.jumpFallTime + Time.fixedDeltaTime;
+                float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.speed.y = vel;
             }
-            else if (sharedContext.IsGrounded)
+            else
             {
                 sharedContext.SetFalling(false);
             }

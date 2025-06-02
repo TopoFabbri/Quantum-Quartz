@@ -248,10 +248,6 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(move, idle, new[] { "StoppedMoving" });
             stateMachine.AddTransition(edge, idle, new[] { "IsGrounded" }, new[] { "VisuallyOnEdge" });
             stateMachine.AddTransition(fall, idle, new[] { "IsGrounded", "NotFalling" });
-            stateMachine.AddTransition(jump, idle, new[] { "IsGrounded", "HasJumped"       }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(djmp, idle, new[] { "IsGrounded", "HasDoubleJumped" }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(wjmp, idle, new[] { "IsGrounded", "HasWallJumped"   }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, idle, new[] { "IsGrounded" }, new[] { "DownVelocity" });
             stateMachine.AddTransition(wall, idle, new[] { "IsGrounded" });
             stateMachine.AddTransition(glde, idle, new[] { "IsGrounded" });
 
@@ -264,8 +260,6 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(idle, move, new[] { "HasInput", "NoWall" });
             stateMachine.AddTransition(edge, move, new[] { "HasInput", "NoWall" });
             stateMachine.AddTransition(fall, move, new[] { "IsGrounded", "HasInput", "NotFalling", "NoWall" });
-            stateMachine.AddTransition(jump, move, new[] { "IsGrounded", "HasJumped" }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, move, new[] { "IsGrounded" }, new[] { "DownVelocity" });
 
             // Jump transitions
             // - Idle        >
@@ -288,13 +282,13 @@ namespace Code.Scripts.Player
             // - Dash        >
             // - Wall        >
             // - Glide       >
-            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "NeutralVelocity", "IsGrounded" });
-            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "NeutralVelocity", "IsGrounded" });
-            stateMachine.AddTransition(edge, fall, new[] { "DownVelocity" }, new[] { "IsGrounded" });
-            stateMachine.AddTransition(jump, fall, new[] { "DownVelocity" });
-            stateMachine.AddTransition(djmp, fall, new[] { "DownVelocity" }, new[] { "IsGrounded" });
-            stateMachine.AddTransition(wjmp, fall, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, fall, new[] { "DownVelocity" });
+            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
+            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
+            stateMachine.AddTransition(edge, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
+            stateMachine.AddTransition(jump, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(djmp, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(wjmp, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(spng, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(dash, fall, new[] { "ExitDash" });
             stateMachine.AddTransition(wall, fall, () => Mathf.Sign(sharedContext.Input) == (sharedContext.facingRight ? 1 : -1) || !wall.IsTouchingWall(!sharedContext.facingRight) || context.IsFalse("IsGreen"));
             stateMachine.AddTransition(glde, fall, () => context.IsFalse("GlidePressed") || context.IsFalse("HasYellowStamina"));
@@ -360,7 +354,7 @@ namespace Code.Scripts.Player
             // - Fall        >
             // - Glide       >
             stateMachine.AddTransition(idle, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
-            stateMachine.AddTransition(fall, edge, new[] { "IsGrounded", "VisuallyOnEdge" }, new[] { "DownVelocity" });
+            stateMachine.AddTransition(fall, edge, new[] { "IsGrounded", "VisuallyOnEdge", "NotFalling" });
             stateMachine.AddTransition(glde, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
 
             // Idle transitions

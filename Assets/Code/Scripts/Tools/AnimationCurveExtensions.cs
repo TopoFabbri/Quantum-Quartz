@@ -325,11 +325,13 @@ namespace Code.Scripts.Tools
         /// <param name="scale">Scale applied to the curve in world space (X: time scale, Y: value scale).</param>
         /// <param name="color">Color to draw the curve with.</param>
         /// <param name="steps">Number of line segments used to draw the curve. Higher = smoother.</param>
-        public static void DrawCurveGizmos(this AnimationCurve curve, Vector3 origin, Vector2 scale, Color color, int steps = 200)
+        public static void DrawCurveGizmos(this AnimationCurve curve, Vector3 origin, Vector2 scale, Color color, Vector2? right = null, Vector2? up = null, int steps = 200)
         {
             if (curve == null || curve.length < 2)
                 return;
 
+            up = up.HasValue ? up.Value.normalized: Vector2.up;
+            right = right.HasValue ? right.Value.normalized : Vector2.right;
             Gizmos.color = color;
 
             float timeStart = curve.keys[0].time;
@@ -337,13 +339,13 @@ namespace Code.Scripts.Tools
             float timeRange = timeEnd - timeStart;
             float dt = timeRange / steps;
 
-            Vector3 prev = origin + new Vector3(0f, curve.Evaluate(timeStart) * scale.y, 0f);
+            Vector3 prev = (Vector2)origin + up.Value * curve.Evaluate(timeStart) * scale.y;
 
             for (int i = 1; i <= steps; i++)
             {
                 float t = timeStart + i * dt;
                 float value = curve.Evaluate(t);
-                Vector3 current = origin + new Vector3((t - timeStart) * scale.x, value * scale.y, 0f);
+                Vector3 current = (Vector2)origin + right.Value * (t - timeStart) * scale.x + up.Value * value * scale.y;
 
                 Gizmos.DrawLine(prev, current);
                 prev = current;

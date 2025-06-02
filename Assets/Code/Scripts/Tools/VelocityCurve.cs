@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Code.Scripts.Player;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,11 +13,12 @@ namespace Code.Scripts.Tools
     [CreateAssetMenu(menuName = "Custom/VelocityCurve", fileName = "VelocityCurve", order = 0)]
     public class VelocityCurve : ScriptableObject
     {
-        [SerializeField] private bool update = true;
         [SerializeField] private bool upwards = true;
+        [Range(0.001f, 60)]
         [SerializeField] private float heightScale = 1;
         [ToggleShow(nameof(upwards), true)]
         [SerializeField] private bool scaleDuration = false;
+        [Range(0.001f, 5)]
         [SerializeField] private float duration = 1;
         [SerializeField] private AnimationCurve positionCurve;
         [SerializeField] private AnimationCurve velocityCurve;
@@ -100,10 +102,7 @@ namespace Code.Scripts.Tools
             int last = positionCurve.keys.Length - 1;
             key = positionCurve.keys[last];
             key.time = duration;
-            if (upwards)
-            {
-                key.value = heightScale;
-            }
+            key.value = (upwards ? 1 : -1) * heightScale;
             positionCurve.MoveKey(last, key);
 
             velocityCurve = positionCurve?.Derivative(50, 0.0000003f, 3);
@@ -140,13 +139,13 @@ namespace Code.Scripts.Tools
             }
         }
 
-        public void Draw(Vector3 origin, float customWidth = float.NaN)
+        public void Draw(Vector3 origin, float customWidth = float.NaN, Vector2? right = null, Vector2? up = null)
         {
             float width = float.IsNaN(customWidth) ? duration : customWidth;
-            positionCurve.DrawCurveGizmos(origin, new Vector2(width / duration, 1), Color.blue);
+            positionCurve.DrawCurveGizmos(origin, new Vector2(width / duration, 1), Color.blue, right, up);
         }
 
-        public void DrawExtra(Vector3 origin, float customHeight = float.NaN, float customWidth = float.NaN)
+        public void DrawExtra(Vector3 origin, float customHeight = float.NaN, float customWidth = float.NaN, Vector2? right = null, Vector2? up = null)
         {
             float width = float.IsNaN(customWidth) ? duration : customWidth;
             float height = float.IsNaN(customHeight) ? heightScale : customHeight;
@@ -162,14 +161,16 @@ namespace Code.Scripts.Tools
                 return max - min;
             }
 
-            velocityCurve.DrawCurveGizmos(origin, new Vector2(width / duration, (height / heightScale) / GetHeight(velocityCurve)), Color.green);
-            accelerationCurve.DrawCurveGizmos(origin, new Vector2(width / duration, (height / heightScale) / GetHeight(accelerationCurve)), Color.red);
+            velocityCurve.DrawCurveGizmos(origin, new Vector2(width / duration, (height / heightScale) / GetHeight(velocityCurve)), Color.green, right, up);
+            accelerationCurve.DrawCurveGizmos(origin, new Vector2(width / duration, (height / heightScale) / GetHeight(accelerationCurve)), Color.red, right, up);
         }
     }
 
     [ExecuteInEditMode]
     public class VelocityCurveVisualizer : MonoBehaviour
     {
+        public PlayerState playerState;
+
         public VelocityCurve jumpCurve;
         public VelocityCurve fallCurve;
         public bool showExtra = false;
@@ -201,14 +202,37 @@ namespace Code.Scripts.Tools
                 float height = jumpCurve?.SamplePosition(jumpDuration) ?? 0;
                 Vector3 fallOrigin = transform.position + (jumpCurve ? transform.right * jumpWidth + transform.up * height : Vector3.zero);
 
-                jumpCurve?.Draw(transform.position, jumpWidth);
-                fallCurve?.Draw(fallOrigin, width - jumpWidth);
+                jumpCurve?.Draw(transform.position, jumpWidth, transform.right, transform.up);
+                fallCurve?.Draw(fallOrigin, width - jumpWidth, transform.right, transform.up);
+
+
+                if (playerState?.sharedContext != null)
+                {
+                    if (!playerState.sharedContext.Falling)
+                    {
+                        if (jumpCurve)
+                        {
+                            float progress = playerState.sharedContext.jumpFallTime / jumpCurve.Duration;
+                            Vector3 curPoint = transform.position + transform.right * jumpWidth * progress + transform.up * jumpCurve.SamplePosition(playerState.sharedContext.jumpFallTime);
+                            Debug.DrawRay(curPoint, transform.right * -10, Color.cyan);
+                        }
+                    }
+                    else
+                    {
+                        if (fallCurve)
+                        {
+                            float progress = playerState.sharedContext.jumpFallTime / fallCurve.Duration;
+                            Vector3 curPoint = fallOrigin + transform.right * (width - jumpWidth) * progress + transform.up * fallCurve.SamplePosition(playerState.sharedContext.jumpFallTime);
+                            Debug.DrawRay(curPoint, transform.right * -10, Color.cyan);
+                        }
+                    }
+                }
 
                 if (showExtra)
                 {
-                    jumpCurve?.DrawExtra(transform.position, float.NaN, jumpWidth);
+                    jumpCurve?.DrawExtra(transform.position, float.NaN, jumpWidth, transform.right, transform.up);
                     fallOrigin = transform.position + (jumpCurve ? transform.right * jumpWidth : Vector3.zero);
-                    fallCurve?.DrawExtra(fallOrigin, jumpCurve?.HeightScale ?? float.NaN, width - jumpWidth);
+                    fallCurve?.DrawExtra(fallOrigin, jumpCurve?.HeightScale ?? float.NaN, width - jumpWidth, transform.right, transform.up);
                 }
             }
         }
