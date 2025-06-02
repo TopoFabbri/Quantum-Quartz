@@ -10,7 +10,6 @@ namespace Code.Scripts.States
     {
         protected readonly GlideSettings glideSettings;
 
-        private float prevGravScale;
         private readonly BarController barController;
         private readonly ParticleSystem glideParticleSystem;
 
@@ -29,10 +28,6 @@ namespace Code.Scripts.States
             base.OnEnter();
             sharedContext.PlayerSfx.PlayGlide();
             glideParticleSystem.Play();
-
-            prevGravScale = sharedContext.Rigidbody.gravityScale;
-            sharedContext.Rigidbody.gravityScale = 0f;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
             
             barController.GetBar(ColorSwitcher.QColour.Yellow).FirstUseCut();
         }
@@ -43,16 +38,6 @@ namespace Code.Scripts.States
 
             sharedContext.PlayerSfx.StopGlide();
             glideParticleSystem.Stop();
-            sharedContext.Rigidbody.gravityScale = prevGravScale;
-        }
-
-        public override void OnFixedUpdate()
-        {
-            base.OnFixedUpdate();
-
-            Vector2 vector2 = sharedContext.Rigidbody.velocity;
-            vector2.y = -glideSettings.fallSpeed * Time.fixedDeltaTime;
-            sharedContext.Rigidbody.velocity = vector2;
         }
 
         public override void OnUpdate()

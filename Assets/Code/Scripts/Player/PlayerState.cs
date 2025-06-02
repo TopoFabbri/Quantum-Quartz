@@ -282,9 +282,9 @@ namespace Code.Scripts.Player
             // - Dash        >
             // - Wall        >
             // - Glide       >
-            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
-            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
-            stateMachine.AddTransition(edge, fall, new[] { "" }, new[] { "NotFalling", "IsGrounded" });
+            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "IsGrounded" });
+            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "IsGrounded" });
+            stateMachine.AddTransition(edge, fall, new[] { "" }, new[] { "IsGrounded" });
             stateMachine.AddTransition(jump, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(djmp, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(wjmp, fall, new[] { "" }, new[] { "NotFalling" });

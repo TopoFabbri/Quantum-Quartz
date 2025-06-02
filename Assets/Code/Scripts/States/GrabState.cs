@@ -29,9 +29,6 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             canMove = false;
-
-            sharedContext.Rigidbody.gravityScale = 0f;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
         }
 
         public override void OnUpdate()

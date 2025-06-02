@@ -100,7 +100,6 @@ namespace Code.Scripts.Player
             {
                 if (collision.gameObject.TryGetComponent(out ObjMovement obj) && transform.parent.Equals(obj.transform))
                 {
-                    Debug.Log("Exit " + collision.gameObject);
                     transform.parent = null;
                 }
             }
