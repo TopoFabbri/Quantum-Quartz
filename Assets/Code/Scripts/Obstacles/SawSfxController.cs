@@ -2,6 +2,7 @@
 using AK.Wwise;
 using Code.Scripts.Platforms;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Obstacles
 {
@@ -12,7 +13,8 @@ namespace Code.Scripts.Obstacles
 
         [SerializeField] private RTPC sawSfxRtpc;
         [SerializeField] private ColorObjectController colorObjectController;
-
+        [SerializeField] private Event sawSfxEvent;
+        
         private void Start()
         {
             colorObjectController.Toggled += OnToggled;
@@ -46,6 +48,9 @@ namespace Code.Scripts.Obstacles
 
         private void AddSaw()
         {
+            if (ActiveSaws.Count <= 0)
+                sawSfxEvent.Post(gameObject);
+            
             ActiveSaws.Add(this);
             UpdateSawsSfx();
         }
@@ -54,6 +59,9 @@ namespace Code.Scripts.Obstacles
         {
             ActiveSaws.Remove(this);
             UpdateSawsSfx();
+            
+            if (ActiveSaws.Count <= 0)
+                sawSfxEvent.Stop(gameObject);
         }
 
         private void UpdateSawsSfx()
