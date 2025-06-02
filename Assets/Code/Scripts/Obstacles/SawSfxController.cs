@@ -51,7 +51,9 @@ namespace Code.Scripts.Obstacles
             if (ActiveSaws.Count <= 0)
                 sawSfxEvent.Post(gameObject);
             
-            ActiveSaws.Add(this);
+            if (!ActiveSaws.Contains(this))
+                ActiveSaws.Add(this);
+            
             UpdateSawsSfx();
         }
 
