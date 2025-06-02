@@ -1,5 +1,6 @@
 using Code.Scripts.Game;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,14 +8,19 @@ namespace Code.Scripts.Menu
 {
     public class MenuController : MonoBehaviour
     {
+        [Header("Scene Names")]
         [SerializeField] private string levelSelectorScene;
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private string fileSaveSceneName;
 
         [SerializeField] private List<string> levelSceneNames = new List<string>();
 
+        [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private OptionsController optionsController;
+        [SerializeField] private TextMeshProUGUI versionText;
+
+        
 
         private void Start()
         {
@@ -25,6 +31,11 @@ namespace Code.Scripts.Menu
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
+            if (versionText != null)
+            {
+                versionText.text = $"v.{Application.version}";
+            }
         }
 
         public void LoadScene(string sceneName)
@@ -85,6 +96,18 @@ namespace Code.Scripts.Menu
             fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
             Stats.SelectSaveSlot(saveSlot);
             Invoke(nameof(GoMainMenu), 2);
+        }
+        
+        public void OpenLink(string url)
+        {
+            if (!string.IsNullOrEmpty(url))
+            {
+                Application.OpenURL(url);
+            }
+            else
+            {
+                Debug.LogWarning("La URL está vacía o no fue asignada.");
+            }
         }
     }
 }
