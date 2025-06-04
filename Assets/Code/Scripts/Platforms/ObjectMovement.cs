@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Code.Scripts.Level;
 using UnityEngine;
 
 namespace Code.Scripts.Platforms
@@ -11,7 +12,7 @@ namespace Code.Scripts.Platforms
         public float rotation;
     }
 
-    public class ObjMovement : MonoBehaviour
+    public class ObjectMovement : RoomComponent
     {
         [SerializeField] private List<Position> points = new();
         [SerializeField] private float speed = 1f;
@@ -27,63 +28,6 @@ namespace Code.Scripts.Platforms
         {
             initPos.pos = transform.position;
             initPos.rotation = transform.rotation.eulerAngles.z;
-        }
-
-        private void Update()
-        {
-            List<Position> relativePoints = new() { initPos };
-
-            foreach (Position point in points)
-            {
-                Position relativePoint;
-
-                relativePoint.pos = initPos.pos + point.pos;
-                relativePoint.rotation = point.rotation;
-
-                relativePoints.Add(relativePoint);
-            }
-
-            Position fromPos = relativePoints[curPoint == 0 ? relativePoints.Count - 1 : curPoint - 1];
-            Position toPos = relativePoints[curPoint];
-
-            Quaternion prevRot = Quaternion.Euler(0f, 0f, fromPos.rotation);
-            Quaternion nextRot = Quaternion.Euler(0f, 0f, toPos.rotation);
-
-            if (overTime)
-            {
-                if (time <= 0f)
-                    time = 1f;
-
-                transform.position = Vector2.Lerp(fromPos.pos, toPos.pos, timer / time);
-                transform.rotation = Quaternion.Slerp(prevRot, nextRot, timer / time);
-
-                timer += Time.deltaTime;
-
-                while (timer >= time)
-                {
-                    curPoint = (curPoint + 1) % relativePoints.Count;
-                    timer -= time;
-                }
-            }
-            else
-            {
-                float moveAmount = speed * Time.deltaTime;
-
-                Vector2 prevPos = transform.position;
-
-                transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
-
-                moveAmount -= Vector2.Distance(prevPos, relativePoints[curPoint].pos);
-
-                if (moveAmount > 0f)
-                {
-                    curPoint = (curPoint + 1) % relativePoints.Count;
-                    
-                    transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
-                }
-
-                transform.rotation = Quaternion.Slerp(prevRot, nextRot, ((Vector2)transform.position - fromPos.pos).magnitude / (toPos.pos - fromPos.pos).magnitude);
-            }
         }
 
         private void OnDrawGizmosSelected()
@@ -138,6 +82,73 @@ namespace Code.Scripts.Platforms
                 player.parent = null;
 
             player = null;
+        }
+
+        public override void OnActivate()
+        {
+            
+        }
+
+        public override void OnDeactivate()
+        {
+            
+        }
+
+        public override void OnUpdate()
+        {
+            List<Position> relativePoints = new() { initPos };
+
+            foreach (Position point in points)
+            {
+                Position relativePoint;
+
+                relativePoint.pos = initPos.pos + point.pos;
+                relativePoint.rotation = point.rotation;
+
+                relativePoints.Add(relativePoint);
+            }
+
+            Position fromPos = relativePoints[curPoint == 0 ? relativePoints.Count - 1 : curPoint - 1];
+            Position toPos = relativePoints[curPoint];
+
+            Quaternion prevRot = Quaternion.Euler(0f, 0f, fromPos.rotation);
+            Quaternion nextRot = Quaternion.Euler(0f, 0f, toPos.rotation);
+
+            if (overTime)
+            {
+                if (time <= 0f)
+                    time = 1f;
+
+                transform.position = Vector2.Lerp(fromPos.pos, toPos.pos, timer / time);
+                transform.rotation = Quaternion.Slerp(prevRot, nextRot, timer / time);
+
+                timer += Time.deltaTime;
+
+                while (timer >= time)
+                {
+                    curPoint = (curPoint + 1) % relativePoints.Count;
+                    timer -= time;
+                }
+            }
+            else
+            {
+                float moveAmount = speed * Time.deltaTime;
+
+                Vector2 prevPos = transform.position;
+
+                transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
+
+                moveAmount -= Vector2.Distance(prevPos, relativePoints[curPoint].pos);
+
+                if (moveAmount > 0f)
+                {
+                    curPoint = (curPoint + 1) % relativePoints.Count;
+                    
+                    transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
+                }
+
+                transform.rotation = Quaternion.Slerp(prevRot, nextRot, ((Vector2)transform.position - fromPos.pos).magnitude / (toPos.pos - fromPos.pos).magnitude);
+            }
         }
     }
 }
