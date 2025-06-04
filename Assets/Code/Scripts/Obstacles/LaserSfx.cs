@@ -5,14 +5,18 @@ namespace Code.Scripts.Obstacles
 {
     public class LaserSfx : MonoBehaviour
     {
-        [SerializeField] private Event laserEvent;
+        [SerializeField] private Event laserLoopEvent;
         [SerializeField] private Event windUpEvent;
-        [SerializeField] private Event shootEvent;
+        [SerializeField] private Event startShootEvent;
 
         private new UnityEngine.Camera camera;
 
         private bool isOn;
+        private bool isOnScreen;
+        private bool playingSound;
         private uint laserEventId;
+
+        private static int _lasersPlayingCount;
 
         private void Start()
         {
@@ -22,10 +26,21 @@ namespace Code.Scripts.Obstacles
 
         private void Update()
         {
-            bool onScreen = IsOnScreen();
+            isOnScreen = IsOnScreen();
 
-            if (isOn && !onScreen)
-                Off();
+            if (isOnScreen && !playingSound)
+            {
+                if (isOn)
+                    On();
+                else
+                    Off();
+            }
+            else if (!isOnScreen)
+            {
+                startShootEvent.Stop(gameObject);
+                windUpEvent.Stop(gameObject);
+                RemoveLaserPlaying();
+            }
         }
 
         /// <summary>
@@ -33,13 +48,13 @@ namespace Code.Scripts.Obstacles
         /// </summary>
         public void Off()
         {
-            if (!isOn)
-                return;
-            
             isOn = false;
-            
-            laserEvent.Stop(gameObject);
-            shootEvent.Stop(gameObject);
+
+            startShootEvent.Stop(gameObject);
+
+            RemoveLaserPlaying();
+
+            playingSound = true;
         }
 
         /// <summary>
@@ -47,8 +62,10 @@ namespace Code.Scripts.Obstacles
         /// </summary>
         public void WindUp()
         {
-            if (!IsOnScreen())
+            if (!isOnScreen)
                 return;
+
+            playingSound = true;
 
             windUpEvent.Post(gameObject);
         }
@@ -58,15 +75,41 @@ namespace Code.Scripts.Obstacles
         /// </summary>
         private void On()
         {
-            if (isOn || !IsOnScreen())
-                return;
-            
-            isOn = true;
+            if (!isOn && isOnScreen)
+                startShootEvent.Post(gameObject);
 
-            shootEvent.Post(gameObject);
-            laserEvent.Post(gameObject);
+            isOn = true;
+            
+            if (!isOnScreen)
+                return;
+
+            AddLaserPlaying();
+
+            playingSound = true;
         }
 
+        private void AddLaserPlaying()
+        {
+            if (_lasersPlayingCount <= 0)
+            {
+                _lasersPlayingCount = 1;
+                laserLoopEvent.Post(gameObject);
+                return;
+            }
+            
+            _lasersPlayingCount++;
+        }
+
+        private void RemoveLaserPlaying()
+        {
+            _lasersPlayingCount--;
+
+            if (_lasersPlayingCount > 0) return;
+            
+            _lasersPlayingCount = 0;
+            laserLoopEvent.Stop(gameObject);
+        }
+        
         /// <summary>
         /// Check if laser is on screen
         /// </summary>
