@@ -34,6 +34,12 @@ namespace Code.Scripts.Tools
 
         private void OnValidate()
         {
+            if (positionCurve.keys.Length < 2)
+            {
+                positionCurve.AddKey(new Keyframe(0, 0, 0, 0));
+                positionCurve.AddKey(new Keyframe(duration, (upwards ? 1 : -1) * heightScale, 0, 0));
+            }
+
             Keyframe key = positionCurve.keys[0];
             key.time = 0;
             key.value = 0;

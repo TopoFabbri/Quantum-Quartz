@@ -2,6 +2,7 @@
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Interfaces;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
 using System;
@@ -23,11 +24,12 @@ namespace Code.Scripts.Player
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
+        public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
         public bool died = false;
         public bool canCoyoteJump = false;
-        public Vector2 speed;
         public float jumpFallTime = 0;
+        public Vector2 speed = Vector2.zero;
 
         private readonly FiniteStateMachine<string> stateMachine;
 

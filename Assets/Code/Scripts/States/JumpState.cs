@@ -16,8 +16,6 @@ namespace Code.Scripts.States
 
         public bool HasJumped { get; protected set; }
 
-        private Coroutine jumpCoroutine;
-        
         public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.jumpCurve)
         {
             this.jumpSettings = stateSettings;
@@ -32,11 +30,6 @@ namespace Code.Scripts.States
             sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
             sharedContext.Rigidbody.velocity = sharedContext.speed;
 
-            if (!jumpSettings.jumpCurve)
-            {
-                jumpCoroutine = sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
-            }
-
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
             SpawnDust();
@@ -47,12 +40,7 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
-            
             HasJumped = false;
-            if (jumpCoroutine != null)
-            {
-                sharedContext.MonoBehaviour.StopCoroutine(jumpCoroutine);
-            }
         }
 
         public override void OnFixedUpdate()
@@ -62,7 +50,7 @@ namespace Code.Scripts.States
             if (!HasJumped || (sharedContext.Rigidbody.velocity.y != 0 && sharedContext.jumpFallTime < verticalVelocityCurve.Duration))
             {
                 HasJumped = true;
-                sharedContext.jumpFallTime = sharedContext.jumpFallTime + Time.fixedDeltaTime;
+                sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
                 sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
@@ -75,29 +63,14 @@ namespace Code.Scripts.States
         }
 
         /// <summary>
-        /// Wait for fixed update and jump
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IEnumerator JumpOnFU()
-        {
-            yield return new WaitForFixedUpdate();
-
-            sharedContext.Rigidbody.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
-        }
-
-        /// <summary>
         /// Make dust at jump position
         /// </summary>
         public virtual void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-            
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
             
-            if (hit.collider == null)
-                return;
-            
-            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
             
             Transform parent = hit.collider.transform;

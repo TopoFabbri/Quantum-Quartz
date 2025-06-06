@@ -8,5 +8,11 @@ namespace Code.Scripts.StateSettings
     {
         [HeaderPlus("Move Settings")]
         public MoveSettings moveSettings;
+
+        [HeaderPlus("Fall Settings")]
+        public FallSettings fallSettings;
+
+        [HeaderPlus("Spring Settings")]
+        public VelocityCurve springCurve;
     }
 }

@@ -23,7 +23,10 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.SetFalling(true);
+            if (!sharedContext.Falling)
+            {
+                sharedContext.SetFalling(true);
+            }
 
             sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
             sharedContext.Rigidbody.velocity = sharedContext.speed;
@@ -52,7 +55,7 @@ namespace Code.Scripts.States
 
             if (sharedContext.Rigidbody.velocity.y != 0 || !sharedContext.IsGrounded)
             {
-                sharedContext.jumpFallTime = sharedContext.jumpFallTime + Time.fixedDeltaTime;
+                sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
                 sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
@@ -73,13 +76,9 @@ namespace Code.Scripts.States
         private void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
 
-            if (hit.collider == null)
-                return;
-
-            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
 
             Transform parent = hit.collider.transform;

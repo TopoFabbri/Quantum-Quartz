@@ -132,7 +132,7 @@ namespace Code.Scripts.Player
             context.AddCondition("HasInput", () => sharedContext.Input != 0);
             context.AddCondition("NoWall", () => !move.WallCheck());
             context.AddCondition("CanEnterWall", wall.CanEnterWall);
-            context.AddCondition("Spring", () => spng.IsActivated);
+            context.AddCondition("Spring", () => sharedContext.spring.HasValue);
             context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
             context.AddCondition("NeutralVelocity", () => rb.velocity.y == 0);
             context.AddCondition("DownVelocity", () => rb.velocity.y < 0);
@@ -350,35 +350,36 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(fall, glde, new[] { "GlidePressed", "HasYellowStamina" });
 
             // Edge transitions
-            // - Idle       >
+            // - Idle        >
             // - Fall        >
             // - Glide       >
             stateMachine.AddTransition(idle, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
             stateMachine.AddTransition(fall, edge, new[] { "IsGrounded", "VisuallyOnEdge", "NotFalling" });
             stateMachine.AddTransition(glde, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
 
-            // Idle transitions
-            // - Spawn       >
-            // - Exit TP     >
+            // Spring transitions
+            // - Idle        >
             // - Move        >
             // - Edge        >
             // - Fall        >
             // - Jump        >
             // - Double Jump >
             // - Wall Jump   >
-            // - Spring      >
+            // - Spring      > Allows chaining springs
+            // - Dash        >
             // - Wall        >
             // - Glide       >
             stateMachine.AddTransition(idle, spng, new[] { "Spring" });
             stateMachine.AddTransition(move, spng, new[] { "Spring" });
-            stateMachine.AddTransition(jump, spng, new[] { "Spring" });
-            stateMachine.AddTransition(fall, spng, new[] { "Spring" });
-            stateMachine.AddTransition(dash, spng, new[] { "Spring" });
-            stateMachine.AddTransition(djmp, spng, new[] { "Spring" });
-            stateMachine.AddTransition(wall, spng, new[] { "Spring" });
-            stateMachine.AddTransition(wjmp, spng, new[] { "Spring" });
-            stateMachine.AddTransition(glde, spng, new[] { "Spring" });
             stateMachine.AddTransition(edge, spng, new[] { "Spring" });
+            stateMachine.AddTransition(fall, spng, new[] { "Spring" });
+            stateMachine.AddTransition(jump, spng, new[] { "Spring" });
+            stateMachine.AddTransition(djmp, spng, new[] { "Spring" });
+            stateMachine.AddTransition(wjmp, spng, new[] { "Spring" });
+            stateMachine.AddTransition(spng, spng, new[] { "Spring" });
+            stateMachine.AddTransition(dash, spng, new[] { "Spring" });
+            stateMachine.AddTransition(wall, spng, new[] { "Spring" });
+            stateMachine.AddTransition(glde, spng, new[] { "Spring" });
 
             // Grab transitions
             // - Spawn       >

@@ -137,17 +137,14 @@ namespace Code.Scripts.Player
             playerState.sharedContext.died = true;
         }
 
-        public IEnumerator Spring(Vector2 force, ForceMode2D mode)
+        public IEnumerator Spring(ISpringable.SpringDefinition springDefinition)
         {
-            //springState.Activate(); //Deactivated for now
             playerState.tempDashState.Interrupt();
+            playerState.sharedContext.spring = springDefinition;
             
             yield return new WaitForFixedUpdate();
 
             playerState.tempDjmpState.Reset();
-
-            playerState.sharedContext.Rigidbody.velocity = Vector2.zero;
-            playerState.sharedContext.Rigidbody.AddForce(force, mode);
         }
     }
 }

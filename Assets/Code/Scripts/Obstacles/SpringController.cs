@@ -8,8 +8,6 @@ namespace Code.Scripts.Obstacles
     public class SpringController : MonoBehaviour
     {
         [Header("Spring:")] [SerializeField] private float force = 20f;
-        [SerializeField] private Vector2 addedForce = new(0f, 10f);
-        [SerializeField] private ForceMode2D forceMode;
 
         [Header("Animation:")] [SerializeField]
         private Animator animator;
@@ -25,7 +23,7 @@ namespace Code.Scripts.Obstacles
         private void OnDrawGizmosSelected()
         {
             Vector3 start = transform.position;
-            Vector3 direction = transform.up * force + (Vector3)addedForce;
+            Vector3 direction = transform.up * force;
 
             direction *= scaleLength;
 
@@ -54,7 +52,7 @@ namespace Code.Scripts.Obstacles
 
             springables.Add(springable);
 
-            StartCoroutine(springable.Spring((Vector2)transform.up * force + addedForce, forceMode));
+            StartCoroutine(springable.Spring(new ISpringable.SpringDefinition(transform.position, (Vector2)transform.up * force)));
 
             animator.SetBool(activateTrigger, true);
         }
