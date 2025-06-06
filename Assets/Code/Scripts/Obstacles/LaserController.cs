@@ -11,7 +11,7 @@ namespace Code.Scripts.Obstacles
     /// </summary>
     public class LaserController : RoomComponent
     {
-        public enum LaserState
+        private enum LaserState
         {
             Offset,
             Off,
@@ -112,7 +112,7 @@ namespace Code.Scripts.Obstacles
         {
         }
 
-        public override void OnUpdate()
+        public override void OnLateUpdate()
         {
             ManageLaserState();
             ManageLaserDisplay();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -96,6 +97,24 @@ namespace Code.Scripts.Level
 
             foreach (RoomComponent roomComponent in roomComponents)
                 roomComponent.OnUpdate();
+        }
+
+        private void LateUpdate()
+        {
+            if (Active != this)
+                return;
+
+            foreach (RoomComponent roomComponent in roomComponents)
+                roomComponent.OnLateUpdate();
+        }
+
+        private void FixedUpdate()
+        {
+            if (Active != this)
+                return;
+
+            foreach (RoomComponent roomComponent in roomComponents)
+                roomComponent.OnFixedUpdate();
         }
 
         private void CalculateCameraRange()
