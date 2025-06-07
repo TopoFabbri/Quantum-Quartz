@@ -6,6 +6,7 @@ using Code.Scripts.Player;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using Unity.EditorCoroutines.Editor;
 #endif
 
 namespace Code.Scripts.Tools
@@ -29,8 +30,18 @@ namespace Code.Scripts.Tools
         [HideInInspector]
         [SerializeField] private float lastHeightScale = 1;
 
+#pragma warning disable 0414
+        [HideInInspector]
+        [SerializeField] private bool showError = false;
+        [Disable, ToggleShow(nameof(showError)), TextArea(10, 1000)]
+        [SerializeField] private string errorMessage = "Information Here.";
+#pragma warning restore 0414
+
         public float HeightScale => heightScale;
         public float Duration => duration;
+
+#if UNITY_EDITOR
+        EditorCoroutine coroutine;
 
         private void OnValidate()
         {
@@ -114,7 +125,34 @@ namespace Code.Scripts.Tools
             velocityCurve = positionCurve?.Derivative(50, 0.0000003f, 3);
             accelerationCurve = positionCurve?.SecondDerivative(50, 0.0000003f, 3);
             //thirdCurve = positionCurve?.ThirdDerivative(50, 0.0000003f, 3);
+
+            if (!upwards && accelerationCurve.Evaluate(duration) >= 0)
+            {
+                showError = true;
+                errorMessage = "The fall trajectory defined by " + this.name + " ends with a neutral/positive acceleration!\nThis means that after some point it'll en up floating or coming back up.";
+                Debug.LogError(errorMessage);
+            }
+            else
+            {
+                showError = false;
+            }
+
+            // Force save
+            //  For some reason Unity doesn't save Scriptable object data to disk on its own consistently, so this mimics pressing Ctrl+S after every change
+            EditorUtility.SetDirty(this);
+            if (coroutine != null)
+            {
+                EditorCoroutineUtility.StopCoroutine(coroutine);
+            }
+            coroutine = EditorCoroutineUtility.StartCoroutine(SaveAsset(), this);
         }
+
+        IEnumerator SaveAsset()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            AssetDatabase.SaveAssetIfDirty(this);
+        }
+#endif
 
         public float SamplePosition(float time)
         {
