@@ -16,6 +16,8 @@ namespace Code.Scripts.States
 
         public bool HasJumped { get; protected set; }
 
+        private float lastVel = 0;
+
         public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.jumpCurve)
         {
             this.jumpSettings = stateSettings;
@@ -29,6 +31,7 @@ namespace Code.Scripts.States
 
             sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
             sharedContext.Rigidbody.velocity = sharedContext.speed;
+            lastVel = sharedContext.speed.y;
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
@@ -52,9 +55,9 @@ namespace Code.Scripts.States
                 HasJumped = true;
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-                sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
+                sharedContext.speed.y = (vel + lastVel) * 0.5f;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
-                sharedContext.speed.y = vel;
+                lastVel = vel;
             }
             else
             {

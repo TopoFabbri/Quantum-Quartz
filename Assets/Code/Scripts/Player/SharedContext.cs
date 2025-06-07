@@ -13,19 +13,33 @@ namespace Code.Scripts.Player
     public class SharedContext
     {
         public Rigidbody2D Rigidbody { get; private set; }
+        public Collider2D Collider { get; private set; }
         public Transform Transform { get; private set; }
         public MonoBehaviour MonoBehaviour { get; private set; }
         public PlayerSfx PlayerSfx { get; private set; }
         public GlobalSettings GlobalSettings { get; private set; }
         public CameraController CamController { get; private set; }
-        public float Input { get; private set; }
         public bool Falling { get; private set; }
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
+        private float _input = 0;
+        public float Input
+        {
+            get
+            {
+                return blockMoveInput ? 0 : _input;
+            }
+            set
+            {
+                _input = value;
+            }
+        }
+
         public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
+        public bool blockMoveInput = false;
         public bool died = false;
         public bool canCoyoteJump = false;
         public float jumpFallTime = 0;
@@ -33,9 +47,10 @@ namespace Code.Scripts.Player
 
         private readonly FiniteStateMachine<string> stateMachine;
 
-        public SharedContext(Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
+        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
         {
             Rigidbody = rb;
+            Collider = col;
             Transform = transform;
             MonoBehaviour = mb;
             PlayerSfx = playerSfx;

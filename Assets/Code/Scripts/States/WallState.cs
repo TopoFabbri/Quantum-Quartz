@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Code.Scripts.States
 {
-    public class WallState<T> : FallState<T>
+    public class WallState<T> : FallState<T>, IPreventFlip
     {
         protected readonly WallSettings wallSettings;
 
@@ -55,8 +55,8 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Transform.parent = null;
-
             sharedContext.Rigidbody.gravityScale = savedGravityScale;
+            sharedContext.jumpFallTime = 0;
         }
 
         /// <summary>

@@ -28,13 +28,12 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            canMove = false;
+            sharedContext.blockMoveInput = true;
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-
             barController.GetBar(ColorSwitcher.QColour.Green).Use();
         }
     }

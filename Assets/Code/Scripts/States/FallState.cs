@@ -14,6 +14,8 @@ namespace Code.Scripts.States
     {
         protected readonly FallSettings fallSettings;
 
+        private float lastVel = 0;
+
         public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.fallCurve)
         {
             this.fallSettings = stateSettings;
@@ -23,13 +25,45 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            if (!sharedContext.Falling)
+            if (this.GetType() != typeof(FallState<T>) || !sharedContext.Falling)
             {
                 sharedContext.SetFalling(true);
+            }
+            else if (sharedContext.Rigidbody.velocity.y < 0)
+            {
+                // If already falling, try and adjust jumpFallTime to catch up
+                float ySpeed = sharedContext.Rigidbody.velocity.y;
+                float fallSpeed = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                float newFallTime = sharedContext.jumpFallTime;
+                float newFallSpeed = fallSpeed;
+                for (int i = 0; (Mathf.Abs(ySpeed - newFallSpeed) > 0.001f) && i < 3; i++)
+                {
+                    float fallAcceleration = fallSettings.fallCurve.SampleAcceleration(newFallTime);
+                    float diff = ySpeed - newFallSpeed;
+                    float timeBoost = Mathf.Max(diff / fallAcceleration, -newFallTime);
+                    float s1 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost * 0.5f);
+                    float s2 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost);
+                    if (Mathf.Abs(ySpeed - s1) < Mathf.Abs(ySpeed - s2))
+                    {
+                        newFallTime += timeBoost * 0.5f;
+                        newFallSpeed = s1;
+                    }
+                    else
+                    {
+                        newFallTime += timeBoost;
+                        newFallSpeed = s2;
+                    }
+                }
+
+                if (Mathf.Abs(ySpeed - newFallSpeed) < Mathf.Abs(ySpeed - fallSpeed))
+                {
+                    sharedContext.jumpFallTime = newFallTime;
+                }
             }
 
             sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
             sharedContext.Rigidbody.velocity = sharedContext.speed;
+            lastVel = sharedContext.speed.y;
 
             if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
             {
@@ -57,9 +91,9 @@ namespace Code.Scripts.States
             {
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-                sharedContext.speed.y = (vel + sharedContext.speed.y) * 0.5f;
+                sharedContext.speed.y = (vel + lastVel) * 0.5f;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
-                sharedContext.speed.y = vel;
+                lastVel = vel;
             }
             else
             {

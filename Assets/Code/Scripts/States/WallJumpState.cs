@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
-    public class WallJumpState<T> : JumpState<T>
+    public class WallJumpState<T> : JumpState<T>, IPreventFlip
     {
         protected readonly WjmpSettings wjmpSettings;
-        
+
+        private float impulse = 0;
+        private float lastVel = 0;
+
         public WallJumpState(T id, WjmpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.wjmpSettings = stateSettings;
@@ -19,9 +22,9 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.speed.x = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
-            
-            canMove = false;
+            impulse = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
+            sharedContext.speed.x = impulse;
+            sharedContext.blockMoveInput = true;
             sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
         }
 
@@ -30,7 +33,22 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.speed.x = 0;
-            canMove = false;
+            sharedContext.blockMoveInput = false;
+        }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            if (!sharedContext.Falling)
+            {
+                sharedContext.speed.x = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
+
+                sharedContext.jumpFallTime += Time.fixedDeltaTime;
+                float vel = impulse * verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime) / verticalVelocityCurve.HeightScale;
+                sharedContext.speed.x = (vel + lastVel) * 0.5f + sharedContext.speed.x;
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                lastVel = vel;
+            }
         }
 
         /// <summary>
@@ -41,8 +59,7 @@ namespace Code.Scripts.States
         private IEnumerator WaitAndReturnInput(float noInputTime)
         {
             yield return new WaitForSeconds(noInputTime);
-
-            canMove = true;
+            sharedContext.blockMoveInput = false;
         }
 
         public override void SpawnDust()

@@ -21,6 +21,7 @@ namespace Code.Scripts.Player
     public class PlayerState : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Collider2D col;
         [SerializeField] private BarController staminaBar;
         [SerializeField] private TextMeshProUGUI stateDebugText;
         [SerializeField] private PlayerSfx playerSfx;
@@ -58,7 +59,7 @@ namespace Code.Scripts.Player
 
         private void Awake()
         {
-            sharedContext = new SharedContext(rb, transform, this, playerSfx, globalSettings, stateMachine);
+            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine);
             CreateStateMachine();
         }
 
