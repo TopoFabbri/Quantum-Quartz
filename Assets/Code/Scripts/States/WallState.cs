@@ -113,7 +113,7 @@ namespace Code.Scripts.States
             {
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].collider.TryGetComponent(out ObjMovement objMovement))
+                    if (hits[i].collider.TryGetComponent(out ObjectMovement objMovement))
                     {
                         objMovement.AddPlayer(sharedContext.Transform);
                         break;
