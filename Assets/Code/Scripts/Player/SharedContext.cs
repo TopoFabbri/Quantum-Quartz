@@ -29,23 +29,38 @@ namespace Code.Scripts.Player
         {
             get
             {
-                return blockMoveInput ? 0 : _input;
+                return BlockMoveInput ? 0 : _input;
             }
             set
             {
                 _input = value;
+                OnCheckFlip.Invoke();
+            }
+        }
+
+        public bool _blockMoveInput = false;
+        public bool BlockMoveInput
+        {
+            get
+            {
+                return _blockMoveInput;
+            }
+            set
+            {
+                _blockMoveInput = value;
+                OnCheckFlip.Invoke();
             }
         }
 
         public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
-        public bool blockMoveInput = false;
         public bool died = false;
         public bool canCoyoteJump = false;
         public float jumpFallTime = 0;
         public Vector2 speed = Vector2.zero;
 
         private readonly FiniteStateMachine<string> stateMachine;
+        public event Action OnCheckFlip;
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
         {

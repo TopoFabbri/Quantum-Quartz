@@ -46,22 +46,6 @@ namespace Code.Scripts.Player
             PlayerState.OnFlip -= OnFlipHandler;
         }
 
-        private void Update()
-        {
-            if (!typeof(IPreventFlip).IsAssignableFrom(playerState.sharedContext.CurrentStateType))
-            {
-                float input = playerState.sharedContext.Input;
-                if (
-                    playerState.sharedContext.facingRight ?
-                    (input < 0 || (input == 0 && GetSpeed().x < 0))
-                    : (input > 0 || (input == 0 && GetSpeed().x > 0))
-                )
-                {
-                    playerState.Flip();
-                }
-            }
-        }
-
         private void FixedUpdate()
         {
             if (playerState.sharedContext.Rigidbody.velocity.y < 0f)

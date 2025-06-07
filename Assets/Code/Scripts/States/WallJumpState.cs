@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
-    public class WallJumpState<T> : JumpState<T>, IPreventFlip
+    public class WallJumpState<T> : JumpState<T>
     {
         protected readonly WjmpSettings wjmpSettings;
 
         private float impulse = 0;
-        private float lastVel = 0;
+        private Coroutine coroutine = null;
 
         public WallJumpState(T id, WjmpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
         {
@@ -24,8 +24,8 @@ namespace Code.Scripts.States
 
             impulse = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
             sharedContext.speed.x = impulse;
-            sharedContext.blockMoveInput = true;
-            sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
+            sharedContext.BlockMoveInput = true;
+            coroutine = sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
         }
 
         public override void OnExit()
@@ -33,7 +33,12 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.speed.x = 0;
-            sharedContext.blockMoveInput = false;
+            sharedContext.BlockMoveInput = false;
+
+            if (coroutine != null)
+            {
+                sharedContext.MonoBehaviour.StopCoroutine(coroutine);
+            }
         }
 
         public override void OnFixedUpdate()
@@ -41,13 +46,8 @@ namespace Code.Scripts.States
             base.OnFixedUpdate();
             if (!sharedContext.Falling)
             {
-                sharedContext.speed.x = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
-
-                sharedContext.jumpFallTime += Time.fixedDeltaTime;
-                float vel = impulse * verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime) / verticalVelocityCurve.HeightScale;
-                sharedContext.speed.x = (vel + lastVel) * 0.5f + sharedContext.speed.x;
+                sharedContext.speed.x = impulse + sharedContext.speed.x;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
-                lastVel = vel;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Code.Scripts.States
         private IEnumerator WaitAndReturnInput(float noInputTime)
         {
             yield return new WaitForSeconds(noInputTime);
-            sharedContext.blockMoveInput = false;
+            sharedContext.BlockMoveInput = false;
         }
 
         public override void SpawnDust()

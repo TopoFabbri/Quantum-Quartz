@@ -46,6 +46,8 @@ namespace Code.Scripts.States
             gravScale = sharedContext.Rigidbody.gravityScale;
             sharedContext.Rigidbody.gravityScale = 0f;
             sharedContext.Rigidbody.velocity = Vector2.zero;
+            sharedContext.BlockMoveInput = false; //Workaround, to get CheckFlip to run and ensure you dash in the right direction
+            sharedContext.BlockMoveInput = true;
 
             sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
@@ -61,7 +63,8 @@ namespace Code.Scripts.States
                 sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x / 2f, sharedContext.Rigidbody.velocity.y);
 
             sharedContext.Rigidbody.gravityScale = gravScale;
-            
+            sharedContext.BlockMoveInput = false;
+
             barController.GetBar(ColorSwitcher.QColour.Red).Use();
         }
 

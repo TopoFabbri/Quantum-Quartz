@@ -458,6 +458,7 @@ namespace Code.Scripts.Player
 
             sharedContext.CamController.MoveCam += PausePlayer;
             sharedContext.CamController.StopCam += ResumePlayer;
+            sharedContext.OnCheckFlip += CheckFlip;
 
             if (animController)
             {
@@ -475,6 +476,7 @@ namespace Code.Scripts.Player
 
             sharedContext.CamController.MoveCam -= PausePlayer;
             sharedContext.CamController.StopCam -= ResumePlayer;
+            sharedContext.OnCheckFlip -= CheckFlip;
 
             if (animController)
             {
@@ -495,6 +497,7 @@ namespace Code.Scripts.Player
 
         private void FixedUpdate()
         {
+            CheckFlip();
             stateMachine.FixedUpdate();
 
             if (sharedContext.RecalculateIsGrounded())
@@ -503,14 +506,27 @@ namespace Code.Scripts.Player
             }
         }
 
+        private void CheckFlip()
+        {
+            if (!sharedContext.BlockMoveInput && !typeof(IPreventFlip).IsAssignableFrom(sharedContext.CurrentStateType))
+            {
+                float input = sharedContext.Input;
+                if (
+                    sharedContext.facingRight ?
+                    (input < 0 || (input == 0 && sharedContext.speed.x < 0))
+                    : (input > 0 || (input == 0 && sharedContext.speed.x > 0))
+                )
+                {
+                    Flip();
+                }
+            }
+        }
+
         /// <summary>
         /// Flip character
         /// </summary>
         public void Flip()
         {
-            if (sharedContext.CurrentStateType == typeof(DashState<string>))
-                return;
-
             sharedContext.facingRight = !sharedContext.facingRight;
 
             OnFlip?.Invoke(sharedContext.facingRight);

@@ -28,7 +28,13 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            sharedContext.blockMoveInput = true;
+            sharedContext.BlockMoveInput = true;
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            sharedContext.BlockMoveInput = false;
         }
 
         public override void OnUpdate()
