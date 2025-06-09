@@ -50,6 +50,14 @@ namespace Code.Scripts.Obstacles
             stateHandlers.Add(LaserState.On, OnHandler);
         }
 
+        private void Start()
+        {
+            if (useTime) return;
+            
+            TurnOn();
+            state = LaserState.On;
+        }
+
         private void OnDestroy()
         {
             stateHandlers.Clear();
@@ -138,6 +146,9 @@ namespace Code.Scripts.Obstacles
 
         private void ManageLaserState()
         {
+            if (!useTime)
+                return;
+            
             time += Time.deltaTime;
 
             stateHandlers[state]?.Invoke();
@@ -147,7 +158,7 @@ namespace Code.Scripts.Obstacles
         {
             if (time < timeOffset) return;
 
-            state = LaserState.Off;
+            state = LaserState.On;
             time -= timeOffset;
         }
 
