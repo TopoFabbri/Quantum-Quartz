@@ -108,13 +108,13 @@ namespace Code.Scripts.States
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
             sharedContext.Collider.Cast(-lookDir, contactFilter, hits, moveSettings.wallCheckDis * 4f, true);
 
-            hits = hits.Where((hit) => hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"))).ToList();
+            hits = hits.Where((hit) => hit.transform && (hit.transform.CompareTag("Floor") || hit.transform.CompareTag("Platform"))).ToList();
 
             if (hits.Count > 0)
             {
                 foreach (RaycastHit2D hit in hits)
                 {
-                    if (hit.collider.TryGetComponent(out ObjMovement objMovement))
+                    if (hit.transform.TryGetComponent(out ObjMovement objMovement))
                     {
                         objMovement.AddPlayer(sharedContext.Transform);
                         break;

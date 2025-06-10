@@ -63,7 +63,7 @@ namespace Code.Scripts.Player
         {
             if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
             {
-                if (collision.gameObject.TryGetComponent(out ObjMovement obj))
+                if (collision.gameObject.TryGetComponent(out ObjectMovement obj))
                 {
                     obj.AddPlayer(transform);
                 }
@@ -79,7 +79,7 @@ namespace Code.Scripts.Player
         {
             if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
             {
-                if (collision.gameObject.TryGetComponent(out ObjMovement obj) && transform.parent.Equals(obj.transform))
+                if (collision.gameObject.TryGetComponent(out ObjectMovement obj) && transform.parent.Equals(obj.transform))
                 {
                     transform.parent = null;
                 }

@@ -1,56 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Code.Scripts.Level;
+using UnityEngine;
 using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Obstacles
 {
-    public class LaserSfx : MonoBehaviour
+    public class LaserSfx : RoomComponent
     {
-        [SerializeField] private Event laserEvent;
+        [SerializeField] private Event laserLoopEvent;
         [SerializeField] private Event windUpEvent;
-        [SerializeField] private Event shootEvent;
-
-        private new UnityEngine.Camera camera;
-
+        [SerializeField] private Event startShootEvent;
+        
         private bool isOn;
-        private uint laserEventId;
+        private bool isActive;
 
-        private void Start()
-        {
-            if (UnityEngine.Camera.main)
-                camera = UnityEngine.Camera.main;
-        }
-
-        private void Update()
-        {
-            bool onScreen = IsOnScreen();
-
-            if (isOn && !onScreen)
-                Off();
-        }
+        private static readonly List<LaserSfx> LasersPlaying = new();
 
         /// <summary>
         /// Call turn off laser event
         /// </summary>
         public void Off()
         {
-            if (!isOn)
-                return;
+            if (!isOn) return;
             
             isOn = false;
             
-            laserEvent.Stop(gameObject);
-            shootEvent.Stop(gameObject);
-        }
-
-        /// <summary>
-        /// Call start laser event
-        /// </summary>
-        public void WindUp()
-        {
-            if (!IsOnScreen())
-                return;
-
-            windUpEvent.Post(gameObject);
+            if (isActive)
+                RemoveFromPlaying();
         }
 
         /// <summary>
@@ -58,33 +34,71 @@ namespace Code.Scripts.Obstacles
         /// </summary>
         private void On()
         {
-            if (isOn || !IsOnScreen())
-                return;
-            
+            if (isOn) return;
             isOn = true;
+            
+            if (!isActive) return;
 
-            shootEvent.Post(gameObject);
-            laserEvent.Post(gameObject);
+            startShootEvent.Post(gameObject);
+            AddToPlaying();
         }
 
         /// <summary>
-        /// Check if laser is on screen
+        /// Call start laser event
         /// </summary>
-        /// <returns>True if on screen</returns>
-        private bool IsOnScreen()
+        public void WindUp()
         {
-            if (!camera)
-                return false;
-
-            Vector3 viewPos = camera.WorldToViewportPoint(transform.position);
-            bool onScreen = viewPos is { z: > 0, x: > 0 and < 1, y: > 0 and < 1 };
-
-            return onScreen;
+            if (isActive)
+                windUpEvent.Post(gameObject);
         }
 
         private void OnDestroy()
         {
-            Off();
+            if (isOn)
+                LasersPlaying.Remove(this);
+            
+            windUpEvent.Stop(gameObject);
+            startShootEvent.Stop(gameObject);
+        }
+        
+        private void AddToPlaying()
+        {
+            if (LasersPlaying.Count <= 0)
+                laserLoopEvent.Post(gameObject);
+            
+            if (LasersPlaying.Contains(this)) return;
+            
+            LasersPlaying.Add(this);
+        }
+
+        private void RemoveFromPlaying()
+        {
+            if (LasersPlaying.Count <= 0) return;
+            
+            LasersPlaying.Remove(this);
+            
+            if (LasersPlaying.Count <= 0)
+                laserLoopEvent.Stop(gameObject);
+        }
+
+        public override void OnActivate()
+        {
+            isActive = true;
+            
+            if (isOn)
+                AddToPlaying();
+        }
+
+        public override void OnDeactivate()
+        {
+            isActive = false;
+            
+            if (isOn)
+                RemoveFromPlaying();
+        }
+
+        public override void OnUpdate()
+        {
         }
     }
 }
