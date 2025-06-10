@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using AK.Wwise;
+using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using UnityEngine;
 using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Obstacles
 {
-    public class SawSfxController : MonoBehaviour
+    public class SawSfxController : RoomComponent
     {
         private static readonly List<SawSfxController> ActiveSaws = new();
+        private static GameObject _sfxSoundPoster;
         private const int MaxSaws = 10;
 
         [SerializeField] private RTPC sawSfxRtpc;
@@ -25,31 +27,17 @@ namespace Code.Scripts.Obstacles
             colorObjectController.Toggled -= OnToggled;
         }
 
-        private void Update()
-        {
-            if (!ActiveSaws.Contains(this))
-                return;
-            
-            if (!IsOnScreen())
-                RemoveSaw();
-        }
-
         private void OnToggled(bool on)
         {
-            if (!on)
-            {
-                RemoveSaw();
-                return;
-            }
-            
-            if (IsOnScreen())
-                AddSaw();
         }
 
         private void AddSaw()
         {
             if (ActiveSaws.Count <= 0)
-                sawSfxEvent.Post(gameObject);
+            {
+                _sfxSoundPoster = gameObject;
+                sawSfxEvent.Post(_sfxSoundPoster);
+            }
             
             if (!ActiveSaws.Contains(this))
                 ActiveSaws.Add(this);
@@ -63,24 +51,27 @@ namespace Code.Scripts.Obstacles
             UpdateSawsSfx();
             
             if (ActiveSaws.Count <= 0)
-                sawSfxEvent.Stop(gameObject);
+                sawSfxEvent.Stop(_sfxSoundPoster);
         }
 
         private void UpdateSawsSfx()
         {
             float value = ActiveSaws.Count / (float)MaxSaws * 100;
-            sawSfxRtpc.SetValue(gameObject, value);
+            sawSfxRtpc.SetValue(_sfxSoundPoster, value);
         }
-        
-        private bool IsOnScreen()
+
+        public override void OnActivate()
         {
-            if (!UnityEngine.Camera.main)
-                return false;
+            AddSaw();
+        }
 
-            Vector3 viewPos = UnityEngine.Camera.main.WorldToViewportPoint(transform.position);
-            bool onScreen = viewPos is { z: > 0, x: > 0 and < 1, y: > 0 and < 1 };
+        public override void OnDeactivate()
+        {
+            RemoveSaw();
+        }
 
-            return onScreen;
+        public override void OnUpdate()
+        {
         }
     }
 }

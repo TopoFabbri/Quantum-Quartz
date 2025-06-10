@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using Code.Scripts.Interfaces;
-using Code.Scripts.Player;
+using Code.Scripts.Level;
 using UnityEngine;
 
 namespace Code.Scripts.Obstacles
@@ -8,8 +9,16 @@ namespace Code.Scripts.Obstacles
     /// <summary>
     /// Manage laser actions
     /// </summary>
-    public class LaserController : MonoBehaviour
+    public class LaserController : RoomComponent
     {
+        private enum LaserState
+        {
+            Offset,
+            Off,
+            Windup,
+            On
+        }
+
         [SerializeField] private float maxDis = 20f;
         [SerializeField] private float width = .8f;
         [SerializeField] private LayerMask mask;
@@ -23,40 +32,35 @@ namespace Code.Scripts.Obstacles
         [SerializeField] private float timeOn;
         [SerializeField] private float timeOff;
         [SerializeField] private float timeOffset;
-        
+
+        private LaserState state = LaserState.Offset;
+        private readonly Dictionary<LaserState, Action> stateHandlers = new();
+
         private const float WindupTime = 0.6f;
-        
-        private bool isOn;
+
+        private float time;
+        private bool hasStarted;
         private static readonly int AnimatorOn = Animator.StringToHash("On");
+
+        private void Awake()
+        {
+            stateHandlers.Add(LaserState.Offset, OffsetHandler);
+            stateHandlers.Add(LaserState.Off, OffHandler);
+            stateHandlers.Add(LaserState.Windup, WindupHandler);
+            stateHandlers.Add(LaserState.On, OnHandler);
+        }
 
         private void Start()
         {
-            if (!useTime)
-            {
-                animator.SetBool(AnimatorOn, true);
-                isOn = true;
-                return;
-            }
-
-            StartCoroutine(ToggleOnOff());
+            if (useTime) return;
+            
+            TurnOn();
+            state = LaserState.On;
         }
 
-        private void LateUpdate()
+        private void OnDestroy()
         {
-            if (!isOn)
-            {
-                line.enabled = false;
-                end.gameObject.SetActive(false);
-                return;
-            }
-
-            line.enabled = true;
-            end.gameObject.SetActive(true);
-
-            FindCollisionPoint();
-
-            line.SetPosition(0, origin.position + origin.right * 0.5f);
-            line.SetPosition(1, end.position);
+            stateHandlers.Clear();
         }
 
         private void FindCollisionPoint()
@@ -65,7 +69,7 @@ namespace Code.Scripts.Obstacles
             //RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
 
             float dis = hit ? hit.distance : maxDis;
-            
+
             if (!hit.collider)
             {
                 end.position = origin.position + origin.right * dis;
@@ -96,32 +100,92 @@ namespace Code.Scripts.Obstacles
                 killable.Kill();
         }
 
-        private IEnumerator ToggleOnOff()
-        {
-            yield return new WaitForSeconds(timeOffset);
-
-            do
-            {
-                yield return new WaitForSeconds(timeOff - WindupTime);
-                animator.SetBool(AnimatorOn, true);
-
-                yield return new WaitForSeconds(WindupTime);
-                TurnOn();
-
-                yield return new WaitForSeconds(timeOn);
-                animator.SetBool(AnimatorOn, false);
-                TurnOff();
-            } while (enabled);
-        }
-
         private void TurnOn()
         {
-            isOn = true;
+            animator.SetBool(AnimatorOn, true);
         }
 
         private void TurnOff()
         {
-            isOn = false;
+            animator.SetBool(AnimatorOn, false);
+        }
+
+        public override void OnActivate()
+        {
+            if (!useTime)
+                TurnOn();
+        }
+
+        public override void OnDeactivate()
+        {
+        }
+
+        public override void OnLateUpdate()
+        {
+            ManageLaserState();
+            ManageLaserDisplay();
+        }
+
+        private void ManageLaserDisplay()
+        {
+            if (state != LaserState.On)
+            {
+                line.enabled = false;
+                end.gameObject.SetActive(false);
+                return;
+            }
+
+            line.enabled = true;
+            end.gameObject.SetActive(true);
+
+            FindCollisionPoint();
+
+            line.SetPosition(0, origin.position + origin.right * 0.5f);
+            line.SetPosition(1, end.position);
+        }
+
+        private void ManageLaserState()
+        {
+            if (!useTime)
+                return;
+            
+            time += Time.deltaTime;
+
+            stateHandlers[state]?.Invoke();
+        }
+
+        private void OffsetHandler()
+        {
+            if (time < timeOffset) return;
+
+            state = LaserState.On;
+            time -= timeOffset;
+        }
+
+        private void OffHandler()
+        {
+            if (time < timeOff) return;
+            
+            state = LaserState.Windup;
+            time -= timeOff;
+            TurnOn();
+        }
+        
+        private void WindupHandler()
+        {
+            if (time < WindupTime) return;
+
+            state = LaserState.On;
+            time -= WindupTime;
+        }
+
+        private void OnHandler()
+        {
+            if (time < timeOn) return;
+
+            state = LaserState.Off;
+            time -= timeOn;
+            TurnOff();
         }
     }
 }
