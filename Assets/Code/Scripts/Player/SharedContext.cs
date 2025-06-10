@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace Code.Scripts.Player
 {
+    [Serializable]
     public class SharedContext
     {
         public Rigidbody2D Rigidbody { get; private set; }
@@ -34,7 +35,7 @@ namespace Code.Scripts.Player
             set
             {
                 _input = value;
-                OnCheckFlip.Invoke();
+                OnCheckFlip?.Invoke();
             }
         }
 
@@ -48,7 +49,7 @@ namespace Code.Scripts.Player
             set
             {
                 _blockMoveInput = value;
-                OnCheckFlip.Invoke();
+                OnCheckFlip?.Invoke();
             }
         }
 
@@ -103,7 +104,7 @@ namespace Code.Scripts.Player
         {
             bool grounded = false;
 
-            if (Rigidbody.velocity.y == 0 || GlobalSettings.shouldDraw)
+            if (Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed || GlobalSettings.shouldDraw)
             {
                 Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset;
                 grounded = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckRadius, GlobalSettings.groundLayer));
@@ -120,7 +121,7 @@ namespace Code.Scripts.Player
                     if (!grounded || GlobalSettings.shouldDraw)
                     {
                         grounded |= GetEdge(false);
-                        grounded &= Rigidbody.velocity.y == 0;
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed;
                     }
                 }
             }

@@ -29,7 +29,7 @@ namespace Code.Scripts.Platforms
             initPos.rotation = transform.rotation.eulerAngles.z;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             List<Position> relativePoints = new() { initPos };
 
@@ -57,7 +57,7 @@ namespace Code.Scripts.Platforms
                 transform.position = Vector2.Lerp(fromPos.pos, toPos.pos, timer / time);
                 transform.rotation = Quaternion.Slerp(prevRot, nextRot, timer / time);
 
-                timer += Time.deltaTime;
+                timer += Time.fixedDeltaTime;
 
                 while (timer >= time)
                 {
@@ -67,7 +67,7 @@ namespace Code.Scripts.Platforms
             }
             else
             {
-                float moveAmount = speed * Time.deltaTime;
+                float moveAmount = speed * Time.fixedDeltaTime;
 
                 Vector2 prevPos = transform.position;
 
@@ -134,7 +134,7 @@ namespace Code.Scripts.Platforms
             if (!player)
                 return;
 
-            if (player.parent)
+            if (player.parent == transform)
                 player.parent = null;
 
             player = null;

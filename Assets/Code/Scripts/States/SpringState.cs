@@ -48,14 +48,14 @@ namespace Code.Scripts.States
         {
             base.OnFixedUpdate();
 
-            if ((lastForce.y != 0 && sharedContext.Rigidbody.velocity.y == 0) || sharedContext.jumpFallTime >= springSettings.springCurve.Duration)
+            if ((lastForce.y != 0 && Mathf.Abs(sharedContext.Rigidbody.velocity.y) < sharedContext.GlobalSettings.neutralSpeed) || sharedContext.jumpFallTime >= springSettings.springCurve.Duration)
             {
                 sharedContext.SetFalling(true);
             }
             else if (reachedOrigin)
             {
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
-                Vector2 force = CalculateSpring(spring.force, springSettings.springCurve, sharedContext.jumpFallTime, fallSettings.fallCurve, ref fallTime);
+                Vector2 force = CalculateSpring(spring.force, springSettings.springCurve, sharedContext.jumpFallTime, fallSettings.fallCurve, ref fallTime, sharedContext.GlobalSettings.neutralSpeed);
 
                 sharedContext.speed = (force + lastForce) * 0.5f + Vector2.right * sharedContext.speed.x;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
@@ -93,7 +93,7 @@ namespace Code.Scripts.States
             }
         }
 
-        public static Vector2 CalculateSpring(Vector2 springForce, VelocityCurve springCurve, float springTime, VelocityCurve fallCurve, ref float fallTime)
+        public static Vector2 CalculateSpring(Vector2 springForce, VelocityCurve springCurve, float springTime, VelocityCurve fallCurve, ref float fallTime, float neutralSpeed)
         {
             Vector2 force = springCurve.SampleVelocity(springTime) * springForce;
 
@@ -126,7 +126,7 @@ namespace Code.Scripts.States
                     // If spring force is stronger than gravity, try and adjust fallTime to catch up
                     float newFallTime = fallTime;
                     float newFallSpeed = fallSpeed;
-                    for (int i = 0; (Mathf.Abs(force.y - newFallSpeed) > 0.001f) && i < 3; i++)
+                    for (int i = 0; (Mathf.Abs(force.y - newFallSpeed) > neutralSpeed) && i < 3; i++)
                     {
                         float fallAcceleration = fallCurve.SampleAcceleration(newFallTime);
                         float diff = force.y - newFallSpeed;

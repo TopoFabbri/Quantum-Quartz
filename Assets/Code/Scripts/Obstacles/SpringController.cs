@@ -9,16 +9,15 @@ namespace Code.Scripts.Obstacles
 {
     public class SpringController : MonoBehaviour
     {
-        [Header("Spring:")] [SerializeField] private float force = 20f;
+        [HeaderPlus("Spring:")]
+        [SerializeField] private float force = 20f;
 
-        [Header("Animation:")] [SerializeField]
-        private Animator animator;
-
+        [HeaderPlus("Animation:")]
+        [SerializeField] private Animator animator;
         [SerializeField] private string activateTrigger = "Activate";
 
-        [Header("Draw:")] [SerializeField] private Color color = Color.green;
-        [SerializeField] private float scaleLength = 1f;
-        [SerializeField] private float arrowSize = .2f;
+        [HeaderPlus("Draw:")]
+        [SerializeField] private Color color = Color.green;
         [SerializeField] private SpringSettings springSettings;
 
         private readonly List<ISpringable> springables = new();
@@ -45,7 +44,7 @@ namespace Code.Scripts.Obstacles
                 List<Vector3> curve = new List<Vector3> { transform.position };
                 for (float i = 0; i < springSettings.springCurve.Duration; i += step)
                 {
-                    Vector2 force = SpringState<string>.CalculateSpring(direction, springSettings.springCurve, i, springSettings.fallSettings.fallCurve, ref fallTime);
+                    Vector2 force = SpringState<string>.CalculateSpring(direction, springSettings.springCurve, i, springSettings.fallSettings.fallCurve, ref fallTime, 0.001f);
                     /*
                     Vector2 force = springSettings.springCurve.SampleVelocity(i) * direction;
                     float fallInfluence = 1 - direction.normalized.y;

@@ -36,7 +36,7 @@ namespace Code.Scripts.States
                 float fallSpeed = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
                 float newFallTime = sharedContext.jumpFallTime;
                 float newFallSpeed = fallSpeed;
-                for (int i = 0; (Mathf.Abs(ySpeed - newFallSpeed) > 0.001f) && i < 3; i++)
+                for (int i = 0; (Mathf.Abs(ySpeed - newFallSpeed) > sharedContext.GlobalSettings.neutralSpeed) && i < 3; i++)
                 {
                     float fallAcceleration = fallSettings.fallCurve.SampleAcceleration(newFallTime);
                     float diff = ySpeed - newFallSpeed;
@@ -87,7 +87,7 @@ namespace Code.Scripts.States
         {
             base.OnFixedUpdate();
 
-            if (sharedContext.Rigidbody.velocity.y != 0 || !sharedContext.IsGrounded)
+            if (Mathf.Abs(sharedContext.Rigidbody.velocity.y) > sharedContext.GlobalSettings.neutralSpeed || !sharedContext.IsGrounded)
             {
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);

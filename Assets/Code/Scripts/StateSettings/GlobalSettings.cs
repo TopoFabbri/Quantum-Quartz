@@ -15,6 +15,9 @@ namespace Code.Scripts.StateSettings
         public float edgeCheckLength = 0.3f;
         public LayerMask groundLayer;
 
+        [HeaderPlus("Movement Settings")]
+        public float neutralSpeed = 0.001f;
+
         [HeaderPlus("Jump Settings")]
         public float jumpBufferTime = 0.1f;
 

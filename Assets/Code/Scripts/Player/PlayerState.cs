@@ -135,9 +135,9 @@ namespace Code.Scripts.Player
             context.AddCondition("CanEnterWall", wall.CanEnterWall);
             context.AddCondition("Spring", () => sharedContext.spring.HasValue);
             context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
-            context.AddCondition("NeutralVelocity", () => rb.velocity.y == 0);
-            context.AddCondition("DownVelocity", () => rb.velocity.y < 0);
-            context.AddCondition("UpVelocity", () => rb.velocity.y > 0);
+            context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("DownVelocity", () => rb.velocity.y < -sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("UpVelocity", () => rb.velocity.y > sharedContext.GlobalSettings.neutralSpeed);
             context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue);
             context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red);
             context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green);
