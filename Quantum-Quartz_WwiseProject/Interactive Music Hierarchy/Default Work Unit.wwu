@@ -572,7 +572,7 @@
 								<MusicSegment Name="Adventurer_Intro" ID="{64E9C36B-95A2-4F50-8491-9E3BCBD19C28}" ShortID="561521233">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="19862.0689655172"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -580,6 +580,11 @@
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="145"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -734,7 +739,7 @@
 								<MusicSegment Name="Adventurer_MainLP" ID="{8865135D-92D6-4CBE-B8B8-4BF7598D4C54}" ShortID="655845405">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="112551.729326305"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -742,6 +747,11 @@
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="145"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -898,7 +908,7 @@
 								<MusicSegment Name="Adventurer_End" ID="{7027F692-24ED-474F-8820-E87E794E8CDE}" ShortID="592345059">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="13241.3958333333"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -906,6 +916,11 @@
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="145"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
