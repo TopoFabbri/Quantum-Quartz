@@ -28,8 +28,11 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.Rigidbody.velocity = Vector2.zero;
+            sharedContext.speed = Vector2.zero;
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
             sharedContext.Rigidbody.isKinematic = true;
+            sharedContext.spring = null;
+            sharedContext.SetFalling(false);
             
             Reposition();
             
