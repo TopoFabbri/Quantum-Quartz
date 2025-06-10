@@ -96,9 +96,5 @@ namespace Code.Scripts.Obstacles
             if (isOn)
                 RemoveFromPlaying();
         }
-
-        public override void OnUpdate()
-        {
-        }
     }
 }

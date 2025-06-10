@@ -69,9 +69,5 @@ namespace Code.Scripts.Obstacles
         {
             RemoveSaw();
         }
-
-        public override void OnUpdate()
-        {
-        }
     }
 }

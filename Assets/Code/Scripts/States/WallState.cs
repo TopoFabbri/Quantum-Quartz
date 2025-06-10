@@ -114,7 +114,7 @@ namespace Code.Scripts.States
             {
                 foreach (RaycastHit2D hit in hits)
                 {
-                    if (hit.transform.TryGetComponent(out ObjMovement objMovement))
+                    if (hit.transform.TryGetComponent(out ObjectMovement objMovement))
                     {
                         objMovement.AddPlayer(sharedContext.Transform);
                         break;
