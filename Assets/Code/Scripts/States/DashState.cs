@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.Camera;
 using Code.Scripts.Colors;
@@ -22,6 +23,10 @@ namespace Code.Scripts.States
         private readonly SharedContext sharedContext;
         private readonly BarController barController;
         private readonly ParticleSystem dashParticleSystem;
+        private static ContactFilter2D contactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default")
+        };
 
         private float gravScale;
         private bool interrupted;
@@ -46,6 +51,7 @@ namespace Code.Scripts.States
             gravScale = sharedContext.Rigidbody.gravityScale;
             sharedContext.Rigidbody.gravityScale = 0f;
             sharedContext.Rigidbody.velocity = Vector2.zero;
+            sharedContext.SetFalling(false);
             sharedContext.BlockMoveInput = false; //Workaround, to get CheckFlip to run and ensure you dash in the right direction
             sharedContext.BlockMoveInput = true;
 
@@ -63,6 +69,7 @@ namespace Code.Scripts.States
                 sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x / 2f, sharedContext.Rigidbody.velocity.y);
 
             sharedContext.Rigidbody.gravityScale = gravScale;
+            sharedContext.SetFalling(true);
             sharedContext.BlockMoveInput = false;
 
             barController.GetBar(ColorSwitcher.QColour.Red).Use();
@@ -101,13 +108,12 @@ namespace Code.Scripts.States
 
         private bool WallCheck()
         {
-            Vector2 pos = (Vector2)sharedContext.Rigidbody.gameObject.transform.position + Vector2.right * (dashSettings.wallCheckDis * (sharedContext.facingRight ? 1 : -1));
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            sharedContext.Collider.Cast(sharedContext.facingRight ? Vector2.right : Vector2.left, contactFilter, hits, dashSettings.wallCheckDis, true);
 
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, dashSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
-
-            foreach (Collider2D collider in colliders)
+            foreach (RaycastHit2D hit in hits)
             {
-                if (dashSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
+                if (dashSettings.tags.Any(tag => hit.transform.CompareTag(tag)))
                     return true;
             }
 

@@ -15,18 +15,7 @@ namespace Code.Scripts.States
         private Vector2 lastForce = Vector2.zero;
         private float fallTime = 0; 
 
-        private bool _reachedOrigin = false;
-        private bool reachedOrigin {
-            get
-            {
-                _reachedOrigin =  _reachedOrigin || Vector2.Dot(spring.origin - (Vector2)sharedContext.Transform.position, spring.force) < 0;
-                return _reachedOrigin;
-            }
-            set
-            {
-                _reachedOrigin = value;
-            }
-        }
+        private bool reachedOrigin = false;
 
         public SpringState(T id, SpringSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
         {
@@ -71,85 +60,36 @@ namespace Code.Scripts.States
                 sharedContext.speed = (force + lastForce) * 0.5f + Vector2.right * sharedContext.speed.x;
                 sharedContext.Rigidbody.velocity = sharedContext.speed;
                 lastForce = force;
+            }
+            else if (Mathf.Abs(Vector2.Dot(spring.origin - (Vector2)sharedContext.Transform.position, spring.force)) > 0.0001f)
+            {
+                // Ensures the player reaches the spring's origin point before applying the impulse
+                Vector2 force = springSettings.springCurve.SampleVelocity(0) * spring.force;
+                float distancePerStep = force.magnitude * Time.fixedDeltaTime;
+                float originDist = Vector2.Dot(spring.origin - (Vector2)sharedContext.Transform.position, force.normalized);
+                float stepCount = Mathf.Abs(originDist / distancePerStep);
 
-                /*
-                Vector2 force = springSettings.springCurve.SampleVelocity(sharedContext.jumpFallTime) * spring.force;
-
-                // Radially interpolate the influence of the fall curve based on the spring force's direction
-                // - Upwards spring: 0x
-                // - Horizontal spring: 1x
-                // - 45 degree spring: 0.785x
-                // - Downward spring: Alternative approach
-                //   + Uses the strongest downward force, fall or spring
-                //   + When spring is stronger, fallTime is advanced to match the downwards speed
-                if (spring.force.y >= 0)
+                if (stepCount < 1)
                 {
-                    float fallInfluence = 1 - spring.force.normalized.y;
-                    fallTime += Time.fixedDeltaTime * fallInfluence;
-                    float fallForce = fallInfluence * fallSettings.fallCurve.SampleVelocity(fallTime);
-                    force.y = force.y * (1 - fallInfluence) + fallForce;
+                    sharedContext.speed = (force.normalized * originDist) / Time.fixedDeltaTime + Vector2.right * sharedContext.speed.x;
+                    sharedContext.Rigidbody.velocity = sharedContext.speed;
                 }
                 else
                 {
-                    // Downwards spring
-                    fallTime += Time.fixedDeltaTime;
-                    float fallSpeed = fallSettings.fallCurve.SampleVelocity(fallTime);
-
-                    if (force.y > fallSpeed) // -1 > -2
-                    {
-                        force.y = fallSpeed;
-                    }
-                    else
-                    {
-                        // If spring force is stronger than gravity, try and adjust fallTime to catch up
-                        float newFallTime = fallTime;
-                        float newFallSpeed = fallSpeed;
-                        for (int i = 0; (Mathf.Abs(force.y - newFallSpeed) > 0.001f) && i < 3; i++)
-                        {
-                            float fallAcceleration = fallSettings.fallCurve.SampleAcceleration(newFallTime);
-                            float diff = force.y - newFallSpeed;
-                            float timeBoost = diff / fallAcceleration;
-                            float s1 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost * 0.5f);
-                            float s2 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost);
-                            if (Mathf.Abs(force.y - s1) < Mathf.Abs(force.y - s2))
-                            {
-                                newFallTime += timeBoost * 0.5f;
-                                newFallSpeed = s1;
-                            }
-                            else
-                            {
-                                newFallTime += timeBoost;
-                                newFallSpeed = s2;
-                            }
-                        }
-
-                        if (Mathf.Abs(force.y - newFallSpeed) < Mathf.Abs(force.y - fallSpeed))
-                        {
-                            fallTime = newFallTime;
-                        }
-                    }
+                    // Divide the remainder amongst the steps
+                    float stepMultiplier = 1 + (stepCount % 1) / Mathf.FloorToInt(stepCount);
+                    sharedContext.speed = force * stepMultiplier * Mathf.Sign(originDist) + Vector2.right * sharedContext.speed.x;
+                    sharedContext.Rigidbody.velocity = sharedContext.speed;
                 }
 
-                sharedContext.speed = (force + lastForce) * 0.5f + Vector2.right * sharedContext.speed.x;
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
-                lastForce = force;
-                */
+                if (Mathf.FloorToInt(stepCount) <= 1)
+                {
+                    reachedOrigin = true;
+                }
             }
             else
             {
-                // Ensures the player reaches the spring's origin point before applying the impulse
-                float distancePerStep = spring.force.magnitude * Time.fixedDeltaTime;
-                Vector2 originOffset = spring.origin - (Vector2)sharedContext.Transform.position;
-                float originDist = Vector2.Dot(originOffset, spring.force.normalized);
-                float stepCount = originDist / distancePerStep;
-
-                float stepMultiplier = 1 + stepCount % 1;
-                if (stepMultiplier > 1.5f)
-                {
-                    stepMultiplier = stepCount % 1;
-                }
-
-                sharedContext.Rigidbody.velocity = spring.force * stepMultiplier;
+                // Triggered past origin point
             }
         }
 

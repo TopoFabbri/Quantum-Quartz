@@ -78,8 +78,8 @@ namespace Code.Scripts.Player
             // =====================================
             IdleState     <string> idle = new("Idle"                                                                                       );
             TpState       <string> tlpt = new("TP",     sharedContext                                                                      );
-            ExitTpState   <string> extp = new("ExitTP", sharedContext                                                                      );
             PauseState    <string> paus = new("Pause",  sharedContext                                                                      );
+            ExitTpState   <string> extp = new("ExitTP", settings["ExitTP"] as SpawnSettings,  sharedContext                                );
             MoveState     <string> move = new("Move",   settings["Move"]   as MoveSettings,   sharedContext                                );
             SpringState   <string> spng = new("Spring", settings["Spring"] as SpringSettings, sharedContext                                );
             JumpState     <string> jump = new("Jump",   settings["Jump"]   as JumpSettings,   sharedContext                                );
@@ -665,14 +665,6 @@ namespace Code.Scripts.Player
         private void EndTp()
         {
             tempTlptState.OnEnd();
-        }
-
-        /// <summary>
-        /// Stop exit teleport state (Called from animation)
-        /// </summary>
-        private void EndExitTp()
-        {
-            tempExtpState.OnEnd();
         }
     }
 }

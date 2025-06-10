@@ -17,7 +17,6 @@ namespace Code.Scripts.StateSettings
         
         [HeaderPlus("Wall Check")]
         public float wallCheckDis;
-        public Vector2 wallCheckSize;
         public List<string> tags;
     }
 }

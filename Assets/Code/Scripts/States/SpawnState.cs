@@ -28,6 +28,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
+            sharedContext.Rigidbody.velocity = Vector2.zero;
             sharedContext.Rigidbody.isKinematic = true;
             
             Reposition();
