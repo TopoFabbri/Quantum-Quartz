@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{5985C769-C55D-0839-BD48-AE798EA30D66}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E6BBAFD3-6F84-88C4-4075-06B2CEB1A319}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -69,6 +69,13 @@
 						<State Id="3092587493" Name="Pause"/>
 					</States>
 				</StateGroup>
+				<StateGroup Id="4281606737" Name="MusicPuzzleState">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="930712164" Name="Off"/>
+						<State Id="1651971902" Name="On"/>
+					</States>
+				</StateGroup>
 			</StateGroups>
 			<SwitchGroups>
 				<SwitchGroup Id="1445037870" Name="MusicSwitch">
@@ -86,7 +93,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{D7F79A5A-7C98-5DED-71D3-E1CA8D89A7BF}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{717EA1B1-2764-ADF0-4DFC-1546C529F1BF}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -526,6 +533,10 @@
 					<ShortName>Lab_Footstep_15.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_15_10C4C929.wem</CachePath>
 				</File>
+				<File Id="812185611" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Adventurer_Puzzle_Loop.wav</ShortName>
+					<CachePath>SFX/QQ_Adventurer_Puzzle_Loop_D79FB2B7.wem</CachePath>
+				</File>
 				<File Id="820823285" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-001.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-001_BF2AD3BD.wem</CachePath>
@@ -942,6 +953,7 @@
 					<MediaRefs>
 						<MediaRef Id="400230657"/>
 						<MediaRef Id="585198590"/>
+						<MediaRef Id="812185611"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
@@ -992,6 +1004,13 @@
 						<State Id="3092587493" Name="Pause"/>
 					</States>
 				</StateGroup>
+				<StateGroup Id="4281606737" Name="MusicPuzzleState">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="930712164" Name="Off"/>
+						<State Id="1651971902" Name="On"/>
+					</States>
+				</StateGroup>
 			</StateGroups>
 			<SwitchGroups>
 				<SwitchGroup Id="3586861854" Name="FootstepsSwitch">
@@ -1004,5 +1023,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{09887395-BEDF-5D4A-2015-C31D63276386}</FileHash>
+	<FileHash>{E181C3DE-8939-C847-9C67-FCB0F5A95808}</FileHash>
 </SoundBanksInfo>

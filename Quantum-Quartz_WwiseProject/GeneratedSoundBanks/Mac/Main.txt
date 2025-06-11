@@ -43,16 +43,22 @@ Switch	ID	Name	Switch Group			Notes
 
 State Group	ID	Name			Wwise Object Path	Notes
 	1021618141	MusicState			\Default Work Unit\MusicState	
+	4281606737	MusicPuzzleState			\Default Work Unit\MusicPuzzleState	
 
 State	ID	Name	State Group			Notes
 	748895195	None	MusicState			
 	984691642	Ingame	MusicState			
 	3092587493	Pause	MusicState			
+	748895195	None	MusicPuzzleState			
+	930712164	Off	MusicPuzzleState			
+	1651971902	On	MusicPuzzleState			
 
 Custom State	ID	Name	State Group	Owner		Notes
 	61059452	Pause	MusicState	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music		
+	88367268	On	MusicPuzzleState	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music\Adventurer_MainLP\Main_Loop		
 	140870055	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Objects\Steampunk_Objects		
 	246963863	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs		
+	296041802	Off	MusicPuzzleState	\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	1354283134	RTPC_SawsOnScreen			\Default Work Unit\RTPC_SawsOnScreen	
@@ -173,6 +179,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	806524630	Concrete_Footstep-009	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-009_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-009		10168
 	807661749	Concrete_Footstep-004	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-004_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-004		13812
 	809838471	Lab_Footstep_15	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_15_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_15		67104
+	812185611	QQ_Adventurer_Puzzle_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Loop_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Music_Switch\Adventurer_Music\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		39406444
 	820823285	Cristal_Platform_FS-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-001_BF2AD3BD.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-001		39812
 	834497291	Chain-003	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Chain-003_10C4C929.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-003		49122
 	841600986	Concrete_Footstep-031	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-031_10C4C929.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-031		24408
