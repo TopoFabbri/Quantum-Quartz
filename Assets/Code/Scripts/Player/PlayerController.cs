@@ -10,6 +10,7 @@ using Code.Scripts.Interfaces;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
+using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -19,22 +20,19 @@ namespace Code.Scripts.Player
     /// Manage player actions
     /// </summary>
     [RequireComponent(typeof(PlayerState))]
-    public class PlayerController : MonoBehaviour, IKillable, ISpringable
+    public class PlayerController : MonoBehaviour, IKillable, ISpringable, ICollector
     {
         [SerializeField] private PlayerState playerState;
-
-        // States (TRY TO REMOVE!)
-        //private MoveState<string> moveState;     // Multiple -> Speed & ResetSpeed()
-        //private DashState<string> dashState;     // Spring -> dashState.Interrupt();
-        //private DjmpState<string> djmpState;     // Update & Spring -> djmpState.Reset();
-
         [SerializeField] private List<GameObject> flipObjects = new();
-        
-        [Header("Shake Settings")] [SerializeField]
-        private float fallShakeMagnitudeMultiplier = 0.05f;
 
+        [HeaderPlus("Shake Settings")]
+        [SerializeField] private float fallShakeMagnitudeMultiplier = 0.05f;
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
+
+        Action<float> ICollector._OnAdvancePickup { get; set; }
+        Action ICollector._OnStopPickup { get; set; }
+        Rigidbody2D lastCollectible = null;
 
         private void OnEnable()
         {
@@ -131,6 +129,13 @@ namespace Code.Scripts.Player
             yield return new WaitForFixedUpdate();
 
             playerState.tempDjmpState.Reset();
+        }
+
+        public Rigidbody2D GetFollowObject(Rigidbody2D rb)
+        {
+            Rigidbody2D output = lastCollectible == null ? playerState.sharedContext.Rigidbody : lastCollectible;
+            lastCollectible = rb;
+            return output;
         }
     }
 }
