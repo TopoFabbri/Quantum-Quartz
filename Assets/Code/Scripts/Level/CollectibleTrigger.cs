@@ -26,6 +26,8 @@ public class CollectibleTrigger : MonoBehaviour
     ICollector collector;
     Rigidbody2D following;
     float timer = 0;
+    Vector2 initialPos;
+    bool returning = false;
 
 #if UNITY_EDITOR
     private void Reset()
@@ -61,29 +63,50 @@ public class CollectibleTrigger : MonoBehaviour
     }
 #endif
 
+    private void Start()
+    {
+        initialPos = transform.position;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (following || !other.TryGetComponent(out ICollector collector))
         {
             return;
         }
-        
+
+        this.following = collector.GetFollowObject(rb);
+        if (!following)
+        {
+            return;
+        }
+
         this.collector = collector;
         this.collector.OnAdvancePickup += OnAdvancePickup;
-        this.collector.OnStopPickup += OnStopPickup;
-        this.following = this.collector.GetFollowObject(rb);
+        this.collector.OnPausePickup += OnStopPickup;
+        this.collector.OnCancelPickup += OnCancelPickup;
+        this.returning = false;
         anim.SetInteger(ANIMATOR_PARAM, (int)CollectibleState.Following);
     }
 
     private void FixedUpdate()
     {
         rb.velocity = Vector2.zero;
-        if (following)
+
+        if (following || returning)
         {
-            Vector2 offset = following.position - (Vector2)transform.position;
+            Vector2 destination = returning ? initialPos : following.position;
+            Vector2 offset = destination - (Vector2)transform.position;
             float offsetDist = offset.magnitude / maxDistance;
-            float speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
+            float speed = maxSpeed * (offsetDist <= 1 ? (returning ? 1 : speedCurve.Evaluate(offsetDist)) : offsetDist);
             rb.velocity = offset.normalized * speed + yAdjustment * Vector2.up * offset.normalized.y;
+
+            if (returning && rb.velocity.magnitude * Time.fixedDeltaTime > offset.magnitude)
+            {
+                // If the destination would be reached/passed this frame, adjust speed to reach exactly and then stop returning
+                rb.velocity = offset / Time.fixedDeltaTime;
+                returning = false;
+            }
         }
     }
 
@@ -102,11 +125,19 @@ public class CollectibleTrigger : MonoBehaviour
     {
         timer = 0;
     }
-
+    
+    //Called from animation event
     private void OnEndPickup()
     {
-        Unsubscribe();
         Destroy(gameObject);
+    }
+
+    private void OnCancelPickup()
+    {
+        Unsubscribe();
+        timer = 0;
+        following = null;
+        returning = true;
     }
 
     private void OnDestroy()
@@ -119,7 +150,8 @@ public class CollectibleTrigger : MonoBehaviour
         if (collector != null)
         {
             collector.OnAdvancePickup -= OnAdvancePickup;
-            collector.OnStopPickup -= OnStopPickup;
+            collector.OnPausePickup -= OnStopPickup;
+            collector.OnCancelPickup -= OnCancelPickup;
         }
     }
 }

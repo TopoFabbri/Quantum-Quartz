@@ -513,8 +513,8 @@ namespace Code.Scripts.Player
                 float input = sharedContext.Input;
                 if (
                     sharedContext.facingRight ?
-                    (input < 0 || (input == 0 && sharedContext.speed.x < 0))
-                    : (input > 0 || (input == 0 && sharedContext.speed.x > 0))
+                    (input < 0 || (input == 0 && sharedContext.Speed.x < 0))
+                    : (input > 0 || (input == 0 && sharedContext.Speed.x > 0))
                 )
                 {
                     Flip();

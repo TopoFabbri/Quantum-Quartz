@@ -13,7 +13,7 @@ namespace Code.Scripts.States
     /// Die state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DeathState<T> : BaseState<T>, IDeathImmune
+    public class DeathState<T> : BaseState<T>, IDeathImmune, IUnsafe
     {
         protected readonly DeathSettings deathSettings;
 
