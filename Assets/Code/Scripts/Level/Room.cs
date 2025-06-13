@@ -7,6 +7,7 @@ namespace Code.Scripts.Level
     public class Room : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D roomTrigger;
+        [SerializeField] private BoxCollider2D objectsBox;
         [SerializeField] private Vector2 moveRange;
         [SerializeField] private Color rectangleColor = Color.magenta;
         [SerializeField] private Vector2 followOffset;
@@ -52,8 +53,7 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
-            Collider2D roomCollider = GetComponent<Collider2D>();
-            Bounds bounds = roomCollider.bounds;
+            Bounds bounds = objectsBox.bounds;
             
             Collider2D[] hits = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0f);
         
