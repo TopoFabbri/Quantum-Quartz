@@ -9,5 +9,10 @@
         public int Secs => (int)(time - Hours * 3600 - Mins * 60) % 60;
         public int MiliSecs => (int)(time % 1f * 100f);
         public string ToStr => Hours > 0 ? $"{Hours:00}:{Mins:00}:{Secs:00}:{MiliSecs:00}" : $"{Mins:00}:{Secs:00}:{MiliSecs:00}";
+
+        public Timer(float time)
+        {
+            this.time = time;
+        }
     }
 }
