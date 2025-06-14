@@ -18,16 +18,12 @@ namespace Code.Scripts.States
         private readonly ParticleSystem djmpParticleSystem2;
 
         public bool JumpAvailable { get; private set; }
-
-        private readonly CameraController camController;
         
         public DjmpState(T id, DjmpSettings stateSettings, SharedContext sharedContext, ParticleSystem djmpParticleSystem, ParticleSystem djmpParticleSystem2) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.djmpSettings = stateSettings;
             this.djmpParticleSystem = djmpParticleSystem;
             this.djmpParticleSystem2 = djmpParticleSystem2;
-
-            UnityEngine.Camera.main?.transform.parent?.TryGetComponent(out camController);
                     
             Reset();
         }
@@ -36,21 +32,13 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.PlayerSfx.Djmp();
-
             djmpParticleSystem.Play();
             djmpParticleSystem2.Play();
 
+            JumpAvailable = false;
             sharedContext.Rigidbody.velocity = Vector2.zero;
             
-            if (camController)
-                camController.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
-        }
-
-        protected override IEnumerator JumpOnFU()
-        {
-            yield return base.JumpOnFU();
-
-            JumpAvailable = false;
+            sharedContext.CamController?.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
         }
         
         /// <summary>

@@ -28,7 +28,11 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
+            sharedContext.speed = Vector2.zero;
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
             sharedContext.Rigidbody.isKinematic = true;
+            sharedContext.spring = null;
+            sharedContext.SetFalling(false);
             
             Reposition();
             
@@ -55,7 +59,7 @@ namespace Code.Scripts.States
         
         private void Reposition()
         {
-            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position, Vector2.down, 10f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position + Vector3.up * 0.1f, Vector2.down, 10f, LayerMask.GetMask("Default"));
             
             if (hit)
                 sharedContext.Transform.position = hit.point + Vector2.up * spawnSettings.height;

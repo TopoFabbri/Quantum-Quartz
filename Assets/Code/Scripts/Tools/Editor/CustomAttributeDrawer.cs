@@ -56,10 +56,14 @@ namespace Code.Scripts.Tools.Editor
             }
             if (!customGUI)
             {
-                PropertyDrawer drawer = PropertyDrawerFinder.FindDrawerForProperty(property);
-                if (drawer != null)
+                List<PropertyDrawer> drawers = PropertyDrawerFinder.FindDrawersForProperty(property);
+                drawers = drawers.Where((d) => d != null && d.GetType() != typeof(CustomAttributeDrawer)).ToList();
+                if (drawers.Count > 0)
                 {
-                    drawer.OnGUI(position, property, label);
+                    foreach (PropertyDrawer d in drawers)
+                    {
+                        d.OnGUI(position, property, label);
+                    }
                 }
                 else
                 {

@@ -14,7 +14,9 @@ namespace Code.Scripts.States
     {
         protected readonly FallSettings fallSettings;
 
-        public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        private float lastVel = 0;
+
+        public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.fallCurve)
         {
             this.fallSettings = stateSettings;
         }
@@ -23,16 +25,50 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.falling = true;
-
-            System.Type prevType = sharedContext.PreviousStateType;
-            if (
-                prevType != typeof(JumpState<string>) && prevType != typeof(DjmpState<string>)
-                && prevType != typeof(DashState<string>) && prevType != typeof(WallJumpState<string>)
-                && prevType != typeof(WallState<string>)
-            )
+            if (this.GetType() != typeof(FallState<T>) || !sharedContext.Falling)
             {
-                StartCoyoteTime();
+                sharedContext.SetFalling(true);
+            }
+            else if (sharedContext.Rigidbody.velocity.y < 0)
+            {
+                // If already falling, try and adjust jumpFallTime to catch up
+                float ySpeed = sharedContext.Rigidbody.velocity.y;
+                float fallSpeed = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                float newFallTime = sharedContext.jumpFallTime;
+                float newFallSpeed = fallSpeed;
+                for (int i = 0; (Mathf.Abs(ySpeed - newFallSpeed) > sharedContext.GlobalSettings.neutralSpeed) && i < 3; i++)
+                {
+                    float fallAcceleration = fallSettings.fallCurve.SampleAcceleration(newFallTime);
+                    float diff = ySpeed - newFallSpeed;
+                    float timeBoost = Mathf.Max(diff / fallAcceleration, -newFallTime);
+                    float s1 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost * 0.5f);
+                    float s2 = fallSettings.fallCurve.SampleVelocity(newFallTime + timeBoost);
+                    if (Mathf.Abs(ySpeed - s1) < Mathf.Abs(ySpeed - s2))
+                    {
+                        newFallTime += timeBoost * 0.5f;
+                        newFallSpeed = s1;
+                    }
+                    else
+                    {
+                        newFallTime += timeBoost;
+                        newFallSpeed = s2;
+                    }
+                }
+
+                if (Mathf.Abs(ySpeed - newFallSpeed) < Mathf.Abs(ySpeed - fallSpeed))
+                {
+                    sharedContext.jumpFallTime = newFallTime;
+                }
+            }
+
+            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
+            lastVel = sharedContext.speed.y;
+
+            if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
+            {
+                sharedContext.canCoyoteJump = true;
+                sharedContext.MonoBehaviour.StartCoroutine(StopCoyoteTime());
             }
         }
 
@@ -47,20 +83,22 @@ namespace Code.Scripts.States
             }
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
+            base.OnFixedUpdate();
 
-            sharedContext.Rigidbody.velocity = new Vector2(0f, sharedContext.Rigidbody.velocity.y);
-            
-            if (-sharedContext.Rigidbody.velocity.y > fallSettings.maxFallSpeed)
-                sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x, -fallSettings.maxFallSpeed);
-        }
-
-        public void StartCoyoteTime()
-        {
-            sharedContext.canCoyoteJump = true;
-            sharedContext.MonoBehaviour.StartCoroutine(StopCoyoteTime());
+            if (Mathf.Abs(sharedContext.Rigidbody.velocity.y) > sharedContext.GlobalSettings.neutralSpeed || !sharedContext.IsGrounded)
+            {
+                sharedContext.jumpFallTime += Time.fixedDeltaTime;
+                float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                sharedContext.speed.y = (vel + lastVel) * 0.5f;
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                lastVel = vel;
+            }
+            else
+            {
+                sharedContext.SetFalling(false);
+            }
         }
 
         private IEnumerator StopCoyoteTime()
@@ -72,13 +110,9 @@ namespace Code.Scripts.States
         private void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
 
-            if (hit.collider == null)
-                return;
-
-            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
 
             Transform parent = hit.collider.transform;

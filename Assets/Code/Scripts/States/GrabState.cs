@@ -28,16 +28,18 @@ namespace Code.Scripts.States
         public override void OnEnter()
         {
             base.OnEnter();
-            canMove = false;
+            sharedContext.BlockMoveInput = true;
+        }
 
-            sharedContext.Rigidbody.gravityScale = 0f;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
+        public override void OnExit()
+        {
+            base.OnExit();
+            sharedContext.BlockMoveInput = false;
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-
             barController.GetBar(ColorSwitcher.QColour.Green).Use();
         }
     }

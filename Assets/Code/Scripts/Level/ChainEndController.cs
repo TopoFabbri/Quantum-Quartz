@@ -25,7 +25,7 @@ namespace Code.Scripts.Level
             if (!other.TryGetComponent(out PlayerController player)) return;
             
             hitChainsEvent?.Post(gameObject);
-            rb.AddForce(Vector2.right * player.Speed * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
+            rb.AddForce(player.GetSpeed() * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
         }
     }
 }

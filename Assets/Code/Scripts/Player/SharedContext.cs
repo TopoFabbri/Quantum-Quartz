@@ -2,6 +2,7 @@
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
+using Code.Scripts.Interfaces;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
 using System;
@@ -9,29 +10,63 @@ using UnityEngine;
 
 namespace Code.Scripts.Player
 {
+    [Serializable]
     public class SharedContext
     {
         public Rigidbody2D Rigidbody { get; private set; }
+        public Collider2D Collider { get; private set; }
         public Transform Transform { get; private set; }
         public MonoBehaviour MonoBehaviour { get; private set; }
         public PlayerSfx PlayerSfx { get; private set; }
         public GlobalSettings GlobalSettings { get; private set; }
         public CameraController CamController { get; private set; }
-        public float Input { get; private set; }
+        public bool Falling { get; private set; }
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
+        private float _input = 0;
+        public float Input
+        {
+            get
+            {
+                return BlockMoveInput ? 0 : _input;
+            }
+            set
+            {
+                _input = value;
+                OnCheckFlip?.Invoke();
+            }
+        }
+
+        public bool _blockMoveInput = false;
+        public bool BlockMoveInput
+        {
+            get
+            {
+                return _blockMoveInput;
+            }
+            set
+            {
+                _blockMoveInput = value;
+                OnCheckFlip?.Invoke();
+            }
+        }
+
+        public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
-        public bool falling = false;
         public bool died = false;
         public bool canCoyoteJump = false;
+        public float jumpFallTime = 0;
+        public Vector2 speed = Vector2.zero;
 
         private readonly FiniteStateMachine<string> stateMachine;
+        public event Action OnCheckFlip;
 
-        public SharedContext(Rigidbody2D rb, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
+        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
         {
             Rigidbody = rb;
+            Collider = col;
             Transform = transform;
             MonoBehaviour = mb;
             PlayerSfx = playerSfx;
@@ -69,7 +104,7 @@ namespace Code.Scripts.Player
         {
             bool grounded = false;
 
-            if (Rigidbody.velocity.y == 0 || GlobalSettings.shouldDraw)
+            if (Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed || GlobalSettings.shouldDraw)
             {
                 Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset;
                 grounded = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckRadius, GlobalSettings.groundLayer));
@@ -86,7 +121,7 @@ namespace Code.Scripts.Player
                     if (!grounded || GlobalSettings.shouldDraw)
                     {
                         grounded |= GetEdge(false);
-                        grounded &= Rigidbody.velocity.y == 0;
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed;
                     }
                 }
             }
@@ -112,12 +147,18 @@ namespace Code.Scripts.Player
         {
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider != null && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
+                if (hit.collider != null && hit.distance > 0 && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        public void SetFalling(bool falling)
+        {
+            Falling = falling;
+            jumpFallTime = 0;
         }
     }
 }

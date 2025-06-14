@@ -9,7 +9,10 @@ namespace Code.Scripts.States
     public class WallJumpState<T> : JumpState<T>
     {
         protected readonly WjmpSettings wjmpSettings;
-        
+
+        private float impulse = 0;
+        private Coroutine coroutine = null;
+
         public WallJumpState(T id, WjmpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.wjmpSettings = stateSettings;
@@ -17,21 +20,35 @@ namespace Code.Scripts.States
 
         public override void OnEnter()
         {
-            sharedContext.Rigidbody.velocity = Vector2.zero;
-            
             base.OnEnter();
 
-            sharedContext.Rigidbody.velocity = new Vector2(sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce, sharedContext.Rigidbody.velocity.y);
-            
-            canMove = false;
-            sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
+            impulse = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
+            sharedContext.speed.x = impulse;
+            sharedContext.BlockMoveInput = true;
+            coroutine = sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            
-            canMove = false;
+
+            sharedContext.speed.x = 0;
+            sharedContext.BlockMoveInput = false;
+
+            if (coroutine != null)
+            {
+                sharedContext.MonoBehaviour.StopCoroutine(coroutine);
+            }
+        }
+
+        public override void OnFixedUpdate()
+        {
+            base.OnFixedUpdate();
+            if (!sharedContext.Falling)
+            {
+                sharedContext.speed.x = impulse + sharedContext.speed.x;
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+            }
         }
 
         /// <summary>
@@ -42,8 +59,7 @@ namespace Code.Scripts.States
         private IEnumerator WaitAndReturnInput(float noInputTime)
         {
             yield return new WaitForSeconds(noInputTime);
-
-            canMove = true;
+            sharedContext.BlockMoveInput = false;
         }
 
         public override void SpawnDust()
@@ -55,10 +71,7 @@ namespace Code.Scripts.States
             
             Debug.DrawLine(position, position + direction * moveSettings.wallCheckDis, Color.red, 0.1f);
             
-            if (hit.collider == null)
-                return;
-            
-            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
             
             Transform parent = hit.collider.transform;

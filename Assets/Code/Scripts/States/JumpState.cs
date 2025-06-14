@@ -10,16 +10,15 @@ namespace Code.Scripts.States
     /// Jump up state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class JumpState<T> : MoveState<T>
+    public class JumpState<T> : MoveState<T>, INoCoyoteTime
     {
         protected readonly JumpSettings jumpSettings;
 
         public bool HasJumped { get; protected set; }
-        public float JumpForce => jumpSettings.jumpForce;
 
-        private Coroutine jumpCoroutine;
-        
-        public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext)
+        private float lastVel = 0;
+
+        public JumpState(T id, JumpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.jumpCurve)
         {
             this.jumpSettings = stateSettings;
         }
@@ -28,15 +27,11 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.PlayerSfx.Jump();
+            sharedContext.SetFalling(false);
 
-            if (sharedContext.PreviousStateType == typeof(FallState<T>))
-            {
-                Vector2 vector2 = sharedContext.Rigidbody.velocity;
-                vector2.y = 0f;
-                sharedContext.Rigidbody.velocity = vector2;
-            }
-
-            jumpCoroutine = sharedContext.MonoBehaviour.StartCoroutine(JumpOnFU());
+            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.speed;
+            lastVel = sharedContext.speed.y;
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
@@ -48,28 +43,26 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
-            
             HasJumped = false;
-            sharedContext.MonoBehaviour.StopCoroutine(jumpCoroutine);
         }
 
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
 
-            if (!sharedContext.IsGrounded)
+            if (!HasJumped || (sharedContext.Rigidbody.velocity.y != 0 && sharedContext.jumpFallTime < verticalVelocityCurve.Duration))
+            {
                 HasJumped = true;
-        }
-
-        /// <summary>
-        /// Wait for fixed update and jump
-        /// </summary>
-        /// <returns></returns>
-        protected virtual IEnumerator JumpOnFU()
-        {
-            yield return new WaitForFixedUpdate();
-
-            sharedContext.Rigidbody.AddForce(jumpSettings.jumpForce * Vector2.up, ForceMode2D.Impulse);
+                sharedContext.jumpFallTime += Time.fixedDeltaTime;
+                float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+                sharedContext.speed.y = (vel + lastVel) * 0.5f;
+                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                lastVel = vel;
+            }
+            else
+            {
+                sharedContext.SetFalling(true);
+            }
         }
 
         /// <summary>
@@ -78,13 +71,9 @@ namespace Code.Scripts.States
         public virtual void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-            
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
             
-            if (hit.collider == null)
-                return;
-            
-            if (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform"))
+            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
             
             Transform parent = hit.collider.transform;

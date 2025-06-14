@@ -36,10 +36,6 @@ namespace Code.Scripts.Player
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
 
-        private float MoveInput => playerState.sharedContext.Input;
-        
-        public float Speed => playerState.tempMoveState.Speed;
-
         private void OnEnable()
         {
             PlayerState.OnFlip += OnFlipHandler;
@@ -48,21 +44,6 @@ namespace Code.Scripts.Player
         private void OnDisable()
         {
             PlayerState.OnFlip -= OnFlipHandler;
-        }
-
-        private void Update()
-        {
-            Type curStateType = playerState.sharedContext.CurrentStateType;
-            // What do all these states have in common that require the Flip() to be called?
-            if (curStateType != typeof(WallState<string>) && curStateType != typeof(WallJumpState<string>) && curStateType != typeof(GrabState<string>))
-            {
-                bool leftMove = Speed < 0f || (Speed == 0f && MoveInput < 0f);
-                bool rightMove = Speed > 0f || (Speed == 0f && MoveInput > 0f);
-                if (playerState.sharedContext.facingRight && leftMove || !playerState.sharedContext.facingRight && rightMove)
-                {
-                    playerState.Flip();
-                }
-            }
         }
 
         private void FixedUpdate()
@@ -100,7 +81,6 @@ namespace Code.Scripts.Player
             {
                 if (collision.gameObject.TryGetComponent(out ObjectMovement obj) && transform.parent.Equals(obj.transform))
                 {
-                    Debug.Log("Exit " + collision.gameObject);
                     transform.parent = null;
                 }
             }
@@ -129,6 +109,11 @@ namespace Code.Scripts.Player
             bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
             return grounded;
         }
+
+        public Vector2 GetSpeed()
+        {
+            return playerState.sharedContext.speed;
+        }
         
         public void Kill()
         {
@@ -138,17 +123,14 @@ namespace Code.Scripts.Player
             playerState.sharedContext.died = true;
         }
 
-        public IEnumerator Spring(Vector2 force, ForceMode2D mode)
+        public IEnumerator Spring(ISpringable.SpringDefinition springDefinition)
         {
-            //springState.Activate(); //Deactivated for now
             playerState.tempDashState.Interrupt();
+            playerState.sharedContext.spring = springDefinition;
             
             yield return new WaitForFixedUpdate();
 
             playerState.tempDjmpState.Reset();
-
-            playerState.sharedContext.Rigidbody.velocity = Vector2.zero;
-            playerState.sharedContext.Rigidbody.AddForce(force, mode);
         }
     }
 }

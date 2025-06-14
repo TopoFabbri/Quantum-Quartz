@@ -6,14 +6,19 @@ using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Code.Scripts.States
 {
-    public class WallState<T> : FallState<T>
+    public class WallState<T> : FallState<T>, IPreventFlip
     {
         protected readonly WallSettings wallSettings;
 
         private float savedGravityScale;
+        private static ContactFilter2D contactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default")
+        };
 
         public WallState(T id, WallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.fallSettings, sharedContext)
         {
@@ -55,8 +60,8 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Transform.parent = null;
-
             sharedContext.Rigidbody.gravityScale = savedGravityScale;
+            sharedContext.jumpFallTime = 0;
         }
 
         /// <summary>
@@ -77,19 +82,15 @@ namespace Code.Scripts.States
         /// <returns> True if touching a wall</returns>
         public bool IsTouchingWall(bool checkRight)
         {
-            Vector2 pos = (Vector2)sharedContext.Transform.position + Vector2.right * (checkRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis);
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, (checkRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis), true);
 
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
-
-            foreach (Collider2D collider in colliders)
+            foreach (RaycastHit2D hit in hits)
             {
-                if (collider.gameObject.CompareTag("Wall") || collider.gameObject.CompareTag("Floor"))
+                if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Floor"))
                     return true;
 
-                if (!collider.gameObject.CompareTag("Platform"))
-                    continue;
-
-                if (collider.TryGetComponent(out PlatformEffector2D platformEffector2D))
+                if (!hit.transform.CompareTag("Platform") || hit.transform.TryGetComponent(out PlatformEffector2D platformEffector2D))
                     continue;
                 
                 return true;
@@ -103,17 +104,17 @@ namespace Code.Scripts.States
         /// </summary>
         private void PositionPlayer()
         {
-            Vector2 lookDir = sharedContext.facingRight ? Vector3.right : Vector3.left;
-            Vector2 checkOrigin = (Vector2)sharedContext.Transform.position;
-            RaycastHit2D[] hits = Physics2D.BoxCastAll(checkOrigin, moveSettings.wallCheckSize, 0f, -lookDir, moveSettings.wallCheckDis * 4f, LayerMask.GetMask("Default"));
+            Vector2 lookDir = sharedContext.facingRight ? Vector2.right : Vector2.left;
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            sharedContext.Collider.Cast(-lookDir, contactFilter, hits, moveSettings.wallCheckDis * 4f, true);
 
-            hits = hits.Where((hit) => hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"))).ToArray();
+            hits = hits.Where((hit) => hit.transform && (hit.transform.CompareTag("Floor") || hit.transform.CompareTag("Platform"))).ToList();
 
-            if (hits.Length > 0)
+            if (hits.Count > 0)
             {
-                for (int i = 0; i < hits.Length; i++)
+                foreach (RaycastHit2D hit in hits)
                 {
-                    if (hits[i].collider.TryGetComponent(out ObjectMovement objMovement))
+                    if (hit.transform.TryGetComponent(out ObjectMovement objMovement))
                     {
                         objMovement.AddPlayer(sharedContext.Transform);
                         break;
@@ -145,16 +146,13 @@ namespace Code.Scripts.States
         /// </summary>
         private void SpawnDust()
         {
-            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position + (sharedContext.facingRight ? Vector3.right : Vector3.left),
-                sharedContext.facingRight ? Vector2.left : Vector2.right, wallSettings.wallDis,
-                LayerMask.GetMask("Default"));
+            Vector2 facingDir = sharedContext.facingRight ? Vector3.right : Vector3.left;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)sharedContext.Transform.position + facingDir, -facingDir, wallSettings.wallDis, LayerMask.GetMask("Default"));
 
             if (!hit.collider)
                 return;
             
-            Vector2 position = sharedContext.Transform.position +
-                               (sharedContext.facingRight ? Vector3.right : Vector3.left) * wallSettings.wallDis +
-                               Vector3.down * wallSettings.dustOffset;
+            Vector2 position = (Vector2)sharedContext.Transform.position + facingDir * wallSettings.wallDis + Vector2.down * wallSettings.dustOffset;
             Quaternion rotation = Quaternion.Euler(0f, 0f, sharedContext.facingRight ? 90f : -90f);
 
             Object.Instantiate(wallSettings.dust, position, rotation);

@@ -9,12 +9,23 @@ namespace Code.Scripts.Interfaces
     /// </summary>
     public interface ISpringable
     {
+        public struct SpringDefinition
+        {
+            public Vector2 origin;
+            public Vector2 force;
+
+            public SpringDefinition(Vector3 origin, Vector2 force)
+            {
+                this.origin = origin;
+                this.force = force;
+            }
+        }
+
         /// <summary>
         /// Applies a force to the player's rigidbody for spring-like movement
         /// </summary>
-        /// <param name="force">The direction and magnitude of the force to apply</param>
-        /// <param name="mode">The type of force to apply (Force, Impulse, etc.)</param>
+        /// <param name="springDefinition">Contains the information that defines the spring</param>
         /// <returns>IEnumerator for coroutine execution</returns>
-        public IEnumerator Spring(Vector2 force, ForceMode2D mode);
+        public IEnumerator Spring(SpringDefinition springDefinition);
     }
 }

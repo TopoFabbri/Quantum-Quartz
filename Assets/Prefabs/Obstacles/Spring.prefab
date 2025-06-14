@@ -47,14 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a627f434f9b44f4a2c1c18c870a2a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 15
-  addedForce: {x: 0, y: 10}
-  forceMode: 1
+  force: 6
   animator: {fileID: 2789212242443457207}
   activateTrigger: Activate
   color: {r: 0, g: 1, b: 0, a: 1}
-  scaleLength: 0.2
-  arrowSize: 0.3
+  springSettings: {fileID: 11400000, guid: 5fe2d58c5e6d60241ad3a51821384172, type: 2}
 --- !u!212 &5472670419523525623
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -171,5 +168,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.89, y: 0.7}
+  m_Size: {x: 1.15, y: 0.7}
   m_EdgeRadius: 0

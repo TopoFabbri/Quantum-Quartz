@@ -14,5 +14,6 @@ namespace Code.Scripts.StateSettings
         public float maxFallSpeed = 10f;
         public string fallSoundName = "Play_Lab_Landing";
         public GameObject dust;
+        public VelocityCurve fallCurve;
     }
 }

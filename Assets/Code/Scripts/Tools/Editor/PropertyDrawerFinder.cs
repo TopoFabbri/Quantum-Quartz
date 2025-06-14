@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
 namespace dninosores.UnityEditorAttributes
 {
@@ -30,9 +31,9 @@ namespace dninosores.UnityEditorAttributes
         /// <summary>
         /// Searches for custom property drawer for given property, or returns null if no custom property drawer was found.
         /// </summary>
-        public static PropertyDrawer FindDrawerForProperty(SerializedProperty property)
+        public static List<PropertyDrawer> FindDrawersForProperty(SerializedProperty property)
         {
-            PropertyDrawer drawer;
+            List<PropertyDrawer> drawers = new List<PropertyDrawer>();
             TypeAndFieldInfo tfi;
 
             int pathHash = _GetUniquePropertyPathHash(property);
@@ -46,10 +47,11 @@ namespace dninosores.UnityEditorAttributes
             if (tfi.type == null)
                 return null;
 
-            if (!s_TypeVsDrawerCache.TryGetValue(tfi.type, out drawer))
+            if (!s_TypeVsDrawerCache.TryGetValue(tfi.type, out PropertyDrawer drawer))
             {
                 drawer = FindDrawerForType(tfi.type);
                 s_TypeVsDrawerCache.Add(tfi.type, drawer);
+                drawers.Add(drawer);
             }
 
             if (drawer != null)
@@ -63,8 +65,24 @@ namespace dninosores.UnityEditorAttributes
                 if (fieldInfoBacking != null)
                     fieldInfoBacking.SetValue(drawer, tfi.fi);
             }
+            else
+            {
+                Attribute[] attrs = GetAttributes(property, true);
+                foreach (Attribute attr in attrs)
+                {
+                    if (s_TypeVsDrawerCache.TryGetValue(attr.GetType(), out PropertyDrawer temp))
+                    {
+                        drawers.Add(temp);
+                    }
+                    else if ((temp = FindDrawerForType(attr.GetType())) != null)
+                    {
+                        drawers.Add(temp);
+                        s_TypeVsDrawerCache.Add(attr.GetType(), temp);
+                    }
+                }
+            }
 
-            return drawer;
+            return drawers;
         }
 
         /// <summary>
@@ -226,5 +244,39 @@ namespace dninosores.UnityEditorAttributes
             return isAccessor;
         }
 
+        /// <summary>
+        /// Returns attributes on <paramref name="serializedProperty"/>.
+        /// </summary>
+        public static Attribute[] GetAttributes(this SerializedProperty serializedProperty, bool inherit)
+        {
+            if (serializedProperty == null)
+            {
+                throw new ArgumentNullException(nameof(serializedProperty));
+            }
+
+            var targetObjectType = serializedProperty.serializedObject.targetObject.GetType();
+
+            if (targetObjectType == null)
+            {
+                throw new ArgumentException($"Could not find the {nameof(targetObjectType)} of {nameof(serializedProperty)}");
+            }
+
+            foreach (var pathSegment in serializedProperty.propertyPath.Split('.'))
+            {
+                var fieldInfo = targetObjectType.GetField(pathSegment, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                if (fieldInfo != null)
+                {
+                    return (Attribute[])fieldInfo.GetCustomAttributes(inherit);
+                }
+
+                var propertyInfo = targetObjectType.GetProperty(pathSegment, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                if (propertyInfo != null)
+                {
+                    return (Attribute[])propertyInfo.GetCustomAttributes(inherit);
+                }
+            }
+
+            throw new ArgumentException($"Could not find the field or property of {nameof(serializedProperty)}");
+        }
     }
 }

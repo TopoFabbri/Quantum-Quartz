@@ -21,6 +21,7 @@ namespace Code.Scripts.Player
     public class PlayerState : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Collider2D col;
         [SerializeField] private BarController staminaBar;
         [SerializeField] private TextMeshProUGUI stateDebugText;
         [SerializeField] private PlayerSfx playerSfx;
@@ -58,7 +59,7 @@ namespace Code.Scripts.Player
 
         private void Awake()
         {
-            sharedContext = new SharedContext(rb, transform, this, playerSfx, globalSettings, stateMachine);
+            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine);
             CreateStateMachine();
         }
 
@@ -77,8 +78,8 @@ namespace Code.Scripts.Player
             // =====================================
             IdleState     <string> idle = new("Idle"                                                                                       );
             TpState       <string> tlpt = new("TP",     sharedContext                                                                      );
-            ExitTpState   <string> extp = new("ExitTP", sharedContext                                                                      );
             PauseState    <string> paus = new("Pause",  sharedContext                                                                      );
+            ExitTpState   <string> extp = new("ExitTP", settings["ExitTP"] as SpawnSettings,  sharedContext                                );
             MoveState     <string> move = new("Move",   settings["Move"]   as MoveSettings,   sharedContext                                );
             SpringState   <string> spng = new("Spring", settings["Spring"] as SpringSettings, sharedContext                                );
             JumpState     <string> jump = new("Jump",   settings["Jump"]   as JumpSettings,   sharedContext                                );
@@ -132,11 +133,11 @@ namespace Code.Scripts.Player
             context.AddCondition("HasInput", () => sharedContext.Input != 0);
             context.AddCondition("NoWall", () => !move.WallCheck());
             context.AddCondition("CanEnterWall", wall.CanEnterWall);
-            context.AddCondition("Spring", () => spng.IsActivated);
+            context.AddCondition("Spring", () => sharedContext.spring.HasValue);
             context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
-            context.AddCondition("NeutralVelocity", () => rb.velocity.y == 0);
-            context.AddCondition("DownVelocity", () => rb.velocity.y < 0);
-            context.AddCondition("UpVelocity", () => rb.velocity.y > 0);
+            context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("DownVelocity", () => rb.velocity.y < -sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("UpVelocity", () => rb.velocity.y > sharedContext.GlobalSettings.neutralSpeed);
             context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue);
             context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red);
             context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green);
@@ -217,7 +218,7 @@ namespace Code.Scripts.Player
             };
 
 
-            context.AddCondition("NotFalling", () => !sharedContext.falling);
+            context.AddCondition("NotFalling", () => !sharedContext.Falling);
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
             context.AddCondition("DashPressed", () => dashPressed);
@@ -248,10 +249,6 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(move, idle, new[] { "StoppedMoving" });
             stateMachine.AddTransition(edge, idle, new[] { "IsGrounded" }, new[] { "VisuallyOnEdge" });
             stateMachine.AddTransition(fall, idle, new[] { "IsGrounded", "NotFalling" });
-            stateMachine.AddTransition(jump, idle, new[] { "IsGrounded", "HasJumped"       }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(djmp, idle, new[] { "IsGrounded", "HasDoubleJumped" }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(wjmp, idle, new[] { "IsGrounded", "HasWallJumped"   }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, idle, new[] { "IsGrounded" }, new[] { "DownVelocity" });
             stateMachine.AddTransition(wall, idle, new[] { "IsGrounded" });
             stateMachine.AddTransition(glde, idle, new[] { "IsGrounded" });
 
@@ -264,8 +261,6 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(idle, move, new[] { "HasInput", "NoWall" });
             stateMachine.AddTransition(edge, move, new[] { "HasInput", "NoWall" });
             stateMachine.AddTransition(fall, move, new[] { "IsGrounded", "HasInput", "NotFalling", "NoWall" });
-            stateMachine.AddTransition(jump, move, new[] { "IsGrounded", "HasJumped" }, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, move, new[] { "IsGrounded" }, new[] { "DownVelocity" });
 
             // Jump transitions
             // - Idle        >
@@ -288,13 +283,13 @@ namespace Code.Scripts.Player
             // - Dash        >
             // - Wall        >
             // - Glide       >
-            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "NeutralVelocity", "IsGrounded" });
-            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "NeutralVelocity", "IsGrounded" });
-            stateMachine.AddTransition(edge, fall, new[] { "DownVelocity" }, new[] { "IsGrounded" });
-            stateMachine.AddTransition(jump, fall, new[] { "DownVelocity" });
-            stateMachine.AddTransition(djmp, fall, new[] { "DownVelocity" }, new[] { "IsGrounded" });
-            stateMachine.AddTransition(wjmp, fall, new[] { "DownVelocity" });
-            stateMachine.AddTransition(spng, fall, new[] { "DownVelocity" });
+            stateMachine.AddTransition(idle, fall, new[] { "" }, new[] { "IsGrounded" });
+            stateMachine.AddTransition(move, fall, new[] { "" }, new[] { "IsGrounded" });
+            stateMachine.AddTransition(edge, fall, new[] { "" }, new[] { "IsGrounded" });
+            stateMachine.AddTransition(jump, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(djmp, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(wjmp, fall, new[] { "" }, new[] { "NotFalling" });
+            stateMachine.AddTransition(spng, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(dash, fall, new[] { "ExitDash" });
             stateMachine.AddTransition(wall, fall, () => Mathf.Sign(sharedContext.Input) == (sharedContext.facingRight ? 1 : -1) || !wall.IsTouchingWall(!sharedContext.facingRight) || context.IsFalse("IsGreen"));
             stateMachine.AddTransition(glde, fall, () => context.IsFalse("GlidePressed") || context.IsFalse("HasYellowStamina"));
@@ -356,35 +351,36 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(fall, glde, new[] { "GlidePressed", "HasYellowStamina" });
 
             // Edge transitions
-            // - Idle       >
+            // - Idle        >
             // - Fall        >
             // - Glide       >
             stateMachine.AddTransition(idle, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
-            stateMachine.AddTransition(fall, edge, new[] { "IsGrounded", "VisuallyOnEdge" }, new[] { "DownVelocity" });
+            stateMachine.AddTransition(fall, edge, new[] { "IsGrounded", "VisuallyOnEdge", "NotFalling" });
             stateMachine.AddTransition(glde, edge, new[] { "IsGrounded", "VisuallyOnEdge" });
 
-            // Idle transitions
-            // - Spawn       >
-            // - Exit TP     >
+            // Spring transitions
+            // - Idle        >
             // - Move        >
             // - Edge        >
             // - Fall        >
             // - Jump        >
             // - Double Jump >
             // - Wall Jump   >
-            // - Spring      >
+            // - Spring      > Allows chaining springs
+            // - Dash        >
             // - Wall        >
             // - Glide       >
             stateMachine.AddTransition(idle, spng, new[] { "Spring" });
             stateMachine.AddTransition(move, spng, new[] { "Spring" });
-            stateMachine.AddTransition(jump, spng, new[] { "Spring" });
-            stateMachine.AddTransition(fall, spng, new[] { "Spring" });
-            stateMachine.AddTransition(dash, spng, new[] { "Spring" });
-            stateMachine.AddTransition(djmp, spng, new[] { "Spring" });
-            stateMachine.AddTransition(wall, spng, new[] { "Spring" });
-            stateMachine.AddTransition(wjmp, spng, new[] { "Spring" });
-            stateMachine.AddTransition(glde, spng, new[] { "Spring" });
             stateMachine.AddTransition(edge, spng, new[] { "Spring" });
+            stateMachine.AddTransition(fall, spng, new[] { "Spring" });
+            stateMachine.AddTransition(jump, spng, new[] { "Spring" });
+            stateMachine.AddTransition(djmp, spng, new[] { "Spring" });
+            stateMachine.AddTransition(wjmp, spng, new[] { "Spring" });
+            stateMachine.AddTransition(spng, spng, new[] { "Spring" });
+            stateMachine.AddTransition(dash, spng, new[] { "Spring" });
+            stateMachine.AddTransition(wall, spng, new[] { "Spring" });
+            stateMachine.AddTransition(glde, spng, new[] { "Spring" });
 
             // Grab transitions
             // - Spawn       >
@@ -462,6 +458,7 @@ namespace Code.Scripts.Player
 
             sharedContext.CamController.MoveCam += PausePlayer;
             sharedContext.CamController.StopCam += ResumePlayer;
+            sharedContext.OnCheckFlip += CheckFlip;
 
             if (animController)
             {
@@ -479,6 +476,7 @@ namespace Code.Scripts.Player
 
             sharedContext.CamController.MoveCam -= PausePlayer;
             sharedContext.CamController.StopCam -= ResumePlayer;
+            sharedContext.OnCheckFlip -= CheckFlip;
 
             if (animController)
             {
@@ -499,14 +497,27 @@ namespace Code.Scripts.Player
 
         private void FixedUpdate()
         {
+            CheckFlip();
             stateMachine.FixedUpdate();
 
             if (sharedContext.RecalculateIsGrounded())
             {
                 tempDjmpState.Reset();
-                if (rb.velocity.y == 0f)
+            }
+        }
+
+        private void CheckFlip()
+        {
+            if (!sharedContext.BlockMoveInput && !typeof(IPreventFlip).IsAssignableFrom(sharedContext.CurrentStateType))
+            {
+                float input = sharedContext.Input;
+                if (
+                    sharedContext.facingRight ?
+                    (input < 0 || (input == 0 && sharedContext.speed.x < 0))
+                    : (input > 0 || (input == 0 && sharedContext.speed.x > 0))
+                )
                 {
-                    sharedContext.falling = false;
+                    Flip();
                 }
             }
         }
@@ -516,9 +527,6 @@ namespace Code.Scripts.Player
         /// </summary>
         public void Flip()
         {
-            if (sharedContext.CurrentStateType == typeof(DashState<string>))
-                return;
-
             sharedContext.facingRight = !sharedContext.facingRight;
 
             OnFlip?.Invoke(sharedContext.facingRight);
@@ -657,14 +665,6 @@ namespace Code.Scripts.Player
         private void EndTp()
         {
             tempTlptState.OnEnd();
-        }
-
-        /// <summary>
-        /// Stop exit teleport state (Called from animation)
-        /// </summary>
-        private void EndExitTp()
-        {
-            tempExtpState.OnEnd();
         }
     }
 }

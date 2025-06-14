@@ -3,6 +3,8 @@ using Code.Scripts.FSM;
 using Code.Scripts.StateSettings;
 using UnityEngine;
 using Code.Scripts.Player;
+using Code.Scripts.Tools;
+using System.Collections.Generic;
 
 namespace Code.Scripts.States
 {
@@ -15,41 +17,54 @@ namespace Code.Scripts.States
         protected readonly MoveSettings moveSettings;
 
         protected readonly SharedContext sharedContext;
+        protected readonly VelocityCurve verticalVelocityCurve;
 
-        private static float _speed;
-        protected bool canMove = true;
+        private float inputSpeed = 0;
+        private static ContactFilter2D contactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default")
+        };
 
-        public float Speed => _speed;
-
-        public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext) : base(id)
+        public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext, VelocityCurve verticalVelocityCurve = null) : base(id)
         {
             this.moveSettings = stateSettings;
             this.sharedContext = sharedContext;
+            this.verticalVelocityCurve = verticalVelocityCurve;
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            inputSpeed = 0;
         }
 
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            
+            sharedContext.speed = sharedContext.Rigidbody.velocity;
+
             FlipCheck();
 
-            if (canMove && sharedContext.Input != 0)
-                _speed = Mathf.Clamp(_speed + sharedContext.Input * Time.fixedDeltaTime * moveSettings.accel, -moveSettings.maxSpeed, moveSettings.maxSpeed);
-            else
-                DecreaseSpeed();
-            
             if (WallCheck())
-                _speed = 0f;
+            {
+                ResetSpeed();
+            }
+            else if (sharedContext.Input != 0)
+            {
+                if (Mathf.Sign(sharedContext.Input) == Mathf.Sign(sharedContext.speed.x))
+                {
+                    // If moving in the direction of current velocity, inherit speed
+                    inputSpeed = sharedContext.speed.x / moveSettings.maxSpeed;
+                }
+                float accel = sharedContext.Input * Time.fixedDeltaTime * moveSettings.accel;
+                inputSpeed = Mathf.Clamp(inputSpeed + accel, -1, 1);
+            }
+            else
+            {
+                inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * sharedContext.Rigidbody.sharedMaterial.friction);
+            }
 
-            sharedContext.Transform.Translate(Vector2.right * (_speed * Time.fixedDeltaTime));
-        }
-        
-        /// <summary>
-        /// Apply ground friction
-        /// </summary>
-        public void DecreaseSpeed()
-        {
-            _speed = Mathf.Lerp(_speed, 0, Time.fixedDeltaTime * moveSettings.groundFriction);
+            sharedContext.Rigidbody.velocity = sharedContext.speed = new Vector2(inputSpeed * moveSettings.maxSpeed, sharedContext.Rigidbody.velocity.y);
         }
 
         /// <summary>
@@ -58,9 +73,10 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (!(Mathf.Abs(_speed * Time.fixedDeltaTime) < moveSettings.minSpeed) || sharedContext.Input != 0f) return false;
-            
-            _speed = 0f;
+            if (Mathf.Abs(inputSpeed * Time.fixedDeltaTime) >= moveSettings.minSpeed || sharedContext.Input != 0f)
+                return false;
+
+            ResetSpeed();
             return true;
         }
 
@@ -69,18 +85,18 @@ namespace Code.Scripts.States
         /// </summary>
         public bool WallCheck()
         {
-            Vector2 pos = (Vector2)sharedContext.Transform.position + Vector2.right * (moveSettings.wallCheckDis * sharedContext.Input);
-            
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(pos, moveSettings.wallCheckSize, 0, LayerMask.GetMask("Default"));
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, moveSettings.wallCheckDis * sharedContext.Input, true);
 
-            foreach (Collider2D collider in colliders)
+            foreach (RaycastHit2D hit in hits)
             {
-                if (moveSettings.tags.Any(tag => collider.gameObject.CompareTag(tag)))
+                if (moveSettings.tags.Any(tag => hit.transform.CompareTag(tag)))
                     return true;
 
-                if (!collider.gameObject.CompareTag("Platform")) continue;
+                if (!hit.transform.CompareTag("Platform"))
+                    continue;
                 
-                if (!collider.TryGetComponent(out PlatformEffector2D _))
+                if (!hit.transform.TryGetComponent(out PlatformEffector2D _))
                     return true;
             }
             
@@ -92,13 +108,14 @@ namespace Code.Scripts.States
         /// </summary>
         public void ResetSpeed()
         {
-            _speed = 0f;
+            inputSpeed = 0f;
+            sharedContext.Rigidbody.velocity = sharedContext.speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
         }
         
         private void FlipCheck()
         {
-            if (sharedContext.Input > 0f && _speed < 0f || sharedContext.Input < 0f && _speed > 0f)
-                _speed = 0f;
+            if (sharedContext.Input > 0f && inputSpeed < 0f || sharedContext.Input < 0f && inputSpeed > 0f)
+                ResetSpeed();
         }
     }
 }
