@@ -21,7 +21,7 @@ namespace Code.Scripts.Level
         [SerializeField] private GameObject playerGO;
         [SerializeField] private InputManager inputManager;
 
-        public int CurrentLevel => currentLevel;
+        public int CurrentLevel => currentLevel + 1;
 
         public static event Action LevelEnd;
         public static event Action PlayerTp;
@@ -44,8 +44,9 @@ namespace Code.Scripts.Level
         private IEnumerator ShowEndLevelScreen(float time)
         {
             TimeCounter.Stop();
-            Stats.SetLevelTime(currentLevel + 1, TimeCounter.Time.time);
+            Stats.SetLevelTime(CurrentLevel, TimeCounter.Time.time);
             yield return new WaitForSeconds(time);
+            Stats.SaveStats();
             inputManager.EnableUIMap();
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);

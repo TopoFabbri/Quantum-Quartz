@@ -23,7 +23,7 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             impulse = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
-            sharedContext.speed.x = impulse;
+            sharedContext.SpeedX = impulse;
             sharedContext.BlockMoveInput = true;
             coroutine = sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
         }
@@ -32,7 +32,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            sharedContext.speed.x = 0;
+            sharedContext.SpeedX = 0;
             sharedContext.BlockMoveInput = false;
 
             if (coroutine != null)
@@ -46,8 +46,8 @@ namespace Code.Scripts.States
             base.OnFixedUpdate();
             if (!sharedContext.Falling)
             {
-                sharedContext.speed.x = impulse + sharedContext.speed.x;
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.SpeedX = impulse + sharedContext.Speed.x;
+                sharedContext.Rigidbody.velocity = sharedContext.Speed;
             }
         }
 

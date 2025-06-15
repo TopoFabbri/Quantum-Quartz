@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
-    public class SpringState<T> : MoveState<T>, INoCoyoteTime
+    public class SpringState<T> : MoveState<T>, INoCoyoteTime, IUnsafe
     {
         protected readonly SpringSettings springSettings;
         protected readonly FallSettings fallSettings;
@@ -31,8 +31,8 @@ namespace Code.Scripts.States
 
             spring = sharedContext.spring.Value;
             sharedContext.spring = null;
-            sharedContext.speed = Vector2.zero;
-            lastForce = sharedContext.speed;
+            sharedContext.Speed = Vector2.zero;
+            lastForce = sharedContext.Speed;
             fallTime = 0;
             reachedOrigin = false;
         }
@@ -57,8 +57,8 @@ namespace Code.Scripts.States
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 Vector2 force = CalculateSpring(spring.force, springSettings.springCurve, sharedContext.jumpFallTime, fallSettings.fallCurve, ref fallTime, sharedContext.GlobalSettings.neutralSpeed);
 
-                sharedContext.speed = (force + lastForce) * 0.5f + Vector2.right * sharedContext.speed.x;
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.Speed = (force + lastForce) * 0.5f + Vector2.right * sharedContext.Speed.x;
+                sharedContext.Rigidbody.velocity = sharedContext.Speed;
                 lastForce = force;
             }
             else if (Mathf.Abs(Vector2.Dot(spring.origin - (Vector2)sharedContext.Transform.position, spring.force)) > 0.0001f)
@@ -71,15 +71,15 @@ namespace Code.Scripts.States
 
                 if (stepCount < 1)
                 {
-                    sharedContext.speed = (force.normalized * originDist) / Time.fixedDeltaTime + Vector2.right * sharedContext.speed.x;
-                    sharedContext.Rigidbody.velocity = sharedContext.speed;
+                    sharedContext.Speed = (force.normalized * originDist) / Time.fixedDeltaTime + Vector2.right * sharedContext.Speed.x;
+                    sharedContext.Rigidbody.velocity = sharedContext.Speed;
                 }
                 else
                 {
                     // Divide the remainder amongst the steps
                     float stepMultiplier = 1 + (stepCount % 1) / Mathf.FloorToInt(stepCount);
-                    sharedContext.speed = force * stepMultiplier * Mathf.Sign(originDist) + Vector2.right * sharedContext.speed.x;
-                    sharedContext.Rigidbody.velocity = sharedContext.speed;
+                    sharedContext.Speed = force * stepMultiplier * Mathf.Sign(originDist) + Vector2.right * sharedContext.Speed.x;
+                    sharedContext.Rigidbody.velocity = sharedContext.Speed;
                 }
 
                 if (Mathf.FloorToInt(stepCount) <= 1)

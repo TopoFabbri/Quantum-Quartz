@@ -10,6 +10,7 @@ using Code.Scripts.Interfaces;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
+using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -19,22 +20,21 @@ namespace Code.Scripts.Player
     /// Manage player actions
     /// </summary>
     [RequireComponent(typeof(PlayerState))]
-    public class PlayerController : MonoBehaviour, IKillable, ISpringable
+    public class PlayerController : MonoBehaviour, IKillable, ISpringable, ICollector
     {
         [SerializeField] private PlayerState playerState;
-
-        // States (TRY TO REMOVE!)
-        //private MoveState<string> moveState;     // Multiple -> Speed & ResetSpeed()
-        //private DashState<string> dashState;     // Spring -> dashState.Interrupt();
-        //private DjmpState<string> djmpState;     // Update & Spring -> djmpState.Reset();
-
         [SerializeField] private List<GameObject> flipObjects = new();
-        
-        [Header("Shake Settings")] [SerializeField]
-        private float fallShakeMagnitudeMultiplier = 0.05f;
 
+        [HeaderPlus("Shake Settings")]
+        [SerializeField] private float fallShakeMagnitudeMultiplier = 0.05f;
         [SerializeField] private float fallShakeDurationMultiplier = 0.05f;
         [SerializeField] private float minShakeValue = 0.5f;
+
+        Action<float> ICollector._OnAdvancePickup { get; set; }
+        Action ICollector._OnPausePickup { get; set; }
+        Action ICollector._OnCancelPickup { get; set; }
+        Rigidbody2D lastCollectible = null;
+        bool inUnsafeState = false;
 
         private void OnEnable()
         {
@@ -56,6 +56,17 @@ namespace Code.Scripts.Player
 
                     playerState.sharedContext.CamController.Shake(shakeValue * fallShakeDurationMultiplier, shakeValue * fallShakeMagnitudeMultiplier);
                 }
+            }
+
+            if (!typeof(IUnsafe).IsAssignableFrom(playerState.sharedContext.CurrentStateType))
+            {
+                inUnsafeState = false;
+                (this as ICollector).AdvancePickup(Time.fixedDeltaTime);
+            }
+            else if (!inUnsafeState)
+            {
+                inUnsafeState = true;
+                (this as ICollector).PausePickup();
             }
         }
 
@@ -112,7 +123,7 @@ namespace Code.Scripts.Player
 
         public Vector2 GetSpeed()
         {
-            return playerState.sharedContext.speed;
+            return playerState.sharedContext.Speed;
         }
         
         public void Kill()
@@ -120,6 +131,8 @@ namespace Code.Scripts.Player
             if (typeof(IDeathImmune).IsAssignableFrom(playerState.sharedContext.CurrentStateType))
                 return;
 
+            (this as ICollector).CancelPickup();
+            lastCollectible = null;
             playerState.sharedContext.died = true;
         }
 
@@ -131,6 +144,18 @@ namespace Code.Scripts.Player
             yield return new WaitForFixedUpdate();
 
             playerState.tempDjmpState.Reset();
+        }
+
+        public Rigidbody2D GetFollowObject(Rigidbody2D rb)
+        {
+            if (playerState.sharedContext.died)
+            {
+                return null;
+            }
+
+            Rigidbody2D output = lastCollectible == null ? playerState.sharedContext.Rigidbody : lastCollectible;
+            lastCollectible = rb;
+            return output;
         }
     }
 }

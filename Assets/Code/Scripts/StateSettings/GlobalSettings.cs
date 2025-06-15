@@ -14,6 +14,7 @@ namespace Code.Scripts.StateSettings
         public float edgeCheckDis = 0.3f;
         public float edgeCheckLength = 0.3f;
         public LayerMask groundLayer;
+        public float minGroundDist = 0.03f;
 
         [HeaderPlus("Movement Settings")]
         public float neutralSpeed = 0.001f;
