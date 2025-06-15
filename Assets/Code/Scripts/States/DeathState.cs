@@ -37,6 +37,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.PlayerSfx.Death();
+            sharedContext.Collider.enabled = false;
 
             Direction = new Vector2(-sharedContext.Input, -sharedContext.Rigidbody.velocity.normalized.y);
 
@@ -55,6 +56,7 @@ namespace Code.Scripts.States
             base.OnExit();
             deathController.Die();
             sharedContext.died = false;
+            sharedContext.Collider.enabled = true;
 
             Stats.SetDeaths(Stats.Deaths + 1);
         }
