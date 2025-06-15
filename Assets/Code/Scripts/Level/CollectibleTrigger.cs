@@ -158,6 +158,7 @@ public class CollectibleTrigger : MonoBehaviour
         timer = 0;
         following = null;
         returning = true;
+        anim.SetInteger(STATE_PARAM, (int)CollectibleState.Idle);
     }
 
     private void OnDestroy()
