@@ -129,26 +129,26 @@ namespace Code.Scripts.Player
             if (Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed || GlobalSettings.shouldDraw)
             {
                 Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset;
-                hitDist = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckRadius, GlobalSettings.groundLayer));
+                hitDist = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckDistance, GlobalSettings.groundLayer));
                 grounded = !float.IsNegativeInfinity(hitDist);
 
                 if (GlobalSettings.shouldDraw)
                 {
-                    Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+                    Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.groundCheckDistance, grounded ? Color.green : Color.red);
                 }
 
                 if (!grounded || GlobalSettings.shouldDraw)
                 {
                     float tempHitDist = GetEdge(true);
                     grounded |= !float.IsNegativeInfinity(tempHitDist);
-                    hitDist = !float.IsNegativeInfinity(tempHitDist) ? Mathf.Max(tempHitDist, hitDist) : hitDist;
+                    hitDist = Mathf.Max(tempHitDist, hitDist);
 
                     if (!grounded || GlobalSettings.shouldDraw)
                     {
                         tempHitDist = GetEdge(false);
                         grounded |= !float.IsNegativeInfinity(tempHitDist);
-                        hitDist = !float.IsNegativeInfinity(tempHitDist) ? Mathf.Max(tempHitDist, hitDist) : hitDist;
-                        grounded &= Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
+                        hitDist = Mathf.Max(tempHitDist, hitDist);
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
                     }
                 }
             }
