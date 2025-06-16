@@ -52,7 +52,7 @@ namespace Code.Scripts.UI
 
                 pauseTimerText.text = GameManager.Instance.GetTimerText().text;
                 GameManager.Instance.GetTimerText().gameObject.SetActive(false);
-                deathsText.text = Stats.GetDeaths().ToString();
+                deathsText.text = Stats.Deaths.ToString();
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();

@@ -10,7 +10,7 @@ namespace Code.Scripts.States
     /// Spawn state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SpawnState<T> : BaseState<T>, IDeathImmune
+    public class SpawnState<T> : BaseState<T>, IDeathImmune, IUnsafe
     {
         protected readonly SpawnSettings spawnSettings;
         
@@ -28,8 +28,8 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
 
-            sharedContext.speed = Vector2.zero;
-            sharedContext.Rigidbody.velocity = sharedContext.speed;
+            sharedContext.Speed = Vector2.zero;
+            sharedContext.Rigidbody.velocity = sharedContext.Speed;
             sharedContext.Rigidbody.isKinematic = true;
             sharedContext.spring = null;
             sharedContext.SetFalling(false);
