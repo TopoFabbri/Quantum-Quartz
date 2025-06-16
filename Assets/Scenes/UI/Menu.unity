@@ -610,7 +610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.054, y: 0.112}
   m_AnchorMax: {x: 1, y: 0.77300006}
-  m_AnchoredPosition: {x: 2278, y: 1}
+  m_AnchoredPosition: {x: 2277.9998, y: 1}
   m_SizeDelta: {x: 4556.1597, y: -2.079956}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217289026
@@ -3671,8 +3671,8 @@ Canvas:
   m_GameObject: {fileID: 1283476896}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1825857487}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4796,8 +4796,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1825857488}
   - component: {fileID: 1825857487}
+  - component: {fileID: 1825857489}
   - component: {fileID: 1825857486}
-  - component: {fileID: 1825857485}
   - component: {fileID: 1825857484}
   - component: {fileID: 1825857483}
   m_Layer: 0
@@ -4843,30 +4843,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &1825857485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825857481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_AssetsPPU: 16
-  m_RefResolutionX: 480
-  m_RefResolutionY: 270
-  m_CropFrame: 4
-  m_GridSnapping: 1
-  m_FilterMode: 0
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!114 &1825857486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,6 +4953,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1825857489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825857481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6810628cfa2654fbbee19949d26abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetWidth: 1920
+  targetHeight: 1080
 --- !u!1 &1859553609
 GameObject:
   m_ObjectHideFlags: 0
