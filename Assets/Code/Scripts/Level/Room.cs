@@ -125,6 +125,7 @@ namespace Code.Scripts.Level
             camRange += moveRange;
 
             roomTrigger.size = camRange * 2f - Vector2.one;
+            objectsBox.transform.localScale = camRange * 2f;
         }
 
         private void OnDeactivate()
