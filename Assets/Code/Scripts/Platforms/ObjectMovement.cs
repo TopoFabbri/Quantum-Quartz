@@ -34,8 +34,7 @@ namespace Code.Scripts.Platforms
         {
             if (!Application.isPlaying)
             {
-                initPos.pos = transform.position;
-                initPos.rotation = transform.rotation.z;
+                initPos = new Position { pos = transform.position, rotation = transform.rotation.eulerAngles.z };
             }
 
             List<Position> relativePoints = new() { initPos };
@@ -86,12 +85,14 @@ namespace Code.Scripts.Platforms
 
         public override void OnActivate()
         {
-            
         }
 
         public override void OnDeactivate()
         {
-            
+            curPoint = 0;
+            timer = 0f;
+            transform.position = initPos.pos;
+            transform.rotation = Quaternion.Euler(0f, 0f, initPos.rotation);
         }
 
         public override void OnFixedUpdate()
@@ -143,11 +144,16 @@ namespace Code.Scripts.Platforms
                 if (moveAmount > 0f)
                 {
                     curPoint = (curPoint + 1) % relativePoints.Count;
-                    
+
                     transform.position = Vector2.MoveTowards(transform.position, relativePoints[curPoint].pos, moveAmount);
                 }
 
-                transform.rotation = Quaternion.Slerp(prevRot, nextRot, ((Vector2)transform.position - fromPos.pos).magnitude / (toPos.pos - fromPos.pos).magnitude);
+                float distance = (toPos.pos - fromPos.pos).magnitude;
+                
+                if (distance > 0f)
+                {
+                    transform.rotation = Quaternion.Slerp(prevRot, nextRot, ((Vector2)transform.position - fromPos.pos).magnitude / distance);
+                }
             }
         }
     }

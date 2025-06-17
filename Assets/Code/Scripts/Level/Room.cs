@@ -1,6 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Code.Scripts.Level
 {
@@ -37,7 +40,7 @@ namespace Code.Scripts.Level
             {
                 if (_activeRoom == value)
                     return;
-                
+
                 _activeRoom?.OnDeactivate();
 
                 _activeRoom = value;
@@ -54,9 +57,9 @@ namespace Code.Scripts.Level
         private void Start()
         {
             Bounds bounds = objectsBox.bounds;
-            
+
             Collider2D[] hits = Physics2D.OverlapBoxAll(bounds.center, bounds.size, 0f);
-        
+
             foreach (Collider2D hit in hits)
             {
                 RoomComponent[] otherRoomComponents = hit.GetComponents<RoomComponent>();
@@ -64,9 +67,20 @@ namespace Code.Scripts.Level
                 foreach (RoomComponent otherRoomComponent in otherRoomComponents)
                 {
                     if (otherRoomComponent && !roomComponents.Contains(otherRoomComponent))
+                    {
                         roomComponents.Add(otherRoomComponent);
+                        otherRoomComponent.Destroyed += OnDestroyedRoomComponent;
+                    }
                 }
             }
+        }
+
+        private void OnDestroyedRoomComponent(RoomComponent obj)
+        {
+            if (!roomComponents.Contains(obj)) return;
+            
+            roomComponents.Remove(obj);
+            obj.Destroyed -= OnDestroyedRoomComponent;
         }
 
         private void OnDrawGizmosSelected()
@@ -87,7 +101,7 @@ namespace Code.Scripts.Level
 
             Active = this;
         }
-        
+
         private void Update()
         {
             if (Active != this)
@@ -126,6 +140,12 @@ namespace Code.Scripts.Level
 
             roomTrigger.size = camRange * 2f - Vector2.one;
             objectsBox.transform.localScale = camRange * 2f;
+
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(roomTrigger);
+            EditorUtility.SetDirty(objectsBox);
+            EditorUtility.SetDirty(this);
+#endif
         }
 
         private void OnDeactivate()

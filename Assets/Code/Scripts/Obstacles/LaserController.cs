@@ -39,7 +39,6 @@ namespace Code.Scripts.Obstacles
         private const float WindupTime = 0.6f;
 
         private float time;
-        private bool hasStarted;
         private static readonly int AnimatorOn = Animator.StringToHash("On");
 
         private void Awake()
@@ -48,16 +47,13 @@ namespace Code.Scripts.Obstacles
             stateHandlers.Add(LaserState.Off, OffHandler);
             stateHandlers.Add(LaserState.Windup, WindupHandler);
             stateHandlers.Add(LaserState.On, OnHandler);
-        }
 
-        private void Start()
-        {
             if (useTime) return;
             
-            TurnOn();
-            state = LaserState.On;
+            timeOff = 0f;
+            timeOffset = 0f;
         }
-
+        
         private void OnDestroy()
         {
             stateHandlers.Clear();
@@ -112,12 +108,18 @@ namespace Code.Scripts.Obstacles
 
         public override void OnActivate()
         {
-            if (!useTime)
-                TurnOn();
+            if (useTime) return;
+            
+            TurnOn();
         }
 
         public override void OnDeactivate()
         {
+            TurnOff();
+            state = LaserState.Offset;
+            time = 0f;
+            line.enabled = false;
+            end.gameObject.SetActive(false);
         }
 
         public override void OnLateUpdate()
@@ -146,9 +148,6 @@ namespace Code.Scripts.Obstacles
 
         private void ManageLaserState()
         {
-            if (!useTime)
-                return;
-            
             time += Time.deltaTime;
 
             stateHandlers[state]?.Invoke();
@@ -158,8 +157,9 @@ namespace Code.Scripts.Obstacles
         {
             if (time < timeOffset) return;
 
-            state = LaserState.On;
+            state = LaserState.Windup;
             time -= timeOffset;
+            TurnOn();
         }
 
         private void OffHandler()
@@ -181,6 +181,7 @@ namespace Code.Scripts.Obstacles
 
         private void OnHandler()
         {
+            if (!useTime) return;
             if (time < timeOn) return;
 
             state = LaserState.Off;
