@@ -90,7 +90,7 @@ namespace Code.Scripts.Level
             Gizmos.color = rectangleColor;
             Gizmos.DrawWireCube(transform.position, camRange * 2f);
         }
-
+        
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!other.CompareTag("Player"))
@@ -138,6 +138,9 @@ namespace Code.Scripts.Level
 
             camRange += moveRange;
 
+            if (roomTrigger.size == camRange * 2f - Vector2.one)
+                return;
+            
             roomTrigger.size = camRange * 2f - Vector2.one;
             objectsBox.transform.localScale = camRange * 2f;
 
