@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Code.Scripts.FSM;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
@@ -10,11 +11,15 @@ namespace Code.Scripts.States
     /// Falling state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class FallState<T> : MoveState<T>
+    public class FallState<T> : MoveState<T>, IUnsafe
     {
         protected readonly FallSettings fallSettings;
 
         private float lastVel = 0;
+        private static ContactFilter2D contactFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default")
+        };
 
         public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.fallCurve)
         {
@@ -61,9 +66,9 @@ namespace Code.Scripts.States
                 }
             }
 
-            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-            sharedContext.Rigidbody.velocity = sharedContext.speed;
-            lastVel = sharedContext.speed.y;
+            sharedContext.SpeedY = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.Speed;
+            lastVel = sharedContext.Speed.y;
 
             if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
             {
@@ -91,8 +96,8 @@ namespace Code.Scripts.States
             {
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-                sharedContext.speed.y = (vel + lastVel) * 0.5f;
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.SpeedY = (vel + lastVel) * 0.5f;
+                sharedContext.Rigidbody.velocity = sharedContext.Speed;
                 lastVel = vel;
             }
             else

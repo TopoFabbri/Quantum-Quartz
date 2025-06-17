@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
-    public class ExitTpState<T> : SpawnState<T>
+    public class ExitTpState<T> : SpawnState<T>, IUnsafe
     {   
         public ExitTpState(T id, SpawnSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings, sharedContext)
         {

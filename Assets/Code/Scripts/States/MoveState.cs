@@ -41,7 +41,7 @@ namespace Code.Scripts.States
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            sharedContext.speed = sharedContext.Rigidbody.velocity;
+            sharedContext.Speed = sharedContext.Rigidbody.velocity;
 
             FlipCheck();
 
@@ -51,10 +51,10 @@ namespace Code.Scripts.States
             }
             else if (sharedContext.Input != 0)
             {
-                if (Mathf.Sign(sharedContext.Input) == Mathf.Sign(sharedContext.speed.x))
+                if (Mathf.Sign(sharedContext.Input) == Mathf.Sign(sharedContext.Speed.x))
                 {
                     // If moving in the direction of current velocity, inherit speed
-                    inputSpeed = sharedContext.speed.x / moveSettings.maxSpeed;
+                    inputSpeed = sharedContext.Speed.x / moveSettings.maxSpeed;
                 }
                 float accel = sharedContext.Input * Time.fixedDeltaTime * moveSettings.accel;
                 inputSpeed = Mathf.Clamp(inputSpeed + accel, -1, 1);
@@ -64,7 +64,7 @@ namespace Code.Scripts.States
                 inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * sharedContext.Rigidbody.sharedMaterial.friction);
             }
 
-            sharedContext.Rigidbody.velocity = sharedContext.speed = new Vector2(inputSpeed * moveSettings.maxSpeed, sharedContext.Rigidbody.velocity.y);
+            sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(inputSpeed * moveSettings.maxSpeed, sharedContext.Rigidbody.velocity.y);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Code.Scripts.States
         public void ResetSpeed()
         {
             inputSpeed = 0f;
-            sharedContext.Rigidbody.velocity = sharedContext.speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
+            sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
         }
         
         private void FlipCheck()

@@ -16950,7 +16950,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.027736187, y: 1.0349706}
+  m_Offset: {x: -0.027736187, y: 1.0420215}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -16961,7 +16961,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45206356, y: 2.0658267}
+  m_Size: {x: 0.45206356, y: 2.051725}
   m_EdgeRadius: 0
 --- !u!50 &5336747697084548560
 Rigidbody2D:
@@ -16978,7 +16978,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 6
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 12ed1f11a9ff85940b0d0abe10b68f3f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -17057,8 +17057,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8739399253325765536}
   - component: {fileID: 9028315921219595659}
+  - component: {fileID: 8986428873177077125}
   - component: {fileID: 491598208999347411}
-  - component: {fileID: 4916087244411182317}
   - component: {fileID: 8728506922580264406}
   - component: {fileID: 6352162767042017302}
   m_Layer: 0
@@ -17112,9 +17112,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.23981482
-    width: 0.12604168
-    height: 0.12604167
+    y: 0.18611111
+    width: 0.101041675
+    height: 0.10104167
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -17135,6 +17135,20 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &8986428873177077125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3639020788704489740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6810628cfa2654fbbee19949d26abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetWidth: 1920
+  targetHeight: 1080
 --- !u!114 &491598208999347411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17179,30 +17193,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &4916087244411182317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3639020788704489740}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_AssetsPPU: 16
-  m_RefResolutionX: 480
-  m_RefResolutionY: 270
-  m_CropFrame: 4
-  m_GridSnapping: 1
-  m_FilterMode: 0
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!114 &8728506922580264406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17865,8 +17855,8 @@ Canvas:
   m_GameObject: {fileID: 4735351069097940481}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 9028315921219595659}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -18003,8 +17993,8 @@ Canvas:
   m_GameObject: {fileID: 4952346574600320430}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 9028315921219595659}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -29481,7 +29471,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -34887,6 +34877,10 @@ PrefabInstance:
     - target: {fileID: 905036784515453111, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101246803873137824, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -563.37256
       objectReference: {fileID: 0}
     - target: {fileID: 2235655206629051451, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: m_AnchorMax.y
