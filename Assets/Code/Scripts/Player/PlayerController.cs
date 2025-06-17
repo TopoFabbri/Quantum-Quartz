@@ -70,27 +70,27 @@ namespace Code.Scripts.Player
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D col)
         {
-            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
+            if (col.enabled && (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
             {
-                if (collision.gameObject.TryGetComponent(out ObjectMovement obj))
+                if (col.gameObject.TryGetComponent(out ObjectMovement obj))
                 {
                     obj.AddPlayer(transform);
                 }
             }
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
+        private void OnTriggerStay2D(Collider2D col)
         {
-            OnCollisionEnter2D(collision);
+            OnTriggerEnter2D(col);
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        private void OnTriggerExit2D(Collider2D col)
         {
-            if (collision.enabled && (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Platform")))
+            if (transform.parent && col.enabled && (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")))
             {
-                if (collision.gameObject.TryGetComponent(out ObjectMovement obj) && transform.parent.Equals(obj.transform))
+                if (col.gameObject.TryGetComponent(out ObjectMovement obj) && transform.parent.Equals(obj.transform))
                 {
                     transform.parent = null;
                 }
