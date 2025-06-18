@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,10 +76,16 @@ namespace Code.Scripts.Level
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_activeRoom == this)
+                _activeRoom = null;
+        }
+
         private void OnDestroyedRoomComponent(RoomComponent obj)
         {
             if (!roomComponents.Contains(obj)) return;
-            
+
             roomComponents.Remove(obj);
             obj.Destroyed -= OnDestroyedRoomComponent;
         }
@@ -90,7 +97,7 @@ namespace Code.Scripts.Level
             Gizmos.color = rectangleColor;
             Gizmos.DrawWireCube(transform.position, camRange * 2f);
         }
-        
+
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!other.CompareTag("Player"))
@@ -140,7 +147,7 @@ namespace Code.Scripts.Level
 
             if (roomTrigger.size == camRange * 2f - Vector2.one)
                 return;
-            
+
             roomTrigger.size = camRange * 2f - Vector2.one;
             objectsBox.transform.localScale = camRange * 2f;
 
