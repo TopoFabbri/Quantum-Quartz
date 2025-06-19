@@ -291,7 +291,7 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(wjmp, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(spng, fall, new[] { "" }, new[] { "NotFalling" });
             stateMachine.AddTransition(dash, fall, new[] { "ExitDash" });
-            stateMachine.AddTransition(wall, fall, () => Mathf.Sign(sharedContext.Input) == (sharedContext.facingRight ? 1 : -1) || !wall.IsTouchingWall(!sharedContext.facingRight) || context.IsFalse("IsGreen"));
+            stateMachine.AddTransition(wall, fall, () => Math.Sign(sharedContext.Input) == (sharedContext.facingRight ? 1 : -1) || !wall.IsTouchingWall(!sharedContext.facingRight) || context.IsFalse("IsGreen"));
             stateMachine.AddTransition(glde, fall, () => context.IsFalse("GlidePressed") || context.IsFalse("HasYellowStamina"));
 
             // Dash transitions
