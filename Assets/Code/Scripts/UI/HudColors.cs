@@ -18,7 +18,7 @@ namespace Code.Scripts.UI
 
         private void Start()
         {
-            OnColorChangedHandler(ColorSwitcher.Instance.CurrentColour);
+            OnColorChangedHandler(ColorSwitcher.Instance.CurrentColor);
         }
 
         private void OnEnable()
@@ -31,18 +31,18 @@ namespace Code.Scripts.UI
             ColorSwitcher.ColorChanged -= OnColorChangedHandler;
         }
 
-        private void OnColorChangedHandler(ColorSwitcher.QColour colour)
+        private void OnColorChangedHandler(ColorSwitcher.QColor colour)
         {
-            ToggleColor(blueButton, colour == ColorSwitcher.QColour.Blue);
-            ToggleColor(redButton, colour == ColorSwitcher.QColour.Red);
-            ToggleColor(greenButton, colour == ColorSwitcher.QColour.Green);
-            ToggleColor(yellowButton, colour == ColorSwitcher.QColour.Yellow);
+            ToggleColor(blueButton, colour == ColorSwitcher.QColor.Blue);
+            ToggleColor(redButton, colour == ColorSwitcher.QColor.Red);
+            ToggleColor(greenButton, colour == ColorSwitcher.QColor.Green);
+            ToggleColor(yellowButton, colour == ColorSwitcher.QColor.Yellow);
 
             curAbTxt.text = colour switch
             {
-                ColorSwitcher.QColour.None or ColorSwitcher.QColour.Green or ColorSwitcher.QColour.Yellow => "None",
-                ColorSwitcher.QColour.Red => "Dash",
-                ColorSwitcher.QColour.Blue => "Djmp",
+                ColorSwitcher.QColor.None or ColorSwitcher.QColor.Green or ColorSwitcher.QColor.Yellow => "None",
+                ColorSwitcher.QColor.Red => "Dash",
+                ColorSwitcher.QColor.Blue => "Djmp",
                 _ => throw new ArgumentOutOfRangeException(nameof(colour), colour, null)
             };
         }

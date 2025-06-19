@@ -70,7 +70,7 @@ namespace Code.Scripts.States
         /// <returns>True if touching a wall</returns>
         public bool CanEnterWall()
         {
-            if (ColorSwitcher.Instance.CurrentColour != ColorSwitcher.QColour.Green)
+            if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green)
                 return false;
 
             return IsTouchingWall(sharedContext.facingRight);

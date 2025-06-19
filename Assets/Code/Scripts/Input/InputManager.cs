@@ -175,7 +175,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorRed(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
             {
                 OnAbility(input);
             }
@@ -190,7 +190,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorBlue(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
             {
                 OnAbility(input);
             }
@@ -205,7 +205,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorGreen(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
             {
                 OnAbility(input);
             }
@@ -220,7 +220,7 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorYellow(InputValue input)
         {
-            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow)
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
             {
                 OnAbility(input);
             }
@@ -275,7 +275,7 @@ namespace Code.Scripts.Input
 
         private void OnColorRedAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Red))
+            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Red))
                 return;
 
             if (input.Get<float>() != 0)
@@ -287,7 +287,7 @@ namespace Code.Scripts.Input
 
         private void OnColorBlueAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Blue))
+            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Blue))
                 return;
 
             if (input.Get<float>() != 0)
@@ -299,7 +299,7 @@ namespace Code.Scripts.Input
 
         private void OnColorGreenAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Green))
+            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Green))
                 return;
 
             if (input.Get<float>() != 0)
@@ -311,7 +311,7 @@ namespace Code.Scripts.Input
 
         private void OnColorYellowAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColours.Contains(ColorSwitcher.QColour.Yellow))
+            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Yellow))
                 return;
 
             if (input.Get<float>() != 0)

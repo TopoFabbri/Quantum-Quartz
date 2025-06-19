@@ -138,13 +138,13 @@ namespace Code.Scripts.Player
             context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
             context.AddCondition("DownVelocity", () => rb.velocity.y < -sharedContext.GlobalSettings.neutralSpeed);
             context.AddCondition("UpVelocity", () => rb.velocity.y > sharedContext.GlobalSettings.neutralSpeed);
-            context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue);
-            context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Red);
-            context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Green);
-            context.AddCondition("IsYellow", () => ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow);
-            context.AddCondition("HasRedStamina", () => !staminaBar.GetBar(ColorSwitcher.QColour.Red).Depleted);
-            context.AddCondition("HasGreenStamina", () => !staminaBar.GetBar(ColorSwitcher.QColour.Green).Depleted);
-            context.AddCondition("HasYellowStamina", () => !staminaBar.GetBar(ColorSwitcher.QColour.Yellow).Depleted);
+            context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue);
+            context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red);
+            context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green);
+            context.AddCondition("IsYellow", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
+            context.AddCondition("HasRedStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Red).Depleted);
+            context.AddCondition("HasGreenStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Green).Depleted);
+            context.AddCondition("HasYellowStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Yellow).Depleted);
             context.AddCondition("ExitSpawn", () => spwn.Ended);
             context.AddCondition("ExitExitTP", () => extp.Ended);
             context.AddCondition("ExitDash", () => dash.Ended);
@@ -537,7 +537,7 @@ namespace Code.Scripts.Player
         /// </summary>
         void OnJumpPressedHandler(float value)
         {
-            bool contextualColor = ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Blue || ColorSwitcher.Instance.CurrentColour == ColorSwitcher.QColour.Yellow;
+            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow;
             bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
             if (doContextual && (value == 0 || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
             {
@@ -572,14 +572,14 @@ namespace Code.Scripts.Player
         /// Manage player actions when color is changed
         /// </summary>
         /// <param name="colour">New color</param>
-        void OnChangedColorHandler(ColorSwitcher.QColour colour)
+        void OnChangedColorHandler(ColorSwitcher.QColor colour)
         {
-            if (colour != ColorSwitcher.QColour.Green)
+            if (colour != ColorSwitcher.QColor.Green)
             {
                 grabPressed = false;
             }
 
-            if (colour != ColorSwitcher.QColour.Yellow)
+            if (colour != ColorSwitcher.QColor.Yellow)
             {
                 glidePressed = false;
             }
@@ -590,26 +590,26 @@ namespace Code.Scripts.Player
         /// </summary>
         void OnAbilityPressHandler()
         {
-            switch (ColorSwitcher.Instance.CurrentColour)
+            switch (ColorSwitcher.Instance.CurrentColor)
             {
-                case ColorSwitcher.QColour.None:
+                case ColorSwitcher.QColor.None:
                     break;
-                case ColorSwitcher.QColour.Red:
-                    if (!staminaBar.GetBar(ColorSwitcher.QColour.Red).Depleted)
+                case ColorSwitcher.QColor.Red:
+                    if (!staminaBar.GetBar(ColorSwitcher.QColor.Red).Depleted)
                     {
                         dashPressed = true;
                     }
                     break;
-                case ColorSwitcher.QColour.Blue:
+                case ColorSwitcher.QColor.Blue:
                     if (tempDjmpState.JumpAvailable)
                     {
                         djmpPressed = true;
                     }
                     break;
-                case ColorSwitcher.QColour.Green:
+                case ColorSwitcher.QColor.Green:
                     grabPressed = true;
                     break;
-                case ColorSwitcher.QColour.Yellow:
+                case ColorSwitcher.QColor.Yellow:
                     glidePressed = true;
                     break;
                 default:
@@ -622,18 +622,18 @@ namespace Code.Scripts.Player
         /// </summary>
         void OnAbilityReleaseHandler()
         {
-            switch (ColorSwitcher.Instance.CurrentColour)
+            switch (ColorSwitcher.Instance.CurrentColor)
             {
-                case ColorSwitcher.QColour.None:
+                case ColorSwitcher.QColor.None:
                     break;
-                case ColorSwitcher.QColour.Red:
+                case ColorSwitcher.QColor.Red:
                     break;
-                case ColorSwitcher.QColour.Blue:
+                case ColorSwitcher.QColor.Blue:
                     break;
-                case ColorSwitcher.QColour.Green:
+                case ColorSwitcher.QColor.Green:
                     grabPressed = false;
                     break;
-                case ColorSwitcher.QColour.Yellow:
+                case ColorSwitcher.QColor.Yellow:
                     glidePressed = false;
                     break;
                 default:

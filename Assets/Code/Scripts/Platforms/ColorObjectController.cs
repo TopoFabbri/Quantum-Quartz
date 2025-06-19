@@ -8,17 +8,12 @@ namespace Code.Scripts.Platforms
 {
     public class ColorObjectController : MonoBehaviour
     {
-        [FormerlySerializedAs("qColor")] [SerializeField] private ColorSwitcher.QColour qColour;
+        [FormerlySerializedAs("qColour")] [SerializeField] private ColorSwitcher.QColor qColor;
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
         [SerializeField] private List<Behaviour> objectsToToggle = new();
         
         public event Action<bool> Toggled;
-        
-        private void Start()
-        {
-            ToggleColor(ColorSwitcher.QColour.None);
-        }
 
         private void OnEnable()
         {
@@ -33,10 +28,10 @@ namespace Code.Scripts.Platforms
         /// <summary>
         /// Toggle object on and off depending on color
         /// </summary>
-        /// <param name="colour">New world color</param>
-        private void ToggleColor(ColorSwitcher.QColour colour)
+        /// <param name="color">New world color</param>
+        private void ToggleColor(ColorSwitcher.QColor color)
         {
-            if (colour == qColour || qColour == ColorSwitcher.QColour.None)
+            if (color == qColor || qColor == ColorSwitcher.QColor.None)
                 Activate();
             else
                 Deactivate();

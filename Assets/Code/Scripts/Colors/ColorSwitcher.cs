@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Code.Scripts.Colors
         [SerializeField] private bool green;
         [SerializeField] private bool yellow;
 
-        public enum QColour
+        public enum QColor
         {
             None,
             Red,
@@ -25,15 +26,17 @@ namespace Code.Scripts.Colors
             Yellow
         }
 
-        public QColour CurrentColour { get; private set; }
-        public IReadOnlyList<QColour> EnabledColours { get; private set; }
+        public QColor CurrentColor { get; private set; }
+        public IReadOnlyList<QColor> EnabledColors { get; private set; }
 
-        public static event Action<QColour> ColorChanged;
+        public static event Action<QColor> ColorChanged;
+
+        private QColor? preLockedColor = null;
 
         private void Start()
         {
-            SetColor(QColour.None);
-            UpdateEnabledColours();
+            SetColor(QColor.None);
+            UpdateEnabledColors();
         }
 
         private void OnEnable()
@@ -54,21 +57,17 @@ namespace Code.Scripts.Colors
 
         private void OnValidate()
         {
-            UpdateEnabledColours();
+            UpdateEnabledColors();
         }
 
-        private void UpdateEnabledColours()
+        private void UpdateEnabledColors()
         {
-            List<QColour> temp = new List<QColour>();
-            if (blue)
-                temp.Add(QColour.Blue);
-            if (red)
-                temp.Add(QColour.Red);
-            if (green)
-                temp.Add(QColour.Green);
-            if (yellow)
-                temp.Add(QColour.Yellow);
-            EnabledColours = temp;
+            List<QColor> temp = new List<QColor>();
+            if (blue)   temp.Add(QColor.Blue);
+            if (red)    temp.Add(QColor.Red);
+            if (green)  temp.Add(QColor.Green);
+            if (yellow) temp.Add(QColor.Yellow);
+            EnabledColors = temp;
         }
 
         /// <summary>
@@ -76,10 +75,14 @@ namespace Code.Scripts.Colors
         /// </summary>
         private void OnColorRed()
         {
-            if (red)
-                SetColor(QColour.Red);
+            if (red && !preLockedColor.HasValue)
+            {
+                SetColor(QColor.Red);
+            }
             else
+            {
                 SfxController.BlockedCrystal(gameObject);
+            }
         }
 
         /// <summary>
@@ -87,10 +90,14 @@ namespace Code.Scripts.Colors
         /// </summary>
         private void OnColorBlue()
         {
-            if (blue)
-                SetColor(QColour.Blue);
+            if (blue && !preLockedColor.HasValue)
+            {
+                SetColor(QColor.Blue);
+            }
             else
+            {
                 SfxController.BlockedCrystal(gameObject);
+            }
         }
 
         /// <summary>
@@ -98,10 +105,14 @@ namespace Code.Scripts.Colors
         /// </summary>
         private void OnColorGreen()
         {
-            if (green)
-                SetColor(QColour.Green);
+            if (green && !preLockedColor.HasValue)
+            {
+                SetColor(QColor.Green);
+            }
             else
+            {
                 SfxController.BlockedCrystal(gameObject);
+            }
         }
 
         /// <summary>
@@ -109,23 +120,48 @@ namespace Code.Scripts.Colors
         /// </summary>
         private void OnColorYellow()
         {
-            if (yellow)
-                SetColor(QColour.Yellow);
+            if (yellow && !preLockedColor.HasValue)
+            {
+                SetColor(QColor.Yellow);
+            }
             else
+            {
                 SfxController.BlockedCrystal(gameObject);
+            }
         }
 
         /// <summary>
         /// Change to new color
         /// </summary>
-        /// <param name="colour"></param>
-        private void SetColor(QColour colour)
+        /// <param name="color"></param>
+        private void SetColor(QColor color)
         {
-            ColorChanged?.Invoke(colour);
+            ColorChanged?.Invoke(color);
 
-            CurrentColour = colour;
+            CurrentColor = color;
             
-            SfxController.ChangeToCrystal(gameObject, colour);
+            SfxController.ChangeToCrystal(gameObject, color);
+        }
+
+        public void LockColor(QColor color) {
+            if (preLockedColor == null)
+            {
+                preLockedColor = CurrentColor;
+            }
+
+            SetColor(color);
+        }
+
+        public void UnlockColor(QColor color)
+        {
+            if (preLockedColor.HasValue && CurrentColor == color)
+            {
+                if (!EnabledColors.Contains(color))
+                {
+                    SetColor(preLockedColor.Value);
+                }
+                preLockedColor = null;
+            }
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Code.Scripts.States
             this.barController = barController;
             this.glideParticleSystem = glideParticleSystem;
 
-            barController.AddBar(ColorSwitcher.QColour.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Yellow).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
+            barController.AddBar(ColorSwitcher.QColor.Yellow, glideSettings.regenSpeed, glideSettings.staminaMitigation, glideSettings.initStaminaCut);
+            barController.GetBar(ColorSwitcher.QColor.Yellow).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
         }
 
         public override void OnEnter()
@@ -29,7 +29,7 @@ namespace Code.Scripts.States
             sharedContext.PlayerSfx.PlayGlide();
             glideParticleSystem.Play();
             
-            barController.GetBar(ColorSwitcher.QColour.Yellow).FirstUseCut();
+            barController.GetBar(ColorSwitcher.QColor.Yellow).FirstUseCut();
         }
 
         public override void OnExit()
@@ -44,7 +44,7 @@ namespace Code.Scripts.States
         {
             base.OnUpdate();
 
-            barController.GetBar(ColorSwitcher.QColour.Yellow).Use();
+            barController.GetBar(ColorSwitcher.QColor.Yellow).Use();
         }
     }
 }
