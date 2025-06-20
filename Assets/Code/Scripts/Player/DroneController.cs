@@ -6,14 +6,17 @@ namespace Code.Scripts.Player
     public class DroneController : MonoBehaviour
     {
         [SerializeField] private Transform target;
+        [SerializeField] private Vector2 targetOffset;
+        [SerializeField] private float maxDistance = 5f;
+        [SerializeField] private float maxSpeed = 5f;
+        [SerializeField] private float yAdjustment = 1;
+        [SerializeField] private AnimationCurve speedCurve;
+        [SerializeField] private float maxRotationSpeed = 200f;
+        [SerializeField] private float collisionTime = 3f;
+        [SerializeField] private float minCollisionDist = 0.5f;
         [SerializeField] private Transform spotlight;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Animator animator;
-        [SerializeField] private float maxSpeed = 5f;
-        [SerializeField] private float maxRotationSpeed = 200f;
-        [SerializeField] private float stopDistance = 1f;
-        [SerializeField] private float collisionTime = 3f;
-        [SerializeField] private float minCollisionDist = 0.5f;
 
         private bool colliding;
         private int defLayer;
@@ -23,7 +26,7 @@ namespace Code.Scripts.Player
             defLayer = gameObject.layer;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (colliding)
             {
@@ -38,26 +41,20 @@ namespace Code.Scripts.Player
             }
             else
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
-
-                Vector2 direction = (target.position - transform.position).normalized;
-                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-                spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
-
-                Vector2 destination = transform.position;
-                if (Vector2.Distance(transform.position, target.position) > stopDistance)
+                if (true)
                 {
-                    destination = target.position;
-                }
-                else if (Vector2.Distance(transform.position, target.position) < stopDistance)
-                {
-                    destination = (Vector2)target.position - direction * stopDistance;
-                }
-                transform.position = Vector2.MoveTowards(transform.position, destination, maxSpeed * Time.deltaTime);
+                    Vector2 offset = target.position - transform.position;
+                    offset += targetOffset;
 
-                if (transform.position.y < target.position.y)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, target.position.y), maxSpeed * Time.deltaTime);
+                    Vector2 direction = offset.normalized;
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
+                    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+                    spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
+
+
+                    float offsetDist = offset.magnitude / maxDistance;
+                    float speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
+                    rb.velocity = offset.normalized * speed + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
                 }
             }
         }
