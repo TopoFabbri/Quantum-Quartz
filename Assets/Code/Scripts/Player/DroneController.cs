@@ -41,21 +41,20 @@ namespace Code.Scripts.Player
             }
             else
             {
-                if (true)
-                {
-                    Vector2 offset = target.position - transform.position;
-                    offset += targetOffset;
+                Vector2 offset = target.position - transform.position;
+                offset += targetOffset;
 
-                    Vector2 direction = offset.normalized;
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
-                    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-                    spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
+
+                Vector2 direction = offset.normalized;
+                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+                spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
 
 
-                    float offsetDist = offset.magnitude / maxDistance;
-                    float speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
-                    rb.velocity = offset.normalized * speed + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
-                }
+                float offsetDist = offset.magnitude / maxDistance;
+                float speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
+                rb.velocity = offset.normalized * speed + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
+                rb.angularVelocity = 0;
             }
         }
 
