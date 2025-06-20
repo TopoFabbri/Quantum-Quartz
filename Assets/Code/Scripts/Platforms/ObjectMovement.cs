@@ -23,11 +23,17 @@ namespace Code.Scripts.Platforms
         private Position initPos;
         private Transform player;
         private float timer;
+        private ColorObjectController colorObj;
 
         private void Start()
         {
             initPos.pos = transform.position;
             initPos.rotation = transform.rotation.eulerAngles.z;
+            gameObject.TryGetComponent(out colorObj);
+            if (colorObj)
+            {
+                colorObj.Toggled += ToggleColor;
+            }
         }
 
         private void OnDrawGizmosSelected()
@@ -72,20 +78,46 @@ namespace Code.Scripts.Platforms
             this.player.parent = transform;
         }
 
+        private void RemovePlayer(Transform player)
+        {
+            if (player.parent == transform)
+            {
+                player.parent = null;
+                this.player = null;
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (colorObj)
+            {
+                colorObj.Toggled += ToggleColor;
+            }
+        }
+
         private void OnDisable()
         {
-            if (!player)
-                return;
+            if (colorObj)
+            {
+                colorObj.Toggled -= ToggleColor;
+            }
 
-            if (player.parent == transform)
-                player.parent = null;
 
-            player = null;
+            if (player)
+            {
+                RemovePlayer(player);
+            }
         }
 
-        public override void OnActivate()
+        private void ToggleColor(bool enabled)
         {
+            if (!enabled && player)
+            {
+                RemovePlayer(player);
+            }
         }
+
+        public override void OnActivate() {}
 
         public override void OnDeactivate()
         {
