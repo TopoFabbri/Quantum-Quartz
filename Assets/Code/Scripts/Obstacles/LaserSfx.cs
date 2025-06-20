@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Scripts.Level;
+using Code.Scripts.Tools;
 using UnityEngine;
 using Event = AK.Wwise.Event;
 
@@ -52,13 +54,14 @@ namespace Code.Scripts.Obstacles
                 windUpEvent.Post(gameObject);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+            
             if (isOn)
                 LasersPlaying.Remove(this);
             
-            windUpEvent.Stop(gameObject);
-            startShootEvent.Stop(gameObject);
+            SfxController.StopAllOn(gameObject);
         }
         
         private void AddToPlaying()
