@@ -179,7 +179,7 @@ namespace Code.Scripts.Input
             {
                 OnAbility(input);
             }
-            else
+            else if (input.Get<float>() != 0)
             {
                 ColorRed?.Invoke();
             }
@@ -194,7 +194,7 @@ namespace Code.Scripts.Input
             {
                 OnAbility(input);
             }
-            else
+            else if (input.Get<float>() != 0)
             {
                 ColorBlue?.Invoke();
             }
@@ -209,7 +209,7 @@ namespace Code.Scripts.Input
             {
                 OnAbility(input);
             }
-            else
+            else if (input.Get<float>() != 0)
             {
                 ColorGreen?.Invoke();
             }
@@ -224,7 +224,7 @@ namespace Code.Scripts.Input
             {
                 OnAbility(input);
             }
-            else
+            else if (input.Get<float>() != 0)
             {
                 ColorYellow?.Invoke();
             }
