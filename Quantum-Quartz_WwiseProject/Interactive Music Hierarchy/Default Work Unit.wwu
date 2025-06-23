@@ -571,20 +571,17 @@
 							<ChildrenList>
 								<MusicSegment Name="Adventurer_Intro" ID="{64E9C36B-95A2-4F50-8491-9E3BCBD19C28}" ShortID="561521233">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="19862.0689655172"/>
+										<Property Name="EndPosition" Type="Real64" Value="19862.0833333333"/>
+										<Property Name="GridOffsetPreset" Type="int16" Value="1"/>
+										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
-												<Value>1</Value>
+												<Value>2</Value>
 											</ValueList>
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="145"/>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -622,6 +619,27 @@
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
+											<StateInfo>
+												<StateGroupList>
+													<StateGroupInfo>
+														<StateGroupRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}"/>
+													</StateGroupInfo>
+												</StateGroupList>
+												<CustomStateList>
+													<CustomState>
+														<StateRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
+														<CustomState Name="" ID="{9E4FD77F-0487-48A1-848F-F189A87A9302}" ShortID="388484793">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64" Value="-108"/>
+															</PropertyList>
+														</CustomState>
+													</CustomState>
+													<CustomState>
+														<StateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
+														<CustomState Name="" ID="{28C53260-4F78-43DC-9E26-9481CB03F04F}" ShortID="153972279"/>
+													</CustomState>
+												</CustomStateList>
+											</StateInfo>
 											<TransitionList>
 												<MusicTransition Name="Root" ID="{B0F84E65-FAEA-4E32-8B97-82BB2466D7F4}">
 													<PropertyList>
@@ -704,6 +722,77 @@
 																							</Curve>
 																						</PropertyCurve>
 																					</PropertyCurveList>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</MusicTrack>
+										<MusicTrack Name="QQ_Adventurer_Puzzle_Intro" ID="{2891B4E0-BB8B-4612-8EC5-C0F73E73E17A}" ShortID="934281076">
+											<ReferenceList>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="QQ_Adventurer_Puzzle_Intro" ID="{83D3E9F8-3186-44F1-91AF-D96714A0B8AD}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Adventurer_Puzzle_Intro.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="26893415"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<StateInfo>
+												<StateGroupList>
+													<StateGroupInfo>
+														<StateGroupRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}"/>
+													</StateGroupInfo>
+												</StateGroupList>
+												<CustomStateList>
+													<CustomState>
+														<StateRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
+														<CustomState Name="" ID="{CD8F4B6C-98F5-48BC-A131-6A7CB3884860}" ShortID="227928793"/>
+													</CustomState>
+													<CustomState>
+														<StateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
+														<CustomState Name="" ID="{1A017FAC-2117-49FA-9604-924341D6A2FF}" ShortID="919534269">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64" Value="-108"/>
+															</PropertyList>
+														</CustomState>
+													</CustomState>
+												</CustomStateList>
+											</StateInfo>
+											<TransitionList>
+												<MusicTransition Name="Root" ID="{6B32AEDE-F1A7-4972-810D-3A7E5C3D8F48}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</TransitionList>
+											<ObjectLists>
+												<ObjectList Name="Sequences">
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{38A11ABB-11AD-4494-A554-F6BFE648A0DB}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Adventurer_Puzzle_Intro" ID="{48889C16-23CE-4AE8-9DE9-E789276ED967}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="19862.0833333333"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Adventurer_Puzzle_Intro" ID="{83D3E9F8-3186-44F1-91AF-D96714A0B8AD}"/>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -1017,7 +1106,8 @@
 								</MusicSegment>
 								<MusicSegment Name="Adventurer_End" ID="{7027F692-24ED-474F-8820-E87E794E8CDE}" ShortID="592345059">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="13241.3958333333"/>
+										<Property Name="EndPosition" Type="Real64" Value="18393.2083333333"/>
+										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -1026,11 +1116,6 @@
 										</Property>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="145"/>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-6</Value>
@@ -1061,6 +1146,27 @@
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
+											<StateInfo>
+												<StateGroupList>
+													<StateGroupInfo>
+														<StateGroupRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}"/>
+													</StateGroupInfo>
+												</StateGroupList>
+												<CustomStateList>
+													<CustomState>
+														<StateRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
+														<CustomState Name="" ID="{48CBE312-64B4-4162-B2B1-4A41929DA91A}" ShortID="819434390">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64" Value="-108"/>
+															</PropertyList>
+														</CustomState>
+													</CustomState>
+													<CustomState>
+														<StateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
+														<CustomState Name="" ID="{371DBDED-4CF7-4092-9431-A3BC5B47F9AC}" ShortID="119446285"/>
+													</CustomState>
+												</CustomStateList>
+											</StateInfo>
 											<TransitionList>
 												<MusicTransition Name="Root" ID="{919D292D-7FF4-4372-91D7-7023A60B2CC7}">
 													<PropertyList>
@@ -1086,6 +1192,77 @@
 																						<Property Name="PlayAt" Type="Real64" Value="1.09139364212751E-11"/>
 																					</PropertyList>
 																					<AudioSourceRef Name="Adventurer - LoopEND" ID="{F539B81A-DD0E-4AE0-9205-9AD4DA40B090}"/>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</MusicTrack>
+										<MusicTrack Name="QQ_Adventurer_Puzzle_End" ID="{CB8D581B-F640-43EA-9DDB-22B75942BECA}" ShortID="218509730">
+											<ReferenceList>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="QQ_Adventurer_Puzzle_End" ID="{97B1FD72-3A39-4346-ADBF-68D5CAF98053}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Adventurer_Puzzle_End.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="171091106"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<StateInfo>
+												<StateGroupList>
+													<StateGroupInfo>
+														<StateGroupRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}"/>
+													</StateGroupInfo>
+												</StateGroupList>
+												<CustomStateList>
+													<CustomState>
+														<StateRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
+														<CustomState Name="" ID="{2C91DACF-7A8A-4DFB-8EE2-F21CFE81DEE0}" ShortID="970788675"/>
+													</CustomState>
+													<CustomState>
+														<StateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
+														<CustomState Name="" ID="{0BCFCCEF-28AB-4326-A67B-E6B9C1118A56}" ShortID="1063663310">
+															<PropertyList>
+																<Property Name="Volume" Type="Real64" Value="-108"/>
+															</PropertyList>
+														</CustomState>
+													</CustomState>
+												</CustomStateList>
+											</StateInfo>
+											<TransitionList>
+												<MusicTransition Name="Root" ID="{162AF698-0D58-452D-87AB-BF7F5EDFA062}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</TransitionList>
+											<ObjectLists>
+												<ObjectList Name="Sequences">
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{0969F4B7-8A2C-4CE8-943F-F15C524B5F9D}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Adventurer_Puzzle_End" ID="{78BE96DE-7CE6-4339-BEA5-1CCA80FD23DF}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="18393.2083333333"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Adventurer_Puzzle_End" ID="{97B1FD72-3A39-4346-ADBF-68D5CAF98053}"/>
 																				</MusicClip>
 																			</Local>
 																		</Reference>

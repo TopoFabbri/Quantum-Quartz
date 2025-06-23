@@ -93,7 +93,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DF1DE487-89DF-A05F-1ED5-ABB903704479}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F7D2261F-9913-3A2F-E69C-A7F7F2516774}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -124,6 +124,10 @@
 				<File Id="17443080" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-009.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-009_C9066ABA.wem</CachePath>
+				</File>
+				<File Id="26893415" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Adventurer_Puzzle_Intro.wav</ShortName>
+					<CachePath>SFX/QQ_Adventurer_Puzzle_Intro_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="28636868" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-006.wav</ShortName>
@@ -196,6 +200,10 @@
 				<File Id="155892356" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>LAB_Landing-002.wav</ShortName>
 					<CachePath>SFX/LAB_Landing-002_848403EF.wem</CachePath>
+				</File>
+				<File Id="171091106" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Adventurer_Puzzle_End.wav</ShortName>
+					<CachePath>SFX/QQ_Adventurer_Puzzle_End_D79FB2B7.wem</CachePath>
 				</File>
 				<File Id="173228913" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_5.wav</ShortName>
@@ -951,6 +959,8 @@
 				</Event>
 				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="Infinite">
 					<MediaRefs>
+						<MediaRef Id="26893415"/>
+						<MediaRef Id="171091106"/>
 						<MediaRef Id="400230657"/>
 						<MediaRef Id="585198590"/>
 						<MediaRef Id="812185611"/>
@@ -1023,5 +1033,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{B0D37330-03B5-4566-5910-6384AAD2B277}</FileHash>
+	<FileHash>{B1B7B6E5-8918-4883-34C3-A9F2EE5DD622}</FileHash>
 </SoundBanksInfo>
