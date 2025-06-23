@@ -35,7 +35,7 @@ namespace Code.Scripts.Level
 
         private void OnDestroy()
         {
-            SfxController.MusicOnOff(false, gameObject);
+            SfxController.StopAllOn(gameObject);
         }
 
         private void OnEnable()

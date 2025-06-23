@@ -54,7 +54,7 @@ namespace Code.Scripts.Obstacles
             timeOffset = 0f;
         }
 
-        public override void OnDestroy()
+        protected override void OnDestroy()
         {
             base.OnDestroy();
             

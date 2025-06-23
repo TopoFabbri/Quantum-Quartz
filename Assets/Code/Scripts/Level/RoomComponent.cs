@@ -13,7 +13,7 @@ namespace Code.Scripts.Level
         public virtual void OnFixedUpdate() { }
         public virtual void OnLateUpdate() { }
         public virtual void OnStart() { }
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Destroyed?.Invoke(this);
         }

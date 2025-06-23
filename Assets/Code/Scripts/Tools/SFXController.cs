@@ -63,5 +63,14 @@ namespace Code.Scripts.Tools
         {
             AkSoundEngine.PostEvent(SpringEvent, go);
         }
+
+        public static void StopAllOn(GameObject go)
+        {
+            if (!AkSoundEngine.IsGameObjectRegistered(go))
+                return;
+            
+            AkSoundEngine.StopAll(go);
+        }
+        
     }
 }

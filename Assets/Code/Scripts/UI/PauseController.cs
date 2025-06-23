@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Level;
-using Code.Scripts.Menu;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.UI
 {
@@ -21,8 +18,8 @@ namespace Code.Scripts.UI
         [SerializeField] private GameObject optionsCanvas;
 
         [SerializeField] private InputManager inputManager;
-        [SerializeField] private string pauseEvent = "Set_State_Music_Pause";
-        [SerializeField] private string unPauseEvent = "Set_State_Music_Ingame";
+        [SerializeField] private Event pauseEvent;
+        [SerializeField] private Event unPauseEvent;
 
         private bool isPaused;
         private bool inCoroutine;
@@ -56,7 +53,7 @@ namespace Code.Scripts.UI
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
-                AkSoundEngine.PostEvent(pauseEvent, gameObject);
+                pauseEvent.Post(gameObject);
 
                 Time.timeScale = 0;
             }
@@ -65,17 +62,16 @@ namespace Code.Scripts.UI
                 Time.timeScale = 1;
                 pauseCanvas.SetActive(false);
                 optionsCanvas.SetActive(false);
-                AkSoundEngine.PostEvent(unPauseEvent, gameObject);
+                unPauseEvent.Post(gameObject);
                 GameManager.Instance.GetTimerText().gameObject.SetActive(true);
 
                 inputManager.EnableGameMap();
             }
         }
 
-
         private void OnDestroy()
         {
-            AkSoundEngine.PostEvent(unPauseEvent, gameObject);
+            unPauseEvent.Post(gameObject);
         }
         
         private void OnUIBack()

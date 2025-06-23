@@ -22,7 +22,7 @@ namespace Code.Scripts.Obstacles
             colorObjectController.Toggled += OnToggled;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             colorObjectController.Toggled -= OnToggled;
         }
