@@ -43,15 +43,15 @@ namespace Code.Scripts.Tools
         /// <param name="gameObject">Game Object</param>
         /// <param name="colour">New color</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void ChangeToCrystal(GameObject gameObject, ColorSwitcher.QColour colour)
+        public static void ChangeToCrystal(GameObject gameObject, ColorSwitcher.QColor colour)
         {
             string colorEvent = colour switch
             {
-                ColorSwitcher.QColour.None => "",
-                ColorSwitcher.QColour.Red => RedEvent,
-                ColorSwitcher.QColour.Blue => BlueEvent,
-                ColorSwitcher.QColour.Green => GreenEvent,
-                ColorSwitcher.QColour.Yellow => YellowEvent,
+                ColorSwitcher.QColor.None => "",
+                ColorSwitcher.QColor.Red => RedEvent,
+                ColorSwitcher.QColor.Blue => BlueEvent,
+                ColorSwitcher.QColor.Green => GreenEvent,
+                ColorSwitcher.QColor.Yellow => YellowEvent,
                 _ => throw new ArgumentOutOfRangeException(nameof(colour), colour, null)
             };
 
@@ -63,5 +63,14 @@ namespace Code.Scripts.Tools
         {
             AkSoundEngine.PostEvent(SpringEvent, go);
         }
+
+        public static void StopAllOn(GameObject go)
+        {
+            if (!AkSoundEngine.IsGameObjectRegistered(go))
+                return;
+            
+            AkSoundEngine.StopAll(go);
+        }
+        
     }
 }

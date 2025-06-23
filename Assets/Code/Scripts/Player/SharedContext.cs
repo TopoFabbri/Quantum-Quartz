@@ -39,7 +39,7 @@ namespace Code.Scripts.Player
             }
         }
 
-        public bool _blockMoveInput = false;
+        private bool _blockMoveInput = false;
         public bool BlockMoveInput
         {
             get
@@ -53,15 +53,36 @@ namespace Code.Scripts.Player
             }
         }
 
+        private Vector2 _speed = Vector2.zero;
+        public Vector2 Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                if (Time.time > curSpeedTimestamp)
+                {
+                    previousSpeed = _speed;
+                    curSpeedTimestamp = Time.time;
+                }
+                _speed = value;
+            }
+        }
+        public float SpeedX { set { Speed = new Vector2(value, Speed.y); } }
+        public float SpeedY { set { Speed = new Vector2(Speed.x, value); } }
+
         public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
         public bool died = false;
         public bool canCoyoteJump = false;
         public float jumpFallTime = 0;
-        public Vector2 speed = Vector2.zero;
+        public Vector2 previousSpeed = Vector2.zero;
+        public event Action OnCheckFlip;
 
         private readonly FiniteStateMachine<string> stateMachine;
-        public event Action OnCheckFlip;
+        private double curSpeedTimestamp;
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
         {
@@ -104,55 +125,66 @@ namespace Code.Scripts.Player
         {
             bool grounded = false;
 
-            if (Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed || GlobalSettings.shouldDraw)
+            float hitDist = float.NegativeInfinity;
+            if (Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed || GlobalSettings.shouldDraw)
             {
                 Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset;
-                grounded = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckRadius, GlobalSettings.groundLayer));
+                hitDist = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckDistance, GlobalSettings.groundLayer));
+                grounded = !float.IsNegativeInfinity(hitDist);
 
                 if (GlobalSettings.shouldDraw)
                 {
-                    Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.groundCheckRadius, grounded ? Color.green : Color.red);
+                    Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.groundCheckDistance, grounded ? Color.green : Color.red);
                 }
 
                 if (!grounded || GlobalSettings.shouldDraw)
                 {
-                    grounded |= GetEdge(true);
+                    float tempHitDist = GetEdge(true);
+                    grounded |= !float.IsNegativeInfinity(tempHitDist);
+                    hitDist = Mathf.Max(tempHitDist, hitDist);
 
                     if (!grounded || GlobalSettings.shouldDraw)
                     {
-                        grounded |= GetEdge(false);
-                        grounded &= Mathf.Abs(Rigidbody.velocity.y) < GlobalSettings.neutralSpeed;
+                        tempHitDist = GetEdge(false);
+                        grounded |= !float.IsNegativeInfinity(tempHitDist);
+                        hitDist = Mathf.Max(tempHitDist, hitDist);
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
                     }
                 }
+            }
+
+            if (grounded && hitDist < GlobalSettings.minGroundDist)
+            {
+                Transform.position += Vector3.up * (GlobalSettings.minGroundDist - hitDist);
             }
 
             IsGrounded = grounded;
             return IsGrounded;
         }
 
-        bool GetEdge(bool right)
+        private float GetEdge(bool right)
         {
             Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset + (right ? Vector2.right : Vector2.left) * GlobalSettings.edgeCheckDis;
-            bool onEdge = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.edgeCheckLength, GlobalSettings.groundLayer));
+            float edgeDist = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.edgeCheckLength, GlobalSettings.groundLayer));
 
             if (GlobalSettings.shouldDraw)
             {
-                Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.edgeCheckLength, onEdge ? Color.green : Color.red);
+                Debug.DrawLine(startPos, startPos + Vector2.down * GlobalSettings.edgeCheckLength, float.IsNegativeInfinity(edgeDist) ? Color.red : Color.green);
             }
 
-            return onEdge;
+            return edgeDist;
         }
 
-        private bool HitFloor(RaycastHit2D[] hits)
+        private float HitFloor(RaycastHit2D[] hits)
         {
             foreach (RaycastHit2D hit in hits)
             {
                 if (hit.collider != null && hit.distance > 0 && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
                 {
-                    return true;
+                    return hit.distance;
                 }
             }
-            return false;
+            return float.NegativeInfinity;
         }
 
         public void SetFalling(bool falling)

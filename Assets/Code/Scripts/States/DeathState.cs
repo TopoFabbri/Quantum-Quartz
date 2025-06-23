@@ -13,7 +13,7 @@ namespace Code.Scripts.States
     /// Die state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DeathState<T> : BaseState<T>, IDeathImmune
+    public class DeathState<T> : BaseState<T>, IDeathImmune, IUnsafe
     {
         protected readonly DeathSettings deathSettings;
 
@@ -37,6 +37,7 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.PlayerSfx.Death();
+            sharedContext.Collider.enabled = false;
 
             Direction = new Vector2(-sharedContext.Input, -sharedContext.Rigidbody.velocity.normalized.y);
 
@@ -55,8 +56,9 @@ namespace Code.Scripts.States
             base.OnExit();
             deathController.Die();
             sharedContext.died = false;
+            sharedContext.Collider.enabled = true;
 
-            Stats.SetDeaths(Stats.GetDeaths() + 1);
+            Stats.SetDeaths(Stats.Deaths + 1);
         }
 
         public override void OnUpdate()

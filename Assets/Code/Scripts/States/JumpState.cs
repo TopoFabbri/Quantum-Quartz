@@ -10,7 +10,7 @@ namespace Code.Scripts.States
     /// Jump up state
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class JumpState<T> : MoveState<T>, INoCoyoteTime
+    public class JumpState<T> : MoveState<T>, INoCoyoteTime, IUnsafe
     {
         protected readonly JumpSettings jumpSettings;
 
@@ -29,9 +29,9 @@ namespace Code.Scripts.States
             sharedContext.PlayerSfx.Jump();
             sharedContext.SetFalling(false);
 
-            sharedContext.speed.y = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-            sharedContext.Rigidbody.velocity = sharedContext.speed;
-            lastVel = sharedContext.speed.y;
+            sharedContext.SpeedY = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
+            sharedContext.Rigidbody.velocity = sharedContext.Speed;
+            lastVel = sharedContext.Speed.y;
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             
@@ -55,8 +55,8 @@ namespace Code.Scripts.States
                 HasJumped = true;
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
                 float vel = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
-                sharedContext.speed.y = (vel + lastVel) * 0.5f;
-                sharedContext.Rigidbody.velocity = sharedContext.speed;
+                sharedContext.SpeedY = (vel + lastVel) * 0.5f;
+                sharedContext.Rigidbody.velocity = sharedContext.Speed;
                 lastVel = vel;
             }
             else
@@ -71,7 +71,7 @@ namespace Code.Scripts.States
         public virtual void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckRadius, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckDistance, LayerMask.GetMask("Default"));
             
             if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;

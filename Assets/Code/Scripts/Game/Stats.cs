@@ -1,4 +1,5 @@
 using Code.Scripts.Level;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,17 +10,16 @@ namespace Code.Scripts.Game
     /// </summary>
     public class Stats
     {
-        private static Stats _instance;
+        public static int Deaths => Instance.deaths;
 
-        private Timer time;
-        private Timer level1Time, level2Time, level3Time, level4Time;
+        private static Stats _instance;
+        private static Stats Instance => _instance ??= new Stats();
+
+        private Dictionary<int, Timer> levelTimes = new Dictionary<int, Timer>();
         private int deaths;
         private int saveSlot;
         private Timer totalTimer;
-
-        private static Stats Instance => _instance ??= new Stats();
-
-        public static Timer Time => Instance.time;
+        private Dictionary<int, HashSet<int>> collectibles = new Dictionary<int, HashSet<int>>();
 
         /// <summary>
         // Method to select save slot (1, 2, or 3)
@@ -37,12 +37,30 @@ namespace Code.Scripts.Game
         {
             Instance.saveSlot = slot;
             Instance.totalTimer.time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_TotalTimer", 0);
-            Instance.level1Time.time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level1Time", 0);
-            Instance.level2Time.time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level2Time", 0);
-            Instance.level3Time.time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level3Time", 0);
-            Instance.level4Time.time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level4Time", 0);
-            Instance.deaths = PlayerPrefs.GetInt($"SaveSlot_{slot}_Deaths", 0);
             
+            for (int i = 1; PlayerPrefs.HasKey($"SaveSlot_{slot}_Level{i}Time"); i++)
+            {
+                Timer newTimer = new Timer(PlayerPrefs.GetFloat($"SaveSlot_{slot}_Level{i}Time", 0));
+                if (!Instance.levelTimes.TryAdd(i - 1, newTimer))
+                {
+                    Instance.levelTimes[i - 1] = newTimer;
+                }
+            }
+            Instance.deaths = PlayerPrefs.GetInt($"SaveSlot_{slot}_Deaths", 0);
+
+            for (int i = 1; PlayerPrefs.HasKey($"SaveSlot_{slot}_Level{i}Collectibles"); i++)
+            {
+                //Gets ids from an int32, instead of 32 individual bools
+                Instance.collectibles.TryAdd(i - 1, new HashSet<int>());
+                int flags = PlayerPrefs.GetInt($"SaveSlot_{slot}_Level{i}Collectibles", 0);
+                for (int id = 0; id < sizeof(int) * 8; id++)
+                {
+                    if ((flags & (1 << id)) != 0)
+                    {
+                        Instance.collectibles[i - 1].Add(id);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -61,20 +79,24 @@ namespace Code.Scripts.Game
         {
             int slot = Instance.saveSlot;
             PlayerPrefs.SetFloat($"SaveSlot_{slot}_TotalTimer", Instance.totalTimer.time);
-            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level1Time", Instance.level1Time.time);
-            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level2Time", Instance.level2Time.time);
-            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level3Time", Instance.level3Time.time);
-            PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level4Time", Instance.level4Time.time);
-            PlayerPrefs.SetInt($"SaveSlot_{slot}_Deaths", Instance.deaths);
-            PlayerPrefs.Save();
-            
-            Timer timerDebug = new()
+            foreach (int key in Instance.levelTimes.Keys)
             {
-                time = PlayerPrefs.GetFloat($"SaveSlot_{slot}_TotalTimer", 0)
-            };
-            
-            Debug.Log("Saved, total timer: " + timerDebug.ToStr);
-            Debug.Log("Saved, total deaths: " + Instance.deaths);
+                PlayerPrefs.SetFloat($"SaveSlot_{slot}_Level{key}Time", Instance.levelTimes[key].time);
+            }
+            PlayerPrefs.SetInt($"SaveSlot_{slot}_Deaths", Instance.deaths);
+
+            foreach (int key in Instance.collectibles.Keys)
+            {
+                //Makes an int32 out of ids, instead of 32 individual bools
+                int flags = 0;
+                foreach (int id in Instance.collectibles[key])
+                {
+                    flags += 1 << id;
+                }
+                PlayerPrefs.SetInt($"SaveSlot_{slot}_Level{key}Collectibles", flags);
+            }
+
+            PlayerPrefs.Save();
         }
 
         /// <summary>
@@ -82,15 +104,14 @@ namespace Code.Scripts.Game
         /// <summary>
         public static void SetLevelTime(int level, float time)
         {
-            switch (level)
-            {
-                case 1: Instance.level1Time.time = time; break;
-                case 2: Instance.level2Time.time = time; break;
-                case 3: Instance.level3Time.time = time; break;
-                case 4: Instance.level4Time.time = time; break;
+            if (!Instance.levelTimes.TryAdd(level - 1, new Timer(time))) {
+                Instance.levelTimes[level - 1] = new Timer(time);
             }
-            
-            Instance.totalTimer.time = Instance.level1Time.time + Instance.level2Time.time + Instance.level3Time.time + Instance.level4Time.time;
+            Instance.totalTimer.time = 0;
+            foreach (int key in Instance.levelTimes.Keys)
+            {
+                Instance.totalTimer.time += Instance.levelTimes[key].time;
+            }
         }
 
         /// <summary>
@@ -106,22 +127,18 @@ namespace Code.Scripts.Game
         /// <summary>
         public static Timer GetLevelTime(int level)
         {
-            return level switch
-            {
-                1 => Instance.level1Time,
-                2 => Instance.level2Time,
-                3 => Instance.level3Time,
-                4 => Instance.level4Time,
-                _ => new Timer()
-            };
+            return Instance.levelTimes.GetValueOrDefault(level - 1, new Timer());
         }
 
-        /// <summary>
-        // Get deaths
-        /// <summary>
-        public static int GetDeaths()
+        public static void PickUpCollectible(int level, int id)
         {
-            return Instance.deaths;
+            Instance.collectibles.TryAdd(level, new HashSet<int>());
+            Instance.collectibles[level].Add(id);
+        }
+
+        public static bool HasCollectible(int level, int id)
+        {
+            return Instance.collectibles.GetValueOrDefault(level, new HashSet<int>()).Contains(id);
         }
     }
 }

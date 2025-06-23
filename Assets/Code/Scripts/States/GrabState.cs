@@ -21,8 +21,8 @@ namespace Code.Scripts.States
             this.grabSettings = stateSettings;
             this.barController = barController;
             
-            barController.AddBar(ColorSwitcher.QColour.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColour.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
+            barController.AddBar(ColorSwitcher.QColor.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
+            barController.GetBar(ColorSwitcher.QColor.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
         }
 
         public override void OnEnter()
@@ -40,7 +40,7 @@ namespace Code.Scripts.States
         public override void OnUpdate()
         {
             base.OnUpdate();
-            barController.GetBar(ColorSwitcher.QColour.Green).Use();
+            barController.GetBar(ColorSwitcher.QColor.Green).Use();
         }
     }
 }

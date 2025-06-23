@@ -14,7 +14,7 @@ namespace Code.Scripts.Player
         [SerializeField] private float strides = float.Epsilon;
         [SerializeField] private GameObject barObject;
         
-        private readonly Dictionary<ColorSwitcher.QColour, StaminaBar> barsByColors = new();
+        private readonly Dictionary<ColorSwitcher.QColor, StaminaBar> barsByColors = new();
         
         private void Start()
         {
@@ -28,7 +28,7 @@ namespace Code.Scripts.Player
 
         private void Update()
         {
-            if (!barsByColors.TryGetValue(ColorSwitcher.Instance.CurrentColour, out StaminaBar staminaBar))
+            if (!barsByColors.TryGetValue(ColorSwitcher.Instance.CurrentColor, out StaminaBar staminaBar))
             {
                 barObject.SetActive(false);
                 return;
@@ -40,7 +40,7 @@ namespace Code.Scripts.Player
 
         private void LateUpdate()
         {
-            foreach (KeyValuePair<ColorSwitcher.QColour, StaminaBar> barByColor in barsByColors)
+            foreach (KeyValuePair<ColorSwitcher.QColor, StaminaBar> barByColor in barsByColors)
                 barByColor.Value.LateUpdate();
         }
 
@@ -49,7 +49,7 @@ namespace Code.Scripts.Player
         /// </summary>
         /// <param name="colour">The colour of the stamina bar to retrieve</param>
         /// <returns>The StaminaBar instance associated with the specified colour, or null if not found</returns>
-        public StaminaBar GetBar(ColorSwitcher.QColour colour)
+        public StaminaBar GetBar(ColorSwitcher.QColor colour)
         {
             return barsByColors.GetValueOrDefault(colour);
         }
@@ -60,7 +60,7 @@ namespace Code.Scripts.Player
         /// <param name="colour">The colour associated with the stamina bar</param>
         /// <param name="regenSpeed">The regeneration speed of the stamina bar</param>
         /// <param name="depleteSpeed">The depletion speed of the stamina bar</param>
-        public void AddBar(ColorSwitcher.QColour colour, float regenSpeed, float depleteSpeed, float initCut)
+        public void AddBar(ColorSwitcher.QColor colour, float regenSpeed, float depleteSpeed, float initCut)
         {
             barsByColors.Add(colour, new StaminaBar(regenSpeed, depleteSpeed, initCut));
         }
@@ -69,13 +69,13 @@ namespace Code.Scripts.Player
         /// Change bar colour and reset
         /// </summary>
         /// <param name="colour"></param>
-        private void SwitchColor(ColorSwitcher.QColour colour)
+        private void SwitchColor(ColorSwitcher.QColor colour)
         {
             fill.color = colour switch
             {
-                ColorSwitcher.QColour.Green => Color.green,
-                ColorSwitcher.QColour.Yellow => Color.yellow,
-                ColorSwitcher.QColour.Red => Color.red,
+                ColorSwitcher.QColor.Green => Color.green,
+                ColorSwitcher.QColor.Yellow => Color.yellow,
+                ColorSwitcher.QColor.Red => Color.red,
                 _ => fill.color
             };
         }

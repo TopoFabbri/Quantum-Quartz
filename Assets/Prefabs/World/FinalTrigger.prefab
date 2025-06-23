@@ -91,9 +91,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3609446074573815627}
+  - component: {fileID: 1770253459593370714}
   - component: {fileID: 3798390506869646785}
   - component: {fileID: 3037947966782043863}
-  - component: {fileID: 1770253459593370714}
   - component: {fileID: 3069803220419526134}
   - component: {fileID: 7357062984158339555}
   m_Layer: 7
@@ -120,6 +120,26 @@ Transform:
   - {fileID: 4014320864653981026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1770253459593370714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174416684811818906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4741ed2d80f2a32428efe6d94a7dd95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene:
+    asset: {fileID: 0}
+    guid: 00000000000000000000000000000000
+  currentLevel: 0
+  endLevelCanvas: {fileID: 0}
+  endLevelFirstSelectedButton: {fileID: 0}
+  playerGO: {fileID: 0}
+  inputManager: {fileID: 0}
 --- !u!61 &3798390506869646785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -210,26 +230,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &1770253459593370714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174416684811818906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4741ed2d80f2a32428efe6d94a7dd95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextScene:
-    asset: {fileID: 0}
-    guid: 00000000000000000000000000000000
-  currentLevel: 0
-  endLevelCanvas: {fileID: 0}
-  endLevelFirstSelectedButton: {fileID: 0}
-  playerGO: {fileID: 0}
-  inputManager: {fileID: 0}
 --- !u!212 &3069803220419526134
 SpriteRenderer:
   m_ObjectHideFlags: 0

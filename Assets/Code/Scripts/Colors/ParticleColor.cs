@@ -8,7 +8,7 @@ namespace Code.Scripts.Colors
     {
         [FormerlySerializedAs("colors")] [SerializeField] private List<Color> colours = new();
         [SerializeField] private ParticleSystem ps;
-        [SerializeField] private ColorSwitcher.QColour qColour;
+        [SerializeField] private ColorSwitcher.QColor qColour;
         
         private ParticleSystem.MainModule mainPs;
 
@@ -36,7 +36,7 @@ namespace Code.Scripts.Colors
             ColorSwitcher.ColorChanged -= OnColorSwitch;
         }
 
-        private void OnColorSwitch(ColorSwitcher.QColour colour)
+        private void OnColorSwitch(ColorSwitcher.QColor colour)
         {
             mainPs.startColor = colours[(int)colour];
         }

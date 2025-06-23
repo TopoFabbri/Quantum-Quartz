@@ -14,7 +14,7 @@ namespace Code.Scripts.States
     /// Manage player dash state
     /// </summary>
     /// <typeparam name="T">Id</typeparam>
-    public class DashState<T> : BaseState<T>, INoCoyoteTime
+    public class DashState<T> : BaseState<T>, INoCoyoteTime, IUnsafe
     {
         protected readonly DashSettings dashSettings;
 
@@ -38,8 +38,8 @@ namespace Code.Scripts.States
             this.barController = barController;
             this.dashParticleSystem = dashParticleSystem;
             
-            barController.AddBar(ColorSwitcher.QColour.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
-            barController.GetBar(ColorSwitcher.QColour.Red).AddConditionalRegenSpeed(() => sharedContext.IsGrounded ? dashSettings.staminaFloorRegenSpeed : null);
+            barController.AddBar(ColorSwitcher.QColor.Red, dashSettings.staminaRegenSpeed, dashSettings.staminaMitigationAmount, 0f);
+            barController.GetBar(ColorSwitcher.QColor.Red).AddConditionalRegenSpeed(() => sharedContext.IsGrounded ? dashSettings.staminaFloorRegenSpeed : null);
         }
 
         public override void OnEnter()
@@ -58,7 +58,7 @@ namespace Code.Scripts.States
             sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
             sharedContext.MonoBehaviour.StartCoroutine(EndDash());
-            barController.GetBar(ColorSwitcher.QColour.Red).Use();
+            barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 
         public override void OnExit()
@@ -72,13 +72,13 @@ namespace Code.Scripts.States
             sharedContext.SetFalling(true);
             sharedContext.BlockMoveInput = false;
 
-            barController.GetBar(ColorSwitcher.QColour.Red).Use();
+            barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            barController.GetBar(ColorSwitcher.QColour.Red).Use();
+            barController.GetBar(ColorSwitcher.QColor.Red).Use();
 
             if (WallCheck())
             {

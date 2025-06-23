@@ -13,7 +13,7 @@ namespace Code.Scripts.Level
         [SerializeField] private GameObject statesText;
         public bool isTimerOn;
 
-        private bool ended;
+        private int CurrentLevel => LevelChanger.Instance.CurrentLevel;
 
         private void Start()
         {
@@ -35,7 +35,7 @@ namespace Code.Scripts.Level
 
         private void OnDestroy()
         {
-            SfxController.MusicOnOff(false, gameObject);
+            SfxController.StopAllOn(gameObject);
         }
 
         private void OnEnable()
@@ -81,6 +81,21 @@ namespace Code.Scripts.Level
         public TextMeshProUGUI GetTimerText()
         {
             return timerTxt;
+        }
+
+        public Timer GetLevelTime()
+        {
+            return Stats.GetLevelTime(CurrentLevel);
+        }
+
+        public void PickUpCollectible(int id)
+        {
+            Stats.PickUpCollectible(CurrentLevel, id);
+        }
+
+        public bool HasCollectible(int id)
+        {
+            return Stats.HasCollectible(CurrentLevel, id);
         }
     }
 }

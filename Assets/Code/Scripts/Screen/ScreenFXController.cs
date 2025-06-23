@@ -54,7 +54,7 @@ namespace Code.Scripts.Screen
         /// Handle color switched
         /// </summary>
         /// <param name="colour">New color</param>
-        private void OnSwitchColorHandler(ColorSwitcher.QColour colour)
+        private void OnSwitchColorHandler(ColorSwitcher.QColor colour)
         {
             animator.SetBool(SwitchedColor, true);
         }
