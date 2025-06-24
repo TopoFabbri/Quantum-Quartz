@@ -106,7 +106,7 @@ public class FireflyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.CompareTag("Player"))
+        if (col.isTrigger || !col.CompareTag("Player"))
             return;
 
         light.enabled = true;
@@ -116,7 +116,7 @@ public class FireflyController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (!col.CompareTag("Player"))
+        if (col.isTrigger || !col.CompareTag("Player"))
             return;
 
         light.enabled = false;
