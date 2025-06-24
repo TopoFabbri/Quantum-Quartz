@@ -11,6 +11,7 @@ namespace Code.Scripts.Player
         [SerializeField] private float maxSpeed = 5f;
         [SerializeField] private float yAdjustment = 1;
         [SerializeField] private AnimationCurve speedCurve;
+        [SerializeField] private float minImpulse = 1;
         [SerializeField] private float maxRotationSpeed = 200f;
         [SerializeField] private float collisionTime = 3f;
         [SerializeField] private float minCollisionDist = 0.5f;
@@ -20,6 +21,7 @@ namespace Code.Scripts.Player
 
         private bool colliding;
         private int defLayer;
+        private Coroutine coroutine;
 
         private void Start()
         {
@@ -63,7 +65,17 @@ namespace Code.Scripts.Player
             if (!other.gameObject.CompareTag("Player"))
                 return;
 
-            StartCoroutine(WaitAndResetRb(collisionTime));
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+
+            if (!colliding && rb.velocity.magnitude < minImpulse)
+            {
+                rb.velocity = rb.velocity.normalized * minImpulse;
+            }
+
+            coroutine = StartCoroutine(WaitAndResetRb(collisionTime));
             colliding = true;
             rb.gravityScale = 1f;
             animator.SetBool("Broken", colliding);
@@ -83,6 +95,7 @@ namespace Code.Scripts.Player
             rb.gravityScale = 0f;
             animator.SetBool("Broken", colliding);
             gameObject.layer = defLayer;
+            coroutine = null;
         }
     }
 }
