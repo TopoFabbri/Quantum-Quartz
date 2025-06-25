@@ -599,9 +599,15 @@
 									<ChildrenList>
 										<MusicTrack Name="Intro" ID="{DE0BBB21-7C29-483D-86EC-A04B862AFBC9}" ShortID="803697099">
 											<PropertyList>
+												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
 														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -734,6 +740,19 @@
 											</ObjectLists>
 										</MusicTrack>
 										<MusicTrack Name="QQ_Adventurer_Puzzle_Intro" ID="{2891B4E0-BB8B-4612-8EC5-C0F73E73E17A}" ShortID="934281076">
+											<PropertyList>
+												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
@@ -1208,6 +1227,19 @@
 									</ReferenceList>
 									<ChildrenList>
 										<MusicTrack Name="End" ID="{95BA8B97-469A-403C-89B9-49ADDA8AC65E}" ShortID="252824954">
+											<PropertyList>
+												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
@@ -1280,6 +1312,19 @@
 											</ObjectLists>
 										</MusicTrack>
 										<MusicTrack Name="QQ_Adventurer_Puzzle_End" ID="{CB8D581B-F640-43EA-9DDB-22B75942BECA}" ShortID="218509730">
+											<PropertyList>
+												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
