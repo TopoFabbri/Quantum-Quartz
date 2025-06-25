@@ -326,7 +326,7 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(wjmp, djmp, new[] { "DoubleJumpPressed" });
             stateMachine.AddTransition(spng, djmp, new[] { "DoubleJumpPressed" });
 
-            // Double Jump transitions
+            // Wall transitions
             // - Fall        >
             // - Jump        >
             // - Double Jump >
