@@ -37,6 +37,8 @@ namespace AK
         static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
         static const AkUniqueID SET_STATE_MUSIC_INGAME = 2405722263U;
         static const AkUniqueID SET_STATE_MUSIC_PAUSE = 2666093702U;
+        static const AkUniqueID SET_STATE_MUSICPUZZLE_OFF = 2818173839U;
+        static const AkUniqueID SET_STATE_MUSICPUZZLE_ON = 368556571U;
         static const AkUniqueID SET_SWITCH_CONCRETE = 3543386712U;
         static const AkUniqueID SET_SWITCH_CRISTAL_PLATFORMS = 4131070040U;
         static const AkUniqueID SET_SWITCH_METAL = 708957530U;

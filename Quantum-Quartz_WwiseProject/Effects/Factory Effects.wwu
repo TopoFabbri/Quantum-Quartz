@@ -137,8 +137,8 @@
 						</Effect>
 						<Effect Name="Nearly_Forever" ID="{38550FDA-9236-4FC5-8AE0-68DB08164B25}" PluginName="Wwise Delay" CompanyID="0" PluginID="106" PluginType="3">
 							<PropertyList>
-								<Property Name="DelayTime" Type="Real32" Value="0.6"/>
-								<Property Name="Feedback" Type="Real32" Value="80"/>
+								<Property Name="DelayTime" Type="Real32" Value="0.03"/>
+								<Property Name="Feedback" Type="Real32" Value="64.5"/>
 								<Property Name="WetDryMix" Type="Real32" Value="30"/>
 							</PropertyList>
 						</Effect>
@@ -693,6 +693,12 @@
 								<Property Name="ReverbTime" Type="Real32" Value="2"/>
 								<Property Name="WetLevel" Type="Real32" Value="-30"/>
 							</PropertyList>
+							<StateInfo>
+								<StatePropertyList>
+									<Property Name="DryLevel"/>
+									<Property Name="WetLevel"/>
+								</StatePropertyList>
+							</StateInfo>
 						</Effect>
 						<Effect Name="Large_Bright_Chamber1" ID="{0BFA2291-5716-4759-AC24-F59D29E8F2E4}" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
 							<PropertyList>
@@ -746,9 +752,10 @@
 						</Effect>
 						<Effect Name="Tunnel1" ID="{CC44B890-9865-4157-965F-86FED27BC4C6}" PluginName="Wwise Matrix Reverb" CompanyID="0" PluginID="115" PluginType="3">
 							<PropertyList>
-								<Property Name="HFRatio" Type="Real32" Value="9.5"/>
+								<Property Name="HFRatio" Type="Real32" Value="0.5"/>
 								<Property Name="NumberOfDelays" Type="int32" Value="12"/>
-								<Property Name="ReverbTime" Type="Real32" Value="5"/>
+								<Property Name="PreDelay" Type="Real32" Value="0.45"/>
+								<Property Name="ReverbTime" Type="Real32" Value="9.3"/>
 								<Property Name="WetLevel" Type="Real32" Value="-30"/>
 							</PropertyList>
 						</Effect>
@@ -1679,9 +1686,14 @@
 						<Effect Name="Fear_no_Evil" ID="{A1F17D99-0801-4F32-B74E-ADB2D9ACC556}" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
 							<PropertyList>
 								<Property Name="DryLevel" Type="Real32" Value="-3"/>
-								<Property Name="Voice1Pitch" Type="Real32" Value="-100"/>
+								<Property Name="Input" Type="int32" Value="2"/>
+								<Property Name="Voice1Enable" Type="bool" Value="False"/>
+								<Property Name="Voice1FilterFrequency" Type="Real32" Value="81"/>
+								<Property Name="Voice1FilterQFactor" Type="Real32" Value="4.9"/>
+								<Property Name="Voice1Pitch" Type="Real32" Value="2400"/>
 								<Property Name="Voice2Enable" Type="bool" Value="True"/>
-								<Property Name="Voice2Pitch" Type="Real32" Value="100"/>
+								<Property Name="Voice2Pitch" Type="Real32" Value="1200"/>
+								<Property Name="WindowSize" Type="int32" Value="256"/>
 							</PropertyList>
 						</Effect>
 						<Effect Name="Secret_message" ID="{2F5DE612-1AAD-4A84-8FB4-3E66521C920E}" PluginName="Wwise Harmonizer" CompanyID="0" PluginID="138" PluginType="3">
@@ -1965,7 +1977,10 @@
 							<ChildrenList>
 								<Effect Name="Chipmunk" ID="{54F9F04F-0D14-46AB-B38B-21CFD2EB46F6}" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
 									<PropertyList>
-										<Property Name="Pitch" Type="Real32" Value="1200"/>
+										<Property Name="DelayTime" Type="Real32" Value="100"/>
+										<Property Name="FilterFrequency" Type="Real32" Value="8751"/>
+										<Property Name="FilterType" Type="int32" Value="4"/>
+										<Property Name="Pitch" Type="Real32" Value="-1200"/>
 									</PropertyList>
 								</Effect>
 								<Effect Name="Monsterize" ID="{99F80B38-1C45-42CE-9BCD-E94F3885DCAA}" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">

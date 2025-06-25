@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E6BBAFD3-6F84-88C4-4075-06B2CEB1A319}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{690A89AF-CB59-88A7-4B44-49DAD35F127E}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -93,7 +93,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{92089291-EA20-3714-508F-F9DDC0C982A1}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{055ECDB5-8C05-E6EA-01DB-212FF792C1C5}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -984,6 +984,16 @@
 						<ActionSetStateEntry GroupId="1021618141" Id="3092587493" Name="Pause"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="2818173839" Name="Set_State_MusicPuzzle_Off" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="4281606737" Id="930712164" Name="Off"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="368556571" Name="Set_State_MusicPuzzle_On" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="4281606737" Id="1651971902" Name="On"/>
+					</ActionSetState>
+				</Event>
 				<Event Id="3543386712" Name="Set_Switch_Concrete" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
 						<ActionSetSwitchEntry GroupId="3586861854" Id="841620460" Name="Concrete"/>
@@ -1033,5 +1043,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{C47E18A8-599B-E1DC-CE65-0A898CDAE7B0}</FileHash>
+	<FileHash>{EB1A5219-AD7C-4EA8-86B0-0BA42E5C95DD}</FileHash>
 </SoundBanksInfo>
