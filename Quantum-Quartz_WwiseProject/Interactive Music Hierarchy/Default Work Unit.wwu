@@ -827,7 +827,7 @@
 								</MusicSegment>
 								<MusicSegment Name="Adventurer_MainLP" ID="{8865135D-92D6-4CBE-B8B8-4BF7598D4C54}" ShortID="655845405">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="225103.458333333"/>
+										<Property Name="EndPosition" Type="Real64" Value="114058.897180941"/>
 										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
@@ -857,6 +857,11 @@
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
 														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -926,7 +931,7 @@
 																				<MusicClip Name="Adventurer - Loop" ID="{A2822E1A-0496-4CE1-8AFA-980E8F08D31C}">
 																					<PropertyList>
 																						<Property Name="BeginTrimOffset" Type="Real64" Value="19862.0689655172"/>
-																						<Property Name="EndTrimOffset" Type="Real64" Value="132413.793103448"/>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="132413.798132184"/>
 																						<Property Name="FadeInMode" Type="int16" Value="0"/>
 																						<Property Name="PlayAt" Type="Real64" Value="-19862.0689655172"/>
 																					</PropertyList>
@@ -944,7 +949,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>132.41379</XPos>
+																										<XPos>132.4138</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -963,7 +968,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>132.41379</XPos>
+																										<XPos>132.4138</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -982,7 +987,7 @@
 																										<Flags>5</Flags>
 																									</Point>
 																									<Point>
-																										<XPos>132.41379</XPos>
+																										<XPos>132.4138</XPos>
 																										<YPos>0</YPos>
 																										<Flags>37</Flags>
 																									</Point>
@@ -1002,6 +1007,18 @@
 											</ObjectLists>
 										</MusicTrack>
 										<MusicTrack Name="QQ_Adventurer_Puzzle_Loop" ID="{082EF71B-6ACF-4F2B-A336-045CB5796D70}" ShortID="263416739">
+											<PropertyList>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="DefaultSwitchOrState">
 													<ObjectRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
@@ -1067,11 +1084,70 @@
 																			<Local>
 																				<MusicClip Name="QQ_Adventurer_Puzzle_Loop" ID="{F9C97B5E-5668-4D8F-A507-C36EDD74B01A}">
 																					<PropertyList>
-																						<Property Name="EndTrimOffset" Type="Real64" Value="225103.458333333"/>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="112551.729166667"/>
 																						<Property Name="FadeInMode" Type="int16" Value="0"/>
 																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
 																					<AudioSourceRef Name="QQ_Adventurer_Puzzle_Loop" ID="{4F42DF88-2B60-4983-BDBB-2F0AFECDE795}"/>
+																					<PropertyCurveList>
+																						<PropertyCurve PropertyName="Highpass">
+																							<Curve Name="" ID="{A4D3A111-B00A-48D3-B080-C5D0B64073FB}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>112.55173</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Lowpass">
+																							<Curve Name="" ID="{6815C9BD-390A-4EC8-AEED-480028C450BB}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>112.55173</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Volume">
+																							<Curve Name="" ID="{D3829B8B-9E6E-47BB-A655-806D9BF7FCF8}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="3"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>112.55173</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																					</PropertyCurveList>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -1096,7 +1172,7 @@
 													<MusicCue Name="Exit Cue" ID="{E4370008-8FCA-473E-8A09-8968C4630F77}">
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
-															<Property Name="TimeMs" Type="Real64" Value="112551.729166667"/>
+															<Property Name="TimeMs" Type="Real64" Value="112551.724137931"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
