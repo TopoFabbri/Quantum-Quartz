@@ -1201,7 +1201,7 @@
 								</MusicSegment>
 								<MusicSegment Name="Adventurer_End" ID="{7027F692-24ED-474F-8820-E87E794E8CDE}" ShortID="592345059">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="18393.2083333333"/>
+										<Property Name="EndPosition" Type="Real64" Value="13364.9876969423"/>
 										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
@@ -1379,11 +1379,70 @@
 																			<Local>
 																				<MusicClip Name="QQ_Adventurer_Puzzle_End" ID="{78BE96DE-7CE6-4339-BEA5-1CCA80FD23DF}">
 																					<PropertyList>
-																						<Property Name="EndTrimOffset" Type="Real64" Value="18393.2083333333"/>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="13241.3958333333"/>
 																						<Property Name="FadeInMode" Type="int16" Value="0"/>
 																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
 																					<AudioSourceRef Name="QQ_Adventurer_Puzzle_End" ID="{97B1FD72-3A39-4346-ADBF-68D5CAF98053}"/>
+																					<PropertyCurveList>
+																						<PropertyCurve PropertyName="Highpass">
+																							<Curve Name="" ID="{5CCD76FA-1402-46B8-AC1B-AA570027DE19}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>13.2414</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Lowpass">
+																							<Curve Name="" ID="{358CF38F-63A6-4A64-A6CD-F76E6231CC06}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>13.2414</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Volume">
+																							<Curve Name="" ID="{FA79D76A-DD81-4F84-A698-A647E31D8792}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="3"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>13.2414</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																					</PropertyCurveList>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -1485,6 +1544,15 @@
 							</Playlist>
 						</MusicPlaylistContainer>
 					</ChildrenList>
+					<StateInfo>
+						<StatePropertyList>
+							<Property Name="BypassEffect"/>
+							<Property Name="Highpass"/>
+							<Property Name="Lowpass"/>
+							<Property Name="MakeUpGain"/>
+							<Property Name="Volume"/>
+						</StatePropertyList>
+					</StateInfo>
 					<TransitionList>
 						<MusicTransition Name="Root" ID="{22A7F702-B460-4293-B204-C45465A01BA8}">
 							<PropertyList>

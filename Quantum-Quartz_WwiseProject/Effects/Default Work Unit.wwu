@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{51406C8E-662A-4DBA-9CD8-66D40AA60FCE}" SchemaVersion="110">
 	<Effects>
-		<WorkUnit Name="Default Work Unit" ID="{51406C8E-662A-4DBA-9CD8-66D40AA60FCE}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{51406C8E-662A-4DBA-9CD8-66D40AA60FCE}" PersistMode="Standalone">
+			<ChildrenList>
+				<Effect Name="QQ_Time_Stretch" ID="{6EA2298B-78FC-4072-B058-8D50BD6F1574}" PluginName="Wwise Time Stretch" CompanyID="0" PluginID="130" PluginType="3">
+					<PropertyList>
+						<Property Name="PitchShift" Type="Real32" Value="-700"/>
+						<Property Name="TimeStretch" Type="Real32" Value="1600"/>
+						<Property Name="TimeStretchRandom" Type="Real32" Value="200"/>
+						<Property Name="WindowSize" Type="int32" Value="8192"/>
+					</PropertyList>
+					<StateInfo>
+						<StatePropertyList>
+							<Property Name="OutputGain"/>
+						</StatePropertyList>
+					</StateInfo>
+				</Effect>
+			</ChildrenList>
+		</WorkUnit>
 	</Effects>
 </WwiseDocument>
