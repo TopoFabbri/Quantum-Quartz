@@ -19,8 +19,9 @@ namespace Code.Scripts.Dialogue
         [System.Serializable]
         public struct TextBox
         {
-            public LocalizedString text;
+            [SerializeField] private LocalizedString text;
             public PortraitAnimation portrait;
+            public string Text => text.GetLocalizedString();
         }
 
         public List<TextBox> textBoxes;
