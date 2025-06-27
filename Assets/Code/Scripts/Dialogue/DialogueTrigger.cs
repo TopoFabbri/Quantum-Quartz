@@ -20,29 +20,20 @@ namespace Code.Scripts.Dialogue
         private void OnTriggerEnter2D(Collider2D col)
         {
             gameObject.GetComponent<Collider2D>().enabled = false;
-            StartConversation();
-        }
-
-        private void StartConversation()
-        {
-            foreach (Conversation.TextBox textBox in conversation.textBoxes)
+            if (reusable)
             {
-                Debug.Log(textBox.Text);
+                DialogueManager.Instance.StartDialogue(conversation, OnConversationEnd);
             }
-
-            OnConversationEnd();
+            else
+            {
+                DialogueManager.Instance.StartDialogue(conversation, null);
+                Destroy(gameObject);
+            }
         }
 
         private void OnConversationEnd()
         {
-            if (reusable)
-            {
-                gameObject.GetComponent<Collider2D>().enabled = true;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            gameObject.GetComponent<Collider2D>().enabled = true;
         }
     }
 }
