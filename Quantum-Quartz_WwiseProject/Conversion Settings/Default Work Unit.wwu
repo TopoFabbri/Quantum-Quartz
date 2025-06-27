@@ -19,14 +19,24 @@
 						</Property>
 						<Property Name="MaxSampleRate" Type="int32">
 							<ValueList>
-								<Value Platform="Mac">0</Value>
-								<Value Platform="Windows">0</Value>
+								<Value Platform="Mac">48000</Value>
+								<Value Platform="Windows">48000</Value>
 							</ValueList>
 						</Property>
 						<Property Name="MinSampleRate" Type="int32">
 							<ValueList>
-								<Value Platform="Mac">0</Value>
-								<Value Platform="Windows">0</Value>
+								<Value Platform="Mac">48000</Value>
+								<Value Platform="Windows">48000</Value>
+							</ValueList>
+						</Property>
+						<Property Name="RemoveDCOffset" Type="bool">
+							<ValueList>
+								<Value>True</Value>
+							</ValueList>
+						</Property>
+						<Property Name="SRConversionQuality" Type="int32">
+							<ValueList>
+								<Value>1</Value>
 							</ValueList>
 						</Property>
 						<Property Name="SampleRate" Type="int32">
@@ -35,13 +45,23 @@
 								<Value Platform="Windows">0</Value>
 							</ValueList>
 						</Property>
+						<Property Name="UseDither" Type="bool">
+							<ValueList>
+								<Value>True</Value>
+							</ValueList>
+						</Property>
+						<Property Name="UseFilenameMarker" Type="bool">
+							<ValueList>
+								<Value>True</Value>
+							</ValueList>
+						</Property>
 					</PropertyList>
 					<ConversionPluginInfoList>
 						<ConversionPluginInfo Platform="Mac">
-							<ConversionPlugin Name="" ID="{A6E7D40F-CBEE-4468-9A4E-15CA43BDA3E2}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+							<ConversionPlugin Name="" ID="{B344A807-33E1-4F76-8F91-7511EC215CA2}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 						</ConversionPluginInfo>
 						<ConversionPluginInfo Platform="Windows">
-							<ConversionPlugin Name="" ID="{BEBE0742-C70E-4BEC-BAB1-D08862BF091F}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+							<ConversionPlugin Name="" ID="{9CAC6AC7-0C19-4D71-A33B-C2E968BFC8BE}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 						</ConversionPluginInfo>
 					</ConversionPluginInfoList>
 				</Conversion>
