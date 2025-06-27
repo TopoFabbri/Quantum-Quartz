@@ -10,10 +10,11 @@
 				<ActorMixer Name="Molly" ID="{9BAAFB8B-50DD-4D79-B1D9-AE7B57513CA7}" ShortID="528752926">
 					<PropertyList>
 						<Property Name="Color" Type="int16" Value="10"/>
+						<Property Name="OverrideConversion" Type="bool" Value="True"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+							<ObjectRef Name="ADPCM Auto Detect High" ID="{6D51666E-9C7A-40E4-831D-C445512EBABD}" WorkUnitID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}"/>
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Player" ID="{76F33978-8DC4-4D24-B8BD-045C10039FF0}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
@@ -108,6 +109,7 @@
 				</ActorMixer>
 				<ActorMixer Name="Luciernagas" ID="{DBD79656-1CD9-47B9-A149-4BF779368512}" ShortID="562656695">
 					<PropertyList>
+						<Property Name="OverrideConversion" Type="bool" Value="True"/>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
 								<Value>-4</Value>
@@ -116,7 +118,7 @@
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+							<ObjectRef Name="ADPCM Auto Detect High" ID="{6D51666E-9C7A-40E4-831D-C445512EBABD}" WorkUnitID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}"/>
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>

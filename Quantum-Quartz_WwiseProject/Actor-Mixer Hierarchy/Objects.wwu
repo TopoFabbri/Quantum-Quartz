@@ -4,9 +4,12 @@
 		<WorkUnit Name="Objects" ID="{77617477-8570-4C40-8511-92B223B44835}" OwnerID="{29555E3E-8D7B-4533-8CFE-63724C3688F7}" PersistMode="Nested">
 			<ChildrenList>
 				<ActorMixer Name="Steampunk_Objects" ID="{EC36C326-7D1B-4D8D-B951-A1A8F42E0394}" ShortID="121418429">
+					<PropertyList>
+						<Property Name="OverrideConversion" Type="bool" Value="True"/>
+					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+							<ObjectRef Name="ADPCM Auto Detect High" ID="{6D51666E-9C7A-40E4-831D-C445512EBABD}" WorkUnitID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}"/>
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Ambs" ID="{0FAAA135-8F87-43D4-88AB-7273B3AE048F}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
