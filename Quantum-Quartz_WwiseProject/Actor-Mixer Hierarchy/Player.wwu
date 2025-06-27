@@ -4,6 +4,7 @@
 		<WorkUnit Name="Player" ID="{64F6236D-430F-481B-8F9B-D0684B5F269B}" PersistMode="Standalone">
 			<PropertyList>
 				<Property Name="Color" Type="int16" Value="10"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
 			</PropertyList>
 			<ChildrenList>
 				<ActorMixer Name="Molly" ID="{9BAAFB8B-50DD-4D79-B1D9-AE7B57513CA7}" ShortID="528752926">
@@ -103,6 +104,70 @@
 						</BlendContainer>
 						<WorkUnit Name="Footsteps" ID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}" PersistMode="Reference"/>
 						<WorkUnit Name="Locomotion" ID="{D96D9E74-137A-475E-9466-F985A7B49511}" PersistMode="Reference"/>
+					</ChildrenList>
+				</ActorMixer>
+				<ActorMixer Name="Luciernagas" ID="{DBD79656-1CD9-47B9-A149-4BF779368512}" ShortID="562656695">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-4</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" ShortID="522230828">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>710</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-6</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="QQ_Luciernagas" ID="{41B966B5-CBC6-43A1-80B9-06C0BA30CEE9}">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="3.13394769659624"/>
+										<Property Name="FadeOutDuration" Type="Real64" Value="6.89468493251175"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>QQ_Luciernagas.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="766339141"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="QQ_Luciernagas" ID="{41B966B5-CBC6-43A1-80B9-06C0BA30CEE9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 			</ChildrenList>

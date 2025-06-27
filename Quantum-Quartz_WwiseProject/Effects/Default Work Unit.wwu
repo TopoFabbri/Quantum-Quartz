@@ -5,9 +5,8 @@
 			<ChildrenList>
 				<Effect Name="QQ_Time_Stretch" ID="{6EA2298B-78FC-4072-B058-8D50BD6F1574}" PluginName="Wwise Time Stretch" CompanyID="0" PluginID="130" PluginType="3">
 					<PropertyList>
-						<Property Name="PitchShift" Type="Real32" Value="-700"/>
-						<Property Name="TimeStretch" Type="Real32" Value="1600"/>
-						<Property Name="TimeStretchRandom" Type="Real32" Value="200"/>
+						<Property Name="PitchShift" Type="Real32" Value="-1200"/>
+						<Property Name="TimeStretch" Type="Real32" Value="337"/>
 						<Property Name="WindowSize" Type="int32" Value="8192"/>
 					</PropertyList>
 					<StateInfo>
@@ -15,6 +14,45 @@
 							<Property Name="OutputGain"/>
 						</StatePropertyList>
 					</StateInfo>
+					<ObjectLists>
+						<ObjectList Name="RTPC">
+							<Reference>
+								<Local>
+									<RTPC Name="" ID="{0EAB7953-EBE6-45AD-A89A-9AFD68BC758B}" ShortID="1071709287">
+										<PropertyList>
+											<Property Name="PropertyName" Type="string" Value="PitchShift"/>
+										</PropertyList>
+										<ReferenceList>
+											<Reference Name="ControlInput">
+												<ObjectRef Name="MX_Pitchshift_Mod" ID="{A799752B-7872-4A94-9D27-B3CA2BE9B14E}" WorkUnitID="{16631D24-2B01-452D-B515-E672502F317A}"/>
+											</Reference>
+											<Reference Name="Curve">
+												<Custom>
+													<Curve Name="" ID="{A5E22279-3A5D-460F-BC1F-1858A3141560}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="1"/>
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>0</YPos>
+																<Flags>21</Flags>
+															</Point>
+															<Point>
+																<XPos>1</XPos>
+																<YPos>50</YPos>
+																<Flags>53</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</Custom>
+											</Reference>
+										</ReferenceList>
+									</RTPC>
+								</Local>
+							</Reference>
+						</ObjectList>
+					</ObjectLists>
 				</Effect>
 			</ChildrenList>
 		</WorkUnit>

@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{37AE0ED7-AAD5-CC2E-5A0C-1E967DFFECD7}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{448B0BEA-E4FC-2BAC-4959-C59120533EC8}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -100,7 +100,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="4273807421" Type="User" Language="SFX" Hash="{D50486DE-ADDE-43BB-7FFE-CC21BBCA773C}">
+		<SoundBank Id="4273807421" Type="User" Language="SFX" Hash="{CD5134FD-6084-F41E-76F1-9C31DA05C62C}">
 			<ShortName>SBnk_Steampunk_Stage</ShortName>
 			<Path>SBnk_Steampunk_Stage.bnk</Path>
 			<Media>
@@ -524,6 +524,10 @@
 					<ShortName>Buzz_Saw_Layer-005.wav</ShortName>
 					<CachePath>SFX/Buzz_Saw_Layer-005_686156BF.wem</CachePath>
 				</File>
+				<File Id="766339141" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Luciernagas.wav</ShortName>
+					<CachePath>SFX/QQ_Luciernagas_0825EC6C.wem</CachePath>
+				</File>
 				<File Id="777340066" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-008.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-008_4DA1AA71.wem</CachePath>
@@ -687,6 +691,9 @@
 				<Custom>
 					<Plugin Id="381834387" Name="Parametric EQ (Custom)" LibName="Wwise Parametric EQ" LibId="6881283"/>
 				</Custom>
+				<ShareSets>
+					<Plugin Id="2172033555" Name="QQ_Time_Stretch" LibName="Wwise Time Stretch" LibId="8519683"/>
+				</ShareSets>
 			</Plugins>
 			<Events>
 				<Event Id="2848448515" Name="Play_Basic_Jump" DurationType="OneShot" DurationMin="0.06835417" DurationMax="0.06835417">
@@ -887,6 +894,132 @@
 								</SwitchContainer>
 							</Children>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="5402978"/>
+										<MediaRef Id="49726500"/>
+										<MediaRef Id="124247045"/>
+										<MediaRef Id="128474236"/>
+										<MediaRef Id="192936632"/>
+										<MediaRef Id="236984613"/>
+										<MediaRef Id="271393065"/>
+										<MediaRef Id="283864771"/>
+										<MediaRef Id="302420005"/>
+										<MediaRef Id="315952504"/>
+										<MediaRef Id="316699522"/>
+										<MediaRef Id="397686389"/>
+										<MediaRef Id="413672958"/>
+										<MediaRef Id="414913162"/>
+										<MediaRef Id="446586235"/>
+										<MediaRef Id="503771883"/>
+										<MediaRef Id="560813382"/>
+										<MediaRef Id="595934151"/>
+										<MediaRef Id="600393049"/>
+										<MediaRef Id="661691748"/>
+										<MediaRef Id="670787781"/>
+										<MediaRef Id="728419561"/>
+										<MediaRef Id="742299575"/>
+										<MediaRef Id="743409494"/>
+										<MediaRef Id="800179235"/>
+										<MediaRef Id="806524630"/>
+										<MediaRef Id="807661749"/>
+										<MediaRef Id="841600986"/>
+										<MediaRef Id="854077163"/>
+										<MediaRef Id="885686076"/>
+										<MediaRef Id="906701666"/>
+										<MediaRef Id="947895533"/>
+										<MediaRef Id="954933478"/>
+										<MediaRef Id="998000307"/>
+										<MediaRef Id="1018597292"/>
+										<MediaRef Id="1033624229"/>
+										<MediaRef Id="1044412963"/>
+									</MediaRefs>
+									<Children>
+										<SwitchContainer>
+											<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
+											<MediaRefs>
+												<MediaRef Id="10333130"/>
+												<MediaRef Id="735533881"/>
+												<MediaRef Id="906006272"/>
+											</MediaRefs>
+										</SwitchContainer>
+									</Children>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
+									<MediaRefs>
+										<MediaRef Id="17443080"/>
+										<MediaRef Id="28636868"/>
+										<MediaRef Id="33755011"/>
+										<MediaRef Id="249457665"/>
+										<MediaRef Id="252607925"/>
+										<MediaRef Id="385139575"/>
+										<MediaRef Id="480827525"/>
+										<MediaRef Id="672188993"/>
+										<MediaRef Id="672981343"/>
+										<MediaRef Id="695130860"/>
+										<MediaRef Id="777340066"/>
+										<MediaRef Id="820823285"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="17366721"/>
+										<MediaRef Id="30026640"/>
+										<MediaRef Id="43028668"/>
+										<MediaRef Id="119363177"/>
+										<MediaRef Id="119457110"/>
+										<MediaRef Id="121997892"/>
+										<MediaRef Id="173228913"/>
+										<MediaRef Id="231733684"/>
+										<MediaRef Id="243878753"/>
+										<MediaRef Id="268259119"/>
+										<MediaRef Id="279424501"/>
+										<MediaRef Id="288798525"/>
+										<MediaRef Id="311291390"/>
+										<MediaRef Id="319367561"/>
+										<MediaRef Id="368943550"/>
+										<MediaRef Id="372306415"/>
+										<MediaRef Id="382921185"/>
+										<MediaRef Id="469029252"/>
+										<MediaRef Id="487891851"/>
+										<MediaRef Id="489545332"/>
+										<MediaRef Id="493023189"/>
+										<MediaRef Id="525914837"/>
+										<MediaRef Id="549926341"/>
+										<MediaRef Id="560802341"/>
+										<MediaRef Id="615289234"/>
+										<MediaRef Id="642864624"/>
+										<MediaRef Id="699555885"/>
+										<MediaRef Id="724976298"/>
+										<MediaRef Id="783385467"/>
+										<MediaRef Id="793874521"/>
+										<MediaRef Id="809838471"/>
+										<MediaRef Id="847615794"/>
+										<MediaRef Id="862774514"/>
+										<MediaRef Id="903032575"/>
+										<MediaRef Id="920848648"/>
+										<MediaRef Id="926326807"/>
+										<MediaRef Id="978274282"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 				<Event Id="2170076162" Name="Play_Hit_Chains" DurationType="OneShot" DurationMin="0.24434546" DurationMax="0.86661875">
@@ -955,12 +1088,72 @@
 								</SwitchContainer>
 							</Children>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="841620460" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="10333130"/>
+										<MediaRef Id="735533881"/>
+										<MediaRef Id="906006272"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="1403804780"/>
+									<MediaRefs>
+										<MediaRef Id="67995237"/>
+										<MediaRef Id="104324263"/>
+										<MediaRef Id="174589174"/>
+										<MediaRef Id="229211874"/>
+										<MediaRef Id="354437593"/>
+										<MediaRef Id="381624687"/>
+										<MediaRef Id="450505302"/>
+										<MediaRef Id="531548991"/>
+										<MediaRef Id="690073225"/>
+										<MediaRef Id="719909032"/>
+										<MediaRef Id="799062548"/>
+									</MediaRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246"/>
+							<Children>
+								<SwitchContainer>
+									<SwitchValue GroupType="Switch" GroupId="3586861854" Id="2473969246" Default="true"/>
+									<MediaRefs>
+										<MediaRef Id="155892356"/>
+										<MediaRef Id="869910401"/>
+										<MediaRef Id="972474975"/>
+									</MediaRefs>
+									<PluginRefs>
+										<Custom>
+											<PluginRef Id="381834387"/>
+										</Custom>
+									</PluginRefs>
+								</SwitchContainer>
+							</Children>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 				<Event Id="718252718" Name="Play_Laser_LP" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="151863213"/>
 					</MediaRefs>
+				</Event>
+				<Event Id="3912385716" Name="Play_Luciernagas" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="766339141"/>
+					</MediaRefs>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
+					</ActionSetState>
 				</Event>
 				<Event Id="3893832595" Name="Play_SP_Amb_Steam" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
@@ -982,6 +1175,11 @@
 						<MediaRef Id="585198590"/>
 						<MediaRef Id="812185611"/>
 					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="2172033555"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
 					<MediaRefs>
@@ -1026,9 +1224,28 @@
 						<ActionSetSwitchEntry GroupId="3586861854" Id="2473969246" Name="Metal"/>
 					</ActionSetSwitch>
 				</Event>
-				<Event Id="1386925776" Name="Stop_Laser_LP" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="1386925776" Name="Stop_Laser_LP" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="151863213"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="119388346" Name="Stop_Luciernagas" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="766339141"/>
+					</MediaRefs>
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="2466252489" Id="930712164" Name="Off"/>
+					</ActionSetState>
+				</Event>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
-				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="10060735"/>
+						<MediaRef Id="237036231"/>
+						<MediaRef Id="862457260"/>
+						<MediaRef Id="948792412"/>
+					</MediaRefs>
+				</Event>
 			</Events>
 			<GameParameters>
 				<GameParameter Id="1354283134" Name="RTPC_SawsOnScreen"/>
@@ -1039,6 +1256,13 @@
 						<State Id="748895195" Name="None"/>
 						<State Id="984691642" Name="Ingame"/>
 						<State Id="3092587493" Name="Pause"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="2466252489" Name="Luciernagas">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="930712164" Name="Off"/>
+						<State Id="1651971902" Name="On"/>
 					</States>
 				</StateGroup>
 				<StateGroup Id="4281606737" Name="MusicPuzzleState">
@@ -1060,5 +1284,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BC628EE7-FE45-7DB1-A801-406E8CD65B77}</FileHash>
+	<FileHash>{D5D61A5D-B274-A9DC-72D7-80E1414E8009}</FileHash>
 </SoundBanksInfo>

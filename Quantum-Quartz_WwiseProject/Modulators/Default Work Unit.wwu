@@ -8,6 +8,23 @@
 						<Property Name="EnvelopeTriggerOn" Type="int32" Value="2"/>
 					</PropertyList>
 				</ModulatorEnvelope>
+				<ModulatorLfo Name="MX_Pitchshift_Mod" ID="{A799752B-7872-4A94-9D27-B3CA2BE9B14E}" ShortID="54819862">
+					<PropertyList>
+						<Property Name="LfoFrequency" Type="Real64" Value="1.72">
+							<ModifierList>
+								<ModifierInfo>
+									<Modifier Name="" ID="{AFF2D5DF-464C-4929-A330-F53CEAB4DC2E}">
+										<PropertyList>
+											<Property Name="Enabled" Type="bool" Value="True"/>
+											<Property Name="Max" Type="Real64" Value="4"/>
+											<Property Name="Min" Type="Real64" Value="-0.5"/>
+										</PropertyList>
+									</Modifier>
+								</ModifierInfo>
+							</ModifierList>
+						</Property>
+					</PropertyList>
+				</ModulatorLfo>
 			</ChildrenList>
 		</WorkUnit>
 	</Modulators>
