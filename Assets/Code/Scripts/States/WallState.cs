@@ -87,13 +87,10 @@ namespace Code.Scripts.States
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.transform.CompareTag("Wall") || hit.transform.CompareTag("Floor"))
+                if (IsWall(hit.transform))
+                {
                     return true;
-
-                if (!hit.transform.CompareTag("Platform") || hit.transform.TryGetComponent(out PlatformEffector2D platformEffector2D))
-                    continue;
-                
-                return true;
+                }
             }
 
             return false;
@@ -108,7 +105,7 @@ namespace Code.Scripts.States
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
             sharedContext.Collider.Cast(-lookDir, contactFilter, hits, moveSettings.wallCheckDis * 4f, true);
 
-            hits = hits.Where((hit) => hit.transform && (hit.transform.CompareTag("Floor") || hit.transform.CompareTag("Platform"))).ToList();
+            hits = hits.Where((hit) => IsWall(hit.transform)).ToList();
 
             if (hits.Count > 0)
             {
@@ -126,6 +123,12 @@ namespace Code.Scripts.States
 
                 sharedContext.Transform.position = newPos;
             }
+        }
+
+
+        private bool IsWall(Transform t)
+        {
+            return t && (t.CompareTag("Wall") || t.CompareTag("Floor") || (t.CompareTag("Platform") && !t.TryGetComponent(out PlatformEffector2D _)));
         }
 
         /// <summary>
