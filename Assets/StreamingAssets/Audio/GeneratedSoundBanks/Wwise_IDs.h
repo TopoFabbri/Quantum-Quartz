@@ -71,6 +71,18 @@ namespace AK
             } // namespace STATE
         } // namespace GAMESTATE
 
+        namespace LUCIERNAGAS
+        {
+            static const AkUniqueID GROUP = 2466252489U;
+
+            namespace STATE
+            {
+                static const AkUniqueID NONE = 748895195U;
+                static const AkUniqueID OFF = 930712164U;
+                static const AkUniqueID ON = 1651971902U;
+            } // namespace STATE
+        } // namespace LUCIERNAGAS
+
         namespace MUSICPUZZLESTATE
         {
             static const AkUniqueID GROUP = 4281606737U;
