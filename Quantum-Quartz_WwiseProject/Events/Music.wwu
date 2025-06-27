@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}" SchemaVersion="110">
+	<Events>
+		<WorkUnit Name="Music" ID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="4"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Folder Name="Steampunk_Music" ID="{7799CA34-F1D2-4D68-B4A5-B703AB460A35}" ShortID="883587752">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="4"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Event Name="Play_Steampunk_Music" ID="{9C133FA1-99D8-48EA-9A1D-A494A5CC2278}">
+							<ChildrenList>
+								<Action Name="" ID="{BB0A073B-2E47-497F-B8C9-9C531B07D421}" ShortID="738164073">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Adventurer_Music" ID="{66C1FF63-F6BD-4541-88BF-48C979F6A24D}" WorkUnitID="{1A182142-E5A9-4D77-8D2B-F2B8C90EB1CC}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_Steampunk_Music" ID="{A0F915D4-00FC-46E5-B6AD-3457E6AD9422}">
+							<ChildrenList>
+								<Action Name="" ID="{AD8AFDCB-3C04-4D80-A18E-B8C20627CE27}" ShortID="984623584">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Steampunk_Music_Default" ID="{07A0BF79-5B8F-41BF-903F-32D8E1486ECA}" WorkUnitID="{1A182142-E5A9-4D77-8D2B-F2B8C90EB1CC}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Set_State_Music_Ingame" ID="{F6418AA0-343B-43B7-8C37-E182436028BB}">
+							<ChildrenList>
+								<Action Name="" ID="{D3850329-07EB-4A5B-82F3-7E983529CDF1}" ShortID="505062429">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Set_State_Music_Pause" ID="{0ADB95B8-86C3-4DEA-8061-2B2BEE62B4F7}">
+							<ChildrenList>
+								<Action Name="" ID="{C99868C3-6216-4E41-9740-4C73C5359F36}" ShortID="564552468">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Set_State_MusicPuzzle_Off" ID="{E36D0613-BF14-4D64-BF1B-2607E279C488}">
+							<ChildrenList>
+								<Action Name="" ID="{E9DB659B-23D3-483D-9B1E-B60BF0DD18BF}" ShortID="244051222">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Set_State_MusicPuzzle_On" ID="{7A4A44A8-37F8-453E-83DF-CE045CFB0357}">
+							<ChildrenList>
+								<Action Name="" ID="{DB5E265D-63EF-42D8-A3A9-C12FD7678C4A}" ShortID="830263169">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
