@@ -19,6 +19,8 @@ namespace Code.Scripts.Tools
         private const string YellowEvent = "Play_Change_Quartz_Y";
         private const string GreenEvent = "Play_Change_Quartz_G";
 
+        public static GameObject musicObject;
+        
         /// <summary>
         /// Call music sound event
         /// </summary>
@@ -26,7 +28,16 @@ namespace Code.Scripts.Tools
         /// <param name="gameObject"></param>
         public static void MusicOnOff(bool on, GameObject gameObject)
         {
-            AkSoundEngine.PostEvent(on ? PlayMusicEvent : StopMusicEvent, gameObject);
+            if (on)
+            {
+                AkSoundEngine.PostEvent(PlayMusicEvent, gameObject);
+                musicObject = gameObject;
+            }
+            else
+            {
+                AkSoundEngine.PostEvent(StopMusicEvent, gameObject);
+                musicObject = null;
+            }
         }
 
         /// <summary>
