@@ -13,6 +13,7 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID IDLE_START = 2452979090U;
         static const AkUniqueID PLAY_BASIC_JUMP = 2848448515U;
         static const AkUniqueID PLAY_BEAM_LASER = 1231329179U;
         static const AkUniqueID PLAY_BLOCKED_QUARTZ = 3010479856U;
@@ -60,18 +61,6 @@ namespace AK
                 static const AkUniqueID NONE = 748895195U;
             } // namespace STATE
         } // namespace AREASTATE
-
-        namespace GAMESTATE
-        {
-            static const AkUniqueID GROUP = 4091656514U;
-
-            namespace STATE
-            {
-                static const AkUniqueID INGAME = 984691642U;
-                static const AkUniqueID NONE = 748895195U;
-                static const AkUniqueID PAUSE = 3092587493U;
-            } // namespace STATE
-        } // namespace GAMESTATE
 
         namespace LUCIERNAGAS
         {
