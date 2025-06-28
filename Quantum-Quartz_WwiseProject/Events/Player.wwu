@@ -357,6 +357,84 @@
 						</Folder>
 					</ChildrenList>
 				</Folder>
+				<Folder Name="Luciernagas" ID="{B4FC0C5D-7738-40A9-871E-EDE51058139D}" ShortID="366117985">
+					<ChildrenList>
+						<Event Name="Play_Luciernagas" ID="{DE2FECC6-B5DA-4D2E-BDEE-F74B08584954}">
+							<ChildrenList>
+								<Action Name="" ID="{24F3D6F5-B000-470D-8ED6-0D0F3CEB9B83}" ShortID="354824287">
+									<PropertyList>
+										<Property Name="FadeInCurve" Type="int16" Value="6"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{4F3C42AD-86D9-4449-86BB-63BF8A3CDC21}" ShortID="1022877246">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="36"/>
+										<Property Name="SeekPercent" Type="Real64" Value="50">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{6785EA76-152C-4308-AD6E-D393FEE47AD8}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Max" Type="Real64" Value="45"/>
+															<Property Name="Min" Type="Real64" Value="-50"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{706B1FF7-B689-4877-8374-7989BB6125F5}" ShortID="442011820">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_Luciernagas" ID="{08A26E70-DE45-4839-A45E-D81BF83B445F}">
+							<ChildrenList>
+								<Action Name="" ID="{65ACA3DF-B980-41D6-936C-B00D8F6ABF70}" ShortID="427447306">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+										<Property Name="FadeTime" Type="Real64" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{CD42C41C-EF4F-448A-B81C-F9956EDA1DD2}" ShortID="258586703">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="22"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}" WorkUnitID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
