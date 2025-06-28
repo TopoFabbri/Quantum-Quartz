@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{448B0BEA-E4FC-2BAC-4959-C59120533EC8}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{33FE3766-5488-056F-5BEF-6C3D961A7F2F}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -69,13 +69,6 @@
 						<State Id="1651971902" Name="On"/>
 					</States>
 				</StateGroup>
-				<StateGroup Id="4091656514" Name="GameState">
-					<States>
-						<State Id="748895195" Name="None"/>
-						<State Id="984691642" Name="Ingame"/>
-						<State Id="3092587493" Name="Pause"/>
-					</States>
-				</StateGroup>
 				<StateGroup Id="4281606737" Name="MusicPuzzleState">
 					<States>
 						<State Id="748895195" Name="None"/>
@@ -100,7 +93,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{4674A120-5ABE-1D8C-5107-9E1067F18968}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{81BC4E93-185F-D3DE-1B4D-B66E5C194BDA}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -696,6 +689,12 @@
 				</ShareSets>
 			</Plugins>
 			<Events>
+				<Event Id="2452979090" Name="Idle_Start" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetState>
+						<ActionSetStateEntry GroupId="4281606737" Id="930712164" Name="Off"/>
+						<ActionSetStateEntry GroupId="1021618141" Id="984691642" Name="Ingame"/>
+					</ActionSetState>
+				</Event>
 				<Event Id="2848448515" Name="Play_Basic_Jump" DurationType="OneShot" DurationMin="0.06835417" DurationMax="0.06835417">
 					<MediaRefs>
 						<MediaRef Id="200330901"/>
@@ -1237,7 +1236,20 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="930712164" Name="Off"/>
 					</ActionSetState>
 				</Event>
-				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="26893415"/>
+						<MediaRef Id="171091106"/>
+						<MediaRef Id="400230657"/>
+						<MediaRef Id="585198590"/>
+						<MediaRef Id="812185611"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="2172033555"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<MediaRefs>
 						<MediaRef Id="10060735"/>
@@ -1284,5 +1296,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{247C1B72-DB7A-42DA-4739-05A9509BFC29}</FileHash>
+	<FileHash>{A5E886CC-E538-6F6F-EEDF-E71E6F1BEBCB}</FileHash>
 </SoundBanksInfo>
