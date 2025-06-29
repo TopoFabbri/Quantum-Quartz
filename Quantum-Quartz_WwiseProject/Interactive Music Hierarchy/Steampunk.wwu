@@ -30,9 +30,6 @@
 						<Reference Name="Conversion">
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
 						</Reference>
-						<Reference Name="Effect0" PluginName="Wwise Time Stretch" CompanyID="0" PluginID="130" PluginType="3">
-							<ObjectRef Name="QQ_Time_Stretch" ID="{6EA2298B-78FC-4072-B058-8D50BD6F1574}" WorkUnitID="{51406C8E-662A-4DBA-9CD8-66D40AA60FCE}"/>
-						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Music" ID="{39C1111F-D84E-41C5-88E2-E3840159C76B}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 						</Reference>
@@ -1049,13 +1046,6 @@
 						</MusicSegment>
 					</ChildrenList>
 					<StateInfo>
-						<StatePropertyList>
-							<Property Name="BypassEffect0"/>
-							<Property Name="Highpass"/>
-							<Property Name="Lowpass"/>
-							<Property Name="MakeUpGain"/>
-							<Property Name="Volume"/>
-						</StatePropertyList>
 						<StateGroupList>
 							<StateGroupInfo>
 								<StateGroupRef Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}"/>
@@ -1075,17 +1065,13 @@
 							</CustomState>
 							<CustomState>
 								<StateRef Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
-								<CustomState Name="" ID="{6CCD1D0A-2F5F-4168-8697-AB54C2E256A7}" ShortID="166983785">
-									<PropertyList>
-										<Property Name="BypassEffect0" Type="bool" Value="True"/>
-									</PropertyList>
-								</CustomState>
+								<CustomState Name="" ID="{6CCD1D0A-2F5F-4168-8697-AB54C2E256A7}" ShortID="166983785"/>
 							</CustomState>
 							<CustomState>
 								<StateRef Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}"/>
 								<CustomState Name="" ID="{FC1611DD-66D8-4B86-B9A1-BFFC932DF063}" ShortID="743046855">
 									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="50"/>
+										<Property Name="Lowpass" Type="int16" Value="30"/>
 									</PropertyList>
 								</CustomState>
 							</CustomState>
@@ -1108,6 +1094,45 @@
 							<TransitionInfo/>
 						</MusicTransition>
 					</TransitionList>
+					<ObjectLists>
+						<ObjectList Name="RTPC">
+							<Reference>
+								<Local>
+									<RTPC Name="" ID="{189E8E6C-9037-4913-800C-E79595E0F242}" ShortID="942268391">
+										<PropertyList>
+											<Property Name="PropertyName" Type="string" Value="PlaybackSpeed"/>
+										</PropertyList>
+										<ReferenceList>
+											<Reference Name="ControlInput">
+												<ObjectRef Name="RTPC_Luciernagas" ID="{FC6E0949-ABBD-4A2C-9969-78C7322BAE59}" WorkUnitID="{773296EA-CEE1-4CD1-A0C0-7B43B51E1B0C}"/>
+											</Reference>
+											<Reference Name="Curve">
+												<Custom>
+													<Curve Name="" ID="{8EDF05EE-FF2E-4738-B279-A6B36A61AE80}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="1"/>
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>1</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0.9</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</Custom>
+											</Reference>
+										</ReferenceList>
+									</RTPC>
+								</Local>
+							</Reference>
+						</ObjectList>
+					</ObjectLists>
 					<Playlist>
 						<MusicPlaylistItem Name="" ID="{ADA9C07F-740A-4BCD-842A-9D43ED1F5DD7}" ShortID="744861631">
 							<PropertyList>

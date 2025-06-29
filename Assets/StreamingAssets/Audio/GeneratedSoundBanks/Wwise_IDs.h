@@ -140,6 +140,7 @@ namespace AK
     namespace GAME_PARAMETERS
     {
         static const AkUniqueID RTPC_DISTANCE = 262290038U;
+        static const AkUniqueID RTPC_LUCIERNAGAS = 1704512779U;
         static const AkUniqueID RTPC_MUSICVOLUME = 2378823330U;
         static const AkUniqueID RTPC_SAWSONSCREEN = 1354283134U;
         static const AkUniqueID RTPC_SFXVOLUME = 2644490154U;
