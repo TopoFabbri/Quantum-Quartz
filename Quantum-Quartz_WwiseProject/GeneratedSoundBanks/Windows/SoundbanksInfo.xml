@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{33FE3766-5488-056F-5BEF-6C3D961A7F2F}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B3BC31F1-B031-6377-45A8-19DFA6B6D242}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -41,6 +41,7 @@
 			<GameParameters>
 				<GameParameter Id="262290038" Name="RTPC_Distance"/>
 				<GameParameter Id="1354283134" Name="RTPC_SawsOnScreen"/>
+				<GameParameter Id="1704512779" Name="RTPC_Luciernagas"/>
 				<GameParameter Id="2378823330" Name="RTPC_Musicvolume"/>
 				<GameParameter Id="2644490154" Name="RTPC_SfxVolume"/>
 			</GameParameters>
@@ -93,7 +94,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{81BC4E93-185F-D3DE-1B4D-B66E5C194BDA}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{224775F1-8DBF-C8C1-AF72-9D744C9E3016}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -684,9 +685,6 @@
 				<Custom>
 					<Plugin Id="381834387" Name="Parametric EQ (Custom)" LibName="Wwise Parametric EQ" LibId="6881283"/>
 				</Custom>
-				<ShareSets>
-					<Plugin Id="2172033555" Name="QQ_Time_Stretch" LibName="Wwise Time Stretch" LibId="8519683"/>
-				</ShareSets>
 			</Plugins>
 			<Events>
 				<Event Id="2452979090" Name="Idle_Start" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
@@ -1174,11 +1172,6 @@
 						<MediaRef Id="585198590"/>
 						<MediaRef Id="812185611"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="2172033555"/>
-						</ShareSets>
-					</PluginRefs>
 				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
 					<MediaRefs>
@@ -1244,11 +1237,6 @@
 						<MediaRef Id="585198590"/>
 						<MediaRef Id="812185611"/>
 					</MediaRefs>
-					<PluginRefs>
-						<ShareSets>
-							<PluginRef Id="2172033555"/>
-						</ShareSets>
-					</PluginRefs>
 				</Event>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<MediaRefs>
@@ -1261,6 +1249,7 @@
 			</Events>
 			<GameParameters>
 				<GameParameter Id="1354283134" Name="RTPC_SawsOnScreen"/>
+				<GameParameter Id="1704512779" Name="RTPC_Luciernagas"/>
 			</GameParameters>
 			<StateGroups>
 				<StateGroup Id="1021618141" Name="MusicState">
@@ -1296,5 +1285,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{A5E886CC-E538-6F6F-EEDF-E71E6F1BEBCB}</FileHash>
+	<FileHash>{94D8B94D-1653-CB93-30CA-4D941F20AF05}</FileHash>
 </SoundBanksInfo>

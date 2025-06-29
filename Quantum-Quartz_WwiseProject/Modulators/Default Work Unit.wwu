@@ -10,7 +10,8 @@
 				</ModulatorEnvelope>
 				<ModulatorLfo Name="MX_Pitchshift_Mod" ID="{A799752B-7872-4A94-9D27-B3CA2BE9B14E}" ShortID="54819862">
 					<PropertyList>
-						<Property Name="LfoFrequency" Type="Real64" Value="1.72">
+						<Property Name="LfoAttack" Type="Real64" Value="4.05"/>
+						<Property Name="LfoFrequency" Type="Real64" Value="2.5">
 							<ModifierList>
 								<ModifierInfo>
 									<Modifier Name="" ID="{AFF2D5DF-464C-4929-A330-F53CEAB4DC2E}">
@@ -23,6 +24,8 @@
 								</ModifierInfo>
 							</ModifierList>
 						</Property>
+						<Property Name="LfoInitialPhase" Type="Real64" Value="180"/>
+						<Property Name="LfoSmoothing" Type="Real64" Value="100"/>
 					</PropertyList>
 				</ModulatorLfo>
 			</ChildrenList>
