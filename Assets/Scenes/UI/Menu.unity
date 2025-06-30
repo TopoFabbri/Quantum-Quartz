@@ -1495,8 +1495,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 870922763}
         m_TargetAssemblyTypeName: Code.Scripts.Menu.MenuController, Assembly-CSharp
-        m_MethodName: LoadLevel
-        m_Mode: 3
+        m_MethodName: PlayGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2102,7 +2102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 504.00006, y: -179}
+  m_AnchoredPosition: {x: 504.00003, y: -179}
   m_SizeDelta: {x: 39.5, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &457901205
@@ -3856,6 +3856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuController
       objectReference: {fileID: 0}
+    - target: {fileID: 8355067387269065807, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
+      propertyPath: levelList
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e17b9dc980ccb449984b19de0671be0, type: 2}
     - target: {fileID: 8355067387269065807, guid: a00c22e1a0a49124a8725db75870d841, type: 3}
       propertyPath: versionText
       value: 
