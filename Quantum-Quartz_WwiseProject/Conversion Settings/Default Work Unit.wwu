@@ -9,24 +9,28 @@
 							<ValueList>
 								<Value Platform="Mac">4</Value>
 								<Value Platform="Windows">4</Value>
+								<Value Platform="Linux">4</Value>
 							</ValueList>
 						</Property>
 						<Property Name="LRMix" Type="Real64">
 							<ValueList>
 								<Value Platform="Mac">0</Value>
 								<Value Platform="Windows">0</Value>
+								<Value Platform="Linux">0</Value>
 							</ValueList>
 						</Property>
 						<Property Name="MaxSampleRate" Type="int32">
 							<ValueList>
 								<Value Platform="Mac">48000</Value>
 								<Value Platform="Windows">48000</Value>
+								<Value Platform="Linux">48000</Value>
 							</ValueList>
 						</Property>
 						<Property Name="MinSampleRate" Type="int32">
 							<ValueList>
 								<Value Platform="Mac">48000</Value>
 								<Value Platform="Windows">48000</Value>
+								<Value Platform="Linux">48000</Value>
 							</ValueList>
 						</Property>
 						<Property Name="RemoveDCOffset" Type="bool">
@@ -43,6 +47,7 @@
 							<ValueList>
 								<Value Platform="Mac">0</Value>
 								<Value Platform="Windows">0</Value>
+								<Value Platform="Linux">0</Value>
 							</ValueList>
 						</Property>
 						<Property Name="UseDither" Type="bool">
@@ -62,6 +67,9 @@
 						</ConversionPluginInfo>
 						<ConversionPluginInfo Platform="Windows">
 							<ConversionPlugin Name="" ID="{9CAC6AC7-0C19-4D71-A33B-C2E968BFC8BE}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Linux">
+							<ConversionPlugin Name="" ID="{57145AFF-6748-4118-8BF4-19ED376F0DA4}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 						</ConversionPluginInfo>
 					</ConversionPluginInfoList>
 				</Conversion>
