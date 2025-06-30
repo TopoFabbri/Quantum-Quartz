@@ -619,7 +619,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.0625
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -6944,7 +6944,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.07
+      scalar: 0.0625
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -11507,10 +11507,10 @@ GameObject:
   - component: {fileID: 2544895703113792905}
   - component: {fileID: 3841358916024878208}
   - component: {fileID: 5586983729035813017}
-  - component: {fileID: 7328378302615734792}
-  - component: {fileID: 5982207022378931988}
-  - component: {fileID: 5855957678219902314}
-  - component: {fileID: 2214134132598445616}
+  - component: {fileID: 820472026057474166}
+  - component: {fileID: 4607292440170278126}
+  - component: {fileID: 2587042338054436715}
+  - component: {fileID: 6607927178360346981}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -11562,24 +11562,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371d827bb6dc31c40bfb4b0af5dcc706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animController: {fileID: 5982207022378931988}
+  animController: {fileID: 820472026057474166}
   blueTrigger: BlueTrigger
   redTrigger: RedTrigger
   greenTrigger: GreenTrigger
   yellowTrigger: YellowTrigger
---- !u!114 &7328378302615734792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2778914427442999991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c8cbad0522cbdc43975d45482429ebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &5982207022378931988
+--- !u!95 &820472026057474166
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -11600,7 +11588,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5855957678219902314
+--- !u!114 &4607292440170278126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778914427442999991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c8cbad0522cbdc43975d45482429ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2587042338054436715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11615,7 +11615,7 @@ MonoBehaviour:
   active: 1
   override_intensity: 0
   intensity: 0
---- !u!114 &2214134132598445616
+--- !u!114 &6607927178360346981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11632,7 +11632,7 @@ MonoBehaviour:
   postExposure: 0
   override_contrast: 0
   contrast: 0
-  override_colorFilter: 0
+  override_colorFilter: 1
   colorFilter: {r: 1, g: 1, b: 1, a: 1}
   override_hueShift: 0
   hueShift: 0
@@ -12369,7 +12369,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.07
+      scalar: 0.0625
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -25109,7 +25109,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.0625
       minScalar: 1
       maxCurve:
         serializedVersion: 2
