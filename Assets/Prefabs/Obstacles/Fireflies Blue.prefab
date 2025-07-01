@@ -10034,6 +10034,7 @@ GameObject:
   - component: {fileID: 363281744436723426}
   - component: {fileID: 8055037088976816062}
   - component: {fileID: 4825142871988839556}
+  - component: {fileID: 3085071206716396771}
   m_Layer: 7
   m_Name: Fireflies Blue
   m_TagString: Obstacle
@@ -10173,6 +10174,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &3085071206716396771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187828991760853432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418e61461873b7544bb0898a475401eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wwiseEvent: {fileID: 11400000, guid: 4b303e607861b0646b011e85643c03ab, type: 2}
+  playerTag: Player
 --- !u!1 &7404047800295611657
 GameObject:
   m_ObjectHideFlags: 0
