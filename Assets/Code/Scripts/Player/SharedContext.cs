@@ -179,7 +179,7 @@ namespace Code.Scripts.Player
         {
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider != null && hit.distance > 0 && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
+                if (hit.collider != null && hit.distance >= 0 && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
                 {
                     return hit.distance;
                 }
