@@ -21,8 +21,9 @@ namespace Code.Scripts.UI
         [SerializeField] private Event pauseEvent;
         [SerializeField] private Event unPauseEvent;
 
-        private bool isPaused;
-        private bool inCoroutine;
+        private bool isPaused = false;
+        private bool inCoroutine = false;
+        private bool inDialogue = false;
 
         private void OnEnable()
         {
@@ -38,7 +39,8 @@ namespace Code.Scripts.UI
 
         public void Pause()
         {
-            if (inCoroutine) return;
+            if (inCoroutine || inDialogue)
+                return;
 
             if (!endLevelCanvas.gameObject.activeSelf)
                 isPaused = !isPaused;
@@ -77,6 +79,16 @@ namespace Code.Scripts.UI
         private void OnUIBack()
         {
             Pause();
+        }
+
+        public void EnterDialogue()
+        {
+            inDialogue = true;
+        }
+
+        public void ExitDialogue()
+        {
+            inDialogue = false;
         }
     }
 }
