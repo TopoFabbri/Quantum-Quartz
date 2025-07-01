@@ -13,7 +13,7 @@ namespace Code.Scripts.Menu
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private string fileSaveSceneName;
 
-        [SerializeField] private List<string> levelSceneNames = new List<string>();
+        [SerializeField] private LevelList levelList;
 
         [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
@@ -45,7 +45,15 @@ namespace Code.Scripts.Menu
 
         public void PlayGame()
         {
-            LoadScene(levelSelectorScene);
+            if (levelList.levels.Count > 0)
+            {
+                string sceneName = levelList.levels[0].SceneName;
+                LoadScene(sceneName);
+            }
+            else
+            {
+                Debug.LogError("No hay niveles cargados en el LevelList.");
+            }
         }
 
         public void GoMainMenu()
@@ -69,15 +77,17 @@ namespace Code.Scripts.Menu
         {
             int index = levelNumber - 1;
 
-            if (index >= 0 && index < levelSceneNames.Count)
+            if (index >= 0 && index < levelList.levels.Count)
             {
-                LoadScene(levelSceneNames[index]);
+                string sceneName = levelList.levels[index].SceneName;
+                LoadScene(sceneName);
             }
             else
             {
-                Debug.LogError($"Nivel {levelNumber} no existe en la lista de niveles.");
+                Debug.LogError($"Nivel {levelNumber} no existe en el LevelList.");
             }
         }
+
 
         public void QuitGame()
         {

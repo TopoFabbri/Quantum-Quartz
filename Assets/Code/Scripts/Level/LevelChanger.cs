@@ -14,7 +14,7 @@ namespace Code.Scripts.Level
 {
     public class LevelChanger : MonoBehaviourSingleton<LevelChanger>
     {
-        [SerializeField] private SceneReference nextScene;
+        [SerializeField] private LevelList levelList;
         [SerializeField] private int currentLevel;
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
@@ -65,9 +65,18 @@ namespace Code.Scripts.Level
 
         public void LoadNextLevel()
         {
-            if (nextScene.State == SceneReferenceState.Regular)
+            string currentSceneName = SceneManager.GetActiveScene().name;
+
+            int currentIndex = levelList.levels.FindIndex(level => level.SceneName == currentSceneName);
+
+            if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
             {
-                SceneManager.LoadScene(nextScene.Path);
+                string nextSceneName = levelList.levels[currentIndex + 1].SceneName;
+                SceneManager.LoadScene(nextSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("No hay siguiente nivel o el nivel actual no está en la lista.");
             }
         }
     }
