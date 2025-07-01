@@ -20,6 +20,8 @@ namespace Code.Scripts.Menu
             public Sprite playstation;
             public Sprite xbox;
         }
+        
+        public static OptionsController Instance { get; private set; }
 
         [HeaderPlus("Main")]
         [SerializeField] private GameObject optionsPanel;
@@ -53,7 +55,20 @@ namespace Code.Scripts.Menu
         [HeaderPlus("Credits")]
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private Button creditsButton;
+        
+        public event Action<bool> OnToggleTimer;
 
+
+        // private void Awake()
+        // {
+        //     if (Instance != null && Instance != this)
+        //     {
+        //         Destroy(gameObject);
+        //         return;
+        //     }
+        //
+        //     Instance = this;
+        // }
         private void Start()
         {
             if (timerToggle)
@@ -77,6 +92,13 @@ namespace Code.Scripts.Menu
                 int index = controlsDropdown.options.FindIndex((item) => item.text.Equals(controlsMapping));
                 controlsDropdown.value = Math.Min(0, index);
                 SetControlsMapping();
+            }
+            
+            if (timerToggle)
+            {
+                bool isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+                timerToggle.isOn = isTimerOn;
+                OnToggleTimer?.Invoke(isTimerOn);
             }
         }
 
@@ -139,9 +161,11 @@ namespace Code.Scripts.Menu
         {
             bool isTimerOn = timerToggle.isOn;
 
-            GameManager.Instance.isTimerOn = isTimerOn;
+           // GameManager.Instance.isTimerOn = isTimerOn;
             PlayerPrefs.SetInt("Timer", isTimerOn ? 1 : 0);
             PlayerPrefs.Save();
+
+            OnToggleTimer?.Invoke(isTimerOn); 
         }
 
         public void TurnCredits()
