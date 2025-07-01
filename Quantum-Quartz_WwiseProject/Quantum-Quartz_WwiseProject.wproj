@@ -3,6 +3,7 @@
 	<ProjectInfo>
 		<Project Name="Quantum-Quartz_WwiseProject" ID="{4E102D61-4C41-42DC-AC11-E89EF7DC8D58}">
 			<Platforms>
+				<Platform Name="Linux" ReferencePlatform="Linux" ID="{A74DA8D7-C767-49E1-9387-55C411876E5A}"/>
 				<Platform Name="Mac" ReferencePlatform="Mac" ID="{034B662C-B31E-40DC-BEC0-8D99BA44ADAB}"/>
 				<Platform Name="Windows" ReferencePlatform="Windows" ID="{54C26C18-ACC4-4947-87E0-C7FA1BD6223D}"/>
 			</Platforms>
@@ -17,12 +18,21 @@
 					<ValueList>
 						<Value Platform="Mac"></Value>
 						<Value Platform="Windows"></Value>
+						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="ExternalSourcesOutputPath" Type="string">
 					<ValueList>
 						<Value Platform="Mac">GeneratedSoundBanks\Mac\</Value>
 						<Value Platform="Windows">GeneratedSoundBanks\Windows\</Value>
+						<Value Platform="Linux">GeneratedSoundBanks\Linux\</Value>
+					</ValueList>
+				</Property>
+				<Property Name="GlobalVoiceInstancesLimit" Type="int16">
+					<ValueList>
+						<Value Platform="Mac">256</Value>
+						<Value Platform="Windows">256</Value>
+						<Value Platform="Linux">256</Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankGenerateEstimatedDuration" Type="bool" Value="True"/>
@@ -33,30 +43,42 @@
 					<ValueList>
 						<Value Platform="Mac">GeneratedSoundBanks\Mac\</Value>
 						<Value Platform="Windows">GeneratedSoundBanks\Windows\</Value>
+						<Value Platform="Linux">GeneratedSoundBanks\Linux\</Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPostGenerateCustomCmdDescription" Type="string">
 					<ValueList>
 						<Value Platform="Mac"></Value>
 						<Value Platform="Windows"></Value>
+						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPostGenerateCustomCmdLines" Type="string">
 					<ValueList>
 						<Value Platform="Mac"></Value>
 						<Value Platform="Windows"></Value>
+						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPreGenerateCustomCmdDescription" Type="string">
 					<ValueList>
 						<Value Platform="Mac"></Value>
 						<Value Platform="Windows"></Value>
+						<Value Platform="Linux"></Value>
 					</ValueList>
 				</Property>
 				<Property Name="SoundBankPreGenerateCustomCmdLines" Type="string">
 					<ValueList>
 						<Value Platform="Mac"></Value>
 						<Value Platform="Windows"></Value>
+						<Value Platform="Linux"></Value>
+					</ValueList>
+				</Property>
+				<Property Name="VolumeThreshold" Type="Real64">
+					<ValueList>
+						<Value Platform="Mac">-80</Value>
+						<Value Platform="Windows">-80</Value>
+						<Value Platform="Linux">-80</Value>
 					</ValueList>
 				</Property>
 				<Property Name="WwiseVersionWhenCreated" Type="string" Value="Branch=wwise_v2022.1|Build=8454|VersionName=v2022.1.13|Config=Release"/>

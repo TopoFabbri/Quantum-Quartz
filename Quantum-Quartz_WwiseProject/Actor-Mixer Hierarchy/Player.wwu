@@ -109,6 +109,11 @@
 				</ActorMixer>
 				<ActorMixer Name="Luciernagas" ID="{DBD79656-1CD9-47B9-A149-4BF779368512}" ShortID="562656695">
 					<PropertyList>
+						<Property Name="Highpass" Type="int16">
+							<ValueList>
+								<Value>15</Value>
+							</ValueList>
+						</Property>
 						<Property Name="OverrideConversion" Type="bool" Value="True"/>
 						<Property Name="Pitch" Type="int32">
 							<ValueList>
@@ -117,7 +122,7 @@
 						</Property>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-4</Value>
+								<Value>-6</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
