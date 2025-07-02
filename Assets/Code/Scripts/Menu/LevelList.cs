@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Eflatun.SceneReference;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelList", menuName = "Game/Level List")]
+[CreateAssetMenu(fileName = "LevelList", menuName = "Custom/Level List")]
 public class LevelList : ScriptableObject
 {
     [System.Serializable]
