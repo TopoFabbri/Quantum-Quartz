@@ -130,7 +130,7 @@ namespace Code.Scripts.Player
             {
                 Vector2 startPos = (Vector2)Transform.position + GlobalSettings.groundCheckOffset;
                 hitDist = HitFloor(Physics2D.RaycastAll(startPos, Vector2.down, GlobalSettings.groundCheckDistance, GlobalSettings.groundLayer));
-                grounded = !float.IsNegativeInfinity(hitDist);
+                grounded = hitDist >= 0; // Uses '>=' to try and avoid the weird falling on platform glitch
 
                 if (GlobalSettings.shouldDraw)
                 {
@@ -140,13 +140,13 @@ namespace Code.Scripts.Player
                 if (!grounded || GlobalSettings.shouldDraw)
                 {
                     float tempHitDist = GetEdge(true);
-                    grounded |= !float.IsNegativeInfinity(tempHitDist);
+                    grounded |= tempHitDist > 0;
                     hitDist = Mathf.Max(tempHitDist, hitDist);
 
                     if (!grounded || GlobalSettings.shouldDraw)
                     {
                         tempHitDist = GetEdge(false);
-                        grounded |= !float.IsNegativeInfinity(tempHitDist);
+                        grounded |= tempHitDist > 0;
                         hitDist = Mathf.Max(tempHitDist, hitDist);
                         grounded &= Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
                     }
@@ -177,14 +177,22 @@ namespace Code.Scripts.Player
 
         private float HitFloor(RaycastHit2D[] hits)
         {
+            float backupDist = float.NegativeInfinity;
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider != null && hit.distance >= 0 && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
+                if (hit.collider != null && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
                 {
-                    return hit.distance;
+                    if (hit.distance > 0)
+                    {
+                        return hit.distance;
+                    }
+                    else
+                    {
+                        backupDist = hit.distance;
+                    }
                 }
             }
-            return float.NegativeInfinity;
+            return backupDist;
         }
 
         public void SetFalling(bool falling)

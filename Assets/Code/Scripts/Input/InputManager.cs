@@ -47,6 +47,7 @@ namespace Code.Scripts.Input
         public static event Action DevMode;
 
         [SerializeField] private float moveDeadzone = .5f;
+        [SerializeField] private float analogCutoff = .5f;
         [SerializeField] private GameObject eventSystem;
 
         public static PlayerInput Input { get; private set; }
@@ -56,6 +57,7 @@ namespace Code.Scripts.Input
         private string gameMap = "World";
         private string uiMap = "UI";
         private int inputMapIndex = 0;
+        private Dictionary<string, float> prevValues = new Dictionary<string, float>();
 
         [SerializeField] private List<InputMap> inputMaps;
 
@@ -151,7 +153,6 @@ namespace Code.Scripts.Input
         protected void OnMove(InputValue input)
         {
             Vector2 value = input.Get<Vector2>();
-
             Move?.Invoke(value.magnitude > moveDeadzone ? value : Vector2.zero);
         }
 
@@ -160,7 +161,8 @@ namespace Code.Scripts.Input
         /// </summary>
         protected void OnJump(InputValue input)
         {
-            if (input.Get<float>() != 0)
+            float value = input.Get<float>();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("Jump", 0) < value))
             {
                 Jump?.Invoke(1);
             }
@@ -168,6 +170,7 @@ namespace Code.Scripts.Input
             {
                 Jump?.Invoke(0);
             }
+            prevValues["Jump"] = value;
         }
 
         /// <summary>
@@ -175,14 +178,16 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorRed(InputValue input)
         {
+            float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
             {
-                OnAbility(input);
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorRed", 0));
             }
-            else if (input.Get<float>() != 0)
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRed", 0) < value))
             {
                 ColorRed?.Invoke();
             }
+            prevValues["ColorRed"] = value;
         }
 
         /// <summary>
@@ -190,14 +195,16 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorBlue(InputValue input)
         {
+            float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
             {
-                OnAbility(input);
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorBlue", 0));
             }
-            else if (input.Get<float>() != 0)
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlue", 0) < value))
             {
                 ColorBlue?.Invoke();
             }
+            prevValues["ColorBlue"] = value;
         }
 
         /// <summary>
@@ -205,14 +212,16 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorGreen(InputValue input)
         {
+            float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
             {
-                OnAbility(input);
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorGreen", 0));
             }
-            else if (input.Get<float>() != 0)
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreen", 0) < value))
             {
                 ColorGreen?.Invoke();
             }
+            prevValues["ColorGreen"] = value;
         }
 
         /// <summary>
@@ -220,14 +229,16 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorYellow(InputValue input)
         {
+            float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
             {
-                OnAbility(input);
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorYellow", 0));
             }
-            else if (input.Get<float>() != 0)
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellow", 0) < value))
             {
                 ColorYellow?.Invoke();
             }
+            prevValues["ColorYellow"] = value;
         }
 
         /// <summary>
@@ -246,9 +257,15 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnAbility(InputValue input)
         {
+            HandleAbility(input, prevValues.GetValueOrDefault("Ability", 0));
+            prevValues["Ability"] = input.Get<float>();
+        }
+
+        private void HandleAbility(InputValue input, float prevValue)
+        {
             float value = input.Get<float>();
-            
-            if (value != 0)
+
+            if (value == 1 || (value > analogCutoff && prevValue < value))
                 AbilityPress?.Invoke();
             else
                 AbilityRelease?.Invoke();
@@ -275,50 +292,58 @@ namespace Code.Scripts.Input
 
         private void OnColorRedAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Red))
-                return;
-
-            if (input.Get<float>() != 0)
+            float value = input.Get<float>();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRedAbility", 0) < value))
             {
                 ColorRed?.Invoke();
             }
-            OnAbility(input);
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+            {
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorRedAbility", 0));
+            }
+            prevValues["ColorRedAbility"] = value;
         }
 
         private void OnColorBlueAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Blue))
-                return;
-
-            if (input.Get<float>() != 0)
+            float value = input.Get<float>();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlueAbility", 0) < value))
             {
                 ColorBlue?.Invoke();
             }
-            OnAbility(input);
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+            {
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorBlueAbility", 0));
+            }
+            prevValues["ColorBlueAbility"] = value;
         }
 
         private void OnColorGreenAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Green))
-                return;
-
-            if (input.Get<float>() != 0)
+            float value = input.Get<float>();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreenAbility", 0) < value))
             {
                 ColorGreen?.Invoke();
             }
-            OnAbility(input);
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
+            {
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorGreenAbility", 0));
+            }
+            prevValues["ColorGreenAbility"] = value;
         }
 
         private void OnColorYellowAbility(InputValue input)
         {
-            if (!ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Yellow))
-                return;
-
-            if (input.Get<float>() != 0)
+            float value = input.Get<float>();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellowAbility", 0) < value))
             {
                 ColorYellow?.Invoke();
             }
-            OnAbility(input);
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
+            {
+                HandleAbility(input, prevValues.GetValueOrDefault("ColorYellowAbility", 0));
+            }
+            prevValues["ColorYellowAbility"] = value;
         }
     }
 }
