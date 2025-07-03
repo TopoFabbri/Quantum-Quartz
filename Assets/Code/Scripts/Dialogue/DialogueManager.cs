@@ -4,6 +4,8 @@ using Code.Scripts.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,7 +78,7 @@ namespace Code.Scripts.Dialogue
                         }
                         else
                         {
-                            dialogueText.text = textBox.Text.Insert(i, "<color=#00000000>").Replace("\\>", ">").Replace("\\<", "<") + "</color>";
+                            dialogueText.text = (textBox.Text.Substring(0, i) + WrapTextInTag(textBox.Text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<");
                             yield return new WaitForSecondsRealtime(advanceText ? FAST_CHAR_DELAY : CHAR_DELAY);
                         }
                     }
@@ -117,6 +119,51 @@ namespace Code.Scripts.Dialogue
         public void AdvanceText()
         {
             advanceText = true;
+        }
+
+        static readonly Regex ANGLE_BRACKETS = new Regex(@"(?<!\\)[><]");
+        static readonly string[] ATOMIC_TAGS = new string[] { "sprite" };
+        string WrapTextInTag(string text, string startTag, string endTag)
+        {
+            string output = "";
+            string[] textParts = ANGLE_BRACKETS.Split(text);
+            int textIdx = 0;
+            for (int i = 0; i < textParts.Length; i++)
+            {
+                int idx = text.IndexOf(textParts[i], textIdx);
+                string startBracket = idx == 0 ? "" : text[idx - 1].ToString();
+                string endBracket = (idx + textParts[i].Length) >= text.Length ? "" : text[idx + textParts[i].Length].ToString();
+
+                // startBracket is '>' or a non-bracket, and endBracket is '<' or a non-bracket
+                if ((startBracket == ">" || startBracket != "<") && (endBracket == "<" || endBracket != ">"))
+                {
+                    output += startTag + textParts[i] + endTag + endBracket;
+                }
+                else
+                {
+                    if (startBracket != "<" || endBracket != ">")
+                    {
+                        Debug.LogError(
+                            "Bracket Error in Text: " + text
+                            + " | StartBracket: " + startBracket + " (" + (startBracket.Length > 0 ? (short)startBracket[0] : null) + ")"
+                            + " | EndBracket: " + endBracket + " (" + (endBracket.Length > 0 ? (short)endBracket[0] : null) + ")"
+                        );
+                        break;
+                    }
+                    else if (ATOMIC_TAGS.Any((tag) => textParts[i].TrimStart().StartsWith(tag, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        output = (output.Length == 0 ? "" : output.Remove(output.Length - 1)) + startTag + startBracket + textParts[i] + endBracket + endTag;
+                    }
+                    else
+                    {
+                        output += textParts[i] + endBracket;
+                    }
+                }
+
+                textIdx += textParts[i].Length + 1;
+            }
+            Debug.Log(output);
+            return output;
         }
     }
 }
