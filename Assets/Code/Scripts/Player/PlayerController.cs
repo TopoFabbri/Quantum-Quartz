@@ -7,6 +7,7 @@ using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
+using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
@@ -35,15 +36,18 @@ namespace Code.Scripts.Player
         Action ICollector._OnCancelPickup { get; set; }
         Rigidbody2D lastCollectible = null;
         bool inUnsafeState = false;
+        private List<InteractableComponent> interactables = new List<InteractableComponent>();
 
         private void OnEnable()
         {
             PlayerState.OnFlip += OnFlipHandler;
+            InputManager.Jump += OnJumpPressedHandler;
         }
 
         private void OnDisable()
         {
             PlayerState.OnFlip -= OnFlipHandler;
+            InputManager.Jump -= OnJumpPressedHandler;
         }
 
         private void FixedUpdate()
@@ -95,6 +99,26 @@ namespace Code.Scripts.Player
                     transform.parent = null;
                 }
             }
+        }
+
+        /// <summary>
+        /// Handle player jump action
+        /// </summary>
+        void OnJumpPressedHandler(float value)
+        {
+            if (value != 0 && interactables.Count > 0)
+            {
+                if (interactables[interactables.Count - 1].Interact())
+                {
+                    return;
+                }
+                else
+                {
+                    interactables.RemoveAt(interactables.Count - 1);
+                }
+            }
+
+            playerState.OnJump(value != 0);
         }
 
         /// <summary>
@@ -156,6 +180,16 @@ namespace Code.Scripts.Player
             Rigidbody2D output = lastCollectible == null ? playerState.sharedContext.Rigidbody : lastCollectible;
             lastCollectible = rb;
             return output;
+        }
+
+        public void EnterInteractable(InteractableComponent component)
+        {
+            interactables.Add(component);
+        }
+
+        public void ExitInteractable(InteractableComponent component)
+        {
+            interactables.Remove(component);
         }
     }
 }

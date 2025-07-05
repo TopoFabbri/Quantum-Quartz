@@ -162,7 +162,6 @@ namespace Code.Scripts.Dialogue
 
                 textIdx += textParts[i].Length + 1;
             }
-            Debug.Log(output);
             return output;
         }
     }

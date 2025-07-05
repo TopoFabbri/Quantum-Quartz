@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Code.Scripts.Level
 {
-    public class InteractablePsController : InteractableController2D
+    public class InteractablePsController : InteractableComponent
     {
         [SerializeField] private ParticleSystem ps;
 

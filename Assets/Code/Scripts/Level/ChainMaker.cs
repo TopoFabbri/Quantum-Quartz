@@ -19,7 +19,7 @@ namespace Code.Scripts.Level
         [HeaderPlus("Style")]
         [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
-        [SerializeField] private InteractableController2D psController;
+        [SerializeField] private InteractableComponent psController;
         [SerializeField] private int linkOrderInLayer = -1;
 
         private readonly List<GameObject> links = new();
