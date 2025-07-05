@@ -12194,6 +12194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDeadzone: 0.5
+  analogCutoff: 0.5
   eventSystem: {fileID: 7092098530253659318}
   gameMap: World
   inputMaps:
@@ -17286,39 +17287,39 @@ MonoBehaviour:
   stepEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 0406cbacdbfe60e459496243ba0c6987, type: 2}
   jumpEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 2293d73a0a5aada46ac43241358e8024, type: 2}
   landEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 83c442455e88ee848b77b41d1bafaeb8, type: 2}
   djmpEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 43e59fec11bf50742b86c03c7d207a5b, type: 2}
   dashEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 255e1c0dfce33af419f8588173055e36, type: 2}
   glideStartEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: c5c208bd54ef7554482e46d4f4c0d17f, type: 2}
   glideStopEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 10edc72b5a0d1254eb28c16fb6aabf66, type: 2}
   deathEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 13e01b05ee1284c42b940fa00e4c6454, type: 2}
   floorSwitchEvent:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
+    WwiseObjectReference: {fileID: 11400000, guid: 09527bc40eee66d49a766214538652a6, type: 2}
 --- !u!61 &2847745276369036443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18183,6 +18184,7 @@ GameObject:
   - component: {fileID: 7663601643515804510}
   - component: {fileID: 6493428234592232561}
   - component: {fileID: 8294158003857029488}
+  - component: {fileID: 2796919814721336226}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -18280,6 +18282,30 @@ MonoBehaviour:
   eventIdInternal: 0
   valueGuidInternal: 
   m_callbackDataInternal: {fileID: 0}
+--- !u!114 &2796919814721336226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390105856678637630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc449649c07a924c86a52ddca9b4f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 5ddb517388f5c2546a4dcb920fe0aa81, type: 2}
+  valueIdInternal: 0
+  groupIdInternal: 0
+  valueGuidInternal: 
+  groupGuidInternal: 
 --- !u!1 &4735351069097940481
 GameObject:
   m_ObjectHideFlags: 0
