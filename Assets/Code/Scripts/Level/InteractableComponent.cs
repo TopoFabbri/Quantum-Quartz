@@ -21,7 +21,7 @@ namespace Code.Scripts.Level
                 else if (other.TryGetComponent(out PlayerController player))
                 {
                     player.EnterInteractable(this);
-                    awaitingInteraction = true;
+                    OnAwaitingInteraction(true);
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace Code.Scripts.Level
             if (RequiresClick && !other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController player))
             {
                 player.ExitInteractable(this);
-                awaitingInteraction = false;
+                OnAwaitingInteraction(false);
             }
         }
 
@@ -46,5 +46,10 @@ namespace Code.Scripts.Level
         }
 
         protected abstract void OnInteracted();
+
+        protected virtual void OnAwaitingInteraction(bool awaitingInteraction)
+        {
+            this.awaitingInteraction = awaitingInteraction;
+        }
     }
 }

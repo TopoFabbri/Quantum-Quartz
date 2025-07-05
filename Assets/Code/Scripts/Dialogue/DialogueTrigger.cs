@@ -12,6 +12,7 @@ namespace Code.Scripts.Dialogue
         [SerializeField] private bool reusable = false;
         [SerializeField] private Conversation conversation;
         [SerializeField] private GameObject enableAfter;
+        [SerializeField] private GameObject targetHighlight;
 
         public override bool RequiresClick => interactable;
 
@@ -20,6 +21,7 @@ namespace Code.Scripts.Dialogue
             SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
             if (sprite)
                 sprite.enabled = false;
+            targetHighlight.SetActive(false);
         }
 
         protected override void OnInteracted()
@@ -34,6 +36,12 @@ namespace Code.Scripts.Dialogue
                 DialogueManager.Instance.StartDialogue(conversation, null);
                 Destroy(gameObject);
             }
+        }
+
+        protected override void OnAwaitingInteraction(bool awaitingInteraction)
+        {
+            base.OnAwaitingInteraction(awaitingInteraction);
+            targetHighlight.SetActive(awaitingInteraction);
         }
 
         private void OnConversationEnd()
