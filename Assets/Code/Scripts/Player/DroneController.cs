@@ -7,14 +7,16 @@ namespace Code.Scripts.Player
     {
         [SerializeField] private Transform target;
         [SerializeField] private Vector2 targetOffset;
-        [SerializeField] private float maxDistance = 5f;
-        [SerializeField] private float maxSpeed = 5f;
-        [SerializeField] private float yAdjustment = 1;
+        [SerializeField] private float maxDistance = 30;
+        [SerializeField] private float maxSpeed = 4;
+        [SerializeField] private float yAdjustment = 3;
         [SerializeField] private AnimationCurve speedCurve;
-        [SerializeField] private float minImpulse = 1;
-        [SerializeField] private float maxRotationSpeed = 200f;
-        [SerializeField] private float collisionTime = 3f;
-        [SerializeField] private float minCollisionDist = 0.5f;
+        [SerializeField] private float avoidanceDist = 6;
+        [SerializeField] private AnimationCurve avoidanceCurve;
+        [SerializeField] private float minImpulse = 10;
+        [SerializeField] private float maxRotationSpeed = 150f;
+        [SerializeField] private float collisionTime = 1.5f;
+        [SerializeField] private float minCollisionDist = 2;
         [SerializeField] private Transform spotlight;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Animator animator;
@@ -22,6 +24,7 @@ namespace Code.Scripts.Player
         private bool colliding;
         private int defLayer;
         private Coroutine coroutine;
+        private Transform overridePosition;
 
         private void Start()
         {
@@ -43,20 +46,29 @@ namespace Code.Scripts.Player
             }
             else
             {
-                Vector2 offset = target.position - transform.position;
+                Vector2 offset = (overridePosition != null ? overridePosition.position : target.position) - transform.position;
                 offset += targetOffset;
 
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
 
-                Vector2 direction = offset.normalized;
-                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-                spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
-
-
-                float offsetDist = offset.magnitude / maxDistance;
-                float speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
+                float offsetDist;
+                float speed;
+                if (offset.magnitude > avoidanceDist || overridePosition != null)
+                {
+                    offsetDist = offset.magnitude / maxDistance;
+                    speed = maxSpeed * (offsetDist <= 1 ? speedCurve.Evaluate(offsetDist) : offsetDist);
+                }
+                else
+                {
+                    offsetDist = offset.magnitude / avoidanceDist;
+                    speed = maxSpeed * avoidanceCurve.Evaluate(offsetDist);
+                }
                 rb.velocity = offset.normalized * speed + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
                 rb.angularVelocity = 0;
+
+                Vector2 direction = (target.position - transform.position).normalized;
+                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+                spotlight.rotation = Quaternion.RotateTowards(spotlight.rotation, Quaternion.Euler(0, 0, targetAngle), maxRotationSpeed * Time.deltaTime);
             }
         }
 
@@ -96,6 +108,11 @@ namespace Code.Scripts.Player
             animator.SetBool("Broken", colliding);
             gameObject.layer = defLayer;
             coroutine = null;
+        }
+
+        public void GoToPosition(Transform position)
+        {
+            overridePosition = position;
         }
     }
 }

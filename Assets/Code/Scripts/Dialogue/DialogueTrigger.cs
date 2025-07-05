@@ -17,9 +17,9 @@ namespace Code.Scripts.Dialogue
 
         private void Start()
         {
-            SpriteRenderer a = gameObject.GetComponent<SpriteRenderer>();
-            if (a)
-                a.enabled = false;
+            SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+            if (sprite)
+                sprite.enabled = false;
         }
 
         protected override void OnInteracted()

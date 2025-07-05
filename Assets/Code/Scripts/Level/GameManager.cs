@@ -1,5 +1,6 @@
 using Code.Scripts.Game;
 using Code.Scripts.Input;
+using Code.Scripts.Player;
 using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
@@ -11,9 +12,14 @@ namespace Code.Scripts.Level
     {
         [SerializeField] private TextMeshProUGUI timerTxt;
         [SerializeField] private GameObject statesText;
-        public bool isTimerOn;
+        [SerializeField] private bool isTimerOn;
+
+        [SerializeField] private DroneController drone;
+        [SerializeField] private PlayerController player;
 
         private int CurrentLevel => LevelChanger.Instance.CurrentLevel;
+        public DroneController Drone => drone;
+        public PlayerController Player => player;
 
         private void Start()
         {
