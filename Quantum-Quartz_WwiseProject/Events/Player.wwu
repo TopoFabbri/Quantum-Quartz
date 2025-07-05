@@ -372,6 +372,13 @@
 										</Reference>
 									</ReferenceList>
 								</Action>
+								<Action Name="" ID="{6070FD8F-6BD2-4FE6-AE95-414AF9E0BC4C}" ShortID="393563359">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="In_Fireflies" ID="{F2EDD53A-A0B3-4082-A224-B5D0C3FE986D}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 								<Action Name="" ID="{4F3C42AD-86D9-4449-86BB-63BF8A3CDC21}" ShortID="1022877246">
 									<PropertyList>
 										<Property Name="ActionType" Type="int16" Value="36"/>
@@ -409,6 +416,11 @@
 									<PropertyList>
 										<Property Name="ActionType" Type="int16" Value="38"/>
 										<Property Name="GameParameterValue" Type="Real64" Value="100"/>
+										<Property Name="Inclusion" Type="bool">
+											<ValueList>
+												<Value>False</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
@@ -429,6 +441,13 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{356A0616-B0E7-4B42-8E46-4295F817BCD9}" ShortID="954124422">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Out_Fireflies" ID="{F8BCBD2A-351A-48FA-B536-90D1DD82C270}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
