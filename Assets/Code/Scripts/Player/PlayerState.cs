@@ -451,7 +451,6 @@ namespace Code.Scripts.Player
 
         private void OnEnable()
         {
-            InputManager.Jump += OnJumpPressedHandler;
             InputManager.AbilityPress += OnAbilityPressHandler;
             InputManager.AbilityRelease += OnAbilityReleaseHandler;
             ColorSwitcher.ColorChanged += OnChangedColorHandler;
@@ -469,7 +468,6 @@ namespace Code.Scripts.Player
 
         private void OnDisable()
         {
-            InputManager.Jump -= OnJumpPressedHandler;
             InputManager.AbilityPress -= OnAbilityPressHandler;
             InputManager.AbilityRelease -= OnAbilityReleaseHandler;
             ColorSwitcher.ColorChanged -= OnChangedColorHandler;
@@ -532,17 +530,14 @@ namespace Code.Scripts.Player
             OnFlip?.Invoke(sharedContext.facingRight);
         }
 
-        /// <summary>
-        /// Handle player jump action
-        /// </summary>
-        void OnJumpPressedHandler(float value)
+        public void OnJump(bool isPressed)
         {
             bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow;
             bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
-            if (doContextual && (value == 0 || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
+            if (doContextual && (!isPressed || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
             {
                 // If in air with a contextual power mapping, use ability
-                if (value != 0)
+                if (isPressed)
                 {
                     OnAbilityPressHandler();
                 }
@@ -551,7 +546,7 @@ namespace Code.Scripts.Player
                     OnAbilityReleaseHandler();
                 }
             }
-            else if (value != 0)
+            else if (isPressed)
             {
                 jumpPressed = true;
                 StartCoroutine(EndJumpBufferTime(globalSettings.jumpBufferTime));

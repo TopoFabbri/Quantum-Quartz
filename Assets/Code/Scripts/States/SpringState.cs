@@ -90,6 +90,7 @@ namespace Code.Scripts.States
             else
             {
                 // Triggered past origin point
+                Debug.LogError("Error: Triggered past origin point");
             }
         }
 

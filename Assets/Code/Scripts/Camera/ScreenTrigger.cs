@@ -19,7 +19,7 @@ namespace Code.Scripts.Camera
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player"))
+            if (other.isTrigger || !other.CompareTag("Player"))
                 return;
 
             if (last)

@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Code.Scripts.Level
 {
-    public class InteractableLightController : InteractableController2D
+    public class InteractableLightController : InteractableComponent
     {
         [SerializeField] private Light2D light2D;
 

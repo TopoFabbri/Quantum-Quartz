@@ -65,28 +65,22 @@ namespace Code.Scripts.Obstacles
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!collision.TryGetComponent(out ISpringable springable)) return;
-            Activate(springable);
+            if (other.isTrigger || !other.TryGetComponent(out ISpringable springable) || springables.Contains(springable))
+                return;
+
+            springables.Add(springable);
+            animator.SetBool(activateTrigger, true);
+
+            StartCoroutine(springable.Spring(new ISpringable.SpringDefinition(transform.position, (Vector2)transform.up * force)));
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.gameObject.TryGetComponent(out ISpringable springable)) return;
-            
+            if (other.isTrigger || !other.gameObject.TryGetComponent(out ISpringable springable))
+                return;
             springables.Remove(springable);
-        }
-
-        private void Activate(ISpringable springable)
-        {
-            if (springables.Contains(springable)) return;
-
-            springables.Add(springable);
-
-            StartCoroutine(springable.Spring(new ISpringable.SpringDefinition(transform.position, (Vector2)transform.up * force)));
-
-            animator.SetBool(activateTrigger, true);
         }
         
         private void EndAnimation()

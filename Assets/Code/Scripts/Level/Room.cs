@@ -100,7 +100,7 @@ namespace Code.Scripts.Level
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.CompareTag("Player"))
+            if (other.isTrigger || !other.CompareTag("Player"))
                 return;
 
             if (!Player)
