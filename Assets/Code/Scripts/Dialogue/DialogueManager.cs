@@ -49,7 +49,6 @@ namespace Code.Scripts.Dialogue
             dialoguePanelAnim.gameObject.SetActive(true);
             dialogueButton.Select();
             pauseEvent.Post(gameObject);
-            Time.timeScale = 0;
 
             foreach (Conversation.TextBox textBox in conversation.textBoxes)
             {
@@ -106,7 +105,6 @@ namespace Code.Scripts.Dialogue
                 inputManager.EnableGameMap();
                 dialoguePanelAnim.gameObject.SetActive(false);
                 unPauseEvent.Post(gameObject);
-                Time.timeScale = 1;
             }
             dialogueText.text = "";
             dialoguePanelAnim.SetInteger("Portrait", (int)Conversation.PortraitAnimation.None);
