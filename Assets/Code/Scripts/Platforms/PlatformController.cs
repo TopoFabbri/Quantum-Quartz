@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using Event = AK.Wwise.Event;
 
@@ -6,8 +7,23 @@ namespace Code.Scripts.Platforms
     /// <summary>
     /// Manage each platform
     /// </summary>
+    [ExecuteInEditMode]
     public class PlatformController : MonoBehaviour
     {
+        public enum AnimationFrame
+        {
+            Off,
+            On,
+            TurnOff1,
+            TurnOff2,
+            TurnOff3,
+            TurnOff4,
+            TurnOn1,
+            TurnOn2,
+            TurnOn3,
+            TurnOn4
+        }
+
         private const float EdgeOffset = 1f;
         private const float RadiusOffset = 2f;
         private const float OffMultiplier = .5f;
@@ -17,13 +33,23 @@ namespace Code.Scripts.Platforms
         [SerializeField] private ParticleSystem psOff;
         [SerializeField] private float particleQty;
         [SerializeField] private bool solid;
+        [SerializeField] private AnimationFrame curFrame = AnimationFrame.Off;
+        [SerializeField] private SerializedDictionary<AnimationFrame, Sprite> frameMapping;
 
         public Event matSoundEvent;
 
         private void Start()
         {
-            ConfigureParticleSystem(psOn, 1);
-            ConfigureParticleSystem(psOff, OffMultiplier);
+            if (Application.isPlaying)
+            {
+                ConfigureParticleSystem(psOn, 1);
+                ConfigureParticleSystem(psOff, OffMultiplier);
+            }
+        }
+
+        private void Update()
+        {
+            spriteRenderer.sprite = frameMapping.TryGetValue(curFrame, out Sprite sprite) ? sprite : null;
         }
 
         private void ConfigureParticleSystem(ParticleSystem ps, float multiplier)
