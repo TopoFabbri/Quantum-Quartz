@@ -1,5 +1,6 @@
 using Code.Scripts.Game;
 using Code.Scripts.Input;
+using Code.Scripts.Menu;
 using Code.Scripts.Player;
 using Code.Scripts.Tools;
 using TMPro;
@@ -35,6 +36,10 @@ namespace Code.Scripts.Level
                 TimeCounter.Reset();
                 Stats.SetDeaths(0);
             }
+            
+            if (timerTxt != null)
+                timerTxt.gameObject.SetActive(isTimerOn);
+
 
             SfxController.MusicOnOff(true, gameObject);
         }
@@ -48,12 +53,17 @@ namespace Code.Scripts.Level
         {
             InputManager.Restart += OnRestartHandler;
             InputManager.DevMode += OnDevModeHandler;
+            OptionsController.Instance.OnToggleTimer += HandleTimerVisibility;
+
         }
 
         private void OnDisable()
         {
             InputManager.Restart -= OnRestartHandler;
             InputManager.DevMode -= OnDevModeHandler;
+            if (OptionsController.Instance != null)
+                OptionsController.Instance.OnToggleTimer -= HandleTimerVisibility;
+
         }
 
         private void Update()
@@ -103,5 +113,12 @@ namespace Code.Scripts.Level
         {
             return Stats.HasCollectible(CurrentLevel, id);
         }
+        
+        private void HandleTimerVisibility(bool show)
+        {
+            if (timerTxt != null)
+                timerTxt.gameObject.SetActive(show);
+        }
+
     }
 }

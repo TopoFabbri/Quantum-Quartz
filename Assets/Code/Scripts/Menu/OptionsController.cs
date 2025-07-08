@@ -2,7 +2,6 @@ using System;
 using AYellowpaper.SerializedCollections;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
-using Code.Scripts.Level;
 using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
@@ -20,8 +19,9 @@ namespace Code.Scripts.Menu
             public Sprite playstation;
             public Sprite xbox;
         }
-        
+
         public static OptionsController Instance { get; private set; }
+        public event Action<bool> OnToggleTimer;
 
         [HeaderPlus("Main")]
         [SerializeField] private GameObject optionsPanel;
@@ -55,51 +55,28 @@ namespace Code.Scripts.Menu
         [HeaderPlus("Credits")]
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private Button creditsButton;
-        
-        public event Action<bool> OnToggleTimer;
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
 
-        // private void Awake()
-        // {
-        //     if (Instance != null && Instance != this)
-        //     {
-        //         Destroy(gameObject);
-        //         return;
-        //     }
-        //
-        //     Instance = this;
-        // }
         private void Start()
         {
-            if (timerToggle)
-            {
-                bool isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
-                timerToggle.isOn = isTimerOn;
-            }
-
-            if (sfxSlider)
-                sfxSlider.value = Settings.SfxVol / 100f;
-
-            if (musicSlider)
-                musicSlider.value = Settings.MusicVol / 100f;
-
-            musicSlider.onValueChanged.AddListener(SetMusicVolume);
-            sfxSlider.onValueChanged.AddListener(SetSfxVolume);
+            InitializeTimerToggle();
+            InitializeAudioSliders();
+            InitializeControlsDropdown();
             
-            if (controlsDropdown)
-            {
-                string controlsMapping = PlayerPrefs.GetString("ControlsMapping", null);
-                int index = controlsDropdown.options.FindIndex((item) => item.text.Equals(controlsMapping));
-                controlsDropdown.value = Math.Min(0, index);
-                SetControlsMapping();
-            }
-            
-            if (timerToggle)
-            {
-                bool isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
-                timerToggle.isOn = isTimerOn;
-                OnToggleTimer?.Invoke(isTimerOn);
-            }
+            optionsPanel.SetActive(false);
+
         }
 
         private void OnDestroy()
@@ -108,15 +85,43 @@ namespace Code.Scripts.Menu
             sfxSlider.onValueChanged.RemoveListener(SetSfxVolume);
         }
 
-        private static void SetMusicVolume(float value)
+        private void InitializeTimerToggle()
         {
-            Settings.MusicVol = value * 100f;
+            if (!timerToggle) return;
+
+            bool isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+            timerToggle.isOn = isTimerOn;
+
+            OnToggleTimer?.Invoke(isTimerOn);
         }
 
-        private static void SetSfxVolume(float value)
+        private void InitializeAudioSliders()
         {
-            Settings.SfxVol = value * 100f;
+            if (musicSlider)
+            {
+                musicSlider.value = Settings.MusicVol / 100f;
+                musicSlider.onValueChanged.AddListener(SetMusicVolume);
+            }
+
+            if (sfxSlider)
+            {
+                sfxSlider.value = Settings.SfxVol / 100f;
+                sfxSlider.onValueChanged.AddListener(SetSfxVolume);
+            }
         }
+
+        private void InitializeControlsDropdown()
+        {
+            if (!controlsDropdown) return;
+
+            string controlsMapping = PlayerPrefs.GetString("ControlsMapping", null);
+            int index = controlsDropdown.options.FindIndex(item => item.text.Equals(controlsMapping));
+            controlsDropdown.value = index >= 0 ? index : 0;
+            SetControlsMapping();
+        }
+
+        private static void SetMusicVolume(float value) => Settings.MusicVol = value * 100f;
+        private static void SetSfxVolume(float value) => Settings.SfxVol = value * 100f;
 
         public void SetFullScreen()
         {
@@ -129,27 +134,24 @@ namespace Code.Scripts.Menu
             string controlsMapping = controlsDropdown.options[controlsDropdown.value].text;
             PlayerPrefs.SetString("ControlsMapping", controlsMapping);
             inputManager?.SwitchGameMap(controlsMapping);
-            MappingImages mappingImages;
-            if (controlMappingImages.TryGetValue(controlsMapping, out mappingImages))
+
+            if (controlMappingImages.TryGetValue(controlsMapping, out var mappingImages))
             {
                 foreach (InputDevice device in InputManager.Input.devices)
                 {
                     if (device is UnityEngine.InputSystem.DualShock.DualShockGamepad)
                     {
                         controlsImage.sprite = mappingImages.playstation;
-                        break;
+                        return;
                     }
                     else if (device is UnityEngine.InputSystem.XInput.XInputController)
                     {
                         controlsImage.sprite = mappingImages.xbox;
-                        break;
-                    }
-                    else
-                    {
-                        controlsImage.sprite = mappingImages.keyboard;
-                        break;
+                        return;
                     }
                 }
+
+                controlsImage.sprite = mappingImages.keyboard;
             }
             else
             {
@@ -157,74 +159,41 @@ namespace Code.Scripts.Menu
             }
         }
 
+        //Método que se llama desde el Toggle en UI
         public void ToggleTimer()
         {
             bool isTimerOn = timerToggle.isOn;
-
-           // GameManager.Instance.isTimerOn = isTimerOn;
             PlayerPrefs.SetInt("Timer", isTimerOn ? 1 : 0);
             PlayerPrefs.Save();
 
-            OnToggleTimer?.Invoke(isTimerOn); 
+            OnToggleTimer?.Invoke(isTimerOn);
         }
 
+        //Métodos para abrir/cerrar paneles
         public void TurnCredits()
         {
             creditsPanel.SetActive(!creditsPanel.activeSelf);
-
-            if (creditsPanel.activeSelf)
-            {
-                creditsButton.Select();
-            }
-            else
-            {
-                mainMenuButton.Select();
-            }
+            (creditsPanel.activeSelf ? creditsButton : mainMenuButton).Select();
         }
 
         public void TurnOptions()
         {
             optionsPanel.SetActive(!optionsPanel.activeSelf);
-
-            if (optionsPanel.activeSelf)
-            {
-                optionsFirstButton.Select();
-            }
-            else
-            {
-                mainMenuButton.Select();
-            }
+            (optionsPanel.activeSelf ? optionsFirstButton : mainMenuButton).Select();
         }
 
         public void TurnLevelSelector()
         {
             levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
-
-            if (levelSelectorPanel.activeSelf)
-            {
-                levelSelectorFirstButton.Select();
-            }
-            else
-            {
-                mainMenuButton.Select();
-            }
+            (levelSelectorPanel.activeSelf ? levelSelectorFirstButton : mainMenuButton).Select();
         }
 
         public void TurnControls()
         {
             controlsPanel.SetActive(true);
-
-            if (controlsPanel.activeSelf)
-            {
-                videoPanel.SetActive(false);
-                audioPanel.SetActive(false);
-
-                controlsButton.Select();
-            }
-            else
-            {
-                optionsFirstButton.Select();
-            }
+            videoPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            controlsButton.Select();
         }
 
         public void TurnVideo()
@@ -233,35 +202,17 @@ namespace Code.Scripts.Menu
             Cursor.visible = true;
 
             videoPanel.SetActive(true);
-
-            if (videoPanel.activeSelf)
-            {
-                controlsPanel.SetActive(false);
-                audioPanel.SetActive(false);
-
-                videoButton.Select();
-            }
-            else
-            {
-                optionsFirstButton.Select();
-            }
+            controlsPanel.SetActive(false);
+            audioPanel.SetActive(false);
+            videoButton.Select();
         }
 
         public void TurnAudio()
         {
             audioPanel.SetActive(true);
-
-            if (audioPanel.activeSelf)
-            {
-                controlsPanel.SetActive(false);
-                videoPanel.SetActive(false);
-
-                audioButton.Select();
-            }
-            else
-            {
-                optionsFirstButton.Select();
-            }
+            controlsPanel.SetActive(false);
+            videoPanel.SetActive(false);
+            audioButton.Select();
         }
 
         private void OnUIBack()
@@ -269,7 +220,6 @@ namespace Code.Scripts.Menu
             optionsPanel?.SetActive(false);
             levelSelectorPanel?.SetActive(false);
             creditsPanel?.SetActive(false);
-        
             mainMenuButton.Select();
         }
     }
