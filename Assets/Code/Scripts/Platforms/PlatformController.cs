@@ -37,6 +37,7 @@ namespace Code.Scripts.Platforms
         [SerializeField] private SerializedDictionary<AnimationFrame, Sprite> frameMapping;
 
         public Event matSoundEvent;
+        private AnimationFrame? prevFrame = null;
 
         private void Start()
         {
@@ -49,7 +50,12 @@ namespace Code.Scripts.Platforms
 
         private void Update()
         {
-            spriteRenderer.sprite = frameMapping.TryGetValue(curFrame, out Sprite sprite) ? sprite : null;
+            if (!prevFrame.HasValue || prevFrame.Value != curFrame)
+            {
+                Vector2 size = spriteRenderer.size;
+                spriteRenderer.sprite = frameMapping.TryGetValue(curFrame, out Sprite sprite) ? sprite : null;
+                spriteRenderer.size = size;
+            }
         }
 
         private void ConfigureParticleSystem(ParticleSystem ps, float multiplier)
