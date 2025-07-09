@@ -16,7 +16,7 @@ namespace Code.Scripts.Dialogue
     public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     {
         private const float CHAR_DELAY = 0.05f;
-        private const float FAST_CHAR_DELAY = 0.001f;
+        private const float FAST_CHAR_DELAY = 0.0005f;
 
         [SerializeField] private Animator dialoguePanelAnim;
         [SerializeField] private TextMeshProUGUI dialogueText;
@@ -55,6 +55,7 @@ namespace Code.Scripts.Dialogue
                 dialoguePanelAnim.speed = 1;
                 dialoguePanelAnim.SetInteger("Portrait", (int)textBox.portrait);
 
+                float wait = 0;
                 for (int i = 1; i < textBox.Text.Length; i++)
                 {
                     // If empty char, skip
@@ -78,7 +79,16 @@ namespace Code.Scripts.Dialogue
                         else
                         {
                             dialogueText.text = (textBox.Text.Substring(0, i) + WrapTextInTag(textBox.Text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<");
-                            yield return new WaitForSecondsRealtime(advanceText ? FAST_CHAR_DELAY : CHAR_DELAY);
+                            float delay = advanceText ? FAST_CHAR_DELAY : CHAR_DELAY;
+                            if (delay >= Time.deltaTime || wait >= Time.deltaTime)
+                            {
+                                wait = Mathf.Max(0, wait - Time.deltaTime);
+                                yield return new WaitForSecondsRealtime(delay);
+                            }
+                            else
+                            {
+                                wait += delay;
+                            }
                         }
                     }
                 }
