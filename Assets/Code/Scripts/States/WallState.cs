@@ -83,7 +83,7 @@ namespace Code.Scripts.States
         public bool IsTouchingWall(bool checkRight)
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, (checkRight ? moveSettings.wallCheckDis : -moveSettings.wallCheckDis), true);
+            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -103,7 +103,7 @@ namespace Code.Scripts.States
         {
             Vector2 lookDir = sharedContext.facingRight ? Vector2.right : Vector2.left;
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(-lookDir, contactFilter, hits, moveSettings.wallCheckDis * 4f, true);
+            sharedContext.Collider.Cast(-lookDir, contactFilter, hits, sharedContext.GlobalSettings.wallCheckDis * 4f, true);
 
             hits = hits.Where((hit) => IsWall(hit.transform)).ToList();
 

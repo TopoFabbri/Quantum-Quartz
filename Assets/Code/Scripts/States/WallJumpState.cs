@@ -67,9 +67,9 @@ namespace Code.Scripts.States
             Vector2 position = sharedContext.Transform.position;
             Vector2 direction = sharedContext.facingRight ? Vector2.left : Vector2.right;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, direction, moveSettings.wallCheckDis, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, direction, sharedContext.GlobalSettings.wallCheckDis, LayerMask.GetMask("Default"));
             
-            Debug.DrawLine(position, position + direction * moveSettings.wallCheckDis, Color.red, 0.1f);
+            Debug.DrawLine(position, position + direction * sharedContext.GlobalSettings.wallCheckDis, Color.red, 0.1f);
             
             if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;

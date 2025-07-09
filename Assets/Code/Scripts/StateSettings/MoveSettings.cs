@@ -14,9 +14,5 @@ namespace Code.Scripts.StateSettings
         public float minSpeed = 0.5f;
         public float groundFriction = 1f;
         public float airFriction;
-        
-        [HeaderPlus("Wall Check")]
-        public float wallCheckDis;
-        public List<string> tags;
     }
 }

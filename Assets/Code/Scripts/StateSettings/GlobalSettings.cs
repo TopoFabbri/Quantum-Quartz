@@ -16,6 +16,10 @@ namespace Code.Scripts.StateSettings
         public LayerMask groundLayer;
         public float minGroundDist = 0.03f;
 
+        [HeaderPlus("Wall Check")]
+        public float wallCheckDis;
+        public List<string> wallTags;
+
         [HeaderPlus("Movement Settings")]
         public float neutralSpeed = 0.001f;
 

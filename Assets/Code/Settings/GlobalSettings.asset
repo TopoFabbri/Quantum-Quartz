@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b46aeabbf394594b89d545fe2e52f17, type: 3}
   m_Name: GlobalSettings
   m_EditorClassIdentifier: 
-  groundCheckOffset: {x: -0.02773619, y: 0.03}
+  groundCheckOffset: {x: 0, y: 0.03}
   groundCheckDistance: 0.15
   edgeCheckDis: 0.2415947
   edgeCheckLength: 0.13
@@ -20,6 +20,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   minGroundDist: 0.03
+  wallCheckDis: 0.25
+  wallTags:
+  - Wall
+  - Floor
   neutralSpeed: 0.001
   jumpBufferTime: 0.12
   shouldDraw: 1

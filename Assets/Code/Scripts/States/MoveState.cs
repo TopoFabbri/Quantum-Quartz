@@ -5,6 +5,7 @@ using UnityEngine;
 using Code.Scripts.Player;
 using Code.Scripts.Tools;
 using System.Collections.Generic;
+using System;
 
 namespace Code.Scripts.States
 {
@@ -86,11 +87,11 @@ namespace Code.Scripts.States
         public bool WallCheck()
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, moveSettings.wallCheckDis * sharedContext.Input, true);
+            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, sharedContext.GlobalSettings.wallCheckDis * Math.Sign(sharedContext.Input), true);
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (moveSettings.tags.Any(tag => hit.transform.CompareTag(tag)))
+                if (sharedContext.GlobalSettings.wallTags.Any(tag => hit.transform.CompareTag(tag)))
                     return true;
 
                 if (!hit.transform.CompareTag("Platform"))
