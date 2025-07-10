@@ -42,12 +42,14 @@ namespace Code.Scripts.Player
         {
             PlayerState.OnFlip += OnFlipHandler;
             InputManager.Jump += OnJumpPressedHandler;
+            InputManager.Interact += OnInteractHandler;
         }
 
         private void OnDisable()
         {
             PlayerState.OnFlip -= OnFlipHandler;
             InputManager.Jump -= OnJumpPressedHandler;
+            InputManager.Interact -= OnInteractHandler;
         }
 
         private void FixedUpdate()
@@ -101,22 +103,29 @@ namespace Code.Scripts.Player
             }
         }
 
-        /// <summary>
-        /// Handle player jump action
-        /// </summary>
-        void OnJumpPressedHandler(float value)
+        private void OnInteractHandler(float value) => Interact(value);
+        private bool Interact(float value)
         {
             if (value != 0 && interactables.Count > 0)
             {
                 if (interactables[interactables.Count - 1].Interact())
                 {
-                    return;
+                    return true;
                 }
                 else
                 {
                     interactables.RemoveAt(interactables.Count - 1);
                 }
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Handle player jump action
+        /// </summary>
+        private void OnJumpPressedHandler(float value)
+        {
+            if (Interact(value)) return;
 
             playerState.OnJump(value != 0);
         }

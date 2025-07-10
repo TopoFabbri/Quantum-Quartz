@@ -1,6 +1,7 @@
 using Code.Scripts.Colors;
 using Code.Scripts.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace Code.Scripts.Input
         public static event Action AbilityRelease; 
         public static event Action Pause;
         public static event Action DevMode;
+        public static event Action<float> Interact;
 
         [SerializeField] private float moveDeadzone = .5f;
         [SerializeField] private float analogCutoff = .5f;
@@ -57,6 +59,7 @@ namespace Code.Scripts.Input
         private string gameMap = "World";
         private string uiMap = "UI";
         private int inputMapIndex = 0;
+        private bool ignoreInput = false;
         private Dictionary<string, float> prevValues = new Dictionary<string, float>();
 
         [SerializeField] private List<InputMap> inputMaps;
@@ -93,16 +96,30 @@ namespace Code.Scripts.Input
             Input = null;
         }
 
+        void SwitchCurrentActionMap(string mapName, bool consumeInput)
+        {
+            IEnumerator SwitchAsync()
+            {
+                ignoreInput = consumeInput;
+                Input.SwitchCurrentActionMap(mapName);
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+                ignoreInput = false;
+            }
+
+            StartCoroutine(SwitchAsync());
+        }
+
         public void EnableGameMap()
         {
             eventSystem.SetActive(false);
-            Input.SwitchCurrentActionMap(gameMap);
+            SwitchCurrentActionMap(gameMap, true);
         }
 
         public void EnableUIMap()
         {
             eventSystem.SetActive(true);
-            Input.SwitchCurrentActionMap(uiMap);
+            SwitchCurrentActionMap(uiMap, false);
         }
 
         public void SwitchGameMap(int offset)
@@ -152,6 +169,8 @@ namespace Code.Scripts.Input
         /// <param name="input">Input value</param>
         protected void OnMove(InputValue input)
         {
+            if (ignoreInput) return;
+
             Vector2 value = input.Get<Vector2>();
             Move?.Invoke(value.magnitude > moveDeadzone ? value : Vector2.zero);
         }
@@ -161,6 +180,8 @@ namespace Code.Scripts.Input
         /// </summary>
         protected void OnJump(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("Jump", 0) < value))
             {
@@ -178,6 +199,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorRed(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
             {
@@ -195,6 +218,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorBlue(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
             {
@@ -212,6 +237,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorGreen(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
             {
@@ -229,6 +256,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnColorYellow(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
             {
@@ -246,6 +275,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnRestart()
         {
+            if (ignoreInput) return;
+
             if (!Application.isEditor)
                 return;
 
@@ -257,12 +288,16 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnAbility(InputValue input)
         {
+            if (ignoreInput) return;
+
             HandleAbility(input, prevValues.GetValueOrDefault("Ability", 0));
             prevValues["Ability"] = input.Get<float>();
         }
 
         private void HandleAbility(InputValue input, float prevValue)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
 
             if (value == 1 || (value > analogCutoff && prevValue < value))
@@ -276,6 +311,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnPause()
         {
+            if (ignoreInput) return;
+
             Pause?.Invoke();
         }
 
@@ -284,6 +321,8 @@ namespace Code.Scripts.Input
         /// </summary>
         private void OnDevMode()
         {
+            if (ignoreInput) return;
+
             if (!Application.isEditor)
                 return;
             
@@ -292,6 +331,8 @@ namespace Code.Scripts.Input
 
         private void OnColorRedAbility(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRedAbility", 0) < value))
             {
@@ -306,6 +347,8 @@ namespace Code.Scripts.Input
 
         private void OnColorBlueAbility(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlueAbility", 0) < value))
             {
@@ -320,6 +363,8 @@ namespace Code.Scripts.Input
 
         private void OnColorGreenAbility(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreenAbility", 0) < value))
             {
@@ -334,6 +379,8 @@ namespace Code.Scripts.Input
 
         private void OnColorYellowAbility(InputValue input)
         {
+            if (ignoreInput) return;
+
             float value = input.Get<float>();
             if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellowAbility", 0) < value))
             {
@@ -344,6 +391,14 @@ namespace Code.Scripts.Input
                 HandleAbility(input, prevValues.GetValueOrDefault("ColorYellowAbility", 0));
             }
             prevValues["ColorYellowAbility"] = value;
+        }
+
+        private void OnInteract(InputValue input)
+        {
+            if (ignoreInput) return;
+
+            float value = input.Get<float>();
+            Interact?.Invoke(value);
         }
     }
 }
