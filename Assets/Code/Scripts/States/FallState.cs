@@ -83,6 +83,7 @@ namespace Code.Scripts.States
 
             if (sharedContext.IsGrounded)
             {
+                sharedContext.SetFalling(false);
                 sharedContext.PlayerSfx.Land();
                 SpawnDust();
             }
