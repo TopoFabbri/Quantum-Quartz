@@ -53,7 +53,7 @@ namespace Code.Scripts.Level
         {
             InputManager.Restart += OnRestartHandler;
             InputManager.DevMode += OnDevModeHandler;
-            OptionsController.Instance.OnToggleTimer += HandleTimerVisibility;
+            OptionsController.OnToggleTimer += HandleTimerVisibility;
 
         }
 
@@ -61,9 +61,7 @@ namespace Code.Scripts.Level
         {
             InputManager.Restart -= OnRestartHandler;
             InputManager.DevMode -= OnDevModeHandler;
-            if (OptionsController.Instance != null)
-                OptionsController.Instance.OnToggleTimer -= HandleTimerVisibility;
-
+            OptionsController.OnToggleTimer -= HandleTimerVisibility;
         }
 
         private void Update()

@@ -21,7 +21,7 @@ namespace Code.Scripts.Menu
         }
 
         public static OptionsController Instance { get; private set; }
-        public event Action<bool> OnToggleTimer;
+        public static event Action<bool> OnToggleTimer;
 
         [HeaderPlus("Main")]
         [SerializeField] private GameObject optionsPanel;

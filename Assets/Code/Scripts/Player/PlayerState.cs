@@ -56,6 +56,7 @@ namespace Code.Scripts.Player
         bool dashPressed = false;
         bool grabPressed = false;
         bool glidePressed = false;
+        bool contextualPressed = false;
 
         private void Awake()
         {
@@ -222,8 +223,8 @@ namespace Code.Scripts.Player
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
             context.AddCondition("DashPressed", () => dashPressed);
-            context.AddCondition("GrabPressed", () => grabPressed);
-            context.AddCondition("GlidePressed", () => glidePressed);
+            context.AddCondition("GrabPressed", () => grabPressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green));
+            context.AddCondition("GlidePressed", () => glidePressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow));
             context.AddCondition("Died", () => sharedContext.died);
             context.AddCondition("Teleport", () => shouldTp);
 
@@ -539,11 +540,11 @@ namespace Code.Scripts.Player
                 // If in air with a contextual power mapping, use ability
                 if (isPressed)
                 {
-                    OnAbilityPressHandler();
+                    OnAbilityPressHandler(true);
                 }
                 else
                 {
-                    OnAbilityReleaseHandler();
+                    OnAbilityReleaseHandler(true);
                 }
             }
             else if (isPressed)
@@ -569,21 +570,16 @@ namespace Code.Scripts.Player
         /// <param name="colour">New color</param>
         void OnChangedColorHandler(ColorSwitcher.QColor colour)
         {
-            if (colour != ColorSwitcher.QColor.Green)
-            {
-                grabPressed = false;
-            }
-
-            if (colour != ColorSwitcher.QColor.Yellow)
-            {
-                glidePressed = false;
-            }
+            contextualPressed = false;
+            grabPressed = false;
+            glidePressed = false;
         }
 
         /// <summary>
         /// Handle player ability input
         /// </summary>
-        void OnAbilityPressHandler()
+        void OnAbilityPressHandler() => OnAbilityPressHandler(false);
+        void OnAbilityPressHandler(bool contextual)
         {
             switch (ColorSwitcher.Instance.CurrentColor)
             {
@@ -602,10 +598,24 @@ namespace Code.Scripts.Player
                     }
                     break;
                 case ColorSwitcher.QColor.Green:
-                    grabPressed = true;
+                    if (contextual)
+                    {
+                        contextualPressed = true;
+                    }
+                    else
+                    {
+                        grabPressed = true;
+                    }
                     break;
                 case ColorSwitcher.QColor.Yellow:
-                    glidePressed = true;
+                    if (contextual)
+                    {
+                        contextualPressed = true;
+                    }
+                    else
+                    {
+                        glidePressed = true;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -615,8 +625,14 @@ namespace Code.Scripts.Player
         /// <summary>
         /// Handle player ability release input
         /// </summary>
-        void OnAbilityReleaseHandler()
+        void OnAbilityReleaseHandler() => OnAbilityReleaseHandler(false);
+        void OnAbilityReleaseHandler(bool contextual = false)
         {
+            if (contextual)
+            {
+                contextualPressed = false;
+            }
+
             switch (ColorSwitcher.Instance.CurrentColor)
             {
                 case ColorSwitcher.QColor.None:
@@ -626,10 +642,16 @@ namespace Code.Scripts.Player
                 case ColorSwitcher.QColor.Blue:
                     break;
                 case ColorSwitcher.QColor.Green:
-                    grabPressed = false;
+                    if (!contextual)
+                    {
+                        grabPressed = false;
+                    }
                     break;
                 case ColorSwitcher.QColor.Yellow:
-                    glidePressed = false;
+                    if (!contextual)
+                    {
+                        glidePressed = false;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

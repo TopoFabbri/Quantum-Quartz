@@ -136,11 +136,14 @@ namespace Code.Scripts.Colors
         /// <param name="color"></param>
         private void SetColor(QColor color)
         {
-            ColorChanged?.Invoke(color);
+            if (CurrentColor != color)
+            {
+                ColorChanged?.Invoke(color);
 
-            CurrentColor = color;
-            
-            SfxController.ChangeToCrystal(gameObject, color);
+                CurrentColor = color;
+
+                SfxController.ChangeToCrystal(gameObject, color);
+            }
         }
 
         public void LockColor(QColor color) {
