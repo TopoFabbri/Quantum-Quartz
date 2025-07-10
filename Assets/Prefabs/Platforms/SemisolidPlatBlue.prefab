@@ -375,5 +375,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 456758865959664435, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -4755928151783451208}
   m_SourcePrefab: {fileID: 100100000, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
+--- !u!61 &2824811933636698671 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1865890882100402547, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
+  m_PrefabInstance: {fileID: 4528165618998786908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4071814158637989999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 456758865959664435, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
+  m_PrefabInstance: {fileID: 4528165618998786908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4755928151783451208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4071814158637989999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf34f8a49a54beab1ffb9e5fe8b5635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qColor: 2
+  animator: {fileID: 9094304702415894280}
+  animatorOnParameterName: On
+  objectsToToggle:
+  - {fileID: 2824811933636698671}
+--- !u!95 &9094304702415894280 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4675355794037197908, guid: 13992d396b215b04ea0d261c98c93aae, type: 3}
+  m_PrefabInstance: {fileID: 4528165618998786908}
+  m_PrefabAsset: {fileID: 0}

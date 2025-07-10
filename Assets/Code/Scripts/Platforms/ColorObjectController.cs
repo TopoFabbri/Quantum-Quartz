@@ -15,6 +15,14 @@ namespace Code.Scripts.Platforms
         
         public event Action<bool> Toggled;
 
+        private void Start()
+        {
+            if (qColor != ColorSwitcher.QColor.None && ColorSwitcher.Instance.CurrentColor != qColor)
+            {
+                Deactivate();
+            }
+        }
+
         private void OnEnable()
         {
             ColorSwitcher.ColorChanged += ToggleColor;

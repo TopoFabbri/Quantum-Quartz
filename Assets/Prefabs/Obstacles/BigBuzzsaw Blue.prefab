@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7618156562903104230, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+      propertyPath: colorObjectController
+      value: 
+      objectReference: {fileID: 5594819400563108052}
     - target: {fileID: 8612527704856210089, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
       propertyPath: qColor
       value: 2
@@ -95,5 +99,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 435401146990975331, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 5594819400563108052}
   m_SourcePrefab: {fileID: 100100000, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+--- !u!58 &125347475766157081 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5641406874059021716, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+  m_PrefabInstance: {fileID: 5762108835333702285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4661565411091502131 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1100613888022402750, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+  m_PrefabInstance: {fileID: 5762108835333702285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5331633577744751598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 435401146990975331, guid: d66fb0da58a77014cbfe036f6d79b0af, type: 3}
+  m_PrefabInstance: {fileID: 5762108835333702285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5594819400563108052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331633577744751598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf34f8a49a54beab1ffb9e5fe8b5635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qColor: 2
+  animator: {fileID: 4661565411091502131}
+  animatorOnParameterName: On
+  objectsToToggle:
+  - {fileID: 125347475766157081}

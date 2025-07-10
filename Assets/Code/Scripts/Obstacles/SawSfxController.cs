@@ -19,12 +19,18 @@ namespace Code.Scripts.Obstacles
         
         private void Start()
         {
-            colorObjectController.Toggled += OnToggled;
+            if (colorObjectController)
+            {
+                colorObjectController.Toggled += OnToggled;
+            }
         }
 
         protected override void OnDestroy()
         {
-            colorObjectController.Toggled -= OnToggled;
+            if (colorObjectController)
+            {
+                colorObjectController.Toggled -= OnToggled;
+            }
         }
 
         private void OnToggled(bool on)
