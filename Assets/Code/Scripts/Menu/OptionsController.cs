@@ -56,27 +56,11 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private Button creditsButton;
 
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-
         private void Start()
         {
             InitializeTimerToggle();
             InitializeAudioSliders();
             InitializeControlsDropdown();
-            
-            optionsPanel.SetActive(false);
-
         }
 
         private void OnDestroy()

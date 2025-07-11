@@ -339,7 +339,7 @@ namespace Code.Scripts.Player
             stateMachine.AddTransition(djmp, wall, new[] { "CanEnterWall", "GrabPressed", "HasGreenStamina" }, new[] { "IsGrounded" });
             stateMachine.AddTransition(wjmp, wall, new[] { "CanEnterWall", "GrabPressed", "HasGreenStamina" }, new[] { "IsGrounded" });
             stateMachine.AddTransition(spng, wall, new[] { "CanEnterWall", "GrabPressed", "HasGreenStamina" }, new[] { "IsGrounded" });
-            stateMachine.AddTransition(grab, wall, () => context.IsFalse("GrabPressed") || context.IsFalse("HasGreenStamina"));
+            stateMachine.AddTransition(grab, wall, () => context.IsFalse("GrabPressed") || context.IsFalse("HasGreenStamina") || !wall.IsTouchingWall(!sharedContext.facingRight));
 
             // Wall Jump transitions
             // - Wall        >
