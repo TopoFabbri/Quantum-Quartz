@@ -16,7 +16,7 @@ namespace Code.Scripts.Dialogue
 
         public override bool RequiresClick => interactable;
 
-        private void Start()
+        private void Awake()
         {
             SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
             if (sprite)
@@ -38,14 +38,17 @@ namespace Code.Scripts.Dialogue
 
         private void OnConversationEnd()
         {
-            enableAfter?.SetActive(true);
+            if (enableAfter)
+            {
+                enableAfter.SetActive(true);
+            }
             if (reusable)
             {
                 gameObject.GetComponent<Collider2D>().enabled = true;
             }
             else
             {
-                Destroy(gameObject);
+                Destroy(transform.parent.gameObject);
             }
         }
     }

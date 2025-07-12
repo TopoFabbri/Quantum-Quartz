@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ namespace Code.Scripts.Player
         private int defLayer;
         private Coroutine coroutine;
         private Transform overridePosition;
+        private Action onOverridePositionReached;
+        private float speedMultiplier = 1;
 
         private void Start()
         {
@@ -49,6 +52,12 @@ namespace Code.Scripts.Player
                 Vector2 offset = (overridePosition != null ? overridePosition.position : target.position) - transform.position;
                 offset += targetOffset;
 
+                if (overridePosition != null && onOverridePositionReached != null && offset.magnitude < 0.001f)
+                {
+                    onOverridePositionReached.Invoke();
+                    onOverridePositionReached = null;
+                }
+
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, maxRotationSpeed * Time.deltaTime);
 
                 float offsetDist;
@@ -63,7 +72,7 @@ namespace Code.Scripts.Player
                     offsetDist = offset.magnitude / avoidanceDist;
                     speed = maxSpeed * avoidanceCurve.Evaluate(offsetDist);
                 }
-                rb.velocity = offset.normalized * speed + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
+                rb.velocity = offset.normalized * speed * speedMultiplier + (offset.y < 0 ? 0 : yAdjustment) * Vector2.up * offset.normalized.y;
                 rb.angularVelocity = 0;
 
                 Vector2 direction = (target.position - transform.position).normalized;
@@ -110,9 +119,11 @@ namespace Code.Scripts.Player
             coroutine = null;
         }
 
-        public void GoToPosition(Transform position)
+        public void GoToPosition(Transform position, float speedMult, Action onPositionReached = null)
         {
             overridePosition = position;
+            speedMultiplier = position ? speedMult : 1;
+            onOverridePositionReached = onPositionReached;
         }
     }
 }

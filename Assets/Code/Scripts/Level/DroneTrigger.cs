@@ -6,9 +6,14 @@ namespace Code.Scripts.Level
 {
     public class DroneTrigger : InteractableComponent
     {
+        [SerializeField] private float speedMultiplier = 1;
+        [SerializeField] private bool reusable = false;
+        [SerializeField] private bool noCollisionMove = false;
+        [SerializeField] private bool noCollisionAfter = false;
+        [SerializeField] private GameObject enableAfter;
         [SerializeField] private Transform target;
 
-        private void Start()
+        private void Awake()
         {
             foreach (SpriteRenderer sprite in transform.parent.GetComponentsInChildren<SpriteRenderer>())
             {
@@ -18,7 +23,21 @@ namespace Code.Scripts.Level
 
         protected override void OnInteracted()
         {
-            GameManager.Instance.Drone.GoToPosition(target);
+            GameManager.Instance.Drone.GetComponent<Collider2D>().enabled = !noCollisionMove;
+            GameManager.Instance.Drone.GoToPosition(target, speedMultiplier, OnPositionReached);
+        }
+
+        private void OnPositionReached()
+        {
+            GameManager.Instance.Drone.GetComponent<Collider2D>().enabled = !noCollisionAfter;
+            if (enableAfter)
+            {
+                enableAfter.SetActive(true);
+            }
+            if (!reusable)
+            {
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 }
