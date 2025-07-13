@@ -27,15 +27,7 @@ namespace Code.Scripts.Dialogue
         protected override void OnInteracted()
         {
             gameObject.GetComponent<Collider2D>().enabled = false;
-            if (reusable)
-            {
-                DialogueManager.Instance.StartDialogue(conversation, OnConversationEnd);
-            }
-            else
-            {
-                DialogueManager.Instance.StartDialogue(conversation, null);
-                Destroy(gameObject);
-            }
+            DialogueManager.Instance.StartDialogue(conversation, OnConversationEnd);
         }
 
         protected override void OnAwaitingInteraction(bool awaitingInteraction)
@@ -46,8 +38,15 @@ namespace Code.Scripts.Dialogue
 
         private void OnConversationEnd()
         {
-            gameObject.GetComponent<Collider2D>().enabled = true;
             enableAfter?.SetActive(true);
+            if (reusable)
+            {
+                gameObject.GetComponent<Collider2D>().enabled = true;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
