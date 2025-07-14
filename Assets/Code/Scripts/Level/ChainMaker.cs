@@ -2,6 +2,7 @@ using Code.Scripts.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,7 +20,7 @@ namespace Code.Scripts.Level
         [HeaderPlus("Style")]
         [SerializeField] private Sprite linkSprite;
         [SerializeField] private bool hasEnd;
-        [SerializeField] private InteractableComponent psController;
+        [SerializeField] private InteractableComponent interactable;
         [SerializeField] private int linkOrderInLayer = -1;
 
         private readonly List<GameObject> links = new();
@@ -36,25 +37,25 @@ namespace Code.Scripts.Level
             hinges.Clear();
 
             foreach (GameObject link in links)
-                DestroyImmediate(link);
+                DestroyImmediate(link, true);
 
             if (end)
-                DestroyImmediate(end);
+                DestroyImmediate(end, true);
 
             if (!joint)
                 joint = GetComponent<DistanceJoint2D>();
 
             if (joint)
-                DestroyImmediate(joint);
+                DestroyImmediate(joint, true);
 
             if (!rb)
                 rb = GetComponent<Rigidbody2D>();
 
             if (rb)
-                DestroyImmediate(rb);
+                DestroyImmediate(rb, true);
 
             for (int i = transform.childCount - 1; i >= 0; i--)
-                DestroyImmediate(transform.GetChild(i).gameObject);
+                DestroyImmediate(transform.GetChild(i).gameObject, true);
 
             links.Clear();
         }
@@ -62,7 +63,7 @@ namespace Code.Scripts.Level
         [InspectorButton("Generate")]
         private void GenerateChain()
         {
-            if (!linkSprite || (!psController && hasEnd))
+            if (!linkSprite || (!interactable && hasEnd))
             {
                 Debug.LogError("No sprite or end provided");
                 return;
@@ -119,7 +120,7 @@ namespace Code.Scripts.Level
 
         private void GenerateEnd()
         {
-            end = Instantiate(psController).gameObject;
+            end = Instantiate(interactable).gameObject;
             end.name = "End";
             end.transform.parent = transform;
 
@@ -161,7 +162,8 @@ namespace Code.Scripts.Level
             
             Rigidbody2D tempRb = tempLink.GetComponent<Rigidbody2D>();
 
-            tempRb.angularDrag = 10f;
+            tempRb.angularDrag = 0f;
+            tempRb.drag = 5f;
         
             if (i > 0)
             {
