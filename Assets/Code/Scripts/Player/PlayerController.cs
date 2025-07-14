@@ -78,7 +78,7 @@ namespace Code.Scripts.Player
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.enabled && (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")) && playerState.sharedContext.RecalculateIsGrounded())
+            if (col.enabled && (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")) && playerState.sharedContext.Collider.enabled && playerState.sharedContext.RecalculateIsGrounded())
             {
                 if (col.gameObject.TryGetComponent(out ObjectMovement obj))
                 {
@@ -96,9 +96,13 @@ namespace Code.Scripts.Player
         {
             if (transform.parent && col.enabled && (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")))
             {
-                if (col.gameObject.TryGetComponent(out ObjectMovement obj) && transform.parent.Equals(obj.transform))
+                if (transform.parent.Equals(col.transform))
                 {
                     transform.parent = null;
+                    if (col.gameObject.TryGetComponent(out ObjectMovement obj))
+                    {
+                        obj.RemovePlayer(transform);
+                    }
                 }
             }
         }

@@ -26,6 +26,7 @@ namespace Code.Scripts.States
             sharedContext.SpeedX = impulse;
             sharedContext.BlockMoveInput = true;
             coroutine = sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
+            sharedContext.DoWallCooldown(wjmpSettings.wallCooldown);
         }
 
         public override void OnExit()

@@ -78,10 +78,11 @@ namespace Code.Scripts.Platforms
             this.player.parent = transform;
         }
 
-        private void RemovePlayer(Transform player)
+        public void RemovePlayer(Transform player)
         {
             if (player.parent == transform)
             {
+                Debug.Log("Remove Player");
                 player.parent = null;
                 this.player = null;
             }
@@ -101,7 +102,6 @@ namespace Code.Scripts.Platforms
             {
                 colorObj.Toggled -= ToggleColor;
             }
-
 
             if (player)
             {

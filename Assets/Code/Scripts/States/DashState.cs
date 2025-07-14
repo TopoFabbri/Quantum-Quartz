@@ -30,7 +30,7 @@ namespace Code.Scripts.States
 
         private float gravScale;
         private bool interrupted;
-        private Coroutine endDashCoroutine;
+        private Coroutine coroutine;
 
         public DashState(T id, DashSettings stateSettings, SharedContext sharedContext, BarController barController, ParticleSystem dashParticleSystem) : base(id)
         {
@@ -59,7 +59,7 @@ namespace Code.Scripts.States
 
             sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
-            endDashCoroutine = sharedContext.MonoBehaviour.StartCoroutine(EndDash());
+            coroutine = sharedContext.MonoBehaviour.StartCoroutine(EndDash());
             barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 
@@ -74,7 +74,12 @@ namespace Code.Scripts.States
             sharedContext.SetFalling(true);
             sharedContext.BlockMoveInput = false;
 
-            sharedContext.MonoBehaviour.StopCoroutine(endDashCoroutine);
+
+
+            if (coroutine != null)
+            {
+                sharedContext.MonoBehaviour.StopCoroutine(coroutine);
+            }
             barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 

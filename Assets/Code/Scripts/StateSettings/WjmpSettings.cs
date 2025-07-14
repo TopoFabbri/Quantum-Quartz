@@ -10,6 +10,7 @@ namespace Code.Scripts.StateSettings
         public JumpSettings jumpSettings;
 
         [HeaderPlus("Wall Jump Settings")]
+        public float wallCooldown = 0.1f;
         public float noInputTime = 0.4f;
         public float wallJumpForce = 10f;
     }

@@ -11,6 +11,7 @@ namespace Code.Scripts.StateSettings
 
 
         [HeaderPlus("Wall Settings")]
+        public float wallCooldown = 0.1f;
         public float gravMultiplier = .5f;
         public float upwardsGravMultiplier = 1.5f;
         public float wallDis = 0.5f;

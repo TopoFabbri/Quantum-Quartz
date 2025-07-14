@@ -545,12 +545,16 @@ namespace Code.Scripts.Player
         /// <summary>
         /// Manage player actions when color is changed
         /// </summary>
-        /// <param name="colour">New color</param>
-        void OnChangedColorHandler(ColorSwitcher.QColor colour)
+        /// <param name="color">New color</param>
+        void OnChangedColorHandler(ColorSwitcher.QColor color)
         {
             contextualPressed = false;
             grabPressed = false;
             glidePressed = false;
+            if (color == ColorSwitcher.QColor.Green)
+            {
+                sharedContext.DoWallCooldown(sharedContext.GlobalSettings.greenWallDelay);
+            }
         }
 
         /// <summary>

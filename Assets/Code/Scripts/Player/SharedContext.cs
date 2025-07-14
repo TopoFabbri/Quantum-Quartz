@@ -6,6 +6,7 @@ using Code.Scripts.Interfaces;
 using Code.Scripts.States;
 using Code.Scripts.StateSettings;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -78,12 +79,14 @@ namespace Code.Scripts.Player
         public bool died = false;
         public bool canCoyoteJump = false;
         public bool djmpAvailable = false;
+        public bool inWallCooldown = false;
         public float jumpFallTime = 0;
         public Vector2 previousSpeed = Vector2.zero;
         public event Action OnCheckFlip;
 
         private readonly FiniteStateMachine<string> stateMachine;
         private double curSpeedTimestamp;
+        private Coroutine wallCooldownCoroutine;
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
         {
@@ -200,6 +203,22 @@ namespace Code.Scripts.Player
         {
             Falling = falling;
             jumpFallTime = 0;
+        }
+
+        public void DoWallCooldown(float wallCooldown)
+        {
+            if (wallCooldownCoroutine != null)
+            {
+                MonoBehaviour.StopCoroutine(wallCooldownCoroutine);
+            }
+            wallCooldownCoroutine = MonoBehaviour.StartCoroutine(WallCooldown(wallCooldown));
+        }
+
+        private IEnumerator WallCooldown(float wallCooldown)
+        {
+            inWallCooldown = true;
+            yield return new WaitForSeconds(wallCooldown);
+            inWallCooldown = false;
         }
     }
 }

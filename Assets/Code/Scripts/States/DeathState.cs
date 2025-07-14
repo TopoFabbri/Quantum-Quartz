@@ -3,6 +3,7 @@ using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Game;
 using Code.Scripts.Level;
+using Code.Scripts.Platforms;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -49,6 +50,10 @@ namespace Code.Scripts.States
             sharedContext.CamController?.Shake(deathSettings.shakeDur, deathSettings.shakeMag);
 
             sharedContext.MonoBehaviour.StartCoroutine(WaitAndEnd());
+
+            if (sharedContext.Transform.parent && sharedContext.Transform.parent.TryGetComponent(out ObjectMovement objMovement)) {
+                objMovement.RemovePlayer(sharedContext.Transform);
+            }
         }
 
         public override void OnExit()
@@ -56,7 +61,6 @@ namespace Code.Scripts.States
             base.OnExit();
             deathController.Die();
             sharedContext.died = false;
-            sharedContext.Collider.enabled = true;
 
             Stats.SetDeaths(Stats.Deaths + 1);
         }

@@ -17,6 +17,7 @@ namespace Code.Scripts.StateSettings
         public float minGroundDist = 0.03f;
 
         [HeaderPlus("Wall Check")]
+        public float greenWallDelay = 0.1f;
         public float wallCheckDis;
         public List<string> wallTags;
 

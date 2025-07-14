@@ -62,6 +62,7 @@ namespace Code.Scripts.States
             sharedContext.Transform.parent = null;
             sharedContext.Rigidbody.gravityScale = savedGravityScale;
             sharedContext.jumpFallTime = 0;
+            sharedContext.DoWallCooldown(wallSettings.wallCooldown);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace Code.Scripts.States
         /// <returns>True if touching a wall</returns>
         public bool CanEnterWall()
         {
-            if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green)
+            if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green || sharedContext.inWallCooldown)
                 return false;
 
             return IsTouchingWall(sharedContext.facingRight);

@@ -35,7 +35,8 @@ namespace Code.Scripts.States
             sharedContext.SetFalling(false);
             
             Reposition();
-            
+
+            sharedContext.Collider.enabled = true;
             Ended = false;
             sharedContext.MonoBehaviour.StartCoroutine(WaitAndEnd());
         }
