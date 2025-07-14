@@ -77,6 +77,7 @@ namespace Code.Scripts.Player
         public bool facingRight = false;
         public bool died = false;
         public bool canCoyoteJump = false;
+        public bool djmpAvailable = false;
         public float jumpFallTime = 0;
         public Vector2 previousSpeed = Vector2.zero;
         public event Action OnCheckFlip;

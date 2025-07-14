@@ -20,6 +20,8 @@ namespace Code.Scripts.Player
 
     public class PlayerState : MonoBehaviour
     {
+        public static event Action<bool> OnFlip;
+
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Collider2D col;
         [SerializeField] private BarController staminaBar;
@@ -39,24 +41,16 @@ namespace Code.Scripts.Player
         public SharedContext sharedContext { get; private set; }
 #pragma warning restore IDE1006 // Naming Styles
 
-        public static event Action<bool> OnFlip;
+        private Action unsubscribeStates;
 
-        public MoveState<string> tempMoveState; // Speed
-        public DashState<string> tempDashState; // Interrupt
-        public DjmpState<string> tempDjmpState; // <-------------------------- Used to check if double jump is available, and to reset the double jump
-        public TpState<string> tempTlptState; // Animation events
-        public ExitTpState<string> tempExtpState; // Animation events
-
-        Action unsubscribeTemp;
-
-        bool shouldTp = false;
-
-        bool jumpPressed = false;
-        bool djmpPressed = false;
-        bool dashPressed = false;
-        bool grabPressed = false;
-        bool glidePressed = false;
-        bool contextualPressed = false;
+        private bool shouldTp = false;
+        private bool exitTp = false;
+        private bool jumpPressed = false;
+        private bool djmpPressed = false;
+        private bool dashPressed = false;
+        private bool grabPressed = false;
+        private bool glidePressed = false;
+        private bool contextualPressed = false;
 
         private void Awake()
         {
@@ -64,9 +58,72 @@ namespace Code.Scripts.Player
             CreateStateMachine();
         }
 
+        private void Start()
+        {
+            if (!sharedContext.facingRight)
+            {
+                Flip();
+            }
+        }
+
+        private void OnEnable()
+        {
+            InputManager.AbilityPress += OnAbilityPressHandler;
+            InputManager.AbilityRelease += OnAbilityReleaseHandler;
+            ColorSwitcher.ColorChanged += OnChangedColorHandler;
+
+            sharedContext.CamController.MoveCam += PausePlayer;
+            sharedContext.CamController.StopCam += ResumePlayer;
+            sharedContext.OnCheckFlip += CheckFlip;
+
+            if (animController)
+            {
+                stateMachine.StateChanged += animController.OnStateChangedHandler;
+                OnFlip += animController.OnFlipHandler;
+            }
+        }
+
+        private void Update()
+        {
+            stateMachine.Update();
+
+            if (stateDebugText)
+            {
+                stateDebugText.text = stateMachine.CurrentState.ID;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            CheckFlip();
+            stateMachine.FixedUpdate();
+
+            if (sharedContext.RecalculateIsGrounded())
+            {
+                sharedContext.djmpAvailable = true;
+            }
+        }
+
+        private void OnDisable()
+        {
+            InputManager.AbilityPress -= OnAbilityPressHandler;
+            InputManager.AbilityRelease -= OnAbilityReleaseHandler;
+            ColorSwitcher.ColorChanged -= OnChangedColorHandler;
+
+            sharedContext.CamController.MoveCam -= PausePlayer;
+            sharedContext.CamController.StopCam -= ResumePlayer;
+            sharedContext.OnCheckFlip -= CheckFlip;
+
+            if (animController)
+            {
+                stateMachine.StateChanged += animController.OnStateChangedHandler;
+                OnFlip -= animController.OnFlipHandler;
+            }
+        }
+
         private void OnDestroy()
         {
-            unsubscribeTemp();
+            unsubscribeStates?.Invoke();
         }
 
         /// <summary>
@@ -75,7 +132,7 @@ namespace Code.Scripts.Player
         void CreateStateMachine()
         {
             // =====================================
-            // ||         Create States           ||
+            // ||          Create States          ||
             // =====================================
             IdleState     <string> idle = new("Idle"                                                                                       );
             TpState       <string> tlpt = new("TP",     sharedContext                                                                      );
@@ -121,48 +178,10 @@ namespace Code.Scripts.Player
                 stateMachine.AddState(state);
             }
 
+
             // ====================================
-            // ||        Set Up Context          ||
+            // ||      Subscribe to Events       ||
             // ====================================
-            TransitionContext context = stateMachine.Context;
-            context.AddCondition("StoppedMoving", move.StoppedMoving);
-            context.AddCondition("IsGrounded", sharedContext.RecalculateIsGrounded);
-            context.AddCondition("HasJumped", () => jump.HasJumped);
-            context.AddCondition("HasDoubleJumped", () => djmp.HasJumped);
-            context.AddCondition("HasWallJumped", () => wjmp.HasJumped);
-            context.AddCondition("VisuallyOnEdge", edge.IsVisuallyOnEdge);
-            context.AddCondition("HasInput", () => sharedContext.Input != 0);
-            context.AddCondition("NoWall", () => !move.WallCheck());
-            context.AddCondition("CanEnterWall", wall.CanEnterWall);
-            context.AddCondition("Spring", () => sharedContext.spring.HasValue);
-            context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
-            context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
-            context.AddCondition("DownVelocity", () => rb.velocity.y < -sharedContext.GlobalSettings.neutralSpeed);
-            context.AddCondition("UpVelocity", () => rb.velocity.y > sharedContext.GlobalSettings.neutralSpeed);
-            context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue);
-            context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red);
-            context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green);
-            context.AddCondition("IsYellow", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
-            context.AddCondition("HasRedStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Red).Depleted);
-            context.AddCondition("HasGreenStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Green).Depleted);
-            context.AddCondition("HasYellowStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Yellow).Depleted);
-            context.AddCondition("ExitSpawn", () => spwn.Ended);
-            context.AddCondition("ExitExitTP", () => extp.Ended);
-            context.AddCondition("ExitDash", () => dash.Ended);
-            context.AddCondition("ExitTeleport", () => tlpt.Ended);
-            context.AddCondition("ExitDeath", () => deth.Ended);
-
-            // ------------------------------------
-            // !!   PlayerController variables   !!
-            // ------------------------------------
-            // - These need to be replaced/modified whenever possible
-
-            tempMoveState = move;
-            tempDashState = dash;
-            tempDjmpState = djmp;
-            tempTlptState = tlpt;
-            tempExtpState = extp;
-
             void onExitSpawn()
             {
                 jumpPressed = false;
@@ -206,7 +225,7 @@ namespace Code.Scripts.Player
             wall.onEnter += onEnterWall;
             wjmp.onEnter += move.ResetSpeed;
 
-            unsubscribeTemp = () =>
+            unsubscribeStates = () =>
             {
                 spwn.onExit -= onExitSpawn;
                 jump.onEnter -= onEnterJump;
@@ -218,7 +237,36 @@ namespace Code.Scripts.Player
                 wjmp.onEnter -= move.ResetSpeed;
             };
 
-
+            // ====================================
+            // ||         Set Up Context         ||
+            // ====================================
+            TransitionContext context = stateMachine.Context;
+            context.AddCondition("StoppedMoving", move.StoppedMoving);
+            context.AddCondition("IsGrounded", sharedContext.RecalculateIsGrounded);
+            context.AddCondition("HasJumped", () => jump.HasJumped);
+            context.AddCondition("HasDoubleJumped", () => djmp.HasJumped);
+            context.AddCondition("HasWallJumped", () => wjmp.HasJumped);
+            context.AddCondition("VisuallyOnEdge", edge.IsVisuallyOnEdge);
+            context.AddCondition("HasInput", () => sharedContext.Input != 0);
+            context.AddCondition("NoWall", () => !move.WallCheck());
+            context.AddCondition("CanEnterWall", wall.CanEnterWall);
+            context.AddCondition("Spring", () => sharedContext.spring.HasValue);
+            context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
+            context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("DownVelocity", () => rb.velocity.y < -sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("UpVelocity", () => rb.velocity.y > sharedContext.GlobalSettings.neutralSpeed);
+            context.AddCondition("IsBlue", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue);
+            context.AddCondition("IsRed", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red);
+            context.AddCondition("IsGreen", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green);
+            context.AddCondition("IsYellow", () => ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
+            context.AddCondition("HasRedStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Red).Depleted);
+            context.AddCondition("HasGreenStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Green).Depleted);
+            context.AddCondition("HasYellowStamina", () => !staminaBar.GetBar(ColorSwitcher.QColor.Yellow).Depleted);
+            context.AddCondition("ExitSpawn", () => spwn.Ended);
+            context.AddCondition("ExitExitTP", () => extp.Ended);
+            context.AddCondition("ExitDash", () => dash.Ended);
+            context.AddCondition("ExitTeleport", () => exitTp);
+            context.AddCondition("ExitDeath", () => deth.Ended);
             context.AddCondition("NotFalling", () => !sharedContext.Falling);
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
@@ -229,7 +277,7 @@ namespace Code.Scripts.Player
             context.AddCondition("Teleport", () => shouldTp);
 
             // ====================================
-            // ||      Create Transitions        ||
+            // ||       Create Transitions       ||
             // ====================================
             #region Transitions
 
@@ -406,7 +454,7 @@ namespace Code.Scripts.Player
             #endregion
 
             // ====================================
-            // ||      Create Transitions        ||
+            // ||      Set Up State Machine      ||
             // ====================================
             stateMachine.SetCurrentState(extp);
             stateMachine.Init();
@@ -432,76 +480,6 @@ namespace Code.Scripts.Player
                 animController.AddState(grab.ID, 13);
                 animController.AddState(edge.ID, 14);
                 animController.AddState(spng.ID, 15);
-            }
-        }
-
-
-
-
-
-
-        // --------------------------------------------
-
-        private void Start()
-        {
-            if (!sharedContext.facingRight)
-            {
-                Flip();
-            }
-        }
-
-        private void OnEnable()
-        {
-            InputManager.AbilityPress += OnAbilityPressHandler;
-            InputManager.AbilityRelease += OnAbilityReleaseHandler;
-            ColorSwitcher.ColorChanged += OnChangedColorHandler;
-
-            sharedContext.CamController.MoveCam += PausePlayer;
-            sharedContext.CamController.StopCam += ResumePlayer;
-            sharedContext.OnCheckFlip += CheckFlip;
-
-            if (animController)
-            {
-                stateMachine.StateChanged += animController.OnStateChangedHandler;
-                OnFlip += animController.OnFlipHandler;
-            }
-        }
-
-        private void OnDisable()
-        {
-            InputManager.AbilityPress -= OnAbilityPressHandler;
-            InputManager.AbilityRelease -= OnAbilityReleaseHandler;
-            ColorSwitcher.ColorChanged -= OnChangedColorHandler;
-
-            sharedContext.CamController.MoveCam -= PausePlayer;
-            sharedContext.CamController.StopCam -= ResumePlayer;
-            sharedContext.OnCheckFlip -= CheckFlip;
-
-            if (animController)
-            {
-                stateMachine.StateChanged += animController.OnStateChangedHandler;
-                OnFlip -= animController.OnFlipHandler;
-            }
-        }
-
-        private void Update()
-        {
-            stateMachine.Update();
-
-            if (stateDebugText)
-            {
-                stateDebugText.text = stateMachine.CurrentState.ID;
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            CheckFlip();
-            stateMachine.FixedUpdate();
-
-            if (sharedContext.RecalculateIsGrounded())
-            {
-                tempDjmpState.Reset();
             }
         }
 
@@ -592,7 +570,7 @@ namespace Code.Scripts.Player
                     }
                     break;
                 case ColorSwitcher.QColor.Blue:
-                    if (tempDjmpState.JumpAvailable)
+                    if (sharedContext.djmpAvailable)
                     {
                         djmpPressed = true;
                     }
@@ -681,7 +659,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void EndTp()
         {
-            tempTlptState.OnEnd();
+            exitTp = true;
         }
     }
 }

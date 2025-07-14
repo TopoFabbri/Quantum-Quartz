@@ -171,12 +171,11 @@ namespace Code.Scripts.Player
 
         public IEnumerator Spring(ISpringable.SpringDefinition springDefinition)
         {
-            playerState.tempDashState.Interrupt();
             playerState.sharedContext.spring = springDefinition;
             
             yield return new WaitForFixedUpdate();
 
-            playerState.tempDjmpState.Reset();
+            playerState.sharedContext.djmpAvailable = true;
         }
 
         public Rigidbody2D GetFollowObject(Rigidbody2D rb)

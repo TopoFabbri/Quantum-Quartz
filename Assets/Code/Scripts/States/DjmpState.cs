@@ -16,16 +16,13 @@ namespace Code.Scripts.States
         protected readonly DjmpSettings djmpSettings;
         private readonly ParticleSystem djmpParticleSystem;
         private readonly ParticleSystem djmpParticleSystem2;
-
-        public bool JumpAvailable { get; private set; }
         
         public DjmpState(T id, DjmpSettings stateSettings, SharedContext sharedContext, ParticleSystem djmpParticleSystem, ParticleSystem djmpParticleSystem2) : base(id, stateSettings.jumpSettings, sharedContext)
         {
             this.djmpSettings = stateSettings;
             this.djmpParticleSystem = djmpParticleSystem;
             this.djmpParticleSystem2 = djmpParticleSystem2;
-                    
-            Reset();
+            sharedContext.djmpAvailable = true;
         }
 
         public override void OnEnter()
@@ -35,18 +32,10 @@ namespace Code.Scripts.States
             djmpParticleSystem.Play();
             djmpParticleSystem2.Play();
 
-            JumpAvailable = false;
+            sharedContext.djmpAvailable = false;
             sharedContext.Rigidbody.velocity = Vector2.zero;
             
             sharedContext.CamController?.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
-        }
-        
-        /// <summary>
-        /// Set jump available
-        /// </summary>
-        public void Reset()
-        {
-            JumpAvailable = true;
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Code.Scripts.States
 
         private float gravScale;
         private bool interrupted;
+        private Coroutine endDashCoroutine;
 
         public DashState(T id, DashSettings stateSettings, SharedContext sharedContext, BarController barController, ParticleSystem dashParticleSystem) : base(id)
         {
@@ -47,7 +48,8 @@ namespace Code.Scripts.States
             base.OnEnter();
             dashParticleSystem.Play();
 
-            interrupted = false;
+            interrupted = true;
+            Ended = false;
             gravScale = sharedContext.Rigidbody.gravityScale;
             sharedContext.Rigidbody.gravityScale = 0f;
             sharedContext.Rigidbody.velocity = Vector2.zero;
@@ -57,7 +59,7 @@ namespace Code.Scripts.States
 
             sharedContext.CamController?.Shake(dashSettings.shakeDur, dashSettings.shakeMag);
 
-            sharedContext.MonoBehaviour.StartCoroutine(EndDash());
+            endDashCoroutine = sharedContext.MonoBehaviour.StartCoroutine(EndDash());
             barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 
@@ -72,6 +74,7 @@ namespace Code.Scripts.States
             sharedContext.SetFalling(true);
             sharedContext.BlockMoveInput = false;
 
+            sharedContext.MonoBehaviour.StopCoroutine(endDashCoroutine);
             barController.GetBar(ColorSwitcher.QColor.Red).Use();
         }
 
@@ -82,6 +85,7 @@ namespace Code.Scripts.States
 
             if (WallCheck())
             {
+                interrupted = false;
                 Ended = true;
             }
             else
@@ -100,8 +104,6 @@ namespace Code.Scripts.States
         /// <returns></returns>
         private IEnumerator EndDash()
         {
-            Ended = false;
-
             yield return new WaitForSeconds(dashSettings.duration);
             Ended = true;
         }
@@ -118,15 +120,6 @@ namespace Code.Scripts.States
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Interrupt the dash state. This sets the state's Ended property to true.
-        /// </summary>
-        public void Interrupt()
-        {
-            interrupted = true;
-            Ended = true;
         }
     }
 }

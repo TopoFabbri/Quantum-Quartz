@@ -5,9 +5,7 @@ using UnityEngine;
 namespace Code.Scripts.States
 {
     public class TpState<T> : BaseState<T>
-    {
-        public bool Ended { get; private set; }
-        
+    {        
         private readonly SharedContext sharedContext;
         
         public TpState(T id, SharedContext sharedContext) : base(id)
@@ -21,7 +19,6 @@ namespace Code.Scripts.States
 
             sharedContext.Rigidbody.velocity = Vector2.zero;
             sharedContext.Rigidbody.isKinematic = true;
-            Ended = false;
         }
 
         public override void OnExit()
@@ -29,11 +26,6 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Rigidbody.isKinematic = false;
-        }
-        
-        public void OnEnd()
-        {
-            Ended = true;
         }
     }
 }
