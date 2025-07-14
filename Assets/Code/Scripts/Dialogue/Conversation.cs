@@ -16,11 +16,20 @@ namespace Code.Scripts.Dialogue
             Molly_Sad
         }
 
+        public enum PortraitAlignment
+        {
+            None = 0,
+            Left = 1,
+            Right = 2,
+            Both = Left + Right
+        }
+
         [System.Serializable]
         public struct TextBox
         {
             [SerializeField] private LocalizedString text;
             public PortraitAnimation portrait;
+            public PortraitAlignment portraitAlignment;
             public string Text => text.GetLocalizedString();
         }
 
