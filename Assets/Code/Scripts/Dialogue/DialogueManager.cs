@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using Code.Scripts.UI;
@@ -27,11 +28,20 @@ namespace Code.Scripts.Dialogue
         [SerializeField] private PauseController pauseController;
         [SerializeField] private Event pauseEvent;
         [SerializeField] private Event unPauseEvent;
+        [SerializeField] private SerializedDictionary<Conversation.PortraitAnimation, Conversation.PortraitAlignment> portraitAlignments;
 
         private bool advanceText = false;
         private Coroutine curDialogue = null;
         private Action onCurDialogueEnd = null;
         private Rect defaultTextBoxRect;
+
+        private void Reset()
+        {
+            foreach (Conversation.PortraitAnimation anims in Enum.GetValues(typeof(Conversation.PortraitAnimation)))
+            {
+                portraitAlignments.Add(anims, Conversation.PortraitAlignment.Left);
+            }
+        }
 
         private void Awake()
         {
@@ -63,8 +73,9 @@ namespace Code.Scripts.Dialogue
             foreach (Conversation.TextBox textBox in conversation.textBoxes)
             {
                 dialoguePanelAnim.speed = 1;
-                this.textBox.offsetMin = defaultTextBoxRect.min + Vector2.right * (textBox.portraitAlignment.HasFlag(Conversation.PortraitAlignment.Left) ? portraitOffset : 0);
-                this.textBox.offsetMax = defaultTextBoxRect.max + Vector2.left * (textBox.portraitAlignment.HasFlag(Conversation.PortraitAlignment.Right) ? portraitOffset : 0);
+                Conversation.PortraitAlignment alignment = portraitAlignments.GetValueOrDefault(textBox.portrait, Conversation.PortraitAlignment.None);
+                this.textBox.offsetMin = defaultTextBoxRect.min + Vector2.right * (alignment.HasFlag(Conversation.PortraitAlignment.Left) ? portraitOffset : 0);
+                this.textBox.offsetMax = defaultTextBoxRect.max + Vector2.left * (alignment.HasFlag(Conversation.PortraitAlignment.Right) ? portraitOffset : 0);
                 dialoguePanelAnim.SetInteger("Portrait", (int)textBox.portrait);
 
                 float wait = 0;

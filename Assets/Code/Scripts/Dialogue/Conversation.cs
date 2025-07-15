@@ -29,7 +29,6 @@ namespace Code.Scripts.Dialogue
         {
             [SerializeField] private LocalizedString text;
             public PortraitAnimation portrait;
-            public PortraitAlignment portraitAlignment;
             public string Text => text.GetLocalizedString();
         }
 
