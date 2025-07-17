@@ -43,8 +43,10 @@ namespace Code.Scripts.Platforms
         {
             if (Application.isPlaying)
             {
-                ConfigureParticleSystem(psOn, 1);
-                ConfigureParticleSystem(psOff, OffMultiplier);
+                if (psOn)
+                    ConfigureParticleSystem(psOn, 1);
+                if (psOff)
+                    ConfigureParticleSystem(psOff, OffMultiplier);
             }
         }
 
@@ -78,10 +80,6 @@ namespace Code.Scripts.Platforms
                 emission.rateOverTime = CalculateRadialEmissionRate(radius) * multiplier;
             }
         }
-        
-        private void ClearPsOff() => psOff.Clear();
-        
-        private void ClearPsOn() => psOn.Clear();
 
         private static float CalculateRadius(float width) => (width - RadiusOffset) / 2f;
 
