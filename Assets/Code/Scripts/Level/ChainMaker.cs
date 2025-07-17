@@ -19,6 +19,7 @@ namespace Code.Scripts.Level
 
         [HeaderPlus("Style")]
         [SerializeField] private Sprite linkSprite;
+        [SerializeField] private Material linkMaterial;
         [SerializeField] private bool hasEnd;
         [SerializeField] private InteractableComponent interactable;
         [SerializeField] private int linkOrderInLayer = -1;
@@ -158,6 +159,7 @@ namespace Code.Scripts.Level
             SpriteRenderer tmpLinkRenderer = tempLink.AddComponent<SpriteRenderer>();
 
             tmpLinkRenderer.sprite = linkSprite;
+            tmpLinkRenderer.sharedMaterial = linkMaterial;
             tmpLinkRenderer.sortingOrder = linkOrderInLayer;
             
             Rigidbody2D tempRb = tempLink.GetComponent<Rigidbody2D>();
