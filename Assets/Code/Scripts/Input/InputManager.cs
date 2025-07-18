@@ -15,6 +15,13 @@ namespace Code.Scripts.Input
     {
         const float INPUT_DELAY = 0.15f;
 
+        public enum ControlScheme
+        {
+            Keyboard,
+            Gamepad,
+            DS4
+        }
+
         public abstract class ReadOnlyInputMap
         {
             public abstract string GetMapName();
@@ -95,6 +102,21 @@ namespace Code.Scripts.Input
         private void OnDisable()
         {
             Input = null;
+        }
+
+        public static ControlScheme GetControlScheme()
+        {
+            ControlScheme output = ControlScheme.Keyboard;
+            switch (Input.currentControlScheme)
+            {
+                case "Gamepad":
+                    output = ControlScheme.Gamepad;
+                    break;
+                case "DS4":
+                    output = ControlScheme.DS4;
+                    break;
+            }
+            return output;
         }
 
         void SwitchCurrentActionMap(string mapName, bool consumeInput)

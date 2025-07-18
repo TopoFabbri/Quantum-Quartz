@@ -19,6 +19,15 @@ namespace Code.Scripts.Dialogue
         private const float CHAR_DELAY = 0.05f;
         private const float FAST_CHAR_DELAY = 0.0005f;
 
+        [System.Serializable]
+        public class KeywordMapping
+        {
+            [SerializeField] private string keyword;
+            [SerializeField] private SerializedDictionary<InputManager.ControlScheme, string> mappings;
+            public string Keyword => keyword;
+            public IReadOnlyDictionary<InputManager.ControlScheme, string> Mappings => mappings;
+        }
+
         [SerializeField] private float portraitOffset = 352;
         [SerializeField] private Animator dialoguePanelAnim;
         [SerializeField] private TextMeshProUGUI dialogueText;
@@ -29,6 +38,7 @@ namespace Code.Scripts.Dialogue
         [SerializeField] private Event pauseEvent;
         [SerializeField] private Event unPauseEvent;
         [SerializeField] private SerializedDictionary<Conversation.PortraitAnimation, Conversation.PortraitAlignment> portraitAlignments;
+        [SerializeField] private List<KeywordMapping> keywordMappings;
 
         private bool advanceText = false;
         private Coroutine curDialogue = null;
@@ -101,7 +111,7 @@ namespace Code.Scripts.Dialogue
                         }
                         else
                         {
-                            dialogueText.text = (textBox.Text.Substring(0, i) + WrapTextInTag(textBox.Text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<");
+                            dialogueText.text = ApplyKeywordMappings((textBox.Text.Substring(0, i) + WrapTextInTag(textBox.Text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<"));
                             float delay = advanceText ? FAST_CHAR_DELAY : CHAR_DELAY;
                             if (delay >= Time.deltaTime || wait >= Time.deltaTime)
                             {
@@ -122,7 +132,7 @@ namespace Code.Scripts.Dialogue
                 {
                     dialoguePanelAnim.Play(dialoguePanelAnim.GetCurrentAnimatorStateInfo(i).shortNameHash, i, 0);
                 }
-                dialogueText.text = textBox.Text.Replace("\\>", ">").Replace("\\<", "<");
+                dialogueText.text = ApplyKeywordMappings(textBox.Text.Replace("\\>", ">").Replace("\\<", "<"));
                 yield return new WaitUntil(() => advanceText);
                 advanceText = false;
             }
@@ -153,8 +163,8 @@ namespace Code.Scripts.Dialogue
         }
 
         static readonly Regex ANGLE_BRACKETS = new Regex(@"(?<!\\)[><]");
-        static readonly string[] ATOMIC_TAGS = new string[] { "sprite" };
-        string WrapTextInTag(string text, string startTag, string endTag)
+        static readonly string[] ATOMIC_TAGS = new string[] { "sprite", "button", "special" };
+        private string WrapTextInTag(string text, string startTag, string endTag)
         {
             string output = "";
             string[] textParts = ANGLE_BRACKETS.Split(text);
@@ -192,6 +202,17 @@ namespace Code.Scripts.Dialogue
                 }
 
                 textIdx += textParts[i].Length + 1;
+            }
+            return output;
+        }
+
+        private string ApplyKeywordMappings(string text)
+        {
+            string output = text;
+            InputManager.ControlScheme controlScheme = InputManager.GetControlScheme();
+            foreach (KeywordMapping keywordMapping in keywordMappings)
+            {
+                output = output.Replace(keywordMapping.Keyword, keywordMapping.Mappings[controlScheme]);
             }
             return output;
         }

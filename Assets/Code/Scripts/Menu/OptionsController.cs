@@ -121,21 +121,18 @@ namespace Code.Scripts.Menu
 
             if (controlMappingImages.TryGetValue(controlsMapping, out var mappingImages))
             {
-                foreach (InputDevice device in InputManager.Input.devices)
+                switch (InputManager.GetControlScheme())
                 {
-                    if (device is UnityEngine.InputSystem.DualShock.DualShockGamepad)
-                    {
-                        controlsImage.sprite = mappingImages.playstation;
-                        return;
-                    }
-                    else if (device is UnityEngine.InputSystem.XInput.XInputController)
-                    {
+                    case InputManager.ControlScheme.Gamepad:
                         controlsImage.sprite = mappingImages.xbox;
-                        return;
-                    }
+                        break;
+                    case InputManager.ControlScheme.DS4:
+                        controlsImage.sprite = mappingImages.playstation;
+                        break;
+                    default:
+                        controlsImage.sprite = mappingImages.keyboard;
+                        break;
                 }
-
-                controlsImage.sprite = mappingImages.keyboard;
             }
             else
             {
