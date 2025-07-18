@@ -24,7 +24,11 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
+#if INPUT_LAG
+            Application.targetFrameRate = 20;
+#else
             Application.targetFrameRate = 60;
+#endif
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 

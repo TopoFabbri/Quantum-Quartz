@@ -2,6 +2,7 @@
 
 namespace Code.Scripts.Tools
 {
+    [DefaultExecutionOrder(-1)]
     public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSingleton<T>
     {
         private static MonoBehaviourSingleton<T> _instance;

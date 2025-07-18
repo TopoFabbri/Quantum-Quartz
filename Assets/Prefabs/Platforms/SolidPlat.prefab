@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1786682035396908316}
-  - component: {fileID: 327780683433342955}
+  - component: {fileID: 7707609292183627597}
   - component: {fileID: 4955775339985617307}
   - component: {fileID: 6197383294494067265}
   m_Layer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1071673626116873846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &327780683433342955
+--- !u!114 &7707609292183627597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,17 +43,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 781408778508300955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
+  m_Script: {fileID: 11500000, guid: 3118853e19cdc9b4884e291808018177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colours:
+  colors:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  ps: {fileID: 6197383294494067265}
-  qColour: 0
+  particleSystems:
+  - {fileID: 6197383294494067265}
+  lights: []
 --- !u!199 &4955775339985617307
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -75,7 +76,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a3612c64600cdd4889b02e988821fb3, type: 2}
+  - {fileID: 2100000, guid: a50fc6622715f9d4cb39554943f341a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4842,7 +4843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6761855500831871998}
-  - component: {fileID: 4363652656163187487}
+  - component: {fileID: 3147942046406768293}
   - component: {fileID: 8082233499226864577}
   - component: {fileID: 7676015346376450066}
   m_Layer: 0
@@ -4867,7 +4868,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1071673626116873846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4363652656163187487
+--- !u!114 &3147942046406768293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4876,17 +4877,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 805420457004420446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8197700473d4b1aac8d13cf1af12467, type: 3}
+  m_Script: {fileID: 11500000, guid: 3118853e19cdc9b4884e291808018177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colours:
+  colors:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  ps: {fileID: 7676015346376450066}
-  qColour: 0
+  particleSystems:
+  - {fileID: 7676015346376450066}
+  lights: []
 --- !u!199 &8082233499226864577
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4908,7 +4910,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a3612c64600cdd4889b02e988821fb3, type: 2}
+  - {fileID: 2100000, guid: a50fc6622715f9d4cb39554943f341a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9812,7 +9814,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a50fc6622715f9d4cb39554943f341a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
