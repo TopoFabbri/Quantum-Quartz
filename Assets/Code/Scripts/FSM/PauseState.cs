@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Scripts.States
 {
-    public class PauseState<T> : BaseState<T>
+    public class PauseState<T> : BaseState<T>, IPreventFlip
     {
         private readonly SharedContext sharedContext;
         

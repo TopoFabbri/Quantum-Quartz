@@ -11,7 +11,7 @@ namespace Code.Scripts.States
         protected readonly WjmpSettings wjmpSettings;
 
         private float impulse = 0;
-        private Coroutine coroutine = null;
+        private float noInputTime = 0;
 
         public WallJumpState(T id, WjmpSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.jumpSettings, sharedContext)
         {
@@ -25,7 +25,7 @@ namespace Code.Scripts.States
             impulse = sharedContext.facingRight ? wjmpSettings.wallJumpForce : -wjmpSettings.wallJumpForce;
             sharedContext.SpeedX = impulse;
             sharedContext.BlockMoveInput = true;
-            coroutine = sharedContext.MonoBehaviour.StartCoroutine(WaitAndReturnInput(wjmpSettings.noInputTime));
+            noInputTime = wjmpSettings.noInputTime;
             sharedContext.DoWallCooldown(wjmpSettings.wallCooldown);
         }
 
@@ -35,11 +35,6 @@ namespace Code.Scripts.States
 
             sharedContext.SpeedX = 0;
             sharedContext.BlockMoveInput = false;
-
-            if (coroutine != null)
-            {
-                sharedContext.MonoBehaviour.StopCoroutine(coroutine);
-            }
         }
 
         public override void OnFixedUpdate()
@@ -50,17 +45,11 @@ namespace Code.Scripts.States
                 sharedContext.SpeedX = impulse + sharedContext.Speed.x;
                 sharedContext.Rigidbody.velocity = sharedContext.Speed;
             }
-        }
-
-        /// <summary>
-        /// Stop input for given time
-        /// </summary>
-        /// <param name="noInputTime">Time to wait</param>
-        /// <returns></returns>
-        private IEnumerator WaitAndReturnInput(float noInputTime)
-        {
-            yield return new WaitForSeconds(noInputTime);
-            sharedContext.BlockMoveInput = false;
+            noInputTime -= Time.fixedDeltaTime;
+            if (noInputTime <= 0)
+            {
+                sharedContext.BlockMoveInput = false;
+            }
         }
 
         public override void SpawnDust()
