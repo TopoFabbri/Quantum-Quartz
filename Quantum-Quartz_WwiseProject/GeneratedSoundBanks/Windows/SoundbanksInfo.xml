@@ -94,7 +94,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F08C5DD4-D951-0D53-3C5B-898BD0A49C48}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{A5F44956-4C85-C9AB-BCB5-DB7093773ADD}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -510,6 +510,12 @@
 					<ShortName>Lab_Footstep_30.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_30_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="717978069" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>Steampunk Level_v5.0 Premaster.wav</ShortName>
+					<Path>Media/717978069.wem</Path>
+					<CachePath>SFX/Steampunk Level_v5.0 Premaster_C3C3B01D.wem</CachePath>
+					<PrefetchSize>4670</PrefetchSize>
+				</File>
 				<File Id="719909032" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-011.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-011_AE1C8BC7.wem</CachePath>
@@ -675,6 +681,12 @@
 				<File Id="954933478" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-037.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-037_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="958719904" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>Steampunk Level_Main_Loop_LP.wav</ShortName>
+					<Path>Media/958719904.wem</Path>
+					<CachePath>SFX/Steampunk Level_Main_Loop_LP_686156BF.wem</CachePath>
+					<PrefetchSize>3520</PrefetchSize>
 				</File>
 				<File Id="972474975" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>LAB_Landing-001.wav</ShortName>
@@ -1279,7 +1291,15 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="930712164" Name="Off"/>
 					</ActionSetState>
 				</Event>
-				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="26893415"/>
+						<MediaRef Id="171091106"/>
+						<MediaRef Id="400230657"/>
+						<MediaRef Id="585198590"/>
+						<MediaRef Id="812185611"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<MediaRefs>
 						<MediaRef Id="10060735"/>
@@ -1327,5 +1347,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{3299D1BF-18DB-5936-2122-8B41A9AF4ADF}</FileHash>
+	<FileHash>{4A17991C-1548-9939-CF65-42DCC8901FB7}</FileHash>
 </SoundBanksInfo>
