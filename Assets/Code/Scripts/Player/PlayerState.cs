@@ -447,10 +447,6 @@ namespace Code.Scripts.Player
             // - All         >
             stateMachine.AddGlobalTransition(tlpt, new[] { "Teleport" }, new[] { "ExitTeleport", "Died" });
 
-            // Exit Teleport transitions
-            // - Teleport    >
-            stateMachine.AddTransition(tlpt, extp, new[] { "ExitTeleport" });
-
             #endregion
 
             // ====================================
