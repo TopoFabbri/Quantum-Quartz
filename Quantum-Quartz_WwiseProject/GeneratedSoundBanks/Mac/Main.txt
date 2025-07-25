@@ -1,4 +1,5 @@
 Event	ID	Name			Wwise Object Path	Notes
+	52117186	Set_MXSwitch_NoMX			\Music\Set_MXSwitch_NoMX	
 	119388346	Stop_Luciernagas			\Player\Luciernagas\Stop_Luciernagas	
 	358772238	Play_Steam_Spring			\Stages\Steampunk_Level\Objects\Play_Steam_Spring	
 	368556571	Set_State_MusicPuzzle_On			\Music\Steampunk_Music\Set_State_MusicPuzzle_On	
@@ -8,6 +9,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	1172822028	Play_Death			\Player\Molly\Play_Death	
 	1231329179	Play_Beam_Laser			\Stages\Steampunk_Level\Objects\Lasers\Play_Beam_Laser	
 	1386925776	Stop_Laser_LP			\Stages\Steampunk_Level\Objects\Lasers\Stop_Laser_LP	
+	1662526074	Set_MXSwitch_Adventurer			\Music\Set_MXSwitch_Adventurer	
 	1763377450	Play_Change_Quartz_G			\Player\Molly\Quartz\Play_Change_Quartz_G	
 	1763377455	Play_Change_Quartz_B			\Player\Molly\Quartz\Play_Change_Quartz_B	
 	1763377460	Play_Change_Quartz_Y			\Player\Molly\Quartz\Play_Change_Quartz_Y	
@@ -23,22 +25,30 @@ Event	ID	Name			Wwise Object Path	Notes
 	2666093702	Set_State_Music_Pause			\Music\Steampunk_Music\Set_State_Music_Pause	
 	2818173839	Set_State_MusicPuzzle_Off			\Music\Steampunk_Music\Set_State_MusicPuzzle_Off	
 	2848448515	Play_Basic_Jump			\Player\Molly\Play_Basic_Jump	
+	2855120456	Play_MX_Switch			\Music\Play_MX_Switch	
+	2922058705	Set_MXSwitch_Ghost			\Music\Set_MXSwitch_Ghost	
 	2938714251	Play_Buzz_Hit			\Stages\Steampunk_Level\Objects\Play_Buzz_Hit	
 	3010479856	Play_Blocked_Quartz			\Player\Molly\Quartz\Play_Blocked_Quartz	
 	3077319667	Play_Buzz_Saw			\Stages\Steampunk_Level\Objects\Play_Buzz_Saw	
 	3128279563	Play_Blue_Quartz_Jump			\Player\Molly\Quartz\Play_Blue_Quartz_Jump	
 	3543386712	Set_Switch_Concrete			\Player\Molly\Footsteps\Set_Switch_Concrete	
+	3636185906	Stop_MX_Switch			\Music\Stop_MX_Switch	
 	3751886250	Play_Charge_Shoot_Laser			\Stages\Steampunk_Level\Objects\Lasers\Play_Charge_Shoot_Laser	
 	3854155799	Play_Footsteps			\Player\Molly\Footsteps\Play_Footsteps	
 	3893832595	Play_SP_Amb_Steam			\Stages\Steampunk_Level\Steampunk_Ambs\Play_SP_Amb_Steam	
 	3912385716	Play_Luciernagas			\Player\Luciernagas\Play_Luciernagas	
+	4039992738	Set_MXSwitch_MainTheme			\Music\Set_MXSwitch_MainTheme	
 	4131070040	Set_Switch_Cristal_Platforms			\Player\Molly\Footsteps\Set_Switch_Cristal_Platforms	
-	4292865938	Play_Steampunk_Music			\Music\Steampunk_Music\Play_Steampunk_Music	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
+	1445037870	MusicSwitch			\Default Work Unit\MusicSwitch	
 	3586861854	FootstepsSwitch			\Default Work Unit\FootstepsSwitch	
 
 Switch	ID	Name	Switch Group			Notes
+	732117587	NoMX	MusicSwitch			
+	824317709	MainTheme	MusicSwitch			
+	3247222823	Adventurer	MusicSwitch			
+	4023194814	Ghost	MusicSwitch			
 	841620460	Concrete	FootstepsSwitch			
 	1403804780	Cristal_Platforms	FootstepsSwitch			
 	2473969246	Metal	FootstepsSwitch			
@@ -60,17 +70,17 @@ State	ID	Name	State Group			Notes
 	1651971902	On	MusicPuzzleState			
 
 Custom State	ID	Name	State Group	Owner		Notes
-	61059452	Pause	MusicState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music		
-	88367268	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_MainLP\Main_Loop		
+	61059452	Pause	MusicState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer		
+	88367268	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\Main_Loop		
 	140870055	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects		
 	246963863	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs		
-	296041802	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		
-	388484793	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\Intro		
-	743046855	On	Luciernagas	\Interactive Music Hierarchy\MX\MX_Adventurer_Music		
-	819434390	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_End		
-	902411312	Pause	MusicState	\Interactive Music Hierarchy\MX\MX_Main_Theme		
-	919534269	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro		
-	1063663310	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_Puzzle_End		
+	296041802	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		
+	388484793	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\Intro		
+	743046855	On	Luciernagas	\Interactive Music Hierarchy\MX\Music\MX_Adventurer		
+	819434390	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_End		
+	902411312	Pause	MusicState	\Interactive Music Hierarchy\MX\Music\MX_Main_Theme		
+	919534269	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro		
+	1063663310	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_Puzzle_End		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	1354283134	RTPC_SawsOnScreen			\Default Work Unit\RTPC_SawsOnScreen	
@@ -90,7 +100,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	11060747	Chain-007	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Chain-007_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-007		8808
 	17366721	Lab_Footstep_14	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_14_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_14		9600
 	17443080	Cristal_Platform_FS-009	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-009_320802A8.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-009		3588
-	26893415	QQ_Adventurer_Puzzle_Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Intro_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro		2036
+	26893415	QQ_Adventurer_Puzzle_Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Intro_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro		2036
 	28636868	Cristal_Platform_FS-006	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-006_55250FEE.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-006		2796
 	28884919	Chain-002	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Chain-002_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-002		14604
 	30026640	Lab_Footstep_22	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_22_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_22		5200
@@ -99,6 +109,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	43028668	Lab_Footstep_4	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_4_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_4		5920
 	49726500	Concrete_Footstep-024	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-024_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-024		1824
 	67995237	Cristal_Platform_Landings-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-001_5131782E.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-001		9132
+	86503014	QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Ghost\QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M\QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M		4155932
 	104324263	Cristal_Platform_Landings-008	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-008_E6FB15CB.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-008		8700
 	112229903	Buzz_Saw_Layer-002	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Buzz_Saw_Layer-002_282108B1.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Buzz_Saw\Buzz_Saw_Layer-002		178260
 	119363177	Lab_Footstep_8	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_8_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_8		8880
@@ -109,7 +120,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	139537908	Second_Jump	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Second_Jump_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Blue_Quartz_Jump\Second_Jump		2184
 	151863213	Laser_LP	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Laser_LP_28E682D3.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Lasers\Laser_LP		202632
 	155892356	LAB_Landing-002	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\LAB_Landing-002_B05C803D.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Metal_Landing\Metal_Landings\LAB_Landing-002		3552
-	171091106	QQ_Adventurer_Puzzle_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_End_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_Puzzle_End		2579
+	171091106	QQ_Adventurer_Puzzle_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_End_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_Puzzle_End		2579
 	173228913	Lab_Footstep_5	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_5_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_5		7008
 	174589174	Cristal_Platform_Landings-010	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-010_F0069E7B.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-010		11400
 	188394585	Buzz_Saw_Layer-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Buzz_Saw_Layer-001_282108B1.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Buzz_Saw\Buzz_Saw_Layer-001		178660
@@ -147,7 +158,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	385139575	Cristal_Platform_Hit	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Hit_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Hit\Cristal_Platform_Hit		492
 	397686389	Concrete_Footstep-033	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-033_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-033		3688
 	399637785	Death_Revive_Electrical	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Death_Revive_Electrical_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Death\Death_Revive_Electrical		85848
-	400230657	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - Loop_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\Intro		3401
+	400230657	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - Loop_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\Intro		3401
 	403912503	Charge_Shoot_Laser	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Charge_Shoot_Laser_98BE9CFF.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Lasers\Charge_Shoot_Laser		15000
 	413672958	Concrete_Footstep-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-001_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-001		4992
 	414913162	Concrete_Footstep-011	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-011_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-011		2904
@@ -169,8 +180,9 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	549926341	Lab_Footstep_24	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_24_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_24		6432
 	560802341	Lab_Footstep_19	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_19_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_19		11544
 	560813382	Concrete_Footstep-020	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-020_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-020		3048
+	573631382	QQ_Ghost_Intro_80bpm_Charm_4-4_L12M	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Ghost_Intro_80bpm_Charm_4-4_L12M_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Ghost\QQ_Ghost_Intro_80bpm_Charm_4-4_L12M\QQ_Ghost_Intro_80bpm_Charm_4-4_L12M		590539
 	583745617	Buzz_Saw_Layer-004	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Buzz_Saw_Layer-004_282108B1.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Buzz_Saw\Buzz_Saw_Layer-004		178324
-	585198590	QQ_Adventurer_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - LoopEND_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_End		2220
+	585198590	QQ_Adventurer_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - LoopEND_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_End		2220
 	595934151	Concrete_Footstep-017	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-017_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-017		1600
 	600393049	Concrete_Footstep-028	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-028_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-028		1824
 	615289234	Lab_Footstep_34	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_34_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_34		6568
@@ -184,7 +196,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	690073225	Cristal_Platform_Landings-006	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-006_96CA6C14.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-006		11400
 	695130860	Cristal_Platform_FS-005	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-011_C8993BAF.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-005		8664
 	699555885	Lab_Footstep_30	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_30_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_30		5344
-	717978069	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_v5.0 Premaster_C3C3B01D.wem		\Interactive Music Hierarchy\MX\MX_Main_Theme\Steampunk_Default_Intro\Intro		4670
+	717978069	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_v5.0 Premaster_C3C3B01D.wem		\Interactive Music Hierarchy\MX\Music\MX_Main_Theme\Steampunk_Default_Intro\Intro		4670
 	719909032	Cristal_Platform_Landings-011	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_Landings-011_AE1C8BC7.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-011		6612
 	724976298	Lab_Footstep_16	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_16_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_16		4200
 	728419561	Concrete_Footstep-019	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-019_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-019		1176
@@ -203,7 +215,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	806524630	Concrete_Footstep-009	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-009_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-009		2040
 	807661749	Concrete_Footstep-004	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-004_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-004		1104
 	809838471	Lab_Footstep_15	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_15_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_15		4848
-	812185611	QQ_Adventurer_Puzzle_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Loop_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		5150
+	812185611	QQ_Adventurer_Puzzle_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Loop_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		5150
 	820823285	Cristal_Platform_FS-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Cristal_Platform_FS-001_2346CC2F.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Cristal_Platform_Footsteps\Cristal_Platform_FS\Cristal_Platform_Footsteps\Cristal_Platform_FS-001		7548
 	834497291	Chain-003	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Chain-003_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-003		13920
 	841600986	Concrete_Footstep-031	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-031_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-031		4704
@@ -212,6 +224,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	862457260	Yellow_Quartz_Cloth_LP	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Yellow_Quartz_Cloth_LP_282108B1.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Cloth\Yellow_Quartz_Cloth_LP		94812
 	862774514	Lab_Footstep_20	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_20_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_20		11472
 	866113773	Chain-008	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Chain-008_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-008		7116
+	866517727	Silence	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Silence_686156BF.wem		\Interactive Music Hierarchy\MX\Music\NoMX\Silence\Silence		1320
 	869910401	LAB_Landing-003	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\LAB_Landing-003_C17F12BF.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Metal_Landing\Metal_Landings\LAB_Landing-003		3624
 	885686076	Concrete_Footstep-010	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-010_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-010		2112
 	886791020	SpringDesinflada	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\SpringDesinflada_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Spring\SpringDesinflada		29760
@@ -226,7 +239,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	947895533	Concrete_Footstep-032	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-032_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-032		2544
 	948792412	Yellow_Quartz_Cloth_Start	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Yellow_Quartz_Cloth_Start_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Cloth\Yellow_Quartz_Cloth_Start		5820
 	954933478	Concrete_Footstep-037	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Concrete_Footstep-037_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-037		1680
-	958719904	Main_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_Main_Loop_LP_686156BF.wem		\Interactive Music Hierarchy\MX\MX_Main_Theme\Steampunk_Default_MainLP\Main_Loop		3520
+	958719904	Main_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_Main_Loop_LP_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Main_Theme\Steampunk_Default_MainLP\Main_Loop		3520
 	972474975	LAB_Landing-001	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\LAB_Landing-001_80AFD59F.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Metal_Landing\Metal_Landings\LAB_Landing-001		4048
 	978274282	Lab_Footstep_37	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Lab_Footstep_37_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_37		1744
 	984671586	Change_Quartz_Y	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Change_Quartz-004_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Change_Quartz\Change_Quartz_Y		4560
@@ -240,11 +253,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	1051899157	SpringPitch	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\SpringPitch_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Spring\SpringPitch		8484
 
 Streamed Audio	ID	Name	Audio source file	Generated audio file	Wwise Object Path	Notes
-	26893415	QQ_Adventurer_Puzzle_Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Intro_686156BF.wem	26893415.wem	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro	
-	171091106	QQ_Adventurer_Puzzle_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_End_686156BF.wem	171091106.wem	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_Puzzle_End	
-	400230657	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - Loop_686156BF.wem	400230657.wem	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_Intro\Intro	
-	585198590	QQ_Adventurer_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - LoopEND_686156BF.wem	585198590.wem	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_End\QQ_Adventurer_End	
-	717978069	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_v5.0 Premaster_C3C3B01D.wem	717978069.wem	\Interactive Music Hierarchy\MX\MX_Main_Theme\Steampunk_Default_Intro\Intro	
-	812185611	QQ_Adventurer_Puzzle_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Loop_686156BF.wem	812185611.wem	\Interactive Music Hierarchy\MX\MX_Adventurer_Music\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop	
-	958719904	Main_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_Main_Loop_LP_686156BF.wem	958719904.wem	\Interactive Music Hierarchy\MX\MX_Main_Theme\Steampunk_Default_MainLP\Main_Loop	
+	26893415	QQ_Adventurer_Puzzle_Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Intro_686156BF.wem	26893415.wem	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\QQ_Adventurer_Puzzle_Intro	
+	171091106	QQ_Adventurer_Puzzle_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_End_686156BF.wem	171091106.wem	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_Puzzle_End	
+	400230657	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - Loop_686156BF.wem	400230657.wem	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\Intro	
+	585198590	QQ_Adventurer_End	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Adventurer - LoopEND_686156BF.wem	585198590.wem	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_End	
+	717978069	Intro	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_v5.0 Premaster_C3C3B01D.wem	717978069.wem	\Interactive Music Hierarchy\MX\Music\MX_Main_Theme\Steampunk_Default_Intro\Intro	
+	812185611	QQ_Adventurer_Puzzle_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\QQ_Adventurer_Puzzle_Loop_686156BF.wem	812185611.wem	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop	
+	958719904	Main_Loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Mac\SFX\Steampunk Level_Main_Loop_LP_686156BF.wem	958719904.wem	\Interactive Music Hierarchy\MX\Music\MX_Main_Theme\Steampunk_Default_MainLP\Main_Loop	
 
