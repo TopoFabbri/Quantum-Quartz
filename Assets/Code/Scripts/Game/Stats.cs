@@ -23,6 +23,7 @@ namespace Code.Scripts.Game
         {
             public abstract int Deaths { get; }
             public abstract Timer Timer { get; }
+            public abstract Vector2 Checkpoint { get; }
             public abstract IReadOnlyCollection<int> Collectibles { get; }
         }
 
@@ -52,8 +53,8 @@ namespace Code.Scripts.Game
 
             public void Save()
             {
-                PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", Instance.totalSlotStats.deaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", Instance.totalSlotStats.timer.time);
+                PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", deaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", timer.time);
             }
         }
 
@@ -64,10 +65,12 @@ namespace Code.Scripts.Game
 
             public int deaths;
             public Timer timer;
+            public Vector2 checkpoint;
             public HashSet<int> collectibles;
 
             public override int Deaths => deaths;
             public override Timer Timer => timer;
+            public override Vector2 Checkpoint => checkpoint;
             public override IReadOnlyCollection<int> Collectibles => collectibles;
 
             public LevelStats(int slot, int level)
@@ -77,6 +80,10 @@ namespace Code.Scripts.Game
 
                 timer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_Level{level}Time", 0));
                 deaths = PlayerPrefs.GetInt($"Slot{slot}_Level{level}Deaths", 0);
+                checkpoint = new Vector2(
+                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CheckpointX", float.NegativeInfinity),
+                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CheckpointY", float.NegativeInfinity)
+                );
 
                 //Gets ids from an int32, instead of 32 individual bools
                 collectibles = new HashSet<int>();
@@ -94,17 +101,20 @@ namespace Code.Scripts.Game
             {
                 deaths = 0;
                 timer.time = 0;
+                checkpoint = Vector2.negativeInfinity;
                 collectibles.Clear();
             }
 
             public void Save()
             {
-                PlayerPrefs.SetInt($"Slot{slot}_Level{level}Deaths", Instance.levelStats.deaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}Time", Instance.levelStats.timer.time);
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}Deaths", deaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}Time", timer.time);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointX", checkpoint.x);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointY", checkpoint.y);
 
                 //Makes an int32 out of ids, instead of 32 individual bools
                 int flags = 0;
-                foreach (int id in Instance.levelStats.collectibles)
+                foreach (int id in collectibles)
                 {
                     flags += 1 << id;
                 }
@@ -145,6 +155,8 @@ namespace Code.Scripts.Game
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Deaths");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Time");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Collectibles");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointX");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointY");
             }
         }
 
@@ -155,7 +167,7 @@ namespace Code.Scripts.Game
             Instance.totalSlotStats = new TotalSlotStats(slot);
         }
 
-        public static void LoadLevelStats(int level)
+        public static ReadOnlyLevelStats LoadLevelStats(int level)
         {
             if (Instance.saveSlot == -1)
             {
@@ -170,7 +182,7 @@ namespace Code.Scripts.Game
                 Instance.levelStats.Reset();
             }
 
-            TimeCounter.Time.time = Instance.levelStats.timer.time;
+            return Instance.levelStats;
         }
 
         public static void SaveStats()
@@ -196,6 +208,13 @@ namespace Code.Scripts.Game
         {
             Instance.totalSlotStats.deaths++;
             Instance.levelStats.deaths++;
+            SaveStats();
+        }
+
+        // ---------- Checkpoints ----------
+        public static void SaveCheckpoint(Vector2 pos)
+        {
+            Instance.levelStats.checkpoint = pos;
             SaveStats();
         }
 

@@ -32,7 +32,17 @@ namespace Code.Scripts.Game
             TimeCounter.Start();
             TimeCounter.Reset();
 
-            Stats.LoadLevelStats(LevelChanger.Instance.CurrentLevel);
+            Stats.ReadOnlyLevelStats levelStats = Stats.LoadLevelStats(LevelChanger.Instance.CurrentLevel);
+
+            TimeCounter.Time.time = levelStats.Timer.time;
+            if (!Vector2.negativeInfinity.Equals(levelStats.Checkpoint))
+            {
+                player.SpawnAt(levelStats.Checkpoint);
+            }
+            else
+            {
+                player.SpawnAt(player.transform.position);
+            }
 
             timerTxt?.gameObject.SetActive(Settings.ShowGameTimer);
 

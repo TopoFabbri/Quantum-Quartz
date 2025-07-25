@@ -28,7 +28,6 @@ namespace Code.Scripts.Player
         [SerializeField] private TextMeshProUGUI stateDebugText;
         [SerializeField] private PlayerSfx playerSfx;
         [SerializeField] private FsmAnimationController animController;
-        [SerializeField] private DeathController deathController;
         [SerializeField] private ParticleSystem dashPs;
         [SerializeField] private ParticleSystem djmpPs;
         [SerializeField] private ParticleSystem djmpPs2;
@@ -142,7 +141,7 @@ namespace Code.Scripts.Player
             SpringState   <string> spng = new("Spring", settings["Spring"] as SpringSettings, sharedContext                                );
             JumpState     <string> jump = new("Jump",   settings["Jump"]   as JumpSettings,   sharedContext                                );
             DjmpState     <string> djmp = new("Djmp",   settings["Djmp"]   as DjmpSettings,   sharedContext, djmpPs,          djmpPs2      );
-            DeathState    <string> deth = new("Death",  settings["Death"]  as DeathSettings,  sharedContext, deathController               );
+            DeathState    <string> deth = new("Death",  settings["Death"]  as DeathSettings,  sharedContext                                );
             SpawnState    <string> spwn = new("Spawn",  settings["Spawn"]  as SpawnSettings,  sharedContext                                );
             WallJumpState <string> wjmp = new("Wjmp",   settings["Wjmp"]   as WjmpSettings,   sharedContext                                );
             FallState     <string> fall = new("Fall",   settings["Fall"]   as FallSettings,   sharedContext                                );

@@ -1,18 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Code.Scripts.Animation;
-using Code.Scripts.Camera;
-using Code.Scripts.Colors;
-using Code.Scripts.FSM;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
 using Code.Scripts.Level;
 using Code.Scripts.Platforms;
 using Code.Scripts.States;
-using Code.Scripts.StateSettings;
 using Code.Scripts.Tools;
-using TMPro;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -161,6 +155,18 @@ namespace Code.Scripts.Player
         public Vector2 GetSpeed()
         {
             return playerState.sharedContext.Speed;
+        }
+
+        public void SpawnAt(Vector2 pos)
+        {
+            Debug.Log("Spawn player at checkpoint " + pos);
+            SaveCheckpoint(pos);
+            transform.position = pos;
+        }
+
+        public void SaveCheckpoint(Vector2 pos)
+        {
+            playerState.sharedContext.CheckpointPos = pos;
         }
         
         public void Kill()

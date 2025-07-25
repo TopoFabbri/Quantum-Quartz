@@ -19,7 +19,6 @@ namespace Code.Scripts.States
         protected readonly DeathSettings deathSettings;
 
         private readonly SharedContext sharedContext;
-        private readonly DeathController deathController;
 
         public Vector2 Direction { get; set; }
         public bool Ended { get; private set; }
@@ -27,11 +26,10 @@ namespace Code.Scripts.States
         private bool moving;
         private float speed;
 
-        public DeathState(T id, DeathSettings stateSettings, SharedContext sharedContext, DeathController deathController) : base(id)
+        public DeathState(T id, DeathSettings stateSettings, SharedContext sharedContext) : base(id)
         {
             this.deathSettings = stateSettings;
             this.sharedContext = sharedContext;
-            this.deathController = deathController;
         }
 
         public override void OnEnter()
@@ -59,7 +57,7 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-            deathController.Die();
+            sharedContext.Transform.position = sharedContext.CheckpointPos;
             sharedContext.died = false;
 
             Stats.AddDeath();
