@@ -12,6 +12,7 @@ namespace Code.Scripts.UI
     {
         [SerializeField] private GameObject pauseCanvas;
         [SerializeField] private Button pauseResumeButton;
+        [SerializeField] private TextMeshProUGUI gameTimerText;
         [SerializeField] private TextMeshProUGUI pauseTimerText;
         [SerializeField] private TextMeshProUGUI deathsText;
         [SerializeField] private GameObject endLevelCanvas;
@@ -49,9 +50,9 @@ namespace Code.Scripts.UI
             {
                 inputManager.EnableUIMap();
 
-                pauseTimerText.text = GameManager.Instance.GetTimerText().text;
-                GameManager.Instance.GetTimerText().gameObject.SetActive(false);
-                deathsText.text = Stats.Deaths.ToString();
+                pauseTimerText.text = TimeCounter.Time.ToStr;
+                gameTimerText.gameObject.SetActive(false);
+                deathsText.text = Stats.GetDeaths().ToString();
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
@@ -65,7 +66,7 @@ namespace Code.Scripts.UI
                 pauseCanvas.SetActive(false);
                 optionsCanvas.SetActive(false);
                 unPauseEvent.Post(gameObject);
-                GameManager.Instance.GetTimerText().gameObject.SetActive(true);
+                gameTimerText.gameObject.SetActive(Settings.ShowGameTimer);
 
                 inputManager.EnableGameMap();
             }

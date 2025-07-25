@@ -17117,7 +17117,6 @@ GameObject:
   - component: {fileID: 5011673250015572329}
   - component: {fileID: 2757243908388736042}
   - component: {fileID: 7418189334097761856}
-  - component: {fileID: 2090065662981346448}
   - component: {fileID: 5633411915053908958}
   - component: {fileID: 2847745276369036443}
   - component: {fileID: 5615563544665584722}
@@ -17188,7 +17187,7 @@ MonoBehaviour:
   stateDebugText: {fileID: 8413274154481050696}
   playerSfx: {fileID: 5633411915053908958}
   animController: {fileID: 7418189334097761856}
-  deathController: {fileID: 2090065662981346448}
+  deathController: {fileID: 0}
   dashPs: {fileID: 2237095473829572802}
   djmpPs: {fileID: 7311720099816871810}
   djmpPs2: {fileID: 4520975705858632179}
@@ -17241,18 +17240,6 @@ MonoBehaviour:
   intParamName: State
   boolParamName: FacingRight
   edgeParamName: RightEdge
---- !u!114 &2090065662981346448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4baf419a5f44d2db116fafcb9612f8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5633411915053908958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18751,7 +18738,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerTxt: {fileID: 3618906788000093473}
   statesText: {fileID: 6390153902942336264}
-  isTimerOn: 0
   drone: {fileID: 6450367602187305036}
   player: {fileID: 5011673250015572329}
 --- !u!114 &7521757630114768285
@@ -35293,6 +35279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 2181088146837146511}
   pauseResumeButton: {fileID: 8960664738102584993}
+  gameTimerText: {fileID: 3618906788000093473}
   pauseTimerText: {fileID: 4052410777789506720}
   deathsText: {fileID: 9076230424593969833}
   endLevelCanvas: {fileID: 4952346574600320430}
@@ -35933,6 +35920,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: gameHUD
+      value: 
+      objectReference: {fileID: 2905914280326646664}
+    - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: gameTimerTxt
+      value: 
+      objectReference: {fileID: 3618906788000093473}
     - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: inputManager
       value: 

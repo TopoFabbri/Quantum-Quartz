@@ -1,6 +1,7 @@
 
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
+using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
 using Code.Scripts.States;
@@ -51,6 +52,21 @@ namespace Code.Scripts.Player
             {
                 _blockMoveInput = value;
                 OnCheckFlip?.Invoke();
+            }
+        }
+
+
+        private Vector2 _checkpointPos = Vector2.negativeInfinity;
+        public Vector2 CheckpointPos
+        {
+            get
+            {
+                return _checkpointPos;
+            }
+            set
+            {
+                _checkpointPos = value;
+                Stats.SaveCheckpoint(value);
             }
         }
 

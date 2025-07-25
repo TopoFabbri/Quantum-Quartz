@@ -19,8 +19,9 @@ namespace Code.Scripts.Menu
             totalTimerText.gameObject.SetActive(false);
             deathsText.gameObject.SetActive(false);
             collectiblesText.gameObject.SetActive(false);
-            Stats.LoadStats(saveSlot);
-            Stats.LoadTexts(totalTimerText,deathsText);
+            Stats.ReadOnlyTotalSlotStats slotStats = Stats.GetTotalSlotStats(saveSlot);
+            totalTimerText.text = slotStats.Timer.ToStr;
+            deathsText.text = slotStats.Deaths.ToString();
         }
 
         private void Update()

@@ -1,5 +1,6 @@
 using Code.Scripts.Game;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,10 +18,7 @@ namespace Code.Scripts.Menu
 
         [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
-        [SerializeField] private OptionsController optionsController;
         [SerializeField] private TextMeshProUGUI versionText;
-
-        
 
         private void Start()
         {
@@ -47,7 +45,11 @@ namespace Code.Scripts.Menu
         {
             if (levelList.levels.Count > 0)
             {
-                string sceneName = levelList.levels[0].SceneName;
+                Stats.SetContinueMode(true);
+                string sceneName = Stats.GetLastLevelName();
+                if (string.IsNullOrWhiteSpace(sceneName) || !levelList.levels.Any((level) => sceneName.Equals(level.SceneName, System.StringComparison.OrdinalIgnoreCase))) {
+                    sceneName = levelList.levels[0].SceneName;
+                }
                 LoadScene(sceneName);
             }
             else
@@ -70,7 +72,6 @@ namespace Code.Scripts.Menu
         public void GoMainMenuAndTurnOptions()
         {
             LoadScene(mainMenuSceneName);
-            optionsController.TurnOptions();
         }
 
         public void LoadLevel(int levelNumber)
@@ -79,6 +80,7 @@ namespace Code.Scripts.Menu
 
             if (index >= 0 && index < levelList.levels.Count)
             {
+                Stats.SetContinueMode(false);
                 string sceneName = levelList.levels[index].SceneName;
                 LoadScene(sceneName);
             }

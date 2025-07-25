@@ -82,7 +82,6 @@ namespace Code.Scripts.Platforms
         {
             if (player.parent == transform)
             {
-                Debug.Log("Remove Player");
                 player.parent = null;
                 this.player = null;
             }

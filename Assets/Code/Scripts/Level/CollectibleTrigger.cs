@@ -1,9 +1,9 @@
 using Code.Scripts.Interfaces;
-using Code.Scripts.Level;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Code.Scripts.Tools;
+using Code.Scripts.Game;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -84,7 +84,7 @@ public class CollectibleTrigger : MonoBehaviour
     private void Start()
     {
         initialPos = transform.position;
-        anim.SetBool(GHOST_PARAM, GameManager.Instance.HasCollectible(id));
+        anim.SetBool(GHOST_PARAM, Stats.HasCollectible(id));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -148,7 +148,7 @@ public class CollectibleTrigger : MonoBehaviour
     //Called from animation event
     private void OnEndPickup()
     {
-        GameManager.Instance.PickUpCollectible(id);
+        Stats.PickUpCollectible(id);
         Destroy(gameObject);
     }
 

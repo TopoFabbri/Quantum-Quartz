@@ -21,12 +21,14 @@ namespace Code.Scripts.Menu
         }
 
         public static OptionsController Instance { get; private set; }
-        public static event Action<bool> OnToggleTimer;
 
         [HeaderPlus("Main")]
         [SerializeField] private GameObject optionsPanel;
         [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button mainMenuButton;
+
+        [HeaderPlus("In Game")]
+        [SerializeField] private GameObject gameHUD;
 
         [HeaderPlus("Controls")]
         [SerializeField] private GameObject controlsPanel;
@@ -63,6 +65,16 @@ namespace Code.Scripts.Menu
             InitializeControlsDropdown();
         }
 
+        private void OnEnable()
+        {
+            gameHUD?.SetActive(false);
+        }
+
+        private void OnDisable()
+        {
+            gameHUD?.SetActive(true);
+        }
+
         private void OnDestroy()
         {
             musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
@@ -73,10 +85,8 @@ namespace Code.Scripts.Menu
         {
             if (!timerToggle) return;
 
-            bool isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+            bool isTimerOn = Settings.ShowGameTimer;
             timerToggle.isOn = isTimerOn;
-
-            OnToggleTimer?.Invoke(isTimerOn);
         }
 
         private void InitializeAudioSliders()
@@ -144,10 +154,7 @@ namespace Code.Scripts.Menu
         public void ToggleTimer()
         {
             bool isTimerOn = timerToggle.isOn;
-            PlayerPrefs.SetInt("Timer", isTimerOn ? 1 : 0);
-            PlayerPrefs.Save();
-
-            OnToggleTimer?.Invoke(isTimerOn);
+            Settings.ShowGameTimer = isTimerOn;
         }
 
         //Métodos para abrir/cerrar paneles

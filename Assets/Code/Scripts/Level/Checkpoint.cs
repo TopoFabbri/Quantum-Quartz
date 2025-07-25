@@ -1,3 +1,4 @@
+using Code.Scripts.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,10 +19,12 @@ namespace Code.Scripts.Level
                 sprite.enabled = false;
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (col.TryGetComponent(out DeathController deathController))
-                deathController.CheckPoint(spawnPoint.position);
+            if (other.TryGetComponent(out PlayerController playerController))
+            {
+                playerController.SaveCheckpoint(spawnPoint.position);
+            }
         }
     }
 }
