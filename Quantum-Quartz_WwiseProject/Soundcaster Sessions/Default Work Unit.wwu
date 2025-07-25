@@ -22,10 +22,6 @@
 							<Position X="1" Y="1"/>
 						</Module>
 						<Module>
-							<ObjectRef Name="Play_Steampunk_Music" ID="{9C133FA1-99D8-48EA-9A1D-A494A5CC2278}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
-							<Position X="2" Y="0"/>
-						</Module>
-						<Module>
 							<ObjectRef Name="Stop_Steampunk_Music" ID="{A0F915D4-00FC-46E5-B6AD-3457E6AD9422}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
 							<Position X="2" Y="1"/>
 						</Module>
@@ -72,8 +68,21 @@
 						<CurrentStateRef Name="None" ID="{C105AA97-EDA0-4FCE-8AB1-F2E8F07F1F4C}"/>
 					</CurrentStateList>
 					<CurrentSwitchList ShowAll="true">
-						<CurrentSwitchRef Name="Default" ID="{0D9BFF96-9DF8-42ED-9078-2A3BEF36F265}"/>
+						<CurrentSwitchRef Name="Adventurer" ID="{0D9BFF96-9DF8-42ED-9078-2A3BEF36F265}"/>
 						<CurrentSwitchRef Name="Concrete" ID="{C4353A63-4D50-4A4F-B566-FB5ABFA37307}"/>
+					</CurrentSwitchList>
+				</SoundcasterSession>
+				<SoundcasterSession Name="MX_Soundcaster" ID="{C9FB2DF3-CD62-4F97-ACF2-0144D1CA076F}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Play_MX_Switch" ID="{F53127A7-176B-449A-9E9A-F77358D132AB}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true"/>
+					<CurrentStateList ShowAll="true"/>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Adventurer" ID="{0D9BFF96-9DF8-42ED-9078-2A3BEF36F265}"/>
 					</CurrentSwitchList>
 				</SoundcasterSession>
 			</ChildrenList>

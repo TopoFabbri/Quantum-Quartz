@@ -81,8 +81,10 @@
 			<SwitchGroups>
 				<SwitchGroup Id="1445037870" Name="MusicSwitch">
 					<Switches>
-						<Switch Id="782826392" Name="Default"/>
-						<Switch Id="3092587493" Name="Pause"/>
+						<Switch Id="732117587" Name="NoMX"/>
+						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="3247222823" Name="Adventurer"/>
+						<Switch Id="4023194814" Name="Ghost"/>
 					</Switches>
 				</SwitchGroup>
 				<SwitchGroup Id="3586861854" Name="FootstepsSwitch">
@@ -94,7 +96,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{FD0A93B8-02D4-DCC6-4C1F-2CFA13B24A7D}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E1BB1F26-0ABE-102F-60FE-84329EF3F7DF}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -163,6 +165,10 @@
 				<File Id="67995237" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-001.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-001_5131782E.wem</CachePath>
+				</File>
+				<File Id="86503014" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M.wav</ShortName>
+					<CachePath>SFX/QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M_686156BF.wem</CachePath>
 				</File>
 				<File Id="104324263" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-008.wav</ShortName>
@@ -448,6 +454,10 @@
 					<ShortName>Concrete_Footstep-020.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-020_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="573631382" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Ghost_Intro_80bpm_Charm_4-4_L12M.wav</ShortName>
+					<CachePath>SFX/QQ_Ghost_Intro_80bpm_Charm_4-4_L12M_686156BF.wem</CachePath>
+				</File>
 				<File Id="583745617" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Buzz_Saw_Layer-004.wav</ShortName>
 					<CachePath>SFX/Buzz_Saw_Layer-004_282108B1.wem</CachePath>
@@ -625,6 +635,10 @@
 				<File Id="866113773" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Chain-008.wav</ShortName>
 					<CachePath>SFX/Chain-008_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="866517727" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Silence.wav</ShortName>
+					<CachePath>SFX/Silence_686156BF.wem</CachePath>
 				</File>
 				<File Id="869910401" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>LAB_Landing-003.wav</ShortName>
@@ -1209,6 +1223,73 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="2855120456" Name="Play_MX_Switch" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
+					</ActionSetSwitch>
+				</Event>
 				<Event Id="3893832595" Name="Play_SP_Amb_Steam" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
@@ -1221,15 +1302,6 @@
 						<MediaRef Id="1051899157"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="4292865938" Name="Play_Steampunk_Music" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="26893415"/>
-						<MediaRef Id="171091106"/>
-						<MediaRef Id="400230657"/>
-						<MediaRef Id="585198590"/>
-						<MediaRef Id="812185611"/>
-					</MediaRefs>
-				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="10060735"/>
@@ -1237,6 +1309,26 @@
 						<MediaRef Id="862457260"/>
 						<MediaRef Id="948792412"/>
 					</MediaRefs>
+				</Event>
+				<Event Id="1662526074" Name="Set_MXSwitch_Adventurer" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="3247222823" Name="Adventurer"/>
+					</ActionSetSwitch>
+				</Event>
+				<Event Id="2922058705" Name="Set_MXSwitch_Ghost" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="4023194814" Name="Ghost"/>
+					</ActionSetSwitch>
+				</Event>
+				<Event Id="4039992738" Name="Set_MXSwitch_MainTheme" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="824317709" Name="MainTheme"/>
+					</ActionSetSwitch>
+				</Event>
+				<Event Id="52117186" Name="Set_MXSwitch_NoMX" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
+					</ActionSetSwitch>
 				</Event>
 				<Event Id="2405722263" Name="Set_State_Music_Ingame" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetState>
@@ -1291,15 +1383,41 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="930712164" Name="Off"/>
 					</ActionSetState>
 				</Event>
-				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
-					<MediaRefs>
-						<MediaRef Id="26893415"/>
-						<MediaRef Id="171091106"/>
-						<MediaRef Id="400230657"/>
-						<MediaRef Id="585198590"/>
-						<MediaRef Id="812185611"/>
-					</MediaRefs>
+				<Event Id="3636185906" Name="Stop_MX_Switch" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
 				</Event>
+				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
 				<Event Id="2588384050" Name="Stop_Yellow_Quartz" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<MediaRefs>
 						<MediaRef Id="10060735"/>
@@ -1337,6 +1455,14 @@
 				</StateGroup>
 			</StateGroups>
 			<SwitchGroups>
+				<SwitchGroup Id="1445037870" Name="MusicSwitch">
+					<Switches>
+						<Switch Id="732117587" Name="NoMX"/>
+						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="3247222823" Name="Adventurer"/>
+						<Switch Id="4023194814" Name="Ghost"/>
+					</Switches>
+				</SwitchGroup>
 				<SwitchGroup Id="3586861854" Name="FootstepsSwitch">
 					<Switches>
 						<Switch Id="841620460" Name="Concrete"/>
@@ -1347,5 +1473,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E82FADE3-11E4-097E-2539-FFA0254DB0AF}</FileHash>
+	<FileHash>{7CFBD88D-648A-F7C4-D31C-1A6F526DFB28}</FileHash>
 </SoundBanksInfo>

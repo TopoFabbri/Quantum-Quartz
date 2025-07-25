@@ -9,8 +9,8 @@ namespace Code.Scripts.Tools
     /// </summary>
     public static class SfxController
     {
-        private const string PlayMusicEvent = "Play_Steampunk_Music";
-        private const string StopMusicEvent = "Stop_Steampunk_Music";
+        private const string PlayMusicEvent = "Play_MX_Switch";
+        private const string StopMusicEvent = "Set_MXSwitch_NoMX";
         private const string BlockedCrystalEvent = "Play_Blocked_Quartz";
         private const string SpringEvent = "Play_Steam_Spring";
 
