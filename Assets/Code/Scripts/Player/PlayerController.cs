@@ -159,7 +159,6 @@ namespace Code.Scripts.Player
 
         public void SpawnAt(Vector2 pos)
         {
-            Debug.Log("Spawn player at checkpoint " + pos);
             SaveCheckpoint(pos);
             transform.position = pos;
         }

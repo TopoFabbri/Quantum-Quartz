@@ -41,8 +41,17 @@ namespace Code.Scripts.Level
         private IEnumerator ShowEndLevelScreen(float time)
         {
             TimeCounter.Stop();
-            Stats.SaveStats();
+
+            string nextSceneName = "";
+            int currentIndex = CurrentLevel;
+            if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
+            {
+                nextSceneName = levelList.levels[currentIndex + 1].SceneName;
+            }
+            Stats.FinishLevel(nextSceneName);
+
             yield return new WaitForSeconds(time);
+
             inputManager.EnableUIMap();
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);

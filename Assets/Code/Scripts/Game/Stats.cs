@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Game
 {
@@ -17,6 +18,7 @@ namespace Code.Scripts.Game
         public abstract class ReadOnlyTotalSlotStats {
             public abstract int Deaths { get; }
             public abstract Timer Timer { get; }
+            public abstract string LevelName { get; }
         }
 
         public abstract class ReadOnlyLevelStats
@@ -33,9 +35,11 @@ namespace Code.Scripts.Game
 
             public int deaths;
             public Timer timer;
+            public string levelName;
 
             public override int Deaths => deaths;
             public override Timer Timer => timer;
+            public override string LevelName => levelName;
 
             public TotalSlotStats(int slot)
             {
@@ -43,6 +47,7 @@ namespace Code.Scripts.Game
 
                 deaths = PlayerPrefs.GetInt($"Slot{slot}_TotalDeaths", 0);
                 timer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_TotalTimer", 0));
+                levelName = PlayerPrefs.GetString($"Slot{slot}_LevelName", "");
             }
 
             public void ResetLevel(ReadOnlyLevelStats levelStats)
@@ -55,6 +60,7 @@ namespace Code.Scripts.Game
             {
                 PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", deaths);
                 PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", timer.time);
+                PlayerPrefs.SetString($"Slot{slot}_LevelName", levelName);
             }
         }
 
@@ -146,10 +152,16 @@ namespace Code.Scripts.Game
             Instance.continueMode = true;
         }
 
+        public static string GetLastLevelName()
+        {
+            return Instance.totalSlotStats?.levelName;
+        }
+
         public static void ClearSaveSlot(int slot, LevelList levelList)
         {
             PlayerPrefs.DeleteKey($"Slot{slot}_TotalDeaths");
             PlayerPrefs.DeleteKey($"Slot{slot}_TotalTimer");
+            PlayerPrefs.DeleteKey($"Slot{slot}_LevelName");
             for (int level = 0; level < levelList.levels.Count; level++)
             {
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Deaths");
@@ -214,7 +226,15 @@ namespace Code.Scripts.Game
         // ---------- Checkpoints ----------
         public static void SaveCheckpoint(Vector2 pos)
         {
+            Instance.totalSlotStats.levelName = SceneManager.GetActiveScene().name;
             Instance.levelStats.checkpoint = pos;
+            SaveStats();
+        }
+
+        public static void FinishLevel(string nextLevelName)
+        {
+            Instance.totalSlotStats.levelName = nextLevelName;
+            Instance.levelStats.checkpoint = Vector2.negativeInfinity;
             SaveStats();
         }
 
