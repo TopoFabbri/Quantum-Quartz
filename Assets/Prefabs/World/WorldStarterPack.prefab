@@ -18751,7 +18751,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerTxt: {fileID: 3618906788000093473}
   statesText: {fileID: 6390153902942336264}
-  isTimerOn: 0
   drone: {fileID: 6450367602187305036}
   player: {fileID: 5011673250015572329}
 --- !u!114 &7521757630114768285
@@ -35293,6 +35292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 2181088146837146511}
   pauseResumeButton: {fileID: 8960664738102584993}
+  gameTimerText: {fileID: 3618906788000093473}
   pauseTimerText: {fileID: 4052410777789506720}
   deathsText: {fileID: 9076230424593969833}
   endLevelCanvas: {fileID: 4952346574600320430}
@@ -35933,6 +35933,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: gameHUD
+      value: 
+      objectReference: {fileID: 2905914280326646664}
+    - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
+      propertyPath: gameTimerTxt
+      value: 
+      objectReference: {fileID: 3618906788000093473}
     - target: {fileID: 7982650339309508898, guid: d33509a3a9962ce46a9b87f4b69e3d94, type: 3}
       propertyPath: inputManager
       value: 

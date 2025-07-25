@@ -1,4 +1,5 @@
 using AK.Wwise;
+using UnityEngine;
 
 namespace Code.Scripts.Game
 {
@@ -9,8 +10,16 @@ namespace Code.Scripts.Game
         public bool devMode;
         private float musicVol = 100f;
         private float sfxVol = 100f;
+        private bool showGameTimer = false;
 
-        public static Settings Instance => _instance ??= new Settings();
+        public static Settings Instance => _instance != null ? _instance : new Settings();
+
+        public Settings()
+        {
+            musicVol = PlayerPrefs.GetFloat("MusicVolume", musicVol);
+            sfxVol = PlayerPrefs.GetFloat("SfxVolume", sfxVol);
+            showGameTimer = PlayerPrefs.GetInt("Timer", showGameTimer ? 1 : 0) == 1;
+        }
 
         public static float MusicVol
         {
@@ -19,6 +28,8 @@ namespace Code.Scripts.Game
             {
                 Instance.musicVol = value;
                 AkSoundEngine.SetRTPCValue("RTPC_MusicVolume", value);
+                PlayerPrefs.SetFloat("MusicVolume", value);
+                PlayerPrefs.Save();
             }
         }
         
@@ -29,6 +40,19 @@ namespace Code.Scripts.Game
             {
                 Instance.sfxVol = value;
                 AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", value);
+                PlayerPrefs.SetFloat("SfxVolume", value);
+                PlayerPrefs.Save();
+            }
+        }
+
+        public static bool ShowGameTimer
+        {
+            get => Instance.showGameTimer;
+            set
+            {
+                Instance.showGameTimer = value;
+                PlayerPrefs.SetInt("Timer", value ? 1 : 0);
+                PlayerPrefs.Save();
             }
         }
     }

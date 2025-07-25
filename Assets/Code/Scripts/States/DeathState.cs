@@ -62,7 +62,7 @@ namespace Code.Scripts.States
             deathController.Die();
             sharedContext.died = false;
 
-            Stats.SetDeaths(Stats.Deaths + 1);
+            Stats.AddDeath();
         }
 
         public override void OnUpdate()

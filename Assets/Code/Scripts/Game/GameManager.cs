@@ -1,24 +1,21 @@
-using Code.Scripts.Game;
 using Code.Scripts.Input;
-using Code.Scripts.Menu;
+using Code.Scripts.Level;
 using Code.Scripts.Player;
 using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.Scripts.Level
+namespace Code.Scripts.Game
 {
     public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         [SerializeField] private TextMeshProUGUI timerTxt;
         [SerializeField] private GameObject statesText;
-        [SerializeField] private bool isTimerOn;
 
         [SerializeField] private DroneController drone;
         [SerializeField] private PlayerController player;
 
-        private int CurrentLevel => LevelChanger.Instance.CurrentLevel;
         public DroneController Drone => drone;
         public PlayerController Player => player;
 
@@ -32,32 +29,20 @@ namespace Code.Scripts.Level
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            isTimerOn = PlayerPrefs.GetInt("Timer", 1) == 1;
+            TimeCounter.Start();
+            TimeCounter.Reset();
 
-            if (isTimerOn)
-            {
-                TimeCounter.Start();
-                TimeCounter.Reset();
-                Stats.SetDeaths(0);
-            }
-            
-            if (timerTxt != null)
-                timerTxt.gameObject.SetActive(isTimerOn);
+            Stats.LoadLevelStats(LevelChanger.Instance.CurrentLevel);
 
+            timerTxt?.gameObject.SetActive(Settings.ShowGameTimer);
 
             SfxController.MusicOnOff(true, gameObject);
-        }
-
-        private void OnDestroy()
-        {
-            SfxController.StopAllOn(gameObject);
         }
 
         private void OnEnable()
         {
             InputManager.Restart += OnRestartHandler;
             InputManager.DevMode += OnDevModeHandler;
-            OptionsController.OnToggleTimer += HandleTimerVisibility;
 
         }
 
@@ -65,7 +50,18 @@ namespace Code.Scripts.Level
         {
             InputManager.Restart -= OnRestartHandler;
             InputManager.DevMode -= OnDevModeHandler;
-            OptionsController.OnToggleTimer -= HandleTimerVisibility;
+            Stats.SaveStats();
+        }
+
+        private void OnDestroy()
+        {
+            SfxController.StopAllOn(gameObject);
+            Stats.SaveStats();
+        }
+
+        private void OnApplicationQuit()
+        {
+            Stats.SaveStats();
         }
 
         private void Update()
@@ -74,9 +70,6 @@ namespace Code.Scripts.Level
             timerTxt.text = TimeCounter.Time.ToStr;
         }
 
-        /// <summary>
-        /// Set dev mode
-        /// </summary>
         private void OnDevModeHandler()
         {
             Settings.Instance.devMode = !Settings.Instance.devMode;
@@ -85,42 +78,9 @@ namespace Code.Scripts.Level
             Settings.MusicVol = Settings.Instance.devMode ? 0 : 100f;
         }
 
-        /// <summary>
-        /// Restart level
-        /// </summary>
         private static void OnRestartHandler()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        
-        /// <summary>
-        /// Get Timer text
-        /// </summary>
-        public TextMeshProUGUI GetTimerText()
-        {
-            return timerTxt;
-        }
-
-        public Timer GetLevelTime()
-        {
-            return Stats.GetLevelTime(CurrentLevel);
-        }
-
-        public void PickUpCollectible(int id)
-        {
-            Stats.PickUpCollectible(CurrentLevel, id);
-        }
-
-        public bool HasCollectible(int id)
-        {
-            return Stats.HasCollectible(CurrentLevel, id);
-        }
-        
-        private void HandleTimerVisibility(bool show)
-        {
-            if (timerTxt != null)
-                timerTxt.gameObject.SetActive(show);
-        }
-
     }
 }

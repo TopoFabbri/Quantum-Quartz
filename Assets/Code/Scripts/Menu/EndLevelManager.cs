@@ -16,8 +16,8 @@ namespace Code.Scripts.Menu
 
         private void OnEnable()
         {
-            timeTxt.text = GameManager.Instance.GetLevelTime().ToStr;
-            deathsTxt.text = Stats.Deaths.ToString();
+            timeTxt.text = TimeCounter.Time.ToStr;
+            deathsTxt.text = Stats.GetDeaths().ToString();
         }
     }
 }

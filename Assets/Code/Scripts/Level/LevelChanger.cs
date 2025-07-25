@@ -3,10 +3,7 @@ using System.Collections;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
-using Eflatun.SceneReference;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,13 +12,13 @@ namespace Code.Scripts.Level
     public class LevelChanger : MonoBehaviourSingleton<LevelChanger>
     {
         [SerializeField] private LevelList levelList;
-        [SerializeField] private int currentLevel;
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
         [SerializeField] private GameObject playerGO;
         [SerializeField] private InputManager inputManager;
 
-        public int CurrentLevel => currentLevel + 1;
+        private int _currentLevel = -1;
+        public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
 
         public static event Action LevelEnd;
         public static event Action PlayerTp;
@@ -44,9 +41,8 @@ namespace Code.Scripts.Level
         private IEnumerator ShowEndLevelScreen(float time)
         {
             TimeCounter.Stop();
-            Stats.SetLevelTime(CurrentLevel, TimeCounter.Time.time);
-            yield return new WaitForSeconds(time);
             Stats.SaveStats();
+            yield return new WaitForSeconds(time);
             inputManager.EnableUIMap();
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);
@@ -65,10 +61,7 @@ namespace Code.Scripts.Level
 
         public void LoadNextLevel()
         {
-            string currentSceneName = SceneManager.GetActiveScene().name;
-
-            int currentIndex = levelList.levels.FindIndex(level => level.SceneName == currentSceneName);
-
+            int currentIndex = CurrentLevel;
             if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
             {
                 string nextSceneName = levelList.levels[currentIndex + 1].SceneName;
