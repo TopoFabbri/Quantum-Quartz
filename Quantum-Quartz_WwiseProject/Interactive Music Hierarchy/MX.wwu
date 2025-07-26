@@ -1744,11 +1744,6 @@
 								</Property>
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="80"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -1761,7 +1756,7 @@
 							<ChildrenList>
 								<MusicSegment Name="QQ_Ghost_Intro_80bpm_Charm_4-4_L12M" ID="{D410B17B-54A6-4933-8F64-4FDE75E1D8C9}" ShortID="862130678">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="36000"/>
+										<Property Name="EndPosition" Type="Real64" Value="108000"/>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -1822,6 +1817,122 @@
 												</ObjectList>
 											</ObjectLists>
 										</MusicTrack>
+										<MusicTrack Name="Glitches" ID="{5B98357D-F5E7-4945-8289-1A5B8A21B35C}" ShortID="209923303">
+											<PropertyList>
+												<Property Name="MusicTrackType" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{324EF0C4-3BD9-40F4-8400-0D259757CF2B}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="958601783"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{1AFE622C-FB31-40A8-851E-3DF7D2BC403F}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1034746756"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{1BDE685E-04A3-4136-9082-0BBB7FE52F5E}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="634500121"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<TransitionList>
+												<MusicTransition Name="Root" ID="{2D6E9A2C-1EA3-4FD8-96C5-54321AD3A5CE}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</TransitionList>
+											<ObjectLists>
+												<ObjectList Name="Sequences">
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{D1EFB246-B86D-432F-B9C9-BA414A5C8680}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{647B8993-0419-44CF-AF47-F78E813FE043}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="36000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{324EF0C4-3BD9-40F4-8400-0D259757CF2B}"/>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{D250CDD9-B5C7-473D-A76D-B6691EDA376D}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{7D09A329-2FF4-47A7-9C6B-A004CF59F850}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="36000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{1AFE622C-FB31-40A8-851E-3DF7D2BC403F}"/>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{AA315538-0EA5-4977-9E18-31186A963D2D}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{80E5B2D2-0FC8-43B1-92BE-C7BB12F5741E}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="36000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{1BDE685E-04A3-4136-9082-0BBB7FE52F5E}"/>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</MusicTrack>
 									</ChildrenList>
 									<ObjectLists>
 										<ObjectList Name="Cues">
@@ -1846,6 +1957,11 @@
 								<MusicSegment Name="QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M" ID="{F2DB45C1-BA27-4152-80A5-FCE6A31D8E48}" ShortID="874634543">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="219000"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -1895,6 +2011,302 @@
 																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
 																					<AudioSourceRef Name="QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M" ID="{E9B73A94-A1EF-4F49-AAD0-03ADC032CE69}"/>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</MusicTrack>
+										<MusicTrack Name="Glitches" ID="{7863AC53-81B0-44FF-B905-958D65EE4CD2}" ShortID="570340113">
+											<PropertyList>
+												<Property Name="MusicTrackType" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{FEB6057A-135F-463E-BADC-393C5D3DAA91}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="958601783"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{A64ADF5A-3DDF-44BF-8FA9-5F02496B5A52}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1034746756"/>
+													</MediaIDList>
+												</AudioFileSource>
+												<AudioFileSource Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{099B818B-FAC3-46C6-A695-A267DDEA306D}">
+													<Language>SFX</Language>
+													<AudioFile>QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="634500121"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<TransitionList>
+												<MusicTransition Name="Root" ID="{FC0DAEDE-828A-4733-A7D7-D73CFB846C50}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</TransitionList>
+											<ObjectLists>
+												<ObjectList Name="Sequences">
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{14184987-E6DA-45C0-B6D9-6D1D74CCC0B2}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{E28031AA-A55A-47B2-BF57-F9AB52444CB4}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="24000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																						<Property Name="PlayAt" Type="Real64" Value="123000"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M" ID="{FEB6057A-135F-463E-BADC-393C5D3DAA91}"/>
+																					<PropertyCurveList>
+																						<PropertyCurve PropertyName="Highpass">
+																							<Curve Name="" ID="{2CC763F0-DB13-4A87-B1B1-34E1F5EE0B81}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Lowpass">
+																							<Curve Name="" ID="{C592A4FB-3E04-44D2-A199-62D5C3A88B5D}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Volume">
+																							<Curve Name="" ID="{32BEB8A7-9F28-4659-BAEE-03714C320B7D}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="3"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																					</PropertyCurveList>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{FE258FE9-8EFA-4028-AD9F-7199F87934FF}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{E5FB9910-E757-4DF0-A4D4-F29EF3407475}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="24000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																						<Property Name="PlayAt" Type="Real64" Value="123000"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M" ID="{A64ADF5A-3DDF-44BF-8FA9-5F02496B5A52}"/>
+																					<PropertyCurveList>
+																						<PropertyCurve PropertyName="Highpass">
+																							<Curve Name="" ID="{B85571C0-31E2-49D2-B3B7-D2E0AC103A6D}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Lowpass">
+																							<Curve Name="" ID="{E9E057AA-D457-4F5C-BA88-DE36FF096818}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Volume">
+																							<Curve Name="" ID="{ECFC020A-5259-411C-9B13-D656CDD1935A}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="3"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																					</PropertyCurveList>
+																				</MusicClip>
+																			</Local>
+																		</Reference>
+																	</ObjectList>
+																</ObjectLists>
+															</MusicTrackSequence>
+														</Local>
+													</Reference>
+													<Reference>
+														<Local>
+															<MusicTrackSequence Name="" ID="{CCEE4A73-0C77-48DA-A4C3-3D08061BD914}">
+																<ObjectLists>
+																	<ObjectList Name="Clips">
+																		<Reference>
+																			<Local>
+																				<MusicClip Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{1A84D299-8F0D-4B31-90A8-EB3AA689CBE6}">
+																					<PropertyList>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="24000"/>
+																						<Property Name="FadeInMode" Type="int16" Value="0"/>
+																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																						<Property Name="PlayAt" Type="Real64" Value="123000"/>
+																					</PropertyList>
+																					<AudioSourceRef Name="QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M" ID="{099B818B-FAC3-46C6-A695-A267DDEA306D}"/>
+																					<PropertyCurveList>
+																						<PropertyCurve PropertyName="Highpass">
+																							<Curve Name="" ID="{3CEB01B2-BE7D-40BA-A9EB-27DD45DFEAEA}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Lowpass">
+																							<Curve Name="" ID="{4E53DD21-C647-43DB-BFFA-11FA77608E8E}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="1"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																						<PropertyCurve PropertyName="Volume">
+																							<Curve Name="" ID="{87CDC3BE-B450-4A96-ADFD-4ACA82A97D19}">
+																								<PropertyList>
+																									<Property Name="Flags" Type="int32" Value="3"/>
+																								</PropertyList>
+																								<PointList>
+																									<Point>
+																										<XPos>0</XPos>
+																										<YPos>0</YPos>
+																										<Flags>5</Flags>
+																									</Point>
+																									<Point>
+																										<XPos>24</XPos>
+																										<YPos>0</YPos>
+																										<Flags>37</Flags>
+																									</Point>
+																								</PointList>
+																							</Curve>
+																						</PropertyCurve>
+																					</PropertyCurveList>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -2133,7 +2545,6 @@
 										<Property Name="PlaySourcePostExit" Type="bool" Value="False"/>
 										<Property Name="SourceContextType" Type="int16" Value="1"/>
 									</PropertyList>
-									<ReferenceList/>
 									<TransitionInfo>
 										<SourceFadeOut>
 											<MusicFade Name="Source Fade-out" ID="{E5AC0A14-3AF9-40B0-803D-424D4D455338}">
