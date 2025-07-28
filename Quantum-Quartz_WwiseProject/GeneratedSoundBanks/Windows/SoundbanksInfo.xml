@@ -96,7 +96,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E1BB1F26-0ABE-102F-60FE-84329EF3F7DF}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E935F737-9960-A68C-3FD3-1866446F4A21}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -488,6 +488,10 @@
 					<ShortName>Dash_L.wav</ShortName>
 					<CachePath>SFX/Dash_L_D9640285.wem</CachePath>
 				</File>
+				<File Id="634500121" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M.wav</ShortName>
+					<CachePath>SFX/QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M_686156BF.wem</CachePath>
+				</File>
 				<File Id="642864624" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_23.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_23_4D3BBC73.wem</CachePath>
@@ -696,6 +700,10 @@
 					<ShortName>Concrete_Footstep-037.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-037_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="958601783" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M.wav</ShortName>
+					<CachePath>SFX/QQ_Ghost_IntroGlitches1_80bpm_Charm_4-4_L12M_686156BF.wem</CachePath>
+				</File>
 				<File Id="958719904" Language="SFX" Streaming="true" Location="Memory">
 					<ShortName>Steampunk Level_Main_Loop_LP.wav</ShortName>
 					<Path>Media/958719904.wem</Path>
@@ -737,6 +745,10 @@
 				<File Id="1033624229" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-036.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-036_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="1034746756" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M.wav</ShortName>
+					<CachePath>SFX/QQ_Ghost_IntroGlitches2_80bpm_Charm_4-4_L12M_686156BF.wem</CachePath>
 				</File>
 				<File Id="1044412963" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-015.wav</ShortName>
@@ -1240,6 +1252,9 @@
 							<MediaRefs>
 								<MediaRef Id="86503014"/>
 								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1270,6 +1285,9 @@
 							<MediaRefs>
 								<MediaRef Id="86503014"/>
 								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1315,7 +1333,75 @@
 						<ActionSetSwitchEntry GroupId="1445037870" Id="3247222823" Name="Adventurer"/>
 					</ActionSetSwitch>
 				</Event>
-				<Event Id="2922058705" Name="Set_MXSwitch_Ghost" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
+				<Event Id="2922058705" Name="Set_MXSwitch_Ghost" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
 					<ActionSetSwitch>
 						<ActionSetSwitchEntry GroupId="1445037870" Id="4023194814" Name="Ghost"/>
 					</ActionSetSwitch>
@@ -1400,6 +1486,9 @@
 							<MediaRefs>
 								<MediaRef Id="86503014"/>
 								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1473,5 +1562,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{7CFBD88D-648A-F7C4-D31C-1A6F526DFB28}</FileHash>
+	<FileHash>{4FE77063-BD6C-2097-3020-0DF356D903F8}</FileHash>
 </SoundBanksInfo>
