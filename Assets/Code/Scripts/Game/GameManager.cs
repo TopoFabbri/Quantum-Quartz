@@ -1,3 +1,4 @@
+using AK.Wwise;
 using Code.Scripts.Input;
 using Code.Scripts.Level;
 using Code.Scripts.Player;
@@ -15,7 +16,8 @@ namespace Code.Scripts.Game
 
         [SerializeField] private DroneController drone;
         [SerializeField] private PlayerController player;
-
+        [SerializeField] private Switch musicState;
+        
         public DroneController Drone => drone;
         public PlayerController Player => player;
 
@@ -47,6 +49,7 @@ namespace Code.Scripts.Game
             timerTxt?.gameObject.SetActive(Settings.ShowGameTimer);
 
             SfxController.MusicOnOff(true, gameObject);
+            SfxController.SetMusicState(musicState, gameObject);
         }
 
         private void OnEnable()
