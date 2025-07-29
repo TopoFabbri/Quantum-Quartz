@@ -249,13 +249,5 @@ namespace Code.Scripts.Game
         {
             return Instance.levelStats.collectibles.Contains(id);
         }
-
-        public static void DeleteSaves()
-        {
-            for (int slot = 0; slot <= SLOT_COUNT; slot++)
-            {
-                ClearSaveSlot(slot, null);
-            }
-        }
     }
 }
