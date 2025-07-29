@@ -128,5 +128,10 @@ namespace Code.Scripts.Menu
                 Debug.LogWarning("La URL está vacía o no fue asignada.");
             }
         }
+
+        public void DeleteSaves()
+        {
+            Stats.DeleteSaves();
+        }
     }
 }
