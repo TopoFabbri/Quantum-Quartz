@@ -73,6 +73,13 @@ namespace Code.Scripts.Menu
         {
             LoadScene(mainMenuSceneName);
         }
+        
+        public void ReloadCurrentScene()
+        {
+            string currentScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentScene);
+        }
+
 
         public void LoadLevel(int levelNumber)
         {
