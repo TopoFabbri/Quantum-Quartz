@@ -174,6 +174,8 @@ namespace Code.Scripts.Menu
         {
             levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
             (levelSelectorPanel.activeSelf ? levelSelectorFirstButton : mainMenuButton).Select();
+            if(levelSelectorPanel.activeSelf) levelSelectorFirstButton.Select();
+            
         }
 
         public void TurnControls()

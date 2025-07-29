@@ -10,7 +10,7 @@ public class LevelSelectorUI : MonoBehaviour
     [SerializeField] private LevelList levelList;
     [SerializeField] private Transform buttonContainer;
     [SerializeField] private GameObject buttonPrefab;
-    [SerializeField] private Button backButton; // Botón de Back asignable desde el inspector
+    [SerializeField] private Button backButton; 
 
     private List<Button> generatedButtons = new List<Button>();
 
