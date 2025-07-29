@@ -210,5 +210,14 @@ namespace Code.Scripts.Menu
             creditsPanel?.SetActive(false);
             mainMenuButton.Select();
         }
+        
+        public void ResetSaveData()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+
+            Debug.Log("PlayerPrefs reseteadas.");
+        }
+
     }
 }
