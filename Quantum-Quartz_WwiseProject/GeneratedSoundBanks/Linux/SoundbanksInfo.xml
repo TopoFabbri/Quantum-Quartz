@@ -96,7 +96,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E935F737-9960-A68C-3FD3-1866446F4A21}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{37A0B0DF-A0F9-41C5-09CE-FE3D2C936C76}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -1333,75 +1333,7 @@
 						<ActionSetSwitchEntry GroupId="1445037870" Id="3247222823" Name="Adventurer"/>
 					</ActionSetSwitch>
 				</Event>
-				<Event Id="2922058705" Name="Set_MXSwitch_Ghost" DurationType="Infinite">
-					<SwitchContainers>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
-							<MediaRefs>
-								<MediaRef Id="26893415"/>
-								<MediaRef Id="171091106"/>
-								<MediaRef Id="400230657"/>
-								<MediaRef Id="585198590"/>
-								<MediaRef Id="812185611"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
-							<MediaRefs>
-								<MediaRef Id="86503014"/>
-								<MediaRef Id="573631382"/>
-								<MediaRef Id="634500121"/>
-								<MediaRef Id="958601783"/>
-								<MediaRef Id="1034746756"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
-							<MediaRefs>
-								<MediaRef Id="717978069"/>
-								<MediaRef Id="958719904"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
-							<MediaRefs>
-								<MediaRef Id="866517727"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
-							<MediaRefs>
-								<MediaRef Id="26893415"/>
-								<MediaRef Id="171091106"/>
-								<MediaRef Id="400230657"/>
-								<MediaRef Id="585198590"/>
-								<MediaRef Id="812185611"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
-							<MediaRefs>
-								<MediaRef Id="86503014"/>
-								<MediaRef Id="573631382"/>
-								<MediaRef Id="634500121"/>
-								<MediaRef Id="958601783"/>
-								<MediaRef Id="1034746756"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
-							<MediaRefs>
-								<MediaRef Id="717978069"/>
-								<MediaRef Id="958719904"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
-							<MediaRefs>
-								<MediaRef Id="866517727"/>
-							</MediaRefs>
-						</SwitchContainer>
-					</SwitchContainers>
+				<Event Id="2922058705" Name="Set_MXSwitch_Ghost" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0">
 					<ActionSetSwitch>
 						<ActionSetSwitchEntry GroupId="1445037870" Id="4023194814" Name="Ghost"/>
 					</ActionSetSwitch>
@@ -1562,5 +1494,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{746A26C8-9649-E928-63FE-EB17FE3D6AD7}</FileHash>
+	<FileHash>{192F144F-1E65-329F-4825-1A158AF8838F}</FileHash>
 </SoundBanksInfo>
