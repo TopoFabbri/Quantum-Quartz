@@ -1,6 +1,8 @@
 using System;
+using AK.Wwise;
 using Code.Scripts.Colors;
 using UnityEngine;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Tools
 {
@@ -38,6 +40,11 @@ namespace Code.Scripts.Tools
                 AkSoundEngine.PostEvent(StopMusicEvent, gameObject);
                 musicObject = null;
             }
+        }
+
+        public static void SetMusicState(Switch stateEvent, GameObject gameObject)
+        {
+            stateEvent.SetValue(gameObject);
         }
 
         /// <summary>

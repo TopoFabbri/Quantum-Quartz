@@ -35,6 +35,8 @@ namespace Code.Scripts.Player
         [SerializeField] private ParticleSystem wjmpPs;
         [SerializeField] private GlobalSettings globalSettings;
         [SerializeField] private SerializedDictionary<string, StateSettings.StateSettings> settings;
+        [SerializeField] private RectTransform gearFX;
+        
         private readonly FiniteStateMachine<string> stateMachine = new FiniteStateMachine<string>(2);
 #pragma warning disable IDE1006 // Naming Styles
         public SharedContext sharedContext { get; private set; }
@@ -53,7 +55,7 @@ namespace Code.Scripts.Player
 
         private void Awake()
         {
-            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine);
+            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine, gearFX);
             CreateStateMachine();
         }
 
