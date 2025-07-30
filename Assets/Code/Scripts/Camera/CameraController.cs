@@ -24,6 +24,7 @@ namespace Code.Scripts.Camera
         private readonly List<int> shakeIds = new();
 
         private bool inRoom = true;
+        private bool positioned;
         private Vector3 originalPos;
         private Vector3 targetPos;
 
@@ -37,6 +38,7 @@ namespace Code.Scripts.Camera
         private void Start()
         {
             originalPos = cam.transform.localPosition;
+            positioned = false;
         }
 
         private void LateUpdate()
@@ -50,6 +52,12 @@ namespace Code.Scripts.Camera
             
             CalculateTargetPos();
             
+            if (Room.Active && !positioned)
+            {
+                positioned = true;
+                transform.position = targetPos;
+            }
+            
             if (IsCamInRoom())
                 Follow();
             else
@@ -61,6 +69,7 @@ namespace Code.Scripts.Camera
         /// </summary>
         private void SwitchRoom()
         {
+            
             transform.position = Vector3.MoveTowards(transform.position, targetPos, changeRoomSpeed * Time.deltaTime);
         }
 
