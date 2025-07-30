@@ -146,7 +146,7 @@ namespace Code.Scripts.Player
         /// <returns>True if ground is near</returns>
         private bool CamShakeCheck()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2f, playerState.sharedContext.SolidFilter.layerMask);
 
             bool grounded = hit.collider && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform"));
             return grounded;

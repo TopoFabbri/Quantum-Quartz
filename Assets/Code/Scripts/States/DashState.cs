@@ -23,10 +23,6 @@ namespace Code.Scripts.States
         private readonly SharedContext sharedContext;
         private readonly BarController barController;
         private readonly ParticleSystem dashParticleSystem;
-        private static ContactFilter2D contactFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Default")
-        };
 
         private float gravScale;
         private bool interrupted;
@@ -116,7 +112,7 @@ namespace Code.Scripts.States
         private bool WallCheck()
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(sharedContext.facingRight ? Vector2.right : Vector2.left, contactFilter, hits, dashSettings.wallCheckDis, true);
+            sharedContext.Collider.Cast(sharedContext.facingRight ? Vector2.right : Vector2.left, sharedContext.SolidFilter, hits, dashSettings.wallCheckDis, true);
 
             foreach (RaycastHit2D hit in hits)
             {

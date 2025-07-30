@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Code.Scripts.FSM;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -57,7 +56,7 @@ namespace Code.Scripts.States
             Vector2 position = sharedContext.Transform.position;
             Vector2 direction = sharedContext.facingRight ? Vector2.left : Vector2.right;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, direction, sharedContext.GlobalSettings.wallCheckDis, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, direction, sharedContext.GlobalSettings.wallCheckDis, sharedContext.SolidFilter.layerMask);
             
             Debug.DrawLine(position, position + direction * sharedContext.GlobalSettings.wallCheckDis, Color.red, 0.1f);
             

@@ -21,10 +21,6 @@ namespace Code.Scripts.States
         protected readonly VelocityCurve verticalVelocityCurve;
 
         private float inputSpeed = 0;
-        private static ContactFilter2D contactFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Default")
-        };
 
         public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext, VelocityCurve verticalVelocityCurve = null) : base(id)
         {
@@ -87,7 +83,7 @@ namespace Code.Scripts.States
         public bool WallCheck()
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, sharedContext.GlobalSettings.wallCheckDis * Math.Sign(sharedContext.Input), true);
+            sharedContext.Collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, sharedContext.GlobalSettings.wallCheckDis * Math.Sign(sharedContext.Input), true);
 
             foreach (RaycastHit2D hit in hits)
             {

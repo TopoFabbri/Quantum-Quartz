@@ -24,6 +24,7 @@ namespace Code.Scripts.Player
 
         private bool colliding;
         private int defLayer;
+        private int collisionLayer;
         private Coroutine coroutine;
         private Transform overridePosition;
         private Action onOverridePositionReached;
@@ -32,6 +33,7 @@ namespace Code.Scripts.Player
         private void Start()
         {
             defLayer = gameObject.layer;
+            collisionLayer = LayerMask.NameToLayer("Default");
         }
 
         private void FixedUpdate()
@@ -44,7 +46,7 @@ namespace Code.Scripts.Player
                 }
                 else
                 {
-                    gameObject.layer = LayerMask.NameToLayer("Default");
+                    gameObject.layer = collisionLayer;
                 }
             }
             else

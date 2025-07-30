@@ -69,7 +69,7 @@ namespace Code.Scripts.States
         
         private void Reposition()
         {
-            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position + Vector3.up * 0.1f, Vector2.down, 10f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(sharedContext.Transform.position + Vector3.up * 0.1f, Vector2.down, 10f, sharedContext.SolidFilter.layerMask);
             
             if (hit)
                 sharedContext.Transform.position = hit.point + Vector2.up * spawnSettings.height;
