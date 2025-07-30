@@ -18,8 +18,17 @@ namespace Code.Scripts.Player
         [SerializeField] private Event glideStartEvent;
         [SerializeField] private Event glideStopEvent;
         [SerializeField] private Event deathEvent;
-        
         [SerializeField] private Event floorSwitchEvent;
+
+        private ContactFilter2D solidFilter = new ContactFilter2D();
+
+        private void Start()
+        {
+            solidFilter = new ContactFilter2D
+            {
+                layerMask = LayerMask.GetMask("Default", "SolidTiles")
+            };
+        }
 
         /// <summary>
         /// Call step event
@@ -100,7 +109,7 @@ namespace Code.Scripts.Player
         /// </summary>
         private void CheckMaterial()
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, solidFilter.layerMask);
 
             if (!hit.collider) return;
             

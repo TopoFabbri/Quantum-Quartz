@@ -16,10 +16,6 @@ namespace Code.Scripts.States
         protected readonly FallSettings fallSettings;
 
         private float lastVel = 0;
-        private static ContactFilter2D contactFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Default")
-        };
 
         public FallState(T id, FallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.moveSettings, sharedContext, stateSettings.fallCurve)
         {
@@ -116,7 +112,7 @@ namespace Code.Scripts.States
         private void SpawnDust()
         {
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
-            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckDistance, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckDistance, sharedContext.SolidFilter.layerMask);
 
             if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;

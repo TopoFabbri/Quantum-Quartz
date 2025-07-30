@@ -15,10 +15,6 @@ namespace Code.Scripts.States
         protected readonly WallSettings wallSettings;
 
         private float savedGravityScale;
-        private static ContactFilter2D contactFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Default")
-        };
 
         public WallState(T id, WallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.fallSettings, sharedContext)
         {
@@ -84,7 +80,7 @@ namespace Code.Scripts.States
         public bool IsTouchingWall(bool checkRight)
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(Vector2.right, contactFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
+            sharedContext.Collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -104,7 +100,7 @@ namespace Code.Scripts.States
         {
             Vector2 lookDir = sharedContext.facingRight ? Vector2.right : Vector2.left;
             List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(-lookDir, contactFilter, hits, sharedContext.GlobalSettings.wallCheckDis * 4f, true);
+            sharedContext.Collider.Cast(-lookDir, sharedContext.SolidFilter, hits, sharedContext.GlobalSettings.wallCheckDis * 4f, true);
 
             hits = hits.Where((hit) => IsWall(hit.transform)).ToList();
 
@@ -151,7 +147,7 @@ namespace Code.Scripts.States
         private void SpawnDust()
         {
             Vector2 facingDir = sharedContext.facingRight ? Vector3.right : Vector3.left;
-            RaycastHit2D hit = Physics2D.Raycast((Vector2)sharedContext.Transform.position + facingDir, -facingDir, wallSettings.wallDis, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)sharedContext.Transform.position + facingDir, -facingDir, wallSettings.wallDis, sharedContext.SolidFilter.layerMask);
 
             if (!hit.collider)
                 return;

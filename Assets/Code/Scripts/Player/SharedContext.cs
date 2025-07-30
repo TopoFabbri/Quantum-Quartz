@@ -4,7 +4,6 @@ using Code.Scripts.FSM;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
-using Code.Scripts.States;
 using Code.Scripts.StateSettings;
 using System;
 using System.Collections;
@@ -26,6 +25,12 @@ namespace Code.Scripts.Player
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
+
+        private ContactFilter2D _solidFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Default", "SolidTiles")
+        };
+        public ContactFilter2D SolidFilter => _solidFilter;
 
         private float _input = 0;
         public float Input
@@ -54,7 +59,6 @@ namespace Code.Scripts.Player
                 OnCheckFlip?.Invoke();
             }
         }
-
 
         private Vector2 _checkpointPos = Vector2.negativeInfinity;
         public Vector2 CheckpointPos
