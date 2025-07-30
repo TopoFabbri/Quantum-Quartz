@@ -15,13 +15,15 @@ namespace Code.Scripts.States
         protected readonly SpawnSettings spawnSettings;
         
         private readonly SharedContext sharedContext;
-        
+        private readonly UnityEngine.Camera camera;
+
         public bool Ended { get; private set; }
         
         public SpawnState(T id, SpawnSettings stateSettings, SharedContext sharedContext) : base(id)
         {
             this.spawnSettings = stateSettings;
             this.sharedContext = sharedContext;
+            camera = UnityEngine.Camera.main;
         }
         
         public override void OnEnter()
@@ -46,6 +48,13 @@ namespace Code.Scripts.States
             base.OnExit();
 
             sharedContext.Rigidbody.isKinematic = false;
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            
+            sharedContext.GearFX.position = sharedContext.Transform.position + Vector3.up;
         }
 
         /// <summary>

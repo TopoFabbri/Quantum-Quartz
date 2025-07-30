@@ -22,6 +22,7 @@ namespace Code.Scripts.Player
         public PlayerSfx PlayerSfx { get; private set; }
         public GlobalSettings GlobalSettings { get; private set; }
         public CameraController CamController { get; private set; }
+        public RectTransform GearFX { get; private set; }
         public bool Falling { get; private set; }
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
@@ -104,7 +105,7 @@ namespace Code.Scripts.Player
         private double curSpeedTimestamp;
         private Coroutine wallCooldownCoroutine;
 
-        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine)
+        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine, RectTransform gearFX)
         {
             Rigidbody = rb;
             Collider = col;
@@ -113,7 +114,8 @@ namespace Code.Scripts.Player
             PlayerSfx = playerSfx;
             GlobalSettings = globalSettings;
             this.stateMachine = stateMachine;
-
+            GearFX = gearFX;
+            
             InputManager.Move += OnMoveHandler;
 
             if (UnityEngine.Camera.main?.transform.parent != null)
