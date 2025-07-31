@@ -1,6 +1,5 @@
 using Code.Scripts.Game;
-using System.Collections.Generic;
-using System.Linq;
+using Code.Scripts.Level;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,8 +12,6 @@ namespace Code.Scripts.Menu
         [SerializeField] private string levelSelectorScene;
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private string fileSaveSceneName;
-
-        [SerializeField] private LevelList levelList;
 
         [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
@@ -36,31 +33,19 @@ namespace Code.Scripts.Menu
             }
         }
 
-        public void LoadScene(string sceneName)
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-
         public void PlayGame()
         {
-            if (levelList.levels.Count > 0)
-            {
-                Stats.SetContinueMode(true);
-                string sceneName = Stats.GetLastLevelName();
-                if (string.IsNullOrWhiteSpace(sceneName) || !levelList.levels.Any((level) => sceneName.Equals(level.SceneName, System.StringComparison.OrdinalIgnoreCase))) {
-                    sceneName = levelList.levels[0].SceneName;
-                }
-                LoadScene(sceneName);
-            }
-            else
-            {
-                Debug.LogError("No hay niveles cargados en el LevelList.");
-            }
+            LevelChanger.Instance.LoadLastLevel();
+        }
+
+        private void LoadScene(string sceneName)
+        {
+            Stats.SaveStats();
+            SceneManager.LoadScene(sceneName);
         }
 
         public void GoMainMenu()
         {
-            Stats.SaveStats();
             LoadScene(mainMenuSceneName);
         }
 
@@ -73,30 +58,6 @@ namespace Code.Scripts.Menu
         {
             LoadScene(mainMenuSceneName);
         }
-        
-        public void ReloadCurrentScene()
-        {
-            string currentScene = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(currentScene);
-        }
-
-
-        public void LoadLevel(int levelNumber)
-        {
-            int index = levelNumber - 1;
-
-            if (index >= 0 && index < levelList.levels.Count)
-            {
-                Stats.SetContinueMode(false);
-                string sceneName = levelList.levels[index].SceneName;
-                LoadScene(sceneName);
-            }
-            else
-            {
-                Debug.LogError($"Nivel {levelNumber} no existe en el LevelList.");
-            }
-        }
-
 
         public void QuitGame()
         {

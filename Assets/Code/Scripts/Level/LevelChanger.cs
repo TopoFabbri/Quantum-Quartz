@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
@@ -25,7 +26,10 @@ namespace Code.Scripts.Level
 
         private void Start()
         {
-            endLevelCanvas.gameObject.SetActive(false);
+            if (endLevelCanvas)
+            {
+                endLevelCanvas.gameObject.SetActive(false);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -63,11 +67,6 @@ namespace Code.Scripts.Level
             LevelEnd?.Invoke();
         }
 
-        public void ReloadLevel()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
-        }
-
         public void LoadNextLevel()
         {
             int currentIndex = CurrentLevel;
@@ -80,6 +79,51 @@ namespace Code.Scripts.Level
             {
                 Debug.LogWarning("No hay siguiente nivel o el nivel actual no está en la lista.");
             }
+        }
+
+        public void LoadLastLevel()
+        {
+            if (levelList.levels.Count > 0)
+            {
+                Stats.SetContinueMode(true);
+                string sceneName = Stats.GetLastLevelName();
+                if (string.IsNullOrWhiteSpace(sceneName) || !levelList.levels.Any((level) => sceneName.Equals(level.SceneName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    sceneName = levelList.levels[0].SceneName;
+                }
+                SceneManager.LoadScene(sceneName);
+            }
+            else
+            {
+                Debug.LogError("No hay niveles cargados en el LevelList.");
+            }
+        }
+
+        public void ReloadLevel()
+        {
+            Stats.SetContinueMode(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+        }
+
+        public void LoadLevel(int levelNumber)
+        {
+            int index = levelNumber - 1;
+
+            if (index >= 0 && index < levelList.levels.Count)
+            {
+                LoadLevel(levelList.levels[index]);
+            }
+            else
+            {
+                Debug.LogError($"Nivel {levelNumber} no existe en el LevelList.");
+            }
+        }
+
+        public void LoadLevel(LevelList.LevelData level)
+        {
+            Stats.SetContinueMode(false);
+            string sceneName = level.SceneName;
+            SceneManager.LoadScene(sceneName);
         }
     }
 }

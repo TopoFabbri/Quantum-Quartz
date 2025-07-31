@@ -138,8 +138,8 @@ namespace Code.Scripts.Game
 
                 PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurDeaths", curDeaths);
                 PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurTime", curTimer.time);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointX", curCheckpoint.x);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointY", curCheckpoint.y);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointX", curCheckpoint.x);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointY", curCheckpoint.y);
             }
 
             public static void Clear(int slot, int level)
@@ -150,8 +150,8 @@ namespace Code.Scripts.Game
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Collectibles");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurDeaths");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurTime");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointX");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointY");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointX");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointY");
             }
         }
         #endregion
