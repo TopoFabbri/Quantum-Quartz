@@ -1,33 +1,32 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using Code.Scripts.Level;
 
 public class LevelSelectorUI : MonoBehaviour
 {
     [SerializeField] private LevelList levelList;
     [SerializeField] private Transform buttonContainer;
     [SerializeField] private GameObject buttonPrefab;
-    [SerializeField] private Button backButton; 
+    [SerializeField] private Button backButton;
 
     private List<Button> generatedButtons = new List<Button>();
 
     void Start()
     {
-        foreach (var level in levelList.levels)
+        foreach (LevelList.LevelData level in levelList.levels)
         {
             GameObject newButtonObj = Instantiate(buttonPrefab, buttonContainer);
             Button newButton = newButtonObj.GetComponent<Button>();
-            var buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
-
-            string sceneName = level.SceneName;
+            TextMeshProUGUI buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
 
             if (buttonText != null)
-                buttonText.text = sceneName;
+            {
+                buttonText.text = level.SceneName;
+            }
 
-            newButton.onClick.AddListener(() => SceneManager.LoadScene(sceneName));
+            newButton.onClick.AddListener(() => LevelChanger.Instance.LoadLevel(level));
 
             generatedButtons.Add(newButton);
 

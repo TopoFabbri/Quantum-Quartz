@@ -1,7 +1,5 @@
 using Code.Scripts.Level;
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,51 +14,55 @@ namespace Code.Scripts.Game
 
         #region Internal Classes
         public abstract class ReadOnlyTotalSlotStats {
-            public abstract int Deaths { get; }
-            public abstract Timer Timer { get; }
-            public abstract string LevelName { get; }
+            public abstract int TotalDeaths { get; }
+            public abstract Timer TotalTimer { get; }
+            public abstract string CurLevelName { get; }
         }
 
         public abstract class ReadOnlyLevelStats
         {
-            public abstract int Deaths { get; }
-            public abstract Timer Timer { get; }
-            public abstract Vector2 Checkpoint { get; }
+            public abstract int TotalDeaths { get; }
+            public abstract Timer TotalTimer { get; }
+            public abstract Timer RecordTimer { get; }
             public abstract IReadOnlyCollection<int> Collectibles { get; }
+            public abstract int CurDeaths { get; }
+            public abstract Timer CurTimer { get; }
+            public abstract Vector2 CurCheckpoint { get; }
         }
 
         private class TotalSlotStats : ReadOnlyTotalSlotStats
         {
             private readonly int slot;
 
-            public int deaths;
-            public Timer timer;
-            public string levelName;
+            public int totalDeaths;
+            public Timer totalTimer;
+            public string curLevelName;
 
-            public override int Deaths => deaths;
-            public override Timer Timer => timer;
-            public override string LevelName => levelName;
+            public override int TotalDeaths => totalDeaths;
+            public override Timer TotalTimer => totalTimer;
+            public override string CurLevelName => curLevelName;
 
             public TotalSlotStats(int slot)
             {
                 this.slot = slot;
 
-                deaths = PlayerPrefs.GetInt($"Slot{slot}_TotalDeaths", 0);
-                timer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_TotalTimer", 0));
-                levelName = PlayerPrefs.GetString($"Slot{slot}_LevelName", "");
-            }
-
-            public void ResetLevel(ReadOnlyLevelStats levelStats)
-            {
-                deaths -= levelStats.Deaths;
-                timer.time -= levelStats.Timer.time;
+                totalDeaths = PlayerPrefs.GetInt($"Slot{slot}_TotalDeaths", 0);
+                totalTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_TotalTimer", 0));
+                curLevelName = PlayerPrefs.GetString($"Slot{slot}_LevelName", "");
             }
 
             public void Save()
             {
-                PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", deaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", timer.time);
-                PlayerPrefs.SetString($"Slot{slot}_LevelName", levelName);
+                PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", totalDeaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", totalTimer.time);
+                PlayerPrefs.SetString($"Slot{slot}_LevelName", curLevelName);
+            }
+
+            public static void Clear(int slot)
+            {
+                PlayerPrefs.DeleteKey($"Slot{slot}_TotalDeaths");
+                PlayerPrefs.DeleteKey($"Slot{slot}_TotalTimer");
+                PlayerPrefs.DeleteKey($"Slot{slot}_LevelName");
             }
         }
 
@@ -69,27 +71,30 @@ namespace Code.Scripts.Game
             private readonly int slot;
             private readonly int level;
 
-            public int deaths;
-            public Timer timer;
-            public Vector2 checkpoint;
+            public int totalDeaths;
+            public Timer totalTimer;
+            public Timer recordTimer;
             public HashSet<int> collectibles;
+            public int curDeaths;
+            public Timer curTimer;
+            public Vector2 curCheckpoint;
 
-            public override int Deaths => deaths;
-            public override Timer Timer => timer;
-            public override Vector2 Checkpoint => checkpoint;
+            public override int TotalDeaths => totalDeaths;
+            public override Timer TotalTimer => totalTimer;
+            public override Timer RecordTimer => recordTimer;
             public override IReadOnlyCollection<int> Collectibles => collectibles;
+            public override int CurDeaths => curDeaths;
+            public override Timer CurTimer => curTimer;
+            public override Vector2 CurCheckpoint => curCheckpoint;
 
             public LevelStats(int slot, int level)
             {
                 this.slot = slot;
                 this.level = level;
 
-                timer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_Level{level}Time", 0));
-                deaths = PlayerPrefs.GetInt($"Slot{slot}_Level{level}Deaths", 0);
-                checkpoint = new Vector2(
-                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CheckpointX", float.NegativeInfinity),
-                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CheckpointY", float.NegativeInfinity)
-                );
+                totalDeaths = PlayerPrefs.GetInt($"Slot{slot}_Level{level}TotalDeaths", 0);
+                totalTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_Level{level}TotalTime", 0));
+                recordTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_Level{level}RecordTime", float.PositiveInfinity));
 
                 //Gets ids from an int32, instead of 32 individual bools
                 collectibles = new HashSet<int>();
@@ -101,22 +106,27 @@ namespace Code.Scripts.Game
                         collectibles.Add(id);
                     }
                 }
+
+                curDeaths = PlayerPrefs.GetInt($"Slot{slot}_Level{level}CurDeaths", 0);
+                curTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CurTime", 0));
+                curCheckpoint = new Vector2(
+                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CurCheckpointX", float.NegativeInfinity),
+                    PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CurCheckpointY", float.NegativeInfinity)
+                );
             }
 
-            public void Reset()
+            public void ResetCurrent()
             {
-                deaths = 0;
-                timer.time = 0;
-                checkpoint = Vector2.negativeInfinity;
-                collectibles.Clear();
+                curDeaths = 0;
+                curTimer.time = 0;
+                curCheckpoint = Vector2.negativeInfinity;
             }
 
             public void Save()
             {
-                PlayerPrefs.SetInt($"Slot{slot}_Level{level}Deaths", deaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}Time", timer.time);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointX", checkpoint.x);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CheckpointY", checkpoint.y);
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}TotalDeaths", totalDeaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}TotalTime", totalTimer.time);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}RecordTime", recordTimer.time);
 
                 //Makes an int32 out of ids, instead of 32 individual bools
                 int flags = 0;
@@ -125,6 +135,23 @@ namespace Code.Scripts.Game
                     flags += 1 << id;
                 }
                 PlayerPrefs.SetInt($"Slot{slot}_Level{level}Collectibles", flags);
+
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurDeaths", curDeaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurTime", curTimer.time);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointX", curCheckpoint.x);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointY", curCheckpoint.y);
+            }
+
+            public static void Clear(int slot, int level)
+            {
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}TotalDeaths");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}TotalTime");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}RecordTime");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Collectibles");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurDeaths");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurTime");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointX");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointY");
             }
         }
         #endregion
@@ -149,26 +176,20 @@ namespace Code.Scripts.Game
 
         public static void SetContinueMode(bool enabled)
         {
-            Instance.continueMode = true;
+            Instance.continueMode = enabled;
         }
 
         public static string GetLastLevelName()
         {
-            return Instance.totalSlotStats?.levelName;
+            return Instance.totalSlotStats?.curLevelName;
         }
 
         public static void ClearSaveSlot(int slot, LevelList levelList)
         {
-            PlayerPrefs.DeleteKey($"Slot{slot}_TotalDeaths");
-            PlayerPrefs.DeleteKey($"Slot{slot}_TotalTimer");
-            PlayerPrefs.DeleteKey($"Slot{slot}_LevelName");
+            TotalSlotStats.Clear(slot);
             for (int level = 0; level < levelList.levels.Count; level++)
             {
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Deaths");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Time");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}Collectibles");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointX");
-                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CheckpointY");
+                LevelStats.Clear(slot, level);
             }
         }
 
@@ -190,8 +211,7 @@ namespace Code.Scripts.Game
 
             if (!Instance.continueMode)
             {
-                Instance.totalSlotStats.ResetLevel(Instance.levelStats);
-                Instance.levelStats.Reset();
+                Instance.levelStats.ResetCurrent();
             }
 
             return Instance.levelStats;
@@ -202,8 +222,8 @@ namespace Code.Scripts.Game
             Instance.totalSlotStats.Save();
             if (Instance.levelStats != null)
             {
-                Instance.totalSlotStats.timer.time += TimeCounter.Time.time - Instance.levelStats.timer.time;
-                Instance.levelStats.timer.time = TimeCounter.Time.time;
+                Instance.totalSlotStats.totalTimer.time += TimeCounter.Time.time - Instance.levelStats.curTimer.time;
+                Instance.levelStats.curTimer.time = TimeCounter.Time.time;
                 Instance.levelStats.Save();
             }
 
@@ -213,28 +233,34 @@ namespace Code.Scripts.Game
         // ---------- Deaths ----------
         public static int GetDeaths()
         {
-            return Instance.levelStats.deaths;
+            return Instance.levelStats.curDeaths;
         }
 
         public static void AddDeath()
         {
-            Instance.totalSlotStats.deaths++;
-            Instance.levelStats.deaths++;
+            Instance.totalSlotStats.totalDeaths++;
+            Instance.levelStats.totalDeaths++;
+            Instance.levelStats.curDeaths++;
             SaveStats();
         }
 
         // ---------- Checkpoints ----------
         public static void SaveCheckpoint(Vector2 pos)
         {
-            Instance.totalSlotStats.levelName = SceneManager.GetActiveScene().name;
-            Instance.levelStats.checkpoint = pos;
+            Instance.totalSlotStats.curLevelName = SceneManager.GetActiveScene().name;
+            Instance.levelStats.curCheckpoint = pos;
             SaveStats();
         }
 
         public static void FinishLevel(string nextLevelName)
         {
-            Instance.totalSlotStats.levelName = nextLevelName;
-            Instance.levelStats.checkpoint = Vector2.negativeInfinity;
+            Instance.totalSlotStats.curLevelName = nextLevelName;
+            Instance.levelStats.curCheckpoint = Vector2.negativeInfinity;
+
+            if (Instance.levelStats.curTimer.time < Instance.levelStats.recordTimer.time)
+            {
+                Instance.levelStats.recordTimer.time = Instance.levelStats.curTimer.time;
+            }
             SaveStats();
         }
 

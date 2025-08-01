@@ -36,10 +36,10 @@ namespace Code.Scripts.Game
 
             Stats.ReadOnlyLevelStats levelStats = Stats.LoadLevelStats(LevelChanger.Instance.CurrentLevel);
 
-            TimeCounter.Time.time = levelStats.Timer.time;
-            if (!Vector2.negativeInfinity.Equals(levelStats.Checkpoint))
+            TimeCounter.Time.time = levelStats.CurTimer.time;
+            if (!Vector2.negativeInfinity.Equals(levelStats.CurCheckpoint))
             {
-                player.SpawnAt(levelStats.Checkpoint);
+                player.SpawnAt(levelStats.CurCheckpoint);
             }
             else
             {
