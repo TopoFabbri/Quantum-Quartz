@@ -217,10 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3540d9ccbb431988f9362f1e0d4b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  lifetime: 3
-  rotSpeed: 100
-  explosionRadius: 1
+  speed: 7
+  lifetime: 5
+  rotSpeed: 150
+  explosionRadius: 1.5
   animator: {fileID: 2368628250912876103}
 --- !u!212 &7183746473973251122
 SpriteRenderer:
@@ -2603,7 +2603,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
   InheritVelocityModule:
     enabled: 0
     m_Mode: 0

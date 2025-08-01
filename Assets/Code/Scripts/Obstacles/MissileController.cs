@@ -82,7 +82,11 @@ namespace Code.Scripts.Obstacles
         private IEnumerator WaitAndDestroy()
         {
             yield return new WaitForSeconds(lifetime);
-            Destroy();
+
+            if (target)
+                Destroy();
+            else
+                Hide();
         }
 
         public override void OnActivate()
