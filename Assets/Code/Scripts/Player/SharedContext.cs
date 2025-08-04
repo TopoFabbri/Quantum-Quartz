@@ -89,7 +89,8 @@ namespace Code.Scripts.Player
                     previousSpeed = _speed;
                     curSpeedTimestamp = Time.time;
                 }
-                _speed = value;
+                
+                _speed = new Vector2(value.x, Mathf.Max(value.y, -((PlayerState)MonoBehaviour).temporaryTerminalVelocity));
             }
         }
         public float SpeedX { set { Speed = new Vector2(value, Speed.y); } }
