@@ -6,17 +6,21 @@ namespace Code.Scripts.Obstacles
 {
     public class MissileLauncherController : RoomComponent
     {
-        [Header("References")]
-        [SerializeField] private MissileController missileController;
+        [Header("References")] [SerializeField]
+        private MissileController missileController;
+
         [SerializeField] private Transform cannon;
         [SerializeField] private Transform gunpoint;
         [SerializeField] private Animator animator;
-        
+
+        [Header("Settings")] [SerializeField] private float rotationSpeed = 5f;
+
+
         private Transform target;
         private bool fired;
         private bool missileActive;
         private bool lockMovement;
-        
+
         private static readonly int InterruptTrigger = Animator.StringToHash("Interrupt");
         private static readonly int FireTrigger = Animator.StringToHash("Fire");
 
@@ -30,26 +34,34 @@ namespace Code.Scripts.Obstacles
         {
             lockMovement = true;
         }
-        
+
         public void UnlockMovement()
         {
             lockMovement = false;
         }
-        
+
         public override void OnUpdate()
         {
             base.OnUpdate();
 
-            if (target && !lockMovement)
-                cannon.rotation = Quaternion.LookRotation(Vector3.forward, target.position - transform.position);
+            Rotate();
+        }
+
+        private void Rotate()
+        {
+            if (!target || lockMovement) return;
+            
+            Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, target.position - transform.position);
+                
+            cannon.rotation = Quaternion.Slerp(cannon.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            
+
             target = other.transform;
-            
+
             if (fired) return;
             StartShoot();
         }
@@ -57,10 +69,10 @@ namespace Code.Scripts.Obstacles
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-            
+
             target = null;
             animator.SetTrigger(InterruptTrigger);
-            
+
             if (!missileActive)
                 fired = false;
         }
@@ -69,7 +81,7 @@ namespace Code.Scripts.Obstacles
         {
             fired = false;
             missileActive = false;
-            
+
             if (target)
                 StartShoot();
         }
@@ -79,7 +91,7 @@ namespace Code.Scripts.Obstacles
             fired = true;
             animator.SetTrigger(FireTrigger);
         }
-        
+
         public override void OnActivate()
         {
             missileController.OnDestroyed += OnMissileDestroyed;
