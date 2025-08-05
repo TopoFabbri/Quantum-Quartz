@@ -1,6 +1,5 @@
 using AYellowpaper.SerializedCollections;
 using Code.Scripts.Animation;
-using Code.Scripts.Camera;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;
@@ -22,6 +21,7 @@ namespace Code.Scripts.Player
     {
         public static event Action<bool> OnFlip;
 
+        [SerializeField] public float temporaryTerminalVelocity = 30;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Collider2D col;
         [SerializeField] private BarController staminaBar;
