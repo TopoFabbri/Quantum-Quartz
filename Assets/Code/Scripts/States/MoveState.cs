@@ -23,10 +23,10 @@ namespace Code.Scripts.States
         // Input speed is the percentage to the max speed
         private float inputSpeed = 0;
 
-        protected float Acceleration => moveSettings.accel * (sharedContext.movementModifier?.accel ?? 1);
-        protected float MaxSpeed => moveSettings.maxSpeed * (sharedContext.movementModifier?.maxSpeed ?? 1);
-        protected float MinSpeed => moveSettings.minSpeed * (sharedContext.movementModifier?.minSpeed ?? 1);
-        protected float Friction => sharedContext.Rigidbody.sharedMaterial.friction * (sharedContext.movementModifier ? (sharedContext.IsGrounded ? sharedContext.movementModifier.groundFriction : sharedContext.movementModifier.airFriction) : 1);
+        protected float Acceleration => moveSettings.accel * sharedContext.CurMovementModifier.accel;
+        protected float MaxSpeed => moveSettings.maxSpeed * sharedContext.CurMovementModifier.maxSpeed;
+        protected float MinSpeed => moveSettings.minSpeed * sharedContext.CurMovementModifier.minSpeed;
+        protected float Friction => sharedContext.Rigidbody.sharedMaterial.friction * (sharedContext.IsGrounded ? sharedContext.CurMovementModifier.groundFriction : sharedContext.CurMovementModifier.airFriction);
 
         public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext, VelocityCurve verticalVelocityCurve = null) : base(id)
         {
@@ -67,7 +67,6 @@ namespace Code.Scripts.States
                 }
                 float maxSpeed = MaxSpeed;
                 float accel = sharedContext.Input * Time.fixedDeltaTime * Acceleration;
-                Debug.Log("InputSpeed Acceleration: " + Mathf.Clamp(accel, Mathf.Min(-maxSpeed - inputSpeed, 0), Mathf.Max(maxSpeed - inputSpeed, 0)));
                 inputSpeed += Mathf.Clamp(accel, Mathf.Min(-maxSpeed - inputSpeed, 0), Mathf.Max(maxSpeed - inputSpeed, 0));
 
                 if (Mathf.Abs(inputSpeed) > maxSpeed)
@@ -124,7 +123,6 @@ namespace Code.Scripts.States
         /// </summary>
         public void ResetSpeed()
         {
-            Debug.LogError("Reset Speed");
             inputSpeed = 0f;
             sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
         }

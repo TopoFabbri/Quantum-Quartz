@@ -212,18 +212,15 @@ namespace Code.Scripts.Player
 
         public void EnterSubstance(SubstanceTrigger substance)
         {
-            Debug.Log("Enter " + substance);
-            playerState.sharedContext.movementModifier = substance.Modifier;
+            playerState.sharedContext.CurMovementModifier = substance.Modifier;
             curSubstance = substance;
         }
 
         public void LeaveSubstance(SubstanceTrigger substance)
         {
-            Debug.Log("Leave " + substance);
             if (curSubstance && curSubstance.Equals(substance))
             {
-                Debug.Log("LEFT");
-                playerState.sharedContext.movementModifier = null;
+                playerState.sharedContext.CurMovementModifier = null;
             }
         }
     }

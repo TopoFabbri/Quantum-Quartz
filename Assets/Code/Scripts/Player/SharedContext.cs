@@ -96,6 +96,24 @@ namespace Code.Scripts.Player
         public float SpeedX { set { Speed = new Vector2(value, Speed.y); } }
         public float SpeedY { set { Speed = new Vector2(Speed.x, value); } }
 
+        private MovementModifier lastMovementModifier = null;
+        private MovementModifier _curMovementModifier = ScriptableObject.CreateInstance<MovementModifier>();
+        public MovementModifier CurMovementModifier
+        {
+            get
+            {
+                return _curMovementModifier;
+            }
+            set
+            {
+                if (movementModifierCoroutine != null)
+                {
+                    MonoBehaviour.StopCoroutine(movementModifierCoroutine);
+                }
+                movementModifierCoroutine = MonoBehaviour.StartCoroutine(ChangeMovementModifier(value));
+            }
+        }
+
         public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
         public bool died = false;
@@ -104,12 +122,12 @@ namespace Code.Scripts.Player
         public bool inWallCooldown = false;
         public float jumpFallTime = 0;
         public Vector2 previousSpeed = Vector2.zero;
-        public MovementModifier movementModifier = null;
         public event Action OnCheckFlip;
 
         private readonly FiniteStateMachine<string> stateMachine;
         private double curSpeedTimestamp;
         private Coroutine wallCooldownCoroutine;
+        private Coroutine movementModifierCoroutine;
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine, RectTransform gearFX)
         {
@@ -134,6 +152,9 @@ namespace Code.Scripts.Player
         ~SharedContext()
         {
             InputManager.Move -= OnMoveHandler;
+
+            MonoBehaviour.StopCoroutine(wallCooldownCoroutine);
+            MonoBehaviour.StopCoroutine(movementModifierCoroutine);
         }
 
         /// <summary>
@@ -243,6 +264,20 @@ namespace Code.Scripts.Player
             inWallCooldown = true;
             yield return new WaitForSeconds(wallCooldown);
             inWallCooldown = false;
+        }
+
+        private IEnumerator ChangeMovementModifier(MovementModifier newModifier)
+        {
+            lastMovementModifier = UnityEngine.Object.Instantiate(CurMovementModifier);
+            newModifier = newModifier ? newModifier : ScriptableObject.CreateInstance<MovementModifier>();
+            float waitTime = 0;
+            while (waitTime < lastMovementModifier.exitTime)
+            {
+                yield return new WaitForFixedUpdate();
+                waitTime += Time.fixedDeltaTime;
+                _curMovementModifier = lastMovementModifier.InterpolateTowards(newModifier, waitTime);
+            }
+            _curMovementModifier = newModifier;
         }
     }
 }
