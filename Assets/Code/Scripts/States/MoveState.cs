@@ -39,12 +39,12 @@ namespace Code.Scripts.States
         {
             base.OnEnter();
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
+            inputSpeed = sharedContext.Speed.x;
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            inputSpeed = 0;
         }
 
         public override void OnFixedUpdate()
