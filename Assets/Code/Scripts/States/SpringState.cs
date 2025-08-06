@@ -40,7 +40,6 @@ namespace Code.Scripts.States
         public override void OnExit()
         {
             base.OnExit();
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
             sharedContext.jumpFallTime = fallTime;
         }
 

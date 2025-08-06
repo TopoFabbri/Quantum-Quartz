@@ -42,7 +42,6 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
             HasJumped = false;
         }
 

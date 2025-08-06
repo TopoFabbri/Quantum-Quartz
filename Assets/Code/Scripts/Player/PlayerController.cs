@@ -31,6 +31,7 @@ namespace Code.Scripts.Player
         Rigidbody2D lastCollectible = null;
         bool inUnsafeState = false;
         private List<InteractableComponent> interactables = new List<InteractableComponent>();
+        private SubstanceTrigger curSubstance = null;
 
         private void OnEnable()
         {
@@ -207,6 +208,23 @@ namespace Code.Scripts.Player
         public void ExitInteractable(InteractableComponent component)
         {
             interactables.Remove(component);
+        }
+
+        public void EnterSubstance(SubstanceTrigger substance)
+        {
+            Debug.Log("Enter " + substance);
+            playerState.sharedContext.movementModifier = substance.Modifier;
+            curSubstance = substance;
+        }
+
+        public void LeaveSubstance(SubstanceTrigger substance)
+        {
+            Debug.Log("Leave " + substance);
+            if (curSubstance && curSubstance.Equals(substance))
+            {
+                Debug.Log("LEFT");
+                playerState.sharedContext.movementModifier = null;
+            }
         }
     }
 }

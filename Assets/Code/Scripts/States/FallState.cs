@@ -65,6 +65,7 @@ namespace Code.Scripts.States
             sharedContext.SpeedY = verticalVelocityCurve.SampleVelocity(sharedContext.jumpFallTime);
             sharedContext.Rigidbody.velocity = sharedContext.Speed;
             lastVel = sharedContext.Speed.y;
+            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
 
             if (!typeof(INoCoyoteTime).IsAssignableFrom(sharedContext.PreviousStateType))
             {

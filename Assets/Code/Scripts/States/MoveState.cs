@@ -20,13 +20,25 @@ namespace Code.Scripts.States
         protected readonly SharedContext sharedContext;
         protected readonly VelocityCurve verticalVelocityCurve;
 
+        // Input speed is the percentage to the max speed
         private float inputSpeed = 0;
+
+        protected float Acceleration => moveSettings.accel * (sharedContext.movementModifier?.accel ?? 1);
+        protected float MaxSpeed => moveSettings.maxSpeed * (sharedContext.movementModifier?.maxSpeed ?? 1);
+        protected float MinSpeed => moveSettings.minSpeed * (sharedContext.movementModifier?.minSpeed ?? 1);
+        protected float Friction => sharedContext.Rigidbody.sharedMaterial.friction * (sharedContext.movementModifier ? (sharedContext.IsGrounded ? sharedContext.movementModifier.groundFriction : sharedContext.movementModifier.airFriction) : 1);
 
         public MoveState(T id, MoveSettings stateSettings, SharedContext sharedContext, VelocityCurve verticalVelocityCurve = null) : base(id)
         {
             this.moveSettings = stateSettings;
             this.sharedContext = sharedContext;
             this.verticalVelocityCurve = verticalVelocityCurve;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.groundFriction;
         }
 
         public override void OnExit()
@@ -51,17 +63,24 @@ namespace Code.Scripts.States
                 if (Mathf.Sign(sharedContext.Input) == Mathf.Sign(sharedContext.Speed.x))
                 {
                     // If moving in the direction of current velocity, inherit speed
-                    inputSpeed = sharedContext.Speed.x / moveSettings.maxSpeed;
+                    inputSpeed = sharedContext.Speed.x;
                 }
-                float accel = sharedContext.Input * Time.fixedDeltaTime * moveSettings.accel;
-                inputSpeed = Mathf.Clamp(inputSpeed + accel, -1, 1);
+                float maxSpeed = MaxSpeed;
+                float accel = sharedContext.Input * Time.fixedDeltaTime * Acceleration;
+                Debug.Log("InputSpeed Acceleration: " + Mathf.Clamp(accel, Mathf.Min(-maxSpeed - inputSpeed, 0), Mathf.Max(maxSpeed - inputSpeed, 0)));
+                inputSpeed += Mathf.Clamp(accel, Mathf.Min(-maxSpeed - inputSpeed, 0), Mathf.Max(maxSpeed - inputSpeed, 0));
+
+                if (Mathf.Abs(inputSpeed) > maxSpeed)
+                {
+                    inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * Friction);
+                }
             }
             else
             {
-                inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * sharedContext.Rigidbody.sharedMaterial.friction);
+                inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * Friction);
             }
 
-            sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(inputSpeed * moveSettings.maxSpeed, sharedContext.Rigidbody.velocity.y);
+            sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(inputSpeed, sharedContext.Rigidbody.velocity.y);
         }
 
         /// <summary>
@@ -70,7 +89,7 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (Mathf.Abs(inputSpeed * Time.fixedDeltaTime) >= moveSettings.minSpeed || sharedContext.Input != 0f)
+            if (Mathf.Abs(inputSpeed * Time.fixedDeltaTime) >= MinSpeed || sharedContext.Input != 0f)
                 return false;
 
             ResetSpeed();
@@ -105,6 +124,7 @@ namespace Code.Scripts.States
         /// </summary>
         public void ResetSpeed()
         {
+            Debug.LogError("Reset Speed");
             inputSpeed = 0f;
             sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
         }

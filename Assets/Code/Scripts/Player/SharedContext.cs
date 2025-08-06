@@ -4,6 +4,7 @@ using Code.Scripts.FSM;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Interfaces;
+using Code.Scripts.Level;
 using Code.Scripts.StateSettings;
 using System;
 using System.Collections;
@@ -103,6 +104,7 @@ namespace Code.Scripts.Player
         public bool inWallCooldown = false;
         public float jumpFallTime = 0;
         public Vector2 previousSpeed = Vector2.zero;
+        public MovementModifier movementModifier = null;
         public event Action OnCheckFlip;
 
         private readonly FiniteStateMachine<string> stateMachine;
