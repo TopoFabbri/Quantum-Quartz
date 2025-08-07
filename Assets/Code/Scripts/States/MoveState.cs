@@ -52,7 +52,7 @@ namespace Code.Scripts.States
             base.OnFixedUpdate();
             sharedContext.Speed = sharedContext.Rigidbody.velocity;
 
-            FlipCheck();
+            //FlipCheck();
 
             if (WallCheck())
             {
