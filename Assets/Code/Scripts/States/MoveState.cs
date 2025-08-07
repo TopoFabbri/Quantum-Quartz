@@ -50,7 +50,8 @@ namespace Code.Scripts.States
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
-            sharedContext.Speed = sharedContext.Rigidbody.velocity;
+            sharedContext.SpeedY = sharedContext.Rigidbody.velocity.y;
+            sharedContext.SpeedX = Math.Sign(sharedContext.Rigidbody.velocity.x) != Math.Sign(sharedContext.Speed.x) ? sharedContext.Rigidbody.velocity.x : sharedContext.Speed.x;
 
             //FlipCheck();
 
