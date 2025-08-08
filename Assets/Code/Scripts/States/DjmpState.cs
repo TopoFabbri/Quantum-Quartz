@@ -27,13 +27,13 @@ namespace Code.Scripts.States
 
         public override void OnEnter()
         {
+            sharedContext.Rigidbody.velocity = sharedContext.Speed = Vector2.zero;
             base.OnEnter();
             sharedContext.PlayerSfx.Djmp();
             djmpParticleSystem.Play();
             djmpParticleSystem2.Play();
 
             sharedContext.djmpAvailable = false;
-            sharedContext.Rigidbody.velocity = Vector2.zero;
             
             sharedContext.CamController?.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);
         }

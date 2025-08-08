@@ -61,7 +61,7 @@ namespace Code.Scripts.States
             }
             else if (sharedContext.Input != 0)
             {
-                if (Mathf.Sign(sharedContext.Input) == Mathf.Sign(sharedContext.Speed.x))
+                if (Math.Sign(sharedContext.Input) == Math.Sign(sharedContext.Speed.x))
                 {
                     // If moving in the direction of current velocity, inherit speed
                     inputSpeed = sharedContext.Speed.x;
