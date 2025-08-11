@@ -26,6 +26,10 @@ namespace Code.Scripts.Level
         {
             GameManager.Instance.Drone.GetComponent<Collider2D>().enabled = !noCollisionMove;
             GameManager.Instance.Drone.GoToPosition(target, speedMultiplier, OnPositionReached);
+            if (!reusable)
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
         }
 
         private void OnPositionReached()
@@ -34,10 +38,6 @@ namespace Code.Scripts.Level
             if (enableAfter)
             {
                 enableAfter.SetActive(true);
-            }
-            if (!reusable)
-            {
-                Destroy(transform.parent.gameObject);
             }
         }
     }
