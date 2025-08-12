@@ -146,7 +146,7 @@ namespace Code.Scripts.Menu
             }
             else
             {
-                controlsImage.sprite = null;
+               // controlsImage.sprite = null;
             }
         }
 
