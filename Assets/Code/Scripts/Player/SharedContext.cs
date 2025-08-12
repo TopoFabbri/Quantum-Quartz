@@ -90,7 +90,7 @@ namespace Code.Scripts.Player
                     curSpeedTimestamp = Time.time;
                 }
                 
-                _speed = new Vector2(value.x, Mathf.Max(value.y, -((PlayerState)MonoBehaviour).temporaryTerminalVelocity));
+                _speed = value;
             }
         }
         public float SpeedX { set { Speed = new Vector2(value, Speed.y); } }
