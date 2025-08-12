@@ -84,7 +84,6 @@
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
-						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
 					</Switches>
 				</SwitchGroup>
@@ -97,7 +96,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{22737B18-2E5B-F0B7-16A8-F627487C4759}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DC995301-AB24-BB55-82FE-7DE2359D67E0}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -636,10 +635,6 @@
 				<File Id="862774514" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_20.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_20_4D3BBC73.wem</CachePath>
-				</File>
-				<File Id="865916349" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>QQ_Aquatic_v1.0.wav</ShortName>
-					<CachePath>SFX/QQ_Aquatic_v1.0_686156BF.wem</CachePath>
 				</File>
 				<File Id="866113773" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Chain-008.wav</ShortName>
@@ -1276,12 +1271,6 @@
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
-							<MediaRefs>
-								<MediaRef Id="865916349"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
 								<MediaRef Id="26893415"/>
@@ -1312,12 +1301,6 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
 							<MediaRefs>
 								<MediaRef Id="866517727"/>
-							</MediaRefs>
-						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
-							<MediaRefs>
-								<MediaRef Id="865916349"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1453,12 +1436,6 @@
 								<MediaRef Id="866517727"/>
 							</MediaRefs>
 						</SwitchContainer>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
-							<MediaRefs>
-								<MediaRef Id="865916349"/>
-							</MediaRefs>
-						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
@@ -1504,7 +1481,6 @@
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
-						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
 					</Switches>
 				</SwitchGroup>
@@ -1518,5 +1494,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0F52B77B-4EEE-5AE8-4750-2289C361423B}</FileHash>
+	<FileHash>{4BE88266-0C90-0088-7FB0-C8916E458AE3}</FileHash>
 </SoundBanksInfo>

@@ -136,7 +136,6 @@ namespace AK
             namespace SWITCH
             {
                 static const AkUniqueID ADVENTURER = 3247222823U;
-                static const AkUniqueID AQUATIC = 3653896563U;
                 static const AkUniqueID GHOST = 4023194814U;
                 static const AkUniqueID MAINTHEME = 824317709U;
                 static const AkUniqueID NOMX = 732117587U;
