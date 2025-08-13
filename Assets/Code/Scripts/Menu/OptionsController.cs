@@ -215,11 +215,9 @@ namespace Code.Scripts.Menu
         
         public void ResetSaveData()
         {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
-
-            Debug.Log("PlayerPrefs reseteadas.");
+            Stats.ClearSaveSlot(1, null);
+            Stats.ClearSaveSlot(2, null);
+            Stats.ClearSaveSlot(3, null);
         }
-
     }
 }

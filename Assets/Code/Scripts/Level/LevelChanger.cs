@@ -21,6 +21,7 @@ namespace Code.Scripts.Level
 
         private int _currentLevel = -1;
         public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
+        public LevelList LevelList => levelList;
 
         public static event Action LevelEnd;
         public static event Action PlayerTp;
