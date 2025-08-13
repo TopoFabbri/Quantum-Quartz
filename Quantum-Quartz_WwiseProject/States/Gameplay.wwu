@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{4C202FAD-9BAB-4081-AE1F-7EEABAA3A460}" SchemaVersion="110">
+	<States>
+		<WorkUnit Name="Gameplay" ID="{4C202FAD-9BAB-4081-AE1F-7EEABAA3A460}" PersistMode="Standalone">
+			<ChildrenList>
+				<StateGroup Name="Luciernagas" ID="{3A9D4351-C90D-42D3-81E2-C8D20B9D1F32}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="3.5"/>
+					</PropertyList>
+					<ChildrenList>
+						<State Name="None" ID="{579EB613-85CE-4265-A944-975A2466641F}"/>
+						<State Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}"/>
+						<State Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
+					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
+							<EndState Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}"/>
+							<Time>3.5</Time>
+							<IsShared>true</IsShared>
+						</Transition>
+					</TransitionList>
+				</StateGroup>
+			</ChildrenList>
+		</WorkUnit>
+	</States>
+</WwiseDocument>

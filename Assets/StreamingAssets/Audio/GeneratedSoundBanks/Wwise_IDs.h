@@ -57,16 +57,6 @@ namespace AK
 
     namespace STATES
     {
-        namespace AREASTATE
-        {
-            static const AkUniqueID GROUP = 2064552269U;
-
-            namespace STATE
-            {
-                static const AkUniqueID NONE = 748895195U;
-            } // namespace STATE
-        } // namespace AREASTATE
-
         namespace LUCIERNAGAS
         {
             static const AkUniqueID GROUP = 2466252489U;
@@ -102,16 +92,6 @@ namespace AK
                 static const AkUniqueID PAUSE = 3092587493U;
             } // namespace STATE
         } // namespace MUSICSTATE
-
-        namespace ROOMSTATE
-        {
-            static const AkUniqueID GROUP = 185713839U;
-
-            namespace STATE
-            {
-                static const AkUniqueID NONE = 748895195U;
-            } // namespace STATE
-        } // namespace ROOMSTATE
 
     } // namespace STATES
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{17136963-C7F9-44FD-B4BE-493C2858F205}" SchemaVersion="110">
+	<States>
+		<WorkUnit Name="Music" ID="{17136963-C7F9-44FD-B4BE-493C2858F205}" PersistMode="Standalone">
+			<ChildrenList>
+				<StateGroup Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="0.5"/>
+					</PropertyList>
+					<ChildrenList>
+						<State Name="None" ID="{737BA347-E626-4644-BCC5-701CADA5E48B}"/>
+						<State Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
+						<State Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
+					</ChildrenList>
+				</StateGroup>
+				<StateGroup Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}">
+					<ChildrenList>
+						<State Name="None" ID="{2D57F902-21E8-423C-94D3-2F39261D1955}"/>
+						<State Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
+						<State Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
+					</ChildrenList>
+				</StateGroup>
+			</ChildrenList>
+		</WorkUnit>
+	</States>
+</WwiseDocument>
