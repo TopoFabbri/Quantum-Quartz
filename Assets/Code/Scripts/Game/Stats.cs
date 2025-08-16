@@ -195,6 +195,11 @@ namespace Code.Scripts.Game
                     LevelStats.Clear(slot, level);
                 }
                 PlayerPrefs.Save();
+
+                if (slot == Instance.saveSlot)
+                {
+                    SelectSaveSlot(slot);
+                }
             }
         }
 
