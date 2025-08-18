@@ -22,47 +22,57 @@ namespace Code.Scripts.Menu
 
         public static OptionsController Instance { get; private set; }
 
-        [HeaderPlus("Main")]
-        [SerializeField] private GameObject optionsPanel;
+        [HeaderPlus("Main")] [SerializeField] private GameObject optionsPanel;
         [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button mainMenuButton;
 
-        [HeaderPlus("In Game")]
-        [SerializeField] private GameObject gameHUD;
+        [HeaderPlus("In Game")] [SerializeField]
+        private GameObject gameHUD;
 
-        [HeaderPlus("Controls")]
-        [SerializeField] private GameObject controlsPanel;
+        [HeaderPlus("Controls")] [SerializeField]
+        private GameObject controlsPanel;
+
         [SerializeField] private Button controlsButton;
         [SerializeField] private TMP_Dropdown controlsDropdown;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private Image controlsImage;
         [SerializeField] private SerializedDictionary<string, MappingImages> controlMappingImages;
 
-        [HeaderPlus("Video")]
-        [SerializeField] private GameObject videoPanel;
+        [HeaderPlus("Video")] [SerializeField] private GameObject videoPanel;
         [SerializeField] private Button videoButton;
         [SerializeField] private Toggle fullScreenToggle;
         [SerializeField] private Toggle timerToggle;
 
-        [HeaderPlus("Audio")]
-        [SerializeField] private GameObject audioPanel;
+        [HeaderPlus("Audio")] [SerializeField] private GameObject audioPanel;
         [SerializeField] private Button audioButton;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
 
-        [HeaderPlus("Level Selector")]
-        [SerializeField] private GameObject levelSelectorPanel;
+        [HeaderPlus("Level Selector")] [SerializeField]
+        private GameObject levelSelectorPanel;
+
         [SerializeField] private Button levelSelectorFirstButton;
 
-        [HeaderPlus("Credits")]
-        [SerializeField] private GameObject creditsPanel;
+        [HeaderPlus("Credits")] [SerializeField]
+        private GameObject creditsPanel;
+
         [SerializeField] private Button creditsButton;
+
+        [SerializeField] private MenuController menuController;
 
         private void Start()
         {
             InitializeTimerToggle();
             InitializeAudioSliders();
             InitializeControlsDropdown();
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnUIBack();
+            }
         }
 
         private void OnEnable()
@@ -146,7 +156,7 @@ namespace Code.Scripts.Menu
             }
             else
             {
-               // controlsImage.sprite = null;
+                // controlsImage.sprite = null;
             }
         }
 
@@ -174,8 +184,7 @@ namespace Code.Scripts.Menu
         {
             levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
             (levelSelectorPanel.activeSelf ? levelSelectorFirstButton : mainMenuButton).Select();
-            if(levelSelectorPanel.activeSelf) levelSelectorFirstButton.Select();
-            
+            if (levelSelectorPanel.activeSelf) levelSelectorFirstButton.Select();
         }
 
         public void TurnControls()
@@ -212,7 +221,7 @@ namespace Code.Scripts.Menu
             creditsPanel?.SetActive(false);
             mainMenuButton.Select();
         }
-        
+
         public void ResetSaveData()
         {
             Stats.ClearSaveSlot(1, null);
