@@ -216,10 +216,37 @@ namespace Code.Scripts.Menu
 
         private void OnUIBack()
         {
-            optionsPanel?.SetActive(false);
-            levelSelectorPanel?.SetActive(false);
-            creditsPanel?.SetActive(false);
-            mainMenuButton.Select();
+            // 🔹 Si alguno está activo → se apaga y se hace return para no seguir
+            if (optionsPanel != null && optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            if (levelSelectorPanel != null && levelSelectorPanel.activeSelf)
+            {
+                levelSelectorPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            if (creditsPanel != null && creditsPanel.activeSelf)
+            {
+                creditsPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            // 🔹 Si llegamos acá → ninguno estaba activo, entonces llamamos a GoFileSaves()
+            if (menuController != null)
+            {
+                menuController.GoFileSaves();
+            }
+            else
+            {
+                Debug.LogWarning("MenuController no está asignado en OptionsController");
+            }
         }
 
         public void ResetSaveData()
