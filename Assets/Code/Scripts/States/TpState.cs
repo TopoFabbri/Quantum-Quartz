@@ -19,6 +19,7 @@ namespace Code.Scripts.States
 
             sharedContext.Rigidbody.velocity = Vector2.zero;
             sharedContext.Rigidbody.isKinematic = true;
+            sharedContext.GearFX.position = sharedContext.Transform.position + Vector3.up;
         }
 
         public override void OnExit()

@@ -63,39 +63,73 @@ namespace Code.Scripts.Obstacles
 
         private void FindCollisionPoint()
         {
-            RaycastHit2D hit = Physics2D.BoxCast(origin.position, new Vector2(width, 0.1f), 0, origin.right, maxDis, mask);
-            //RaycastHit2D hit = Physics2D.Raycast(origin.position, origin.right, maxDis, mask);
+            IKillable killable;
+            RaycastHit2D hit;
+            float laserLength = 0;
 
-            float dis = hit ? hit.distance : maxDis;
+            List<RaycastHit2D> hits = new List<RaycastHit2D>();
+            hits.AddRange(Physics2D.BoxCastAll(origin.position, new Vector2(width, 0.1f), 0, origin.right, maxDis, mask));
 
-            if (!hit.collider)
+            if (hits.Count <= 0)
             {
-                end.position = origin.position + origin.right * dis;
+                end.position = origin.position + origin.right * maxDis;
                 end.rotation = origin.rotation;
                 return;
             }
 
-            end.position = origin.position + origin.right * Vector2.Dot(hit.point - new Vector2(origin.position.x, origin.position.y), origin.right);
-            end.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-
-            if (hit.collider.TryGetComponent(out IKillable killable))
-                killable.Kill();
-
-            hit = Physics2D.Raycast(origin.position + origin.up * width / 2f, origin.right, dis, mask);
-
-            if (hit)
+            for (int i = 0; i < hits.Count; i++)
             {
+                hit = hits[i];
+                Vector2 hitNormal = hit.normal;
+                Collider2D hitCol = hit.collider;
+                Debug.DrawLine(hit.point, hit.point + hitNormal, Color.magenta);
+
                 if (hit.collider.TryGetComponent(out killable))
+                {
                     killable.Kill();
+                }
+
+                laserLength = Vector2.Dot(hit.point - (Vector2)origin.position, hitNormal) / Vector2.Dot(hitNormal, origin.right);
+
+                hit = Physics2D.Raycast(origin.position, origin.right, laserLength, mask);
+                if (hit.collider && hit.distance < laserLength)
+                {
+                    laserLength = hit.distance;
+                    hitNormal = hit.normal;
+                    hitCol = hit.collider;
+                    Debug.DrawLine(hit.point, hit.point + hitNormal, Color.magenta);
+                }
+                end.position = origin.position + origin.right * laserLength;
+                end.rotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
+
+                Vector2 closestPoint = hitCol.ClosestPoint(end.position);
+                if ((closestPoint - (Vector2)end.position).magnitude <= width)
+                {
+                    break;
+                }
+                else if (i == hits.Count - 1)
+                {
+                    hits.AddRange(Physics2D.BoxCastAll(end.position + origin.right * 0.001f, new Vector2(width, 0.1f), 0, origin.right, maxDis - hit.distance, mask));
+                }
             }
 
-            hit = Physics2D.Raycast(origin.position - origin.up * width / 2f, origin.right, dis, mask);
+            Vector2 rayOrigin = origin.position + origin.up * width / 2f;
 
-            if (!hit)
-                return;
+            hit = Physics2D.Raycast(rayOrigin, origin.right, laserLength, mask);
+            Debug.DrawRay(rayOrigin, laserLength * origin.right, Color.green);
 
-            if (hit.collider.TryGetComponent(out killable))
+            if (hit.collider && hit.collider.TryGetComponent(out killable)) {
                 killable.Kill();
+            }
+
+            rayOrigin -= (Vector2)origin.up * width;
+            hit = Physics2D.Raycast(rayOrigin, origin.right, laserLength, mask);
+            Debug.DrawRay(rayOrigin, laserLength * origin.right, Color.green);
+
+            if (hit.collider && hit.collider.TryGetComponent(out killable))
+            {
+                killable.Kill();
+            }
         }
 
         private void TurnOn()

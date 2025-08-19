@@ -1,54 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}" SchemaVersion="110">
 	<States>
-		<WorkUnit Name="Default Work Unit" ID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}" PersistMode="Standalone">
-			<ChildrenList>
-				<StateGroup Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}">
-					<ChildrenList>
-						<State Name="None" ID="{2D57F902-21E8-423C-94D3-2F39261D1955}"/>
-						<State Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
-						<State Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
-					</ChildrenList>
-				</StateGroup>
-				<StateGroup Name="RoomState" ID="{757AD8E1-E071-43C2-BF5A-76F7F72F03F3}">
-					<ChildrenList>
-						<State Name="None" ID="{C8BE66C0-3A02-48E1-AA1D-CBCACCAF06FE}"/>
-					</ChildrenList>
-				</StateGroup>
-				<StateGroup Name="AreaState" ID="{E330AD6C-B695-4A04-96C3-0E4292E6D8CE}">
-					<ChildrenList>
-						<State Name="None" ID="{C105AA97-EDA0-4FCE-8AB1-F2E8F07F1F4C}"/>
-					</ChildrenList>
-				</StateGroup>
-				<StateGroup Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}">
-					<PropertyList>
-						<Property Name="DefaultTransitionTime" Type="Real64" Value="0.5"/>
-					</PropertyList>
-					<ChildrenList>
-						<State Name="None" ID="{737BA347-E626-4644-BCC5-701CADA5E48B}"/>
-						<State Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
-						<State Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
-					</ChildrenList>
-				</StateGroup>
-				<StateGroup Name="Luciernagas" ID="{3A9D4351-C90D-42D3-81E2-C8D20B9D1F32}">
-					<PropertyList>
-						<Property Name="DefaultTransitionTime" Type="Real64" Value="3.5"/>
-					</PropertyList>
-					<ChildrenList>
-						<State Name="None" ID="{579EB613-85CE-4265-A944-975A2466641F}"/>
-						<State Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}"/>
-						<State Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
-					</ChildrenList>
-					<TransitionList>
-						<Transition>
-							<StartState Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
-							<EndState Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}"/>
-							<Time>3.5</Time>
-							<IsShared>true</IsShared>
-						</Transition>
-					</TransitionList>
-				</StateGroup>
-			</ChildrenList>
-		</WorkUnit>
+		<WorkUnit Name="Default Work Unit" ID="{275E4CB2-0BF8-456C-98FB-7CEE1E8376F9}" PersistMode="Standalone"/>
 	</States>
 </WwiseDocument>

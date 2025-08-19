@@ -19,6 +19,8 @@ namespace Code.Scripts.Game
             musicVol = PlayerPrefs.GetFloat("MusicVolume", musicVol);
             sfxVol = PlayerPrefs.GetFloat("SfxVolume", sfxVol);
             showGameTimer = PlayerPrefs.GetInt("Timer", showGameTimer ? 1 : 0) == 1;
+            AkSoundEngine.SetRTPCValue("RTPC_MusicVolume", musicVol);
+            AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", sfxVol);
         }
 
         public static float MusicVol

@@ -45,7 +45,7 @@ public class AnimatedTileInteraction : MonoBehaviour
             for (int x = minTilePos.x; x <= maxTilePos.x; x++)
             {
                 tilePos.x = x;
-                for (int y = minTilePos.y; y < maxTilePos.y; y++)
+                for (int y = minTilePos.y; y <= maxTilePos.y; y++)
                 {
                     tilePos.y = y;
 

@@ -57,16 +57,6 @@ namespace AK
 
     namespace STATES
     {
-        namespace AREASTATE
-        {
-            static const AkUniqueID GROUP = 2064552269U;
-
-            namespace STATE
-            {
-                static const AkUniqueID NONE = 748895195U;
-            } // namespace STATE
-        } // namespace AREASTATE
-
         namespace LUCIERNAGAS
         {
             static const AkUniqueID GROUP = 2466252489U;
@@ -103,16 +93,6 @@ namespace AK
             } // namespace STATE
         } // namespace MUSICSTATE
 
-        namespace ROOMSTATE
-        {
-            static const AkUniqueID GROUP = 185713839U;
-
-            namespace STATE
-            {
-                static const AkUniqueID NONE = 748895195U;
-            } // namespace STATE
-        } // namespace ROOMSTATE
-
     } // namespace STATES
 
     namespace SWITCHES
@@ -136,6 +116,7 @@ namespace AK
             namespace SWITCH
             {
                 static const AkUniqueID ADVENTURER = 3247222823U;
+                static const AkUniqueID AQUATIC = 3653896563U;
                 static const AkUniqueID GHOST = 4023194814U;
                 static const AkUniqueID MAINTHEME = 824317709U;
                 static const AkUniqueID NOMX = 732117587U;

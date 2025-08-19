@@ -48,15 +48,16 @@ Switch	ID	Name	Switch Group			Notes
 	732117587	NoMX	MusicSwitch			
 	824317709	MainTheme	MusicSwitch			
 	3247222823	Adventurer	MusicSwitch			
+	3653896563	Aquatic	MusicSwitch			
 	4023194814	Ghost	MusicSwitch			
 	841620460	Concrete	FootstepsSwitch			
 	1403804780	Cristal_Platforms	FootstepsSwitch			
 	2473969246	Metal	FootstepsSwitch			
 
 State Group	ID	Name			Wwise Object Path	Notes
-	1021618141	MusicState			\Default Work Unit\MusicState	
-	2466252489	Luciernagas			\Default Work Unit\Luciernagas	
-	4281606737	MusicPuzzleState			\Default Work Unit\MusicPuzzleState	
+	1021618141	MusicState			\Music\MusicState	
+	2466252489	Luciernagas			\Gameplay\Luciernagas	
+	4281606737	MusicPuzzleState			\Music\MusicPuzzleState	
 
 State	ID	Name	State Group			Notes
 	748895195	None	MusicState			
@@ -72,7 +73,9 @@ State	ID	Name	State Group			Notes
 Custom State	ID	Name	State Group	Owner		Notes
 	61059452	Pause	MusicState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer		
 	88367268	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\Main_Loop		
+	112909026	Pause	MusicState	\Interactive Music Hierarchy\MX\Music\MX_Aquatic		
 	140870055	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects		
+	213723357	On	Luciernagas	\Interactive Music Hierarchy\MX\Music\MX_Aquatic		
 	246963863	Pause	MusicState	\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs		
 	296041802	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_MainLP\QQ_Adventurer_Puzzle_Loop		
 	388484793	On	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_Intro\Intro		
@@ -83,8 +86,8 @@ Custom State	ID	Name	State Group	Owner		Notes
 	1063663310	Off	MusicPuzzleState	\Interactive Music Hierarchy\MX\Music\MX_Adventurer\Adventurer_End\QQ_Adventurer_Puzzle_End		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
-	1354283134	RTPC_SawsOnScreen			\Default Work Unit\RTPC_SawsOnScreen	
-	1704512779	RTPC_Luciernagas			\Default Work Unit\RTPC_Luciernagas	
+	1354283134	RTPC_SawsOnScreen			\Gameplay\RTPC_SawsOnScreen	
+	1704512779	RTPC_Luciernagas			\Gameplay\RTPC_Luciernagas	
 
 Modulator Envelope	ID	Name			Wwise Object Path	Notes
 	672827090	Modulator Envelope (Custom)				
@@ -224,6 +227,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	854077163	Concrete_Footstep-007	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\Concrete_Footstep-007_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-007		1320
 	862457260	Yellow_Quartz_Cloth_LP	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\Yellow_Quartz_Cloth_LP_282108B1.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Cloth\Yellow_Quartz_Cloth_LP		94812
 	862774514	Lab_Footstep_20	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\Lab_Footstep_20_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_20		11472
+	865916349	QQ_Aquatic_v1_0	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\QQ_Aquatic_v1.0_686156BF.wem		\Interactive Music Hierarchy\MX\Music\MX_Aquatic\Aquatic_Intro\QQ_Aquatic_v1_0		4629298
 	866113773	Chain-008	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\Chain-008_4D3BBC73.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Objects\Steampunk_Objects\Chains\Chains_SFXs\Chain-008		7116
 	866517727	Silence	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\Silence_686156BF.wem		\Interactive Music Hierarchy\MX\Music\NoMX\Silence\Silence		1320
 	869910401	LAB_Landing-003	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Linux\SFX\LAB_Landing-003_C17F12BF.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Metal_Landing\Metal_Landings\LAB_Landing-003		3624

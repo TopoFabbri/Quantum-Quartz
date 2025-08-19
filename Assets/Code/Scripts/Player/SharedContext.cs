@@ -90,6 +90,7 @@ namespace Code.Scripts.Player
                     previousSpeed = _speed;
                     curSpeedTimestamp = Time.time;
                 }
+                
                 _speed = value;
             }
         }

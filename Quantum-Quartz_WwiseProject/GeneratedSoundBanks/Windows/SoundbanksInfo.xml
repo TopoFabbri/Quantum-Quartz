@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B3BC31F1-B031-6377-45A8-19DFA6B6D242}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{253F4241-384D-53C1-F85B-92E5BCA7F3F4}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -46,21 +46,11 @@
 				<GameParameter Id="2644490154" Name="RTPC_SfxVolume"/>
 			</GameParameters>
 			<StateGroups>
-				<StateGroup Id="185713839" Name="RoomState">
-					<States>
-						<State Id="748895195" Name="None"/>
-					</States>
-				</StateGroup>
 				<StateGroup Id="1021618141" Name="MusicState">
 					<States>
 						<State Id="748895195" Name="None"/>
 						<State Id="984691642" Name="Ingame"/>
 						<State Id="3092587493" Name="Pause"/>
-					</States>
-				</StateGroup>
-				<StateGroup Id="2064552269" Name="AreaState">
-					<States>
-						<State Id="748895195" Name="None"/>
 					</States>
 				</StateGroup>
 				<StateGroup Id="2466252489" Name="Luciernagas">
@@ -84,6 +74,7 @@
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
+						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
 					</Switches>
 				</SwitchGroup>
@@ -96,7 +87,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DC995301-AB24-BB55-82FE-7DE2359D67E0}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E7247F09-4260-07E6-A8D5-D6D61D25F0DB}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -635,6 +626,10 @@
 				<File Id="862774514" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_20.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_20_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="865916349" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Aquatic_v1.0.wav</ShortName>
+					<CachePath>SFX/QQ_Aquatic_v1.0_686156BF.wem</CachePath>
 				</File>
 				<File Id="866113773" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Chain-008.wav</ShortName>
@@ -1271,6 +1266,12 @@
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
 								<MediaRef Id="26893415"/>
@@ -1301,6 +1302,12 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
 							<MediaRefs>
 								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1436,6 +1443,12 @@
 								<MediaRef Id="866517727"/>
 							</MediaRefs>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
@@ -1481,6 +1494,7 @@
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
+						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
 					</Switches>
 				</SwitchGroup>
@@ -1494,5 +1508,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{A01A84F2-DA3F-04B6-90B7-184A64FC85C9}</FileHash>
+	<FileHash>{A55D3827-07C6-DB42-8151-677F045988E3}</FileHash>
 </SoundBanksInfo>

@@ -21,6 +21,8 @@ namespace Code.Scripts.Tools
         [SerializeField] private bool scaleDuration = false;
         [Range(0.001f, 5)]
         [SerializeField] private float duration = 1;
+        [SerializeField] private bool unlockCurveX = false;
+        [SerializeField] private bool unlockCurveY = false;
         [SerializeField] private AnimationCurve positionCurve;
         [SerializeField] private AnimationCurve velocityCurve;
         [SerializeField] private AnimationCurve accelerationCurve;
@@ -112,15 +114,27 @@ namespace Code.Scripts.Tools
 
                 // Update the keyframes
                 positionCurve.keys = tempKeys.ToArray();
-                lastDuration = duration;
-                lastHeightScale = heightScale;
+            }
+
+            float minDuration = 0;
+            float minHeight = 0;
+            for (int i = 0; i < positionCurve.keys.Length - 1; i++)
+            {
+                Keyframe k = positionCurve.keys[i];
+                minDuration = Mathf.Max(minDuration, k.time);
+                minHeight = Mathf.Max(minHeight, (upwards ? 1 : -1) * key.value);
             }
 
             int last = positionCurve.keys.Length - 1;
             key = positionCurve.keys[last];
+            duration = (unlockCurveX ? Mathf.Max(minDuration, key.time) : duration);
+            heightScale = (unlockCurveY ? Mathf.Max(minHeight, (upwards ? 1 : -1) * key.value) : heightScale);
             key.time = duration;
             key.value = (upwards ? 1 : -1) * heightScale;
             positionCurve.MoveKey(last, key);
+
+            lastDuration = duration;
+            lastHeightScale = heightScale;
 
             velocityCurve = positionCurve?.Derivative(50, 0.0000003f, 3);
             accelerationCurve = positionCurve?.SecondDerivative(50, 0.0000003f, 3);

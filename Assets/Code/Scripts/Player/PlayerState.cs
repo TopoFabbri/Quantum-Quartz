@@ -1,6 +1,5 @@
 using AYellowpaper.SerializedCollections;
 using Code.Scripts.Animation;
-using Code.Scripts.Camera;
 using Code.Scripts.Colors;
 using Code.Scripts.FSM;
 using Code.Scripts.Input;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
+using Code.Scripts.Screen;
 using Code.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ namespace Code.Scripts.Level
 
         private int _currentLevel = -1;
         public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
+        public LevelList LevelList => levelList;
 
         public static event Action LevelEnd;
         public static event Action PlayerTp;
@@ -53,6 +55,8 @@ namespace Code.Scripts.Level
                 nextSceneName = levelList.levels[currentIndex + 1].SceneName;
             }
             Stats.FinishLevel(nextSceneName);
+            
+            EndLevel();
 
             yield return new WaitForSeconds(time);
 

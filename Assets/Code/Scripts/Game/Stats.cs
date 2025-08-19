@@ -186,10 +186,20 @@ namespace Code.Scripts.Game
 
         public static void ClearSaveSlot(int slot, LevelList levelList)
         {
-            TotalSlotStats.Clear(slot);
-            for (int level = 0; level < levelList.levels.Count; level++)
+            levelList = levelList ? levelList : LevelChanger.Instance?.LevelList;
+            if (levelList)
             {
-                LevelStats.Clear(slot, level);
+                TotalSlotStats.Clear(slot);
+                for (int level = 0; level < levelList.levels.Count; level++)
+                {
+                    LevelStats.Clear(slot, level);
+                }
+                PlayerPrefs.Save();
+
+                if (slot == Instance.saveSlot)
+                {
+                    SelectSaveSlot(slot);
+                }
             }
         }
 
