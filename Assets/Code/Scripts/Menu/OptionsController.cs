@@ -216,10 +216,32 @@ namespace Code.Scripts.Menu
 
         private void OnUIBack()
         {
-            optionsPanel?.SetActive(false);
-            levelSelectorPanel?.SetActive(false);
-            creditsPanel?.SetActive(false);
-            mainMenuButton.Select();
+            if (optionsPanel != null && optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            if (levelSelectorPanel != null && levelSelectorPanel.activeSelf)
+            {
+                levelSelectorPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            if (creditsPanel != null && creditsPanel.activeSelf)
+            {
+                creditsPanel.SetActive(false);
+                mainMenuButton.Select();
+                return;
+            }
+
+            if (menuController != null)
+            {
+                menuController.GoFileSaves();
+            }
+            
         }
 
         public void ResetSaveData()
