@@ -216,7 +216,6 @@ namespace Code.Scripts.Menu
 
         private void OnUIBack()
         {
-            // 🔹 Si alguno está activo → se apaga y se hace return para no seguir
             if (optionsPanel != null && optionsPanel.activeSelf)
             {
                 optionsPanel.SetActive(false);
@@ -238,15 +237,11 @@ namespace Code.Scripts.Menu
                 return;
             }
 
-            // 🔹 Si llegamos acá → ninguno estaba activo, entonces llamamos a GoFileSaves()
             if (menuController != null)
             {
                 menuController.GoFileSaves();
             }
-            else
-            {
-                Debug.LogWarning("MenuController no está asignado en OptionsController");
-            }
+            
         }
 
         public void ResetSaveData()
