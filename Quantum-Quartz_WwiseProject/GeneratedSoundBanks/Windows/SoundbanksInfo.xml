@@ -87,7 +87,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{E7247F09-4260-07E6-A8D5-D6D61D25F0DB}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{AB858051-ED32-4923-01BF-539E078E75BB}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -532,6 +532,10 @@
 				<File Id="728419561" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-019.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-019_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="729046609" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_SFX_Startanimation.wav</ShortName>
+					<CachePath>SFX/QQ_SFX_Startanimation_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="735533881" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-002.wav</ShortName>
@@ -1315,6 +1319,11 @@
 						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
 					</ActionSetSwitch>
 				</Event>
+				<Event Id="751341016" Name="Play_SFX_StartAnimation" DurationType="OneShot" DurationMin="3.9192708" DurationMax="3.9192708">
+					<MediaRefs>
+						<MediaRef Id="729046609"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="3893832595" Name="Play_SP_Amb_Steam" MaxAttenuation="100" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="243405919"/>
@@ -1508,5 +1517,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{A55D3827-07C6-DB42-8151-677F045988E3}</FileHash>
+	<FileHash>{AA6E7518-4052-7535-5B66-481A930FA668}</FileHash>
 </SoundBanksInfo>

@@ -34,6 +34,7 @@ namespace AK
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_LUCIERNAGAS = 3912385716U;
         static const AkUniqueID PLAY_MX_SWITCH = 2855120456U;
+        static const AkUniqueID PLAY_SFX_STARTANIMATION = 751341016U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAM_SPRING = 358772238U;
         static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
