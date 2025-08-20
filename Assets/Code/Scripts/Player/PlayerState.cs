@@ -97,6 +97,7 @@ namespace Code.Scripts.Player
         {
             CheckFlip();
             stateMachine.FixedUpdate();
+            sharedContext.AdvanceMovementModifierTransition();
 
             if (sharedContext.RecalculateIsGrounded())
             {
@@ -303,11 +304,13 @@ namespace Code.Scripts.Player
 
             // Move transitions
             // - Idle        >
+            // - Idle        > Prevent idle while moving (eg. Sliding on slippery surface)
             // - Edge        >
             // - Fall        >
             // - Jump        >
             // - Spring      >
             stateMachine.AddTransition(idle, move, new[] { "HasInput", "NoWall" });
+            stateMachine.AddTransition(idle, move, new[] { "" }, new[] { "StoppedMoving" });
             stateMachine.AddTransition(edge, move, new[] { "HasInput", "NoWall" });
             stateMachine.AddTransition(fall, move, new[] { "IsGrounded", "HasInput", "NotFalling", "NoWall" });
 

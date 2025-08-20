@@ -98,6 +98,8 @@ namespace Code.Scripts.Player
         public float SpeedY { set { Speed = new Vector2(Speed.x, value); } }
 
         private MovementModifier lastMovementModifier = null;
+        private MovementModifier newMovementModifier = null;
+        private float movementModifierProgress = -1;
         private MovementModifier _curMovementModifier = ScriptableObject.CreateInstance<MovementModifier>();
         public MovementModifier CurMovementModifier
         {
@@ -107,11 +109,9 @@ namespace Code.Scripts.Player
             }
             set
             {
-                if (movementModifierCoroutine != null)
-                {
-                    MonoBehaviour.StopCoroutine(movementModifierCoroutine);
-                }
-                movementModifierCoroutine = MonoBehaviour.StartCoroutine(ChangeMovementModifier(value));
+                movementModifierProgress = 0;
+                lastMovementModifier = UnityEngine.Object.Instantiate(_curMovementModifier);
+                newMovementModifier = value ? value : ScriptableObject.CreateInstance<MovementModifier>();
             }
         }
 
@@ -128,7 +128,6 @@ namespace Code.Scripts.Player
         private readonly FiniteStateMachine<string> stateMachine;
         private double curSpeedTimestamp;
         private Coroutine wallCooldownCoroutine;
-        private Coroutine movementModifierCoroutine;
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine, RectTransform gearFX)
         {
@@ -155,7 +154,6 @@ namespace Code.Scripts.Player
             InputManager.Move -= OnMoveHandler;
 
             MonoBehaviour.StopCoroutine(wallCooldownCoroutine);
-            MonoBehaviour.StopCoroutine(movementModifierCoroutine);
         }
 
         /// <summary>
@@ -267,18 +265,28 @@ namespace Code.Scripts.Player
             inWallCooldown = false;
         }
 
-        private IEnumerator ChangeMovementModifier(MovementModifier newModifier)
+        public void AdvanceMovementModifierTransition()
         {
-            lastMovementModifier = UnityEngine.Object.Instantiate(CurMovementModifier);
-            newModifier = newModifier ? newModifier : ScriptableObject.CreateInstance<MovementModifier>();
-            float waitTime = 0;
-            while (waitTime < lastMovementModifier.exitTime)
+            AdvanceMovementModifierTransition(IsGrounded ? GlobalSettings.groundStep : GlobalSettings.passiveStep);
+        }
+
+        public void AdvanceMovementModifierTransition(float step)
+        {
+            if (movementModifierProgress < 0)
             {
-                yield return new WaitForFixedUpdate();
-                waitTime += Time.fixedDeltaTime;
-                _curMovementModifier = lastMovementModifier.InterpolateTowards(newModifier, waitTime);
+                return;
             }
-            _curMovementModifier = newModifier;
+
+            movementModifierProgress += step * Time.fixedDeltaTime;
+            if (movementModifierProgress >= lastMovementModifier.exitTime)
+            {
+                movementModifierProgress = -1;
+                _curMovementModifier = newMovementModifier;
+            }
+            else
+            {
+                _curMovementModifier = lastMovementModifier.InterpolateTowards(newMovementModifier, movementModifierProgress);
+            }
         }
     }
 }

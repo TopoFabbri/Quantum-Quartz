@@ -70,14 +70,14 @@ namespace Code.Scripts.States
                 float accel = sharedContext.Input * Time.fixedDeltaTime * Acceleration;
                 inputSpeed += Mathf.Clamp(accel, Mathf.Min(-maxSpeed - inputSpeed, 0), Mathf.Max(maxSpeed - inputSpeed, 0));
 
-                if (Mathf.Abs(inputSpeed) > maxSpeed)
+                if (Mathf.Abs(inputSpeed) > maxSpeed || Math.Sign(sharedContext.Input) * -1 == Math.Sign(sharedContext.Speed.x))
                 {
-                    inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * Friction);
+                    inputSpeed = Math.Sign(inputSpeed) * Mathf.Max(Mathf.Abs(inputSpeed) - Time.fixedDeltaTime * Friction, 0);
                 }
             }
             else
             {
-                inputSpeed = Mathf.Lerp(inputSpeed, 0, Time.fixedDeltaTime * Friction);
+                inputSpeed = Math.Sign(inputSpeed) * Mathf.Max(Mathf.Abs(inputSpeed) - Time.fixedDeltaTime * Friction, 0);
             }
 
             sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(inputSpeed, sharedContext.Rigidbody.velocity.y);
@@ -89,8 +89,17 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (Mathf.Abs(inputSpeed * Time.fixedDeltaTime) >= MinSpeed || sharedContext.Input != 0f)
+            if (Mathf.Abs(inputSpeed) >= MinSpeed)
                 return false;
+
+            if (sharedContext.Input != 0f)
+            {
+                if (Math.Sign(sharedContext.Input) != Math.Sign(inputSpeed))
+                {
+                    ResetSpeed();
+                }
+                return false;
+            }
 
             ResetSpeed();
             return true;
@@ -126,6 +135,7 @@ namespace Code.Scripts.States
         {
             inputSpeed = 0f;
             sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
+            sharedContext.AdvanceMovementModifierTransition(sharedContext.GlobalSettings.stopStep);
         }
         
         private void FlipCheck()

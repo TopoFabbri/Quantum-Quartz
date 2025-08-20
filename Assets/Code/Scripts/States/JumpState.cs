@@ -34,6 +34,10 @@ namespace Code.Scripts.States
             lastVel = sharedContext.Speed.y;
 
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
+            if (MaxSpeed > moveSettings.maxSpeed && sharedContext.Speed.x < moveSettings.maxSpeed)
+            {
+                sharedContext.AdvanceMovementModifierTransition(sharedContext.GlobalSettings.slowJumpStep);
+            }
             
             SpawnDust();
         }
