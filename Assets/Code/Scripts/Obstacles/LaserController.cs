@@ -178,7 +178,7 @@ namespace Code.Scripts.Obstacles
 
             FindCollisionPoint();
 
-            line.SetPosition(0, origin.position + origin.right * 0.5f);
+            line.SetPosition(0, origin.position);
             line.SetPosition(1, end.position);
         }
 
