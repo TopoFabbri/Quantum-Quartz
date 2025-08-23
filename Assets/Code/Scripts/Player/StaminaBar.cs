@@ -74,11 +74,11 @@ namespace Code.Scripts.Player
 
             FillValue += speed * Time.deltaTime;
 
-            if (!(FillValue >= 1f))
-                return;
-            
-            FillValue = 1f;
-            Depleted = false;
+            if (FillValue >= 1f)
+            {
+                FillValue = 1f;
+                Depleted = false;
+            }
         }
     }
 }

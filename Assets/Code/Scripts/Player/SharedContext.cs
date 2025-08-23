@@ -106,9 +106,23 @@ namespace Code.Scripts.Player
             }
             set
             {
-                movementModifierProgress = 0;
+                // If entered a new movement modifier before transition finished, but after 50% of transition, adopt the interrupted movement modifiers steps
+                if (newMovementModifier && movementModifierProgress * 2 >= lastMovementModifier.exitTime)
+                {
+                    lastMovementModifier = UnityEngine.Object.Instantiate(_curMovementModifier);
+                    lastMovementModifier.passiveStep = newMovementModifier.passiveStep;
+                    lastMovementModifier.groundStep = newMovementModifier.groundStep;
+                    lastMovementModifier.stopStep = newMovementModifier.stopStep;
+                    lastMovementModifier.slowJumpStep = newMovementModifier.slowJumpStep;
+                }
+                else
+                {
+                    lastMovementModifier = UnityEngine.Object.Instantiate(_curMovementModifier);
+                }
+
                 lastMovementModifier = UnityEngine.Object.Instantiate(_curMovementModifier);
                 newMovementModifier = value ? value : ScriptableObject.CreateInstance<MovementModifier>();
+                movementModifierProgress = 0;
             }
         }
 
@@ -269,7 +283,7 @@ namespace Code.Scripts.Player
 
         public void AdvanceMovementModifierTransition()
         {
-            AdvanceMovementModifierTransition(IsGrounded ? GlobalSettings.groundStep : GlobalSettings.passiveStep);
+            AdvanceMovementModifierTransition(IsGrounded ? CurMovementModifier.groundStep : CurMovementModifier.passiveStep);
         }
 
         public void AdvanceMovementModifierTransition(float step)
@@ -284,6 +298,7 @@ namespace Code.Scripts.Player
             {
                 movementModifierProgress = -1;
                 _curMovementModifier = newMovementModifier;
+                newMovementModifier = null;
             }
             else
             {

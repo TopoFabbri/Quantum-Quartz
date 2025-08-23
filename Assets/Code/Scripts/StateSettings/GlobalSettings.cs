@@ -29,11 +29,5 @@ namespace Code.Scripts.StateSettings
 
         [HeaderPlus("Debug")]
         public bool shouldDraw;
-
-        [HeaderPlus("Movement Modifier Settings")]
-        public float passiveStep = 0.1f;
-        public float groundStep = 0.5f;
-        public float stopStep = 100;
-        public float slowJumpStep = 100;
     }
 }

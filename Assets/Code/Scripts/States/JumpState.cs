@@ -36,7 +36,7 @@ namespace Code.Scripts.States
             sharedContext.Rigidbody.sharedMaterial.friction = moveSettings.airFriction;
             if (MaxSpeed > moveSettings.maxSpeed && sharedContext.Speed.x < moveSettings.maxSpeed)
             {
-                sharedContext.AdvanceMovementModifierTransition(sharedContext.GlobalSettings.slowJumpStep);
+                sharedContext.AdvanceMovementModifierTransition(sharedContext.CurMovementModifier.slowJumpStep);
             }
             
             SpawnDust();

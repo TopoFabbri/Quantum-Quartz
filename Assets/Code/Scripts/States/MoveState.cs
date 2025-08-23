@@ -135,7 +135,7 @@ namespace Code.Scripts.States
         {
             inputSpeed = 0f;
             sharedContext.Rigidbody.velocity = sharedContext.Speed = new Vector2(0, sharedContext.Rigidbody.velocity.y);
-            sharedContext.AdvanceMovementModifierTransition(sharedContext.GlobalSettings.stopStep);
+            sharedContext.AdvanceMovementModifierTransition(sharedContext.CurMovementModifier.stopStep);
         }
         
         private void FlipCheck()

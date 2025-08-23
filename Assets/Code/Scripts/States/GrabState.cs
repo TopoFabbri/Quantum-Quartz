@@ -1,5 +1,5 @@
 using Code.Scripts.Colors;
-using Code.Scripts.FSM;
+using Code.Scripts.Level;
 using Code.Scripts.Player;
 using Code.Scripts.StateSettings;
 using UnityEngine;
@@ -22,7 +22,7 @@ namespace Code.Scripts.States
             this.barController = barController;
             
             barController.AddBar(ColorSwitcher.QColor.Green, grabSettings.staminaRegenSpeed, grabSettings.staminaMitigation, grabSettings.initStaminaCut);
-            barController.GetBar(ColorSwitcher.QColor.Green).AddConditionalRegenSpeed(() => !sharedContext.IsGrounded ? 0 : null);
+            barController.GetBar(ColorSwitcher.QColor.Green).AddConditionalRegenSpeed(() => sharedContext.CurMovementModifier.grabEffect == MovementModifier.GrabEffect.Forced ? 100 : (!sharedContext.IsGrounded ? 0 : null));
         }
 
         public override void OnEnter()

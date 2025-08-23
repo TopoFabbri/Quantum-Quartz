@@ -279,7 +279,7 @@ namespace Code.Scripts.Player
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
             context.AddCondition("DashPressed", () => dashPressed);
-            context.AddCondition("GrabPressed", () => grabPressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green));
+            context.AddCondition("GrabPressed", () => sharedContext.CurMovementModifier.grabEffect == MovementModifier.GrabEffect.Forced || (sharedContext.CurMovementModifier.grabEffect != MovementModifier.GrabEffect.Disabled && (grabPressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green))));
             context.AddCondition("GlidePressed", () => glidePressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow));
             context.AddCondition("Died", () => sharedContext.died);
             context.AddCondition("Teleport", () => shouldTp);
