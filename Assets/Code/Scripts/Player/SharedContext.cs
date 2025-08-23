@@ -1,4 +1,3 @@
-
 using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Game;
@@ -22,24 +21,20 @@ namespace Code.Scripts.Player
         public GlobalSettings GlobalSettings { get; private set; }
         public CameraController CamController { get; private set; }
         public RectTransform GearFX { get; private set; }
+        public WallStateColliders WallStateColliders { get; private set; }
         public bool Falling { get; private set; }
         public bool IsGrounded { get; private set; }
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
-        private ContactFilter2D _solidFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Default", "SolidTiles")
-        };
+        private ContactFilter2D _solidFilter = new ContactFilter2D { layerMask = LayerMask.GetMask("Default", "SolidTiles") };
         public ContactFilter2D SolidFilter => _solidFilter;
 
         private float _input = 0;
+
         public float Input
         {
-            get
-            {
-                return BlockMoveInput ? 0 : _input;
-            }
+            get { return BlockMoveInput ? 0 : _input; }
             set
             {
                 _input = value;
@@ -48,12 +43,10 @@ namespace Code.Scripts.Player
         }
 
         private bool _blockMoveInput = false;
+
         public bool BlockMoveInput
         {
-            get
-            {
-                return _blockMoveInput;
-            }
+            get { return _blockMoveInput; }
             set
             {
                 _blockMoveInput = value;
@@ -62,12 +55,10 @@ namespace Code.Scripts.Player
         }
 
         private Vector2 _checkpointPos = Vector2.negativeInfinity;
+
         public Vector2 CheckpointPos
         {
-            get
-            {
-                return _checkpointPos;
-            }
+            get { return _checkpointPos; }
             set
             {
                 _checkpointPos = value;
@@ -76,12 +67,10 @@ namespace Code.Scripts.Player
         }
 
         private Vector2 _speed = Vector2.zero;
+
         public Vector2 Speed
         {
-            get
-            {
-                return _speed;
-            }
+            get { return _speed; }
             set
             {
                 if (Time.time > curSpeedTimestamp)
@@ -89,12 +78,20 @@ namespace Code.Scripts.Player
                     previousSpeed = _speed;
                     curSpeedTimestamp = Time.time;
                 }
-                
+
                 _speed = value;
             }
         }
-        public float SpeedX { set { Speed = new Vector2(value, Speed.y); } }
-        public float SpeedY { set { Speed = new Vector2(Speed.x, value); } }
+
+        public float SpeedX
+        {
+            set { Speed = new Vector2(value, Speed.y); }
+        }
+
+        public float SpeedY
+        {
+            set { Speed = new Vector2(Speed.x, value); }
+        }
 
         public ISpringable.SpringDefinition? spring = null;
         public bool facingRight = false;
@@ -110,7 +107,8 @@ namespace Code.Scripts.Player
         private double curSpeedTimestamp;
         private Coroutine wallCooldownCoroutine;
 
-        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings, FiniteStateMachine<string> stateMachine, RectTransform gearFX)
+        public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings,
+            FiniteStateMachine<string> stateMachine, RectTransform gearFX, WallStateColliders wallStateColliders)
         {
             Rigidbody = rb;
             Collider = col;
@@ -120,7 +118,8 @@ namespace Code.Scripts.Player
             GlobalSettings = globalSettings;
             this.stateMachine = stateMachine;
             GearFX = gearFX;
-            
+            WallStateColliders = wallStateColliders;
+
             InputManager.Move += OnMoveHandler;
 
             if (UnityEngine.Camera.main?.transform.parent != null)
@@ -175,7 +174,8 @@ namespace Code.Scripts.Player
                         tempHitDist = GetEdge(false);
                         grounded |= tempHitDist > 0;
                         hitDist = Mathf.Max(tempHitDist, hitDist);
-                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <=
+                                    GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
                     }
                 }
             }
@@ -219,6 +219,7 @@ namespace Code.Scripts.Player
                     }
                 }
             }
+
             return backupDist;
         }
 
@@ -234,6 +235,7 @@ namespace Code.Scripts.Player
             {
                 MonoBehaviour.StopCoroutine(wallCooldownCoroutine);
             }
+
             wallCooldownCoroutine = MonoBehaviour.StartCoroutine(WallCooldown(wallCooldown));
         }
 

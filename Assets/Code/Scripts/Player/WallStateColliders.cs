@@ -20,27 +20,26 @@ namespace Code.Scripts.Player
         [SerializeField] private Color drawColour = Color.green;
         [SerializeField] private Vector2 drawOffset = Vector2.zero;
         
-
-        private BoxCollider2D upCollider;
-        private BoxCollider2D midCollider;
-        private BoxCollider2D lowCollider;
+        [field: SerializeField] public BoxCollider2D UpCollider { get; private set; }
+        [field: SerializeField] public BoxCollider2D MidCollider { get; private set; }
+        [field: SerializeField] public BoxCollider2D LowCollider { get; private set; }
 
         [HeaderPlus("Generation")]
         [InspectorButton("Generate Wall State Colliders")]
         public void GenerateColliders()
         {
-            if (upCollider)
-                DestroyImmediate(upCollider);
+            if (UpCollider)
+                DestroyImmediate(UpCollider);
             
-            if (midCollider)
-                DestroyImmediate(midCollider);
+            if (MidCollider)
+                DestroyImmediate(MidCollider);
             
-            if (lowCollider)
-                DestroyImmediate(lowCollider);
+            if (LowCollider)
+                DestroyImmediate(LowCollider);
             
-            upCollider = CreateCollider(top, upMid);
-            midCollider = CreateCollider(upMid, midLow);
-            lowCollider = CreateCollider(midLow, low);
+            UpCollider = CreateCollider(top, upMid);
+            MidCollider = CreateCollider(upMid, midLow);
+            LowCollider = CreateCollider(midLow, low);
         }
 
         private BoxCollider2D CreateCollider(float upper, float lower)
