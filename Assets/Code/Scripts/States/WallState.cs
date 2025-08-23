@@ -84,8 +84,9 @@ namespace Code.Scripts.States
         {
             List<RaycastHit2D> hits = new();
 
-            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis),
-                true);
+            collider.enabled = true;
+            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
+            collider.enabled = false;
 
             foreach (RaycastHit2D hit in hits)
             {
