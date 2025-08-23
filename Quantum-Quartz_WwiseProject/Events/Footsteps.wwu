@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{DB926AFD-AFEC-4614-96EF-ADF952847EF7}" SchemaVersion="110" RootDocumentID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}" ParentDocumentID="{B3D64E8C-E862-4251-BB4F-F453FEFA6DA9}">
+	<Events>
+		<WorkUnit Name="Footsteps" ID="{DB926AFD-AFEC-4614-96EF-ADF952847EF7}" OwnerID="{B3D64E8C-E862-4251-BB4F-F453FEFA6DA9}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Set_Switch_Cristal_Platforms" ID="{D5AF79F3-1F44-46D6-A07A-8BDB0AAE24C5}">
+					<ChildrenList>
+						<Action Name="" ID="{A4C33E67-E4BB-4C08-BED7-931B40198506}" ShortID="474391040">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Cristal_Platforms" ID="{7E53AD7E-99A8-4171-973A-BAE6F67E0DC6}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Set_Switch_Concrete" ID="{2F70FD06-0BB7-4AB5-83C2-ED91101AEBE2}">
+					<ChildrenList>
+						<Action Name="" ID="{224C8955-A6D6-4EAF-89A9-7F6783A001FE}" ShortID="938527684">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Concrete" ID="{C4353A63-4D50-4A4F-B566-FB5ABFA37307}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Landings" ID="{308F506E-9468-40A7-8AA2-F8DC140E45A0}">
+					<ChildrenList>
+						<Action Name="" ID="{070D8B25-5CD5-414B-90DA-A06EBA266881}" ShortID="557762853">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Landings" ID="{5EC343C1-0BE2-42D9-A245-549FDC15F67B}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Set_Switch_Metal" ID="{7DF8491C-DAF4-447F-A1EB-A7B61ADE944F}">
+					<ChildrenList>
+						<Action Name="" ID="{88EF7EAF-BBD5-4656-AC81-896546A0EAA2}" ShortID="625507912">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Metal" ID="{CB41568D-863A-456E-AFE2-E43BD4D19A2D}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Footsteps" ID="{9C889416-9D01-48E4-91DB-3416B850975D}">
+					<ChildrenList>
+						<Action Name="" ID="{BFB898BC-7A79-4E15-AEBC-1965FB77CA7A}" ShortID="382254343">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Footsteps" ID="{72B2F075-B565-4313-AA33-5003DC000068}" WorkUnitID="{67281753-C17D-48D8-BFB7-6917AB0F5EB5}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

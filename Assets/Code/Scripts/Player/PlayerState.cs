@@ -33,8 +33,10 @@ namespace Code.Scripts.Player
         [SerializeField] private ParticleSystem gldePs;
         [SerializeField] private ParticleSystem wjmpPs;
         [SerializeField] private GlobalSettings globalSettings;
-        [SerializeField] private SerializedDictionary<string, StateSettings.StateSettings> settings;
         [SerializeField] private RectTransform gearFX;
+        [SerializeField] private WallStateColliders wallStateColliders;
+        
+        [SerializeField] private SerializedDictionary<string, StateSettings.StateSettings> settings;
         
         private readonly FiniteStateMachine<string> stateMachine = new FiniteStateMachine<string>(2);
 #pragma warning disable IDE1006 // Naming Styles
@@ -51,10 +53,10 @@ namespace Code.Scripts.Player
         private bool grabPressed = false;
         private bool glidePressed = false;
         private bool contextualPressed = false;
-
+        
         private void Awake()
         {
-            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine, gearFX);
+            sharedContext = new SharedContext(rb, col, transform, this, playerSfx, globalSettings, stateMachine, gearFX, wallStateColliders);
             CreateStateMachine();
         }
 
@@ -87,6 +89,11 @@ namespace Code.Scripts.Player
         {
             stateMachine.Update();
 
+            WallState<string> wallState = (WallState<string>)stateMachine.GetState("Wall");
+            
+            if (wallState != null)
+                animController.SetHanging(wallState.GetHanging(!sharedContext.facingRight));
+            
             if (stateDebugText)
             {
                 stateDebugText.text = stateMachine.CurrentState.ID;

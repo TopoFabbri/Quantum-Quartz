@@ -111,7 +111,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -58224
+  m_InstanceId: 51908
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 8600190198086596051}
   - component: {fileID: 8729466730114005524}
   - component: {fileID: 2337140354410141942}
-  - component: {fileID: 6157268633583376915}
   m_Layer: 0
   m_Name: AmbientPS
   m_TagString: Untagged
@@ -340,7 +339,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.6509434, b: 0.0025526802, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -403,9 +402,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.0625
-      minScalar: 1
+      minScalar: 0.125
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -456,7 +455,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -509,7 +508,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1613,7 +1612,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: -1
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1666,7 +1665,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: -1
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2168,9 +2167,9 @@ ParticleSystem:
         m_RotationOrder: 4
     speedModifier:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.5
-      minScalar: 1
+      minMaxState: 3
+      scalar: -0.4
+      minScalar: 0.4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3832,7 +3831,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3885,7 +3884,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4978,27 +4977,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6157268633583376915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2369064733530109105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3118853e19cdc9b4884e291808018177, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  particleSystems:
-  - {fileID: 8729466730114005524}
-  lights: []
 --- !u!1 &3097412570316121168
 GameObject:
   m_ObjectHideFlags: 0
@@ -5110,7 +5088,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -58240
+  m_InstanceId: 51896
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -5260,7 +5238,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -58226
+  m_InstanceId: 51920
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -5375,7 +5353,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -58242
+  m_InstanceId: 51926
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}

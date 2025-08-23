@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{AE2096F8-821D-42DF-9332-38ACBC3C685C}" SchemaVersion="110" RootDocumentID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}" ParentDocumentID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}">
+	<Events>
+		<WorkUnit Name="Luciernagas" ID="{AE2096F8-821D-42DF-9332-38ACBC3C685C}" OwnerID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}" PersistMode="Nested">
+			<ChildrenList>
+				<Event Name="Play_Luciernagas" ID="{DE2FECC6-B5DA-4D2E-BDEE-F74B08584954}">
+					<ChildrenList>
+						<Action Name="" ID="{24F3D6F5-B000-470D-8ED6-0D0F3CEB9B83}" ShortID="354824287">
+							<PropertyList>
+								<Property Name="FadeInCurve" Type="int16" Value="6"/>
+								<Property Name="FadeTime" Type="Real64" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{6070FD8F-6BD2-4FE6-AE95-414AF9E0BC4C}" ShortID="393563359">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="In_Fireflies" ID="{F2EDD53A-A0B3-4082-A224-B5D0C3FE986D}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{4F3C42AD-86D9-4449-86BB-63BF8A3CDC21}" ShortID="1022877246">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="SeekPercent" Type="Real64" Value="50">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{6785EA76-152C-4308-AD6E-D393FEE47AD8}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="45"/>
+													<Property Name="Min" Type="Real64" Value="-50"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{706B1FF7-B689-4877-8374-7989BB6125F5}" ShortID="442011820">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="22"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="On" ID="{9357D52C-C522-4E73-8EB2-DF5722A11762}" WorkUnitID="{4C202FAD-9BAB-4081-AE1F-7EEABAA3A460}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{F17BC2E9-5DB4-4D69-8898-CA9BA8BAECA4}" ShortID="178043096">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="38"/>
+								<Property Name="GameParameterValue" Type="Real64" Value="100"/>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RTPC_Luciernagas" ID="{FC6E0949-ABBD-4A2C-9969-78C7322BAE59}" WorkUnitID="{C1B57B21-B390-4922-A5EC-EA940F909472}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Luciernagas" ID="{08A26E70-DE45-4839-A45E-D81BF83B445F}">
+					<ChildrenList>
+						<Action Name="" ID="{65ACA3DF-B980-41D6-936C-B00D8F6ABF70}" ShortID="427447306">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+								<Property Name="FadeOutCurve" Type="int16" Value="6"/>
+								<Property Name="FadeTime" Type="Real64" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="QQ_Luciernagas" ID="{C2132AD5-29AD-4F3F-82E6-2C0FF0EA7A3D}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{356A0616-B0E7-4B42-8E46-4295F817BCD9}" ShortID="954124422">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Out_Fireflies" ID="{F8BCBD2A-351A-48FA-B536-90D1DD82C270}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{CD42C41C-EF4F-448A-B81C-F9956EDA1DD2}" ShortID="258586703">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="22"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}" WorkUnitID="{4C202FAD-9BAB-4081-AE1F-7EEABAA3A460}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{5C159C16-C9AA-427E-B463-787E7E443D61}" ShortID="704523684">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="38"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="RTPC_Luciernagas" ID="{FC6E0949-ABBD-4A2C-9969-78C7322BAE59}" WorkUnitID="{C1B57B21-B390-4922-A5EC-EA940F909472}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

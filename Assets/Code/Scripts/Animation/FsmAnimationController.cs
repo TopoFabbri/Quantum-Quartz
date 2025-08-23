@@ -12,6 +12,7 @@ namespace Code.Scripts.Animation
         [SerializeField] private string intParamName = "State";
         [SerializeField] private string boolParamName = "FacingRight";
         [SerializeField] private string edgeParamName = "RightEdge";
+        [SerializeField] private string hangingParamName = "Hanging";
         
         private readonly Dictionary<string, int> animIdsByName = new();
 
@@ -59,6 +60,11 @@ namespace Code.Scripts.Animation
         public void SetEdgeSide(bool right)
         {
             animator.SetBool(edgeParamName, right);
+        }
+
+        public void SetHanging(bool hanging)
+        {
+            animator.SetBool(hangingParamName, hanging);
         }
     }
 }

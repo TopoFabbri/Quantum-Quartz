@@ -32,10 +32,8 @@ namespace Code.Scripts.States
         {
             base.OnFixedUpdate();
 
-            sharedContext.Rigidbody.velocity = new Vector2(
-                sharedContext.Rigidbody.velocity.x,
-                Mathf.Clamp(sharedContext.Rigidbody.velocity.y, -fallSettings.maxFallSpeed * Time.fixedDeltaTime, fallSettings.maxFallSpeed * Time.fixedDeltaTime)
-            );
+            sharedContext.Rigidbody.velocity = new Vector2(sharedContext.Rigidbody.velocity.x,
+                Mathf.Clamp(sharedContext.Rigidbody.velocity.y, -fallSettings.maxFallSpeed * Time.fixedDeltaTime, fallSettings.maxFallSpeed * Time.fixedDeltaTime));
 
             PositionPlayer();
         }
@@ -45,7 +43,7 @@ namespace Code.Scripts.States
             base.OnEnter();
 
             savedGravityScale = sharedContext.Rigidbody.gravityScale;
-            
+
             PositionPlayer();
 
             sharedContext.MonoBehaviour.StartCoroutine(SpawnDusts());
@@ -79,8 +77,15 @@ namespace Code.Scripts.States
         /// <returns> True if touching a wall</returns>
         public bool IsTouchingWall(bool checkRight)
         {
-            List<RaycastHit2D> hits = new List<RaycastHit2D>();
-            sharedContext.Collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
+            return CastCollider(sharedContext.WallStateColliders.UpCollider, checkRight);
+        }
+
+        private bool CastCollider(Collider2D collider, bool checkRight)
+        {
+            List<RaycastHit2D> hits = new();
+
+            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis),
+                true);
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -91,6 +96,17 @@ namespace Code.Scripts.States
             }
 
             return false;
+        }
+
+        public bool GetHanging(bool checkRight)
+        {
+            bool midTouching = CastCollider(sharedContext.WallStateColliders.MidCollider, checkRight);
+            bool lowTouching = CastCollider(sharedContext.WallStateColliders.LowCollider, checkRight);
+
+            if (!lowTouching)
+                return true;
+
+            return !midTouching;
         }
 
         /// <summary>
@@ -151,7 +167,7 @@ namespace Code.Scripts.States
 
             if (!hit.collider)
                 return;
-            
+
             Vector2 position = (Vector2)sharedContext.Transform.position + facingDir * wallSettings.wallDis + Vector2.down * wallSettings.dustOffset;
             Quaternion rotation = Quaternion.Euler(0f, 0f, sharedContext.facingRight ? 90f : -90f);
 

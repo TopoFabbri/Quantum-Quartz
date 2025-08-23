@@ -11,9 +11,10 @@ namespace Code.Scripts.Dialogue
         public enum PortraitAnimation
         {
             None,
-            Molly_Normal,
             Molly_Happy,
-            Molly_Sad
+            Molly_Happy_Left,
+            Doc_Normal,
+            Doc_Normal_Left
         }
 
         public enum PortraitAlignment

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B3D64E8C-E862-4251-BB4F-F453FEFA6DA9}" SchemaVersion="110" RootDocumentID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}" ParentDocumentID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}">
+	<Events>
+		<WorkUnit Name="Molly" ID="{B3D64E8C-E862-4251-BB4F-F453FEFA6DA9}" OwnerID="{EFBB1600-F144-4189-9EBA-0A64F8B20255}" PersistMode="Nested">
+			<ChildrenList>
+				<WorkUnit Name="Quartz" ID="{98B9EE85-AC29-4245-8A9A-3B15F7FC7F2A}" PersistMode="Reference"/>
+				<WorkUnit Name="Footsteps" ID="{DB926AFD-AFEC-4614-96EF-ADF952847EF7}" PersistMode="Reference"/>
+				<Event Name="Play_Basic_Jump" ID="{B7C21276-EB52-402A-A801-9AB4F4E5F2A0}">
+					<ChildrenList>
+						<Action Name="" ID="{F5FDA6BB-E9E6-46B9-B397-A049104F260F}" ShortID="554498250">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Basic_Jump" ID="{B217E6B1-7037-46A4-9B5D-3FC753EB5607}" WorkUnitID="{D96D9E74-137A-475E-9466-F985A7B49511}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Death" ID="{3001DBEB-173D-45C8-97C1-AE482DDFDCF0}">
+					<ChildrenList>
+						<Action Name="" ID="{CE71DAD3-B16B-4FCD-91D8-240B06D8DF14}" ShortID="901431361">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Death" ID="{C9B43F71-3248-49D6-AACF-66714C01694F}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<WorkUnit Name="DX" ID="{F879FFB5-9940-40CD-9E45-6417E67D0080}" PersistMode="Reference"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>
