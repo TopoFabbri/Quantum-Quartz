@@ -24,6 +24,7 @@ namespace Code.Scripts.Player
         [field: SerializeField] public BoxCollider2D MidCollider { get; private set; }
         [field: SerializeField] public BoxCollider2D LowCollider { get; private set; }
 
+#if UNITY_EDITOR
         [HeaderPlus("Generation")]
         [InspectorButton("Generate Wall State Colliders")]
         public void GenerateColliders()
@@ -40,7 +41,9 @@ namespace Code.Scripts.Player
             UpCollider = CreateCollider(top, upMid);
             MidCollider = CreateCollider(upMid, midLow);
             LowCollider = CreateCollider(midLow, low);
+            UnityEditor.EditorUtility.SetDirty(gameObject);
         }
+#endif
 
         private BoxCollider2D CreateCollider(float upper, float lower)
         {
@@ -52,6 +55,7 @@ namespace Code.Scripts.Player
             
             tmpCollider.offset = offset;
             tmpCollider.size = size;
+            tmpCollider.enabled = false;
 
             return tmpCollider;
         }
