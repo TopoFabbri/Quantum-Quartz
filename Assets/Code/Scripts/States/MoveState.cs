@@ -20,7 +20,6 @@ namespace Code.Scripts.States
         protected readonly SharedContext sharedContext;
         protected readonly VelocityCurve verticalVelocityCurve;
 
-        // Input speed is the percentage to the max speed
         private float inputSpeed = 0;
 
         protected float Acceleration => moveSettings.accel * sharedContext.CurMovementModifier.accel;

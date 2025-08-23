@@ -249,7 +249,7 @@ namespace Code.Scripts.Player
             // ||         Set Up Context         ||
             // ====================================
             TransitionContext context = stateMachine.Context;
-            context.AddCondition("StoppedMoving", move.StoppedMoving);
+            context.AddCondition("StoppedMoving", () => typeof(MoveState<string>).IsAssignableFrom(sharedContext.CurrentStateType) ? ((MoveState<string>)stateMachine.CurrentState).StoppedMoving() : true);
             context.AddCondition("IsGrounded", sharedContext.RecalculateIsGrounded);
             context.AddCondition("HasJumped", () => jump.HasJumped);
             context.AddCondition("HasDoubleJumped", () => djmp.HasJumped);
@@ -279,7 +279,7 @@ namespace Code.Scripts.Player
             context.AddCondition("JumpPressed", () => jumpPressed);
             context.AddCondition("DoubleJumpPressed", () => djmpPressed);
             context.AddCondition("DashPressed", () => dashPressed);
-            context.AddCondition("GrabPressed", () => sharedContext.CurMovementModifier.grabEffect == MovementModifier.GrabEffect.Forced || (sharedContext.CurMovementModifier.grabEffect != MovementModifier.GrabEffect.Disabled && (grabPressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green))));
+            context.AddCondition("GrabPressed", () => sharedContext.CurMovementModifier.grabEffect != MovementModifier.GrabEffect.Disabled && (sharedContext.CurMovementModifier.grabEffect == MovementModifier.GrabEffect.Forced || grabPressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)));
             context.AddCondition("GlidePressed", () => glidePressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow));
             context.AddCondition("Died", () => sharedContext.died);
             context.AddCondition("Teleport", () => shouldTp);
