@@ -88,12 +88,12 @@ namespace Code.Scripts.States
         /// <returns>True if not moving</returns>
         public bool StoppedMoving()
         {
-            if (Mathf.Abs(inputSpeed) >= MinSpeed)
+            if (Mathf.Abs(sharedContext.Speed.x) >= MinSpeed)
                 return false;
 
             if (sharedContext.Input != 0f)
             {
-                if (Math.Sign(sharedContext.Input) != Math.Sign(inputSpeed))
+                if (Math.Sign(sharedContext.Input) != Math.Sign(sharedContext.Speed.x))
                 {
                     ResetSpeed();
                 }

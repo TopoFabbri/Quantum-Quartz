@@ -249,7 +249,7 @@ namespace Code.Scripts.Player
             // ||         Set Up Context         ||
             // ====================================
             TransitionContext context = stateMachine.Context;
-            context.AddCondition("StoppedMoving", () => typeof(MoveState<string>).IsAssignableFrom(sharedContext.CurrentStateType) ? ((MoveState<string>)stateMachine.CurrentState).StoppedMoving() : true);
+            context.AddCondition("StoppedMoving", move.StoppedMoving);
             context.AddCondition("IsGrounded", sharedContext.RecalculateIsGrounded);
             context.AddCondition("HasJumped", () => jump.HasJumped);
             context.AddCondition("HasDoubleJumped", () => djmp.HasJumped);

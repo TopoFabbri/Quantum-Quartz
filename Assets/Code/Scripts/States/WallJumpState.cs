@@ -32,7 +32,6 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
-            sharedContext.SpeedX = 0;
             sharedContext.BlockMoveInput = false;
         }
 
@@ -45,7 +44,7 @@ namespace Code.Scripts.States
                 sharedContext.Rigidbody.velocity = sharedContext.Speed;
             }
             noInputTime -= Time.fixedDeltaTime;
-            if (noInputTime <= 0)
+            if (sharedContext.BlockMoveInput && noInputTime <= 0)
             {
                 sharedContext.BlockMoveInput = false;
             }
