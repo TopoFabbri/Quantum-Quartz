@@ -5197,15 +5197,15 @@ PrefabInstance:
       objectReference: {fileID: 729438775}
     - target: {fileID: 7107023135049429638, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       propertyPath: red
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7107023135049429638, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       propertyPath: green
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7107023135049429638, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       propertyPath: yellow
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7304774876362205277, guid: 4fb2fb1daa14ba14d876cab04291f7d9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -60554,6 +60554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4557263862944029980}
   - component: {fileID: 3159091455117907778}
+  - component: {fileID: 5387754295306039045}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -60561,6 +60562,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &5387754295306039045
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387754295306039044}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b29c89122fb7ad34b9ecfb3e14a65de1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1839735485 &5457133658859692127
 Tilemap:
   m_ObjectHideFlags: 0

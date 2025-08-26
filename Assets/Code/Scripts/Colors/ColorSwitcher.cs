@@ -166,5 +166,33 @@ namespace Code.Scripts.Colors
                 preLockedColor = null;
             }
         }
+
+        public void EnableColor(QColor colour)
+        {
+            switch (colour)
+            {
+                case QColor.None:
+                    break;
+                
+                case QColor.Red:
+                    red = true;
+                    break;
+                
+                case QColor.Blue:
+                    blue  = true;
+                    break;
+                
+                case QColor.Green:
+                    green  = true;
+                    break;
+                
+                case QColor.Yellow:
+                    yellow  = true;
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(colour), colour, null);
+            }
+        }
     }
 }
