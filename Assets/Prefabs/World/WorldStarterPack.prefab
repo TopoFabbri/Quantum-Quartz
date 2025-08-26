@@ -5594,7 +5594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 189}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: -192, y: 316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7677949897264465944
@@ -11794,7 +11794,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 30
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
@@ -11806,7 +11806,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 60
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -19085,7 +19085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3caded36b7e1837459e4fed2d98c6a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portraitOffset: 352
+  portraitOffset: 400
   dialoguePanelAnim: {fileID: 7564189695534363732}
   dialogueText: {fileID: 8318584474567297306}
   dialogueButton: {fileID: 7176004618007853602}
@@ -19105,11 +19105,13 @@ MonoBehaviour:
     - Key: 0
       Value: 0
     - Key: 1
-      Value: 1
-    - Key: 2
       Value: 2
+    - Key: 2
+      Value: 1
     - Key: 3
-      Value: 3
+      Value: 2
+    - Key: 4
+      Value: 1
   keywordMappings:
   - keyword: <button=jump>
     mappings:
