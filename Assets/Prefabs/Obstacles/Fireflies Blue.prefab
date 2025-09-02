@@ -95,6 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9075572521246477695}
+  - component: {fileID: 3671509466083096494}
   - component: {fileID: 4149555058612546180}
   - component: {fileID: 5068242942148272922}
   m_Layer: 7
@@ -119,6 +120,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1405570601695330677}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &3671509466083096494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261508315204202231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e293e6562a6d65e429ed83482ab3584e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 5
+  perTileEmission: 1
+  particleSystem: {fileID: 4149555058612546180}
+  spriteRenderer: {fileID: 363281744436723426}
+  particleQty: 0
+  tileQty: 105.49115
 --- !u!198 &4149555058612546180
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -689,7 +708,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    gravitySource: 0
+    gravitySource: 1
     maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
@@ -750,7 +769,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 5
+    type: 18
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -4929,6 +4948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6800848272435528124}
+  - component: {fileID: 1583911976768794221}
   - component: {fileID: 4251114979102557137}
   - component: {fileID: 94422239880417714}
   m_Layer: 7
@@ -4953,6 +4973,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1405570601695330677}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1583911976768794221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333125504446069432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e293e6562a6d65e429ed83482ab3584e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  density: 2
+  perTileEmission: 1
+  particleSystem: {fileID: 4251114979102557137}
+  spriteRenderer: {fileID: 363281744436723426}
+  particleQty: 0
+  tileQty: 105.49115
 --- !u!198 &4251114979102557137
 ParticleSystem:
   m_ObjectHideFlags: 0

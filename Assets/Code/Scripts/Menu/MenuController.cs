@@ -16,6 +16,9 @@ namespace Code.Scripts.Menu
         [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private TextMeshProUGUI versionText;
+        
+        [Header("Buttons")]
+        [SerializeField] private TextMeshProUGUI playButtonText;
 
         private void Start()
         {
@@ -30,6 +33,16 @@ namespace Code.Scripts.Menu
             if (versionText != null)
             {
                 versionText.text = $"v.{Application.version}";
+            }
+            
+            //Cambiar texto según el flag de Stats
+            if (Stats.GetLastLevelName() != null)
+            {
+                playButtonText.text = "CONTINUE";
+            }
+            else
+            {
+                playButtonText.text = "PLAY";
             }
         }
 
