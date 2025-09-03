@@ -6,6 +6,7 @@ using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Game
 {
@@ -17,6 +18,7 @@ namespace Code.Scripts.Game
         [SerializeField] private DroneController drone;
         [SerializeField] private PlayerController player;
         [SerializeField] private Switch musicState;
+        [SerializeField] private Event musicEvent;
         
         public DroneController Drone => drone;
         public PlayerController Player => player;
@@ -48,7 +50,7 @@ namespace Code.Scripts.Game
 
             timerTxt?.gameObject.SetActive(Settings.ShowGameTimer);
 
-            SfxController.MusicOnOff(true, gameObject);
+            SfxController.MusicOnOff(true, gameObject, musicEvent);
             SfxController.SetMusicState(musicState, gameObject);
         }
 
