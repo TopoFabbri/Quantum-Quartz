@@ -1,7 +1,6 @@
 Event	ID	Name			Wwise Object Path	Notes
 	52117186	Set_MXSwitch_NoMX			\Music\Set_MXSwitch_NoMX	
 	119388346	Stop_Luciernagas			\Player\Luciernagas\Stop_Luciernagas	
-	232066878	Play_DX_Molly_Stantard			\Player\Molly\DX\Play_DX_Molly_Stantard	
 	358772238	Play_Steam_Spring			\Stages\Steampunk_Level\Objects\Play_Steam_Spring	
 	368556571	Set_State_MusicPuzzle_On			\Music\Steampunk_Music\Set_State_MusicPuzzle_On	
 	708957530	Set_Switch_Metal			\Player\Molly\Footsteps\Set_Switch_Metal	
@@ -35,6 +34,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	3128279563	Play_Blue_Quartz_Jump			\Player\Molly\Quartz\Play_Blue_Quartz_Jump	
 	3543386712	Set_Switch_Concrete			\Player\Molly\Footsteps\Set_Switch_Concrete	
 	3636185906	Stop_MX_Switch			\Music\Stop_MX_Switch	
+	3684740494	Play_DX_Molly_Standard			\Player\Molly\DX\Play_DX_Molly_Standard	
 	3751886250	Play_Charge_Shoot_Laser			\Stages\Steampunk_Level\Objects\Lasers\Play_Charge_Shoot_Laser	
 	3854155799	Play_Footsteps			\Player\Molly\Footsteps\Play_Footsteps	
 	3893832595	Play_SP_Amb_Steam			\Stages\Steampunk_Level\Steampunk_Ambs\Play_SP_Amb_Steam	
@@ -177,7 +177,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	233559544	QQ_DX_Molly_Standard_100	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_100_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_100		2328
 	236984613	Concrete_Footstep-008	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-008_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-008		4992
 	237036231	Yellow_Quartz_Magic_Pad_LP	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Yellow_Quartz_Magic_Pad_LP_28E682D3.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Yellow_Quartz\Pad\Yellow_Quartz_Magic_Pad_LP		713508
-	238796949	QQ_DX_Molly_Standard_90	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_90_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_90		5640
 	241446901	QQ_DX_Molly_Standard_96	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_96_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_96		3696
 	243405919	Steam_Pipe_loop	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\STEAM_282108B1.wem		\Actor-Mixer Hierarchy\Stages\Steampunk_Level\Ambs\Steampunk_Ambs\Steam_Loop\Steam_Pipe_loop		551076
 	243878753	Lab_Footstep_35	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Lab_Footstep_35_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_35		7864
@@ -237,9 +236,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	416173237	QQ_DX_Molly_Standard_22	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_22_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_22		3120
 	423427736	QQ_DX_Molly_Standard_147	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_147_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_147		2400
 	423773877	QQ_DX_Molly_Standard_11	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_11_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_11		2472
-	425018922	QQ_DX_Molly_Standard_8	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_8_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_8		5064
 	433089201	QQ_DX_Molly_Standard_38	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_38_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_38		2328
-	436091460	QQ_DX_Molly_Standard_124	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_124_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_124		6504
 	436566731	QQ_DX_Molly_Standard_63	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_63_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_63		3048
 	444364044	QQ_DX_Molly_Standard_62	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_62_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_62		3480
 	446586235	Concrete_Footstep-030	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-030_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-030		1392
@@ -272,7 +269,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	531548991	Cristal_Platform_Landings-005	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Cristal_Platform_Landings-005_13358D60.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Landings\Cristal_Platform_Landing\Cristal_Platform_Landings\Cristal_Platform_Landings-005		7116
 	537069590	QQ_DX_Molly_Standard_54	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_54_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_54		2904
 	539506131	Fireflies_In_5	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Fireflies_In_5_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Locomotion\Enter_Fireflies\In_Fireflies\Fireflies_In_5		9024
-	543518790	QQ_DX_Molly_Standard_42	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_42_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_42		4344
 	544481252	QQ_DX_Molly_Standard_17	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_17_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_17		2976
 	549926341	Lab_Footstep_24	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Lab_Footstep_24_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Metal_Footsteps\Lab_Metal_Footsteps\Lab_Footstep_24		6432
 	556684089	QQ_DX_Molly_Standard_75	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_75_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_75		2688
@@ -313,7 +309,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	728419561	Concrete_Footstep-019	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-019_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-019		1176
 	728841986	QQ_DX_Molly_Standard_44	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_44_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_44		2400
 	729046609	QQ_SFX_Startanimation	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_SFX_Startanimation_4DA1AA71.wem		\Actor-Mixer Hierarchy\Stages\SFX_StartAnimation\QQ_SFX_Startanimation		56608
-	729236973	QQ_DX_Molly_Standard_112	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_112_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_112		4704
 	731202797	QQ_DX_Molly_Standard_129	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\QQ_DX_Molly_Standard_129_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\DX\DX_Molly_Stantard\QQ_DX_Molly_Standard_129		3120
 	735533881	Concrete_Landings-002	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Landings-002_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Landing\Concrete_Landings\Concrete_Landings-002		4632
 	742299575	Concrete_Footstep-023	L:\Documents\GitHub\Quantum-Quartz\Quantum-Quartz_WwiseProject\.cache\Windows\SFX\Concrete_Footstep-023_4D3BBC73.wem		\Actor-Mixer Hierarchy\Player\Molly\Footsteps\Footsteps\Concrete_Footsteps\Concrete_Footsteps\Concrete_Footstep-023		1392

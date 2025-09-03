@@ -116,6 +116,7 @@ namespace Code.Scripts.Dialogue
                             if (delay >= Time.deltaTime || wait >= Time.deltaTime)
                             {
                                 wait = Mathf.Max(0, wait - Time.deltaTime);
+                                AkSoundEngine.PostEvent("Play_DX_Molly_Standard", gameObject);
                                 yield return new WaitForSecondsRealtime(delay);
                             }
                             else
