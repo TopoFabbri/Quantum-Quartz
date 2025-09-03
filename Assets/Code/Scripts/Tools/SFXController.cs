@@ -100,7 +100,7 @@ namespace Code.Scripts.Tools
 
             if (in_type == AkCallbackType.AK_MusicSyncUserCue)
             {
-                Debug.Log("User Cue '" + musicSyncInfo.userCueName + "' reached!");
+                //Debug.Log("User Cue '" + musicSyncInfo.userCueName + "' reached!");
                 MusicCue?.Invoke(musicSyncInfo.userCueName);
             }
         }
