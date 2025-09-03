@@ -9,9 +9,8 @@ namespace Code.Scripts.Cutscene
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) return;
-
-            if (!targetAnimator) return;
+            if (other.isTrigger || !other.CompareTag("Player") || !targetAnimator)
+                return;
             
             targetAnimator.SetTrigger(triggerName);
         }
