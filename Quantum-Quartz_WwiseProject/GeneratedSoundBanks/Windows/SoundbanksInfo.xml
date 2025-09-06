@@ -87,7 +87,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{64710B8F-132B-A54C-A4B7-75184F0982B2}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{00D57982-BFFA-134A-1B85-0EB02BB12FD2}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -1159,6 +1159,10 @@
 					<ShortName>Concrete_Footstep-010.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-010_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="886521257" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SecretWall.wav</ShortName>
+					<CachePath>SFX/SecretWall_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="886791020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SpringDesinflada.wav</ShortName>
 					<CachePath>SFX/SpringDesinflada_4D3BBC73.wem</CachePath>
@@ -2057,6 +2061,11 @@
 						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
 					</ActionSetSwitch>
 				</Event>
+				<Event Id="17527661" Name="Play_SecretWalls" DurationType="OneShot" DurationMin="3.1610832" DurationMax="3.1610832">
+					<MediaRefs>
+						<MediaRef Id="886521257"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="751341016" Name="Play_SFX_StartAnimation" DurationType="OneShot" DurationMin="3.9192708" DurationMax="3.9192708">
 					<MediaRefs>
 						<MediaRef Id="729046609"/>
@@ -2255,5 +2264,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{D0A634E0-DC82-2246-9561-876941FA89B3}</FileHash>
+	<FileHash>{E87C087F-A453-1EF7-DD38-D2CA748E98FD}</FileHash>
 </SoundBanksInfo>
