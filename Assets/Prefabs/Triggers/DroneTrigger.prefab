@@ -163,6 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb58d8587d9a331469b40ac22ecb1075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedMultiplier: 1
+  reusable: 0
+  noCollisionMove: 0
+  noCollisionAfter: 0
+  enableAfter: {fileID: 0}
   target: {fileID: 8140003363374541607}
 --- !u!61 &1784432303827916500
 BoxCollider2D:
@@ -251,7 +256,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.55792814, b: 0.2980392, a: 1}
+  m_Color: {r: 1, g: 0.55792814, b: 0.2980392, a: 0.2}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

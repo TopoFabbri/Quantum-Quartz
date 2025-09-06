@@ -52,8 +52,10 @@ namespace Code.Scripts.Dialogue
             }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             defaultTextBoxRect = new Rect();
             defaultTextBoxRect.min = textBox.offsetMin;
             defaultTextBoxRect.max = textBox.offsetMax;

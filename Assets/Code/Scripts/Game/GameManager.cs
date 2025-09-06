@@ -68,8 +68,10 @@ namespace Code.Scripts.Game
             Stats.SaveStats();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             SfxController.StopAllOn(gameObject);
             Stats.SaveStats();
         }

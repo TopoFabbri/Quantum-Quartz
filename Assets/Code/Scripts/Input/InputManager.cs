@@ -69,7 +69,7 @@ namespace Code.Scripts.Input
         public static event Action AbilityRelease;
         public static event Action Pause;
         public static event Action DevMode;
-        public static event Action<float> Interact;
+        public static event Action Interact;
 
         [SerializeField] private float moveDeadzone = 0.5f;
         [SerializeField] private float analogCutoff = 0.5f;
@@ -85,6 +85,7 @@ namespace Code.Scripts.Input
         private bool ignoreInput = false;
         private Dictionary<string, float> prevValues = new Dictionary<string, float>();
         private Dictionary<InputAction, Action> inputActionCallbacks = new Dictionary<InputAction, Action>();
+        private Vector2 cutsceneMovement = Vector2.zero;
 
         [SerializeField] private List<InputMap> inputMaps;
 
@@ -101,9 +102,8 @@ namespace Code.Scripts.Input
             SwitchGameMap(-1);
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            Input = GetComponent<PlayerInput>();
             string controlsMapping = PlayerPrefs.GetString("ControlsMapping", "");
             if (string.IsNullOrWhiteSpace(controlsMapping))
             {
@@ -115,8 +115,26 @@ namespace Code.Scripts.Input
             }
         }
 
+        private void OnEnable()
+        {
+            Input = GetComponent<PlayerInput>();
+            UnityEngine.InputSystem.InputAction moveAction = Input.actions.FindAction("Move");
+            if (moveAction?.enabled == true && moveAction.IsPressed())
+            {
+                OnMove(moveAction.ReadValue<Vector2>());
+            }
+            else if (!cutsceneMovement.Equals(Vector2.zero))
+            {
+                CutsceneMoveX(0);
+            }
+        }
+
         private void OnDisable()
         {
+            Move?.Invoke(Vector2.zero);
+            Jump?.Invoke(0);
+            AbilityRelease?.Invoke();
+
             Input = null;
         }
 
@@ -230,6 +248,10 @@ namespace Code.Scripts.Input
         protected void OnMove(InputValue input)
         {
             Vector2 value = input.Get<Vector2>();
+            OnMove(value);
+        }
+        private void OnMove(Vector2 value)
+        {
 #if INPUT_LAG
             ExecuteDelayed(() => {
 #endif
@@ -245,7 +267,8 @@ namespace Code.Scripts.Input
 
         public void CutsceneMoveX(float input)
         {
-            Move?.Invoke(new Vector2(input, 0));
+            cutsceneMovement = new Vector2(input, 0);
+            Move?.Invoke(cutsceneMovement);
         }
 
         /// <summary>
@@ -633,9 +656,8 @@ namespace Code.Scripts.Input
 #endif
         }
 
-        private void OnInteract(InputValue input)
+        private void OnInteract()
         {
-            float value = input.Get<float>();
 #if INPUT_LAG
             ExecuteDelayed(() => {
 #endif
@@ -643,7 +665,7 @@ namespace Code.Scripts.Input
 
             if (ignoreInput || !this.enabled) return;
 
-            Interact?.Invoke(value);
+            Interact?.Invoke();
 #if INPUT_LAG
             });
 #endif

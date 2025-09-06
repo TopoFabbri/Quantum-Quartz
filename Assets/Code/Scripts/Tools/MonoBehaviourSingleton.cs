@@ -30,7 +30,7 @@ namespace Code.Scripts.Tools
 
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_instance != null)
             {
@@ -43,7 +43,7 @@ namespace Code.Scripts.Tools
             Initialize();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             _instance = null;
         }

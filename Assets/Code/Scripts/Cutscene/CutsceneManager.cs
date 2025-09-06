@@ -11,6 +11,13 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
 {
+    // Amimation Events can't have bool inputs, but they can have enum inputs
+    public enum Boolean
+    {
+        True,
+        False
+    }
+
     [SerializeField] Transform playerDestinationX;
 
     Animator anim;
@@ -18,6 +25,10 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
     private void Start()
     {
         anim = GetComponent<Animator>();
+        for (int i = 0; i < anim.layerCount; i++)
+        {
+            anim.SetLayerWeight(i, 1);
+        }
     }
 
     public void TriggerAnimation(string triggerName)
@@ -32,21 +43,34 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
 
     public void MovePlayerToDestinationX(string chainTriggerName)
     {
-        EnableInputs(false);
+        if (!playerDestinationX)
+        {
+            Debug.LogError("Error: No player destination provided");
+            return;
+        }
+
+        EnableInputs(Boolean.False);
         StartCoroutine(MovePlayerX(chainTriggerName));
     }
 
-    IEnumerator MovePlayerX(string chainTriggerName)
+    // The discard parameter is there to hide this function from Animation Events.
+    // The only way I know of to hide functions is to have 2+ parameters
+    private IEnumerator MovePlayerX(string chainTriggerName, bool _ = false)
     {
         Transform player = GameManager.Instance.Player.transform;
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-        float xOffset = playerDestinationX.position.x - player.position.x;
+        float destinationX = playerDestinationX.position.x;
+        float xOffset = destinationX - player.position.x;
         while (xOffset != 0)
         {
             InputManager.Instance.CutsceneMoveX(Mathf.Clamp(xOffset, -1, 1));
             yield return new WaitForFixedUpdate();
 
-            xOffset = playerDestinationX.position.x - player.position.x;
+            if (playerDestinationX)
+            {
+                destinationX = playerDestinationX.position.x;
+            }
+            xOffset = destinationX - player.position.x;
 
             if (InputManager.Instance.enabled)
             {
@@ -55,7 +79,8 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
 
             if (xOffset * Math.Sign(xOffset) <= rb.velocity.x * 1.5f * Time.fixedDeltaTime * Math.Sign(xOffset))
             {
-                player.position = new Vector3(playerDestinationX.position.x, player.position.y, player.position.z);
+                InputManager.Instance.CutsceneMoveX(0);
+                player.position = new Vector3(destinationX, player.position.y, player.position.z);
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 xOffset = 0;
             }
@@ -67,14 +92,14 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         }
     }
 
-    public void EnablePlayer(bool enable)
+    public void EnablePlayer(Boolean enable)
     {
-        GameManager.Instance.Player.gameObject.SetActive(enable);
+        GameManager.Instance.Player.gameObject.SetActive(enable == Boolean.True);
     }
 
-    public void EnableInputs(bool enable)
+    public void EnableInputs(Boolean enable)
     {
-        InputManager.Instance.enabled = enable;
+        InputManager.Instance.enabled = enable == Boolean.True;
     }
 
     public void SetGameSpeed(float speed)
@@ -98,6 +123,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         string chainTriggerName = chainTriggerName_StartDialogue;
         chainTriggerName_StartDialogue = null;
 
+        EnableInputs(Boolean.True);
         DialogueManager.Instance.StartDialogue(conversation, () => {
             if (!string.IsNullOrWhiteSpace(chainTriggerName))
             {
@@ -119,7 +145,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         if (!string.IsNullOrWhiteSpace(chainTriggerName))
         {
             InputManager.Instance.WaitForInputAction(input, () => {
-                EnableInputs(true);
+                EnableInputs(Boolean.True);
                 TriggerAnimation(chainTriggerName);
             });
         }
