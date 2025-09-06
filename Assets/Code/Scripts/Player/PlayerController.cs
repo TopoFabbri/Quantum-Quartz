@@ -101,7 +101,7 @@ namespace Code.Scripts.Player
             }
         }
 
-        private void OnInteractHandler(float value) => Interact(value);
+        private void OnInteractHandler() => Interact(1);
         private bool Interact(float value)
         {
             if (value != 0 && interactables.Count > 0)

@@ -11,7 +11,7 @@ namespace Code.Scripts.Input
     /// <summary>
     /// Cast input events
     /// </summary>
-    public class InputManager : MonoBehaviour
+    public class InputManager : MonoBehaviourSingleton<InputManager>
     {
         const float INPUT_DELAY = 0.15f;
 
@@ -20,6 +20,21 @@ namespace Code.Scripts.Input
             Keyboard,
             Gamepad,
             DS4
+        }
+
+        public enum InputAction
+        {
+            Move,
+            Jump,
+            Interact,
+            AbilityBlue,
+            AbilityRed,
+            AbilityGreen,
+            AbilityYellow,
+            ColorBlue,
+            ColorRed,
+            ColorGreen,
+            ColorYellow,
         }
 
         public abstract class ReadOnlyInputMap
@@ -54,10 +69,10 @@ namespace Code.Scripts.Input
         public static event Action AbilityRelease;
         public static event Action Pause;
         public static event Action DevMode;
-        public static event Action<float> Interact;
+        public static event Action Interact;
 
-        [SerializeField] private float moveDeadzone = .5f;
-        [SerializeField] private float analogCutoff = .5f;
+        [SerializeField] private float moveDeadzone = 0.5f;
+        [SerializeField] private float analogCutoff = 0.5f;
         [SerializeField] private GameObject eventSystem;
 
         public static PlayerInput Input { get; private set; }
@@ -69,6 +84,8 @@ namespace Code.Scripts.Input
         private int inputMapIndex = 0;
         private bool ignoreInput = false;
         private Dictionary<string, float> prevValues = new Dictionary<string, float>();
+        private Dictionary<InputAction, Action> inputActionCallbacks = new Dictionary<InputAction, Action>();
+        private Vector2 cutsceneMovement = Vector2.zero;
 
         [SerializeField] private List<InputMap> inputMaps;
 
@@ -85,9 +102,8 @@ namespace Code.Scripts.Input
             SwitchGameMap(-1);
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            Input = GetComponent<PlayerInput>();
             string controlsMapping = PlayerPrefs.GetString("ControlsMapping", "");
             if (string.IsNullOrWhiteSpace(controlsMapping))
             {
@@ -99,8 +115,26 @@ namespace Code.Scripts.Input
             }
         }
 
+        private void OnEnable()
+        {
+            Input = GetComponent<PlayerInput>();
+            UnityEngine.InputSystem.InputAction moveAction = Input.actions.FindAction("Move");
+            if (moveAction?.enabled == true && moveAction.IsPressed())
+            {
+                OnMove(moveAction.ReadValue<Vector2>());
+            }
+            else if (!cutsceneMovement.Equals(Vector2.zero))
+            {
+                CutsceneMoveX(0);
+            }
+        }
+
         private void OnDisable()
         {
+            Move?.Invoke(Vector2.zero);
+            Jump?.Invoke(0);
+            AbilityRelease?.Invoke();
+
             Input = null;
         }
 
@@ -186,6 +220,27 @@ namespace Code.Scripts.Input
             }
         }
 
+        public void WaitForInputAction(InputAction input, Action action)
+        {
+            if (inputActionCallbacks.ContainsKey(input))
+            {
+                Action prevAction = inputActionCallbacks[input];
+                inputActionCallbacks[input] = () =>
+                {
+                    prevAction.Invoke();
+                    action.Invoke();
+                };
+            }
+            else
+            {
+                inputActionCallbacks[input] = () =>
+                {
+                    action.Invoke();
+                    inputActionCallbacks.Remove(input);
+                };
+            }
+        }
+
         /// <summary>
         /// Called when input move is pressed
         /// </summary>
@@ -193,22 +248,27 @@ namespace Code.Scripts.Input
         protected void OnMove(InputValue input)
         {
             Vector2 value = input.Get<Vector2>();
+            OnMove(value);
+        }
+        private void OnMove(Vector2 value)
+        {
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
+            inputActionCallbacks.GetValueOrDefault(InputAction.Move, null)?.Invoke();
 
-                    Move?.Invoke(value.magnitude > moveDeadzone ? value : Vector2.zero);
+            if (ignoreInput || !this.enabled) return;
+
+            Move?.Invoke(value.magnitude > moveDeadzone ? value : Vector2.zero);
 #if INPUT_LAG
-                };
-                func();
-            }
-            StartCoroutine(Coroutine());
+            });
 #endif
+        }
+
+        public void CutsceneMoveX(float input)
+        {
+            cutsceneMovement = new Vector2(input, 0);
+            Move?.Invoke(cutsceneMovement);
         }
 
         /// <summary>
@@ -218,60 +278,23 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
+            ExecuteDelayed(() => {
+#endif
+            inputActionCallbacks.GetValueOrDefault(InputAction.Jump, null)?.Invoke();
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("Jump", 0) < value))
             {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
-#endif
-                    if (ignoreInput) return;
-
-                    if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("Jump", 0) < value))
-                    {
-                        Jump?.Invoke(1);
-                    }
-                    else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
-                    {
-                        Jump?.Invoke(0);
-                    }
-                    prevValues["Jump"] = value;
-#if INPUT_LAG
-                };
-                func();
+                Jump?.Invoke(1);
             }
-            StartCoroutine(Coroutine());
-#endif
-        }
-
-        /// <summary>
-        /// Call when change to color red input
-        /// </summary>
-        private void OnColorRed(InputValue input)
-        {
-            float value = input.Get<float>();
-#if INPUT_LAG
-            IEnumerator Coroutine()
+            else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
             {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
-#endif
-                    if (ignoreInput) return;
-
-                    if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorRed", 0));
-                    }
-                    else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRed", 0) < value))
-                    {
-                        ColorRed?.Invoke();
-                    }
-                    prevValues["ColorRed"] = value;
-#if INPUT_LAG
-                };
-                func();
+                Jump?.Invoke(0);
             }
-            StartCoroutine(Coroutine());
+            prevValues["Jump"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -282,28 +305,58 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorBlue", 0));
-                    }
-                    else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlue", 0) < value))
-                    {
-                        ColorBlue?.Invoke();
-                    }
-                    prevValues["ColorBlue"] = value;
-#if INPUT_LAG
-                };
-                func();
+            inputActionCallbacks.GetValueOrDefault(InputAction.ColorBlue, null)?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.AbilityBlue, null)?.Invoke();
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorBlue", 0));
+            }
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlue", 0) < value))
+            {
+                ColorBlue?.Invoke();
+            }
+            prevValues["ColorBlue"] = value;
+#if INPUT_LAG
+            });
+#endif
+        }
+
+        /// <summary>
+        /// Call when change to color red input
+        /// </summary>
+        private void OnColorRed(InputValue input)
+        {
+            float value = input.Get<float>();
+#if INPUT_LAG
+            ExecuteDelayed(() => {
+#endif
+            inputActionCallbacks.GetValueOrDefault(InputAction.ColorRed, null)?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.AbilityRed, null)?.Invoke();
+            }
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorRed", 0));
+            }
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRed", 0) < value))
+            {
+                ColorRed?.Invoke();
+            }
+            prevValues["ColorRed"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -314,28 +367,27 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorGreen", 0));
-                    }
-                    else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreen", 0) < value))
-                    {
-                        ColorGreen?.Invoke();
-                    }
-                    prevValues["ColorGreen"] = value;
-#if INPUT_LAG
-                };
-                func();
+            inputActionCallbacks.GetValueOrDefault(InputAction.ColorGreen, null)?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.AbilityGreen, null)?.Invoke();
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorGreen", 0));
+            }
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreen", 0) < value))
+            {
+                ColorGreen?.Invoke();
+            }
+            prevValues["ColorGreen"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -346,28 +398,27 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorYellow", 0));
-                    }
-                    else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellow", 0) < value))
-                    {
-                        ColorYellow?.Invoke();
-                    }
-                    prevValues["ColorYellow"] = value;
-#if INPUT_LAG
-                };
-                func();
+            inputActionCallbacks.GetValueOrDefault(InputAction.ColorYellow, null)?.Invoke();
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.AbilityYellow, null)?.Invoke();
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (activeMap.GetDoubleClickPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorYellow", 0));
+            }
+            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellow", 0) < value))
+            {
+                ColorYellow?.Invoke();
+            }
+            prevValues["ColorYellow"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -377,23 +428,16 @@ namespace Code.Scripts.Input
         private void OnRestart()
         {
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
+            if (ignoreInput || !this.enabled) return;
 
-                    if (!Application.isEditor)
-                        return;
+            if (!Application.isEditor)
+                return;
 
-                    Restart?.Invoke();
+            Restart?.Invoke();
 #if INPUT_LAG
-                };
-                func();
-            }
-            StartCoroutine(Coroutine());
+            });
 #endif
         }
 
@@ -404,32 +448,45 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    HandleAbility(value, prevValues.GetValueOrDefault("Ability", 0));
-                    prevValues["Ability"] = input.Get<float>();
-#if INPUT_LAG
-                };
-                func();
+            switch (ColorSwitcher.Instance.CurrentColor)
+            {
+                case ColorSwitcher.QColor.Blue:
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityBlue, null)?.Invoke();
+                    break;
+                case ColorSwitcher.QColor.Red:
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityRed, null)?.Invoke();
+                    break;
+                case ColorSwitcher.QColor.Green:
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityGreen, null)?.Invoke();
+                    break;
+                case ColorSwitcher.QColor.Yellow:
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityYellow, null)?.Invoke();
+                    break;
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            HandleAbility(value, prevValues.GetValueOrDefault("Ability", 0));
+            prevValues["Ability"] = input.Get<float>();
+#if INPUT_LAG
+            });
 #endif
         }
 
         private void HandleAbility(float value, float prevValue)
         {
-            if (ignoreInput) return;
+            if (ignoreInput || !this.enabled) return;
 
             if (value == 1 || (value > analogCutoff && prevValue < value))
+            {
                 AbilityPress?.Invoke();
+            }
             else
+            {
                 AbilityRelease?.Invoke();
+            }
         }
 
         /// <summary>
@@ -438,20 +495,13 @@ namespace Code.Scripts.Input
         private void OnPause()
         {
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
+            if (ignoreInput || !this.enabled) return;
 
-                    Pause?.Invoke();
+            Pause?.Invoke();
 #if INPUT_LAG
-                };
-                func();
-            }
-            StartCoroutine(Coroutine());
+            });
 #endif
         }
 
@@ -461,52 +511,16 @@ namespace Code.Scripts.Input
         private void OnDevMode()
         {
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
+            if (ignoreInput || !this.enabled) return;
 
-                    if (!Application.isEditor)
-                        return;
+            if (!Application.isEditor)
+                return;
 
-                    DevMode?.Invoke();
+            DevMode?.Invoke();
 #if INPUT_LAG
-                };
-                func();
-            }
-            StartCoroutine(Coroutine());
-#endif
-        }
-
-        private void OnColorRedAbility(InputValue input)
-        {
-            float value = input.Get<float>();
-#if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
-#endif
-                    if (ignoreInput) return;
-
-                    if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRedAbility", 0) < value))
-                    {
-                        ColorRed?.Invoke();
-                    }
-                    if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorRedAbility", 0));
-                    }
-                    prevValues["ColorRedAbility"] = value;
-#if INPUT_LAG
-                };
-                func();
-            }
-            StartCoroutine(Coroutine());
+            });
 #endif
         }
 
@@ -514,28 +528,61 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlueAbility", 0) < value))
-                    {
-                        ColorBlue?.Invoke();
-                    }
-                    if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorBlueAbility", 0));
-                    }
-                    prevValues["ColorBlueAbility"] = value;
-#if INPUT_LAG
-                };
-                func();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorBlueAbility", 0) < value))
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.ColorBlue, null)?.Invoke();
+                if (!ignoreInput && this.enabled)
+                {
+                    ColorBlue?.Invoke();
+                }
+                if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+                {
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityBlue, null)?.Invoke();
+                }
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorBlueAbility", 0));
+            }
+            prevValues["ColorBlueAbility"] = value;
+#if INPUT_LAG
+            });
+#endif
+        }
+
+        private void OnColorRedAbility(InputValue input)
+        {
+            float value = input.Get<float>();
+#if INPUT_LAG
+            ExecuteDelayed(() => {
+#endif
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorRedAbility", 0) < value))
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.ColorRed, null)?.Invoke();
+                if (!ignoreInput && this.enabled)
+                {
+                    ColorRed?.Invoke();
+                }
+                if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+                {
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityRed, null)?.Invoke();
+                }
+            }
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Red)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorRedAbility", 0));
+            }
+            prevValues["ColorRedAbility"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -543,28 +590,34 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreenAbility", 0) < value))
-                    {
-                        ColorGreen?.Invoke();
-                    }
-                    if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorGreenAbility", 0));
-                    }
-                    prevValues["ColorGreenAbility"] = value;
-#if INPUT_LAG
-                };
-                func();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreenAbility", 0) < value))
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.ColorGreen, null)?.Invoke();
+                if (!ignoreInput && this.enabled)
+                {
+                    ColorGreen?.Invoke();
+                }
+                if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
+                {
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityGreen, null)?.Invoke();
+                }
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreenAbility", 0) < value))
+            {
+                ColorGreen?.Invoke();
+            }
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Green)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorGreenAbility", 0));
+            }
+            prevValues["ColorGreenAbility"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
@@ -572,50 +625,62 @@ namespace Code.Scripts.Input
         {
             float value = input.Get<float>();
 #if INPUT_LAG
-            IEnumerator Coroutine()
-            {
-                yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
+            ExecuteDelayed(() => {
 #endif
-                    if (ignoreInput) return;
-
-                    if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellowAbility", 0) < value))
-                    {
-                        ColorYellow?.Invoke();
-                    }
-                    if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
-                    {
-                        HandleAbility(value, prevValues.GetValueOrDefault("ColorYellowAbility", 0));
-                    }
-                    prevValues["ColorYellowAbility"] = value;
-#if INPUT_LAG
-                };
-                func();
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellowAbility", 0) < value))
+            {
+                inputActionCallbacks.GetValueOrDefault(InputAction.ColorYellow, null)?.Invoke();
+                if (!ignoreInput && this.enabled)
+                {
+                    ColorYellow?.Invoke();
+                }
+                if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
+                {
+                    inputActionCallbacks.GetValueOrDefault(InputAction.AbilityYellow, null)?.Invoke();
+                }
             }
-            StartCoroutine(Coroutine());
+
+            if (ignoreInput || !this.enabled) return;
+
+            if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellowAbility", 0) < value))
+            {
+                ColorYellow?.Invoke();
+            }
+            if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow)
+            {
+                HandleAbility(value, prevValues.GetValueOrDefault("ColorYellowAbility", 0));
+            }
+            prevValues["ColorYellowAbility"] = value;
+#if INPUT_LAG
+            });
 #endif
         }
 
-        private void OnInteract(InputValue input)
+        private void OnInteract()
         {
-            float value = input.Get<float>();
 #if INPUT_LAG
+            ExecuteDelayed(() => {
+#endif
+            inputActionCallbacks.GetValueOrDefault(InputAction.Interact, null)?.Invoke();
+
+            if (ignoreInput || !this.enabled) return;
+
+            Interact?.Invoke();
+#if INPUT_LAG
+            });
+#endif
+        }
+
+#if INPUT_LAG
+        private void ExecuteDelayed(Action action)
+        {
             IEnumerator Coroutine()
             {
                 yield return new WaitForSecondsRealtime(INPUT_DELAY);
-                Action func = () =>
-                {
-#endif
-                    if (ignoreInput) return;
-
-                    Interact?.Invoke(value);
-#if INPUT_LAG
-                };
-                func();
+                action.Invoke();
             }
             StartCoroutine(Coroutine());
-#endif
         }
+#endif
     }
 }

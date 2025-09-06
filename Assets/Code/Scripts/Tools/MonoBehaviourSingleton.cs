@@ -7,6 +7,8 @@ namespace Code.Scripts.Tools
     {
         private static MonoBehaviourSingleton<T> _instance;
 
+        public static bool HasInstance => _instance;
+
         public static T Instance
         {
             get 
@@ -28,7 +30,7 @@ namespace Code.Scripts.Tools
 
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_instance != null)
             {
@@ -41,7 +43,7 @@ namespace Code.Scripts.Tools
             Initialize();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             _instance = null;
         }

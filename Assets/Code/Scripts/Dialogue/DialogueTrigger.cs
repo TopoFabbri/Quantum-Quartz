@@ -18,9 +18,10 @@ namespace Code.Scripts.Dialogue
 
         private void Awake()
         {
-            SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
-            if (sprite)
+            foreach (SpriteRenderer sprite in gameObject.GetComponents<SpriteRenderer>())
+            {
                 sprite.enabled = false;
+            }
             targetHighlight.SetActive(false);
         }
 
@@ -48,7 +49,7 @@ namespace Code.Scripts.Dialogue
             }
             else
             {
-                Destroy(transform.parent.gameObject);
+                transform.parent.gameObject.SetActive(false);
             }
         }
     }

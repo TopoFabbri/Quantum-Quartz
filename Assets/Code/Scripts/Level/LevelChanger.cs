@@ -17,7 +17,6 @@ namespace Code.Scripts.Level
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
         [SerializeField] private GameObject playerGO;
-        [SerializeField] private InputManager inputManager;
 
         private int _currentLevel = -1;
         public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
@@ -60,7 +59,7 @@ namespace Code.Scripts.Level
 
             yield return new WaitForSeconds(time);
 
-            inputManager.EnableUIMap();
+            InputManager.Instance.EnableUIMap();
             playerGO.SetActive(false);
             endLevelCanvas.gameObject.SetActive(true);
             endLevelFirstSelectedButton.Select();

@@ -34,7 +34,6 @@ namespace Code.Scripts.Menu
 
         [SerializeField] private Button controlsButton;
         [SerializeField] private TMP_Dropdown controlsDropdown;
-        [SerializeField] private InputManager inputManager;
         [SerializeField] private Image controlsImage;
         [SerializeField] private SerializedDictionary<string, MappingImages> controlMappingImages;
 
@@ -137,7 +136,7 @@ namespace Code.Scripts.Menu
         {
             string controlsMapping = controlsDropdown.options[controlsDropdown.value].text;
             PlayerPrefs.SetString("ControlsMapping", controlsMapping);
-            inputManager?.SwitchGameMap(controlsMapping);
+            InputManager.Instance.SwitchGameMap(controlsMapping);
 
             if (controlMappingImages.TryGetValue(controlsMapping, out var mappingImages))
             {

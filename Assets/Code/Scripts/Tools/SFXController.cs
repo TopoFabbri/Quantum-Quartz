@@ -22,17 +22,21 @@ namespace Code.Scripts.Tools
         private const string GreenEvent = "Play_Change_Quartz_G";
 
         public static GameObject musicObject;
+        public static event Action<string> MusicCue;
+
+        private static uint _musicEventId;
         
         /// <summary>
         /// Call music sound event
         /// </summary>
         /// <param name="on"></param>
         /// <param name="gameObject"></param>
-        public static void MusicOnOff(bool on, GameObject gameObject)
+        public static void MusicOnOff(bool on, GameObject gameObject, Event musicEvent)
         {
             if (on)
             {
-                AkSoundEngine.PostEvent(PlayMusicEvent, gameObject);
+                _musicEventId = musicEvent.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncBar | AkCallbackType.AK_MusicSyncBeat | AkCallbackType.AK_MusicSyncUserCue),
+                    MusicCallbackFunction);
                 musicObject = gameObject;
             }
             else
@@ -76,7 +80,7 @@ namespace Code.Scripts.Tools
             if (!string.IsNullOrEmpty(colorEvent))
                 AkSoundEngine.PostEvent(colorEvent, gameObject);
         }
-        
+
         public static void PlaySpring(GameObject go)
         {
             AkSoundEngine.PostEvent(SpringEvent, go);
@@ -86,9 +90,19 @@ namespace Code.Scripts.Tools
         {
             if (!AkSoundEngine.IsGameObjectRegistered(go))
                 return;
-            
+
             AkSoundEngine.StopAll(go);
         }
-        
+
+        private static void MusicCallbackFunction(object in_cookie, AkCallbackType in_type, AkCallbackInfo in_info)
+        {
+            AkMusicSyncCallbackInfo musicSyncInfo = (AkMusicSyncCallbackInfo)in_info;
+
+            if (in_type == AkCallbackType.AK_MusicSyncUserCue)
+            {
+                //Debug.Log("User Cue '" + musicSyncInfo.userCueName + "' reached!");
+                MusicCue?.Invoke(musicSyncInfo.userCueName);
+            }
+        }
     }
 }
