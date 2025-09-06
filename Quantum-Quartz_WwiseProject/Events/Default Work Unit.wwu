@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" SchemaVersion="110">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{E5105D92-E7AF-4720-808D-03F2A2AD0F55}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_SecretWalls" ID="{90C4B4F8-2C28-4353-9B5A-36FC8C049A4F}">
+					<ChildrenList>
+						<Action Name="" ID="{79115385-AC14-499C-BAD1-9027E88A504B}" ShortID="305509261">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SecretWalls" ID="{93558863-ACD1-4249-B14C-A209F6924B50}" WorkUnitID="{779AE7A8-2F58-4B80-ACE7-264DFEDDA257}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>
