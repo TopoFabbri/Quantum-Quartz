@@ -7,6 +7,8 @@ namespace Code.Scripts.Tools
     {
         private static MonoBehaviourSingleton<T> _instance;
 
+        public static bool HasInstance => _instance;
+
         public static T Instance
         {
             get 

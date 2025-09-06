@@ -33,7 +33,6 @@ namespace Code.Scripts.Dialogue
         [SerializeField] private TextMeshProUGUI dialogueText;
         [SerializeField] private Button dialogueButton;
         [SerializeField] private RectTransform textBox;
-        [SerializeField] private InputManager inputManager;
         [SerializeField] private PauseController pauseController;
         [SerializeField] private Event pauseEvent;
         [SerializeField] private Event unPauseEvent;
@@ -75,7 +74,7 @@ namespace Code.Scripts.Dialogue
         IEnumerator DialogueLoop(Conversation conversation)
         {
             pauseController.EnterDialogue();
-            inputManager.EnableUIMap();
+            InputManager.Instance.EnableUIMap();
             dialoguePanelAnim.gameObject.SetActive(true);
             dialogueButton.Select();
             pauseEvent.Post(gameObject);
@@ -145,7 +144,7 @@ namespace Code.Scripts.Dialogue
             if (!interrupted)
             {
                 pauseController.ExitDialogue();
-                inputManager.EnableGameMap();
+                InputManager.Instance.EnableGameMap();
                 dialoguePanelAnim.gameObject.SetActive(false);
                 unPauseEvent.Post(gameObject);
             }
