@@ -25,6 +25,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
     private void Start()
     {
         anim = GetComponent<Animator>();
+        anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         for (int i = 0; i < anim.layerCount; i++)
         {
             anim.SetLayerWeight(i, 1);
