@@ -28,13 +28,14 @@ namespace AK
         static const AkUniqueID PLAY_DASH_L = 1886667247U;
         static const AkUniqueID PLAY_DASH_R = 1886667249U;
         static const AkUniqueID PLAY_DEATH = 1172822028U;
-        static const AkUniqueID PLAY_DX_MOLLY_STANTARD = 232066878U;
+        static const AkUniqueID PLAY_DX_MOLLY_STANDARD = 3684740494U;
         static const AkUniqueID PLAY_FOOTSTEPS = 3854155799U;
         static const AkUniqueID PLAY_HIT_CHAINS = 2170076162U;
         static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_LUCIERNAGAS = 3912385716U;
         static const AkUniqueID PLAY_MX_SWITCH = 2855120456U;
+        static const AkUniqueID PLAY_SECRETWALLS = 17527661U;
         static const AkUniqueID PLAY_SFX_STARTANIMATION = 751341016U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAM_SPRING = 358772238U;
