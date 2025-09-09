@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Code.Scripts.Tools;
+using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
+#endif
 
 namespace Code.Scripts.Level
 {
@@ -21,7 +24,8 @@ namespace Code.Scripts.Level
         [Header("DebugItems")] 
         [SerializeField] private int particleQty;
         [SerializeField] private float tileQty;
-        
+
+#if UNITY_EDITOR
         [InspectorButton("UpdateDensity")]
         private void UpdateSettings()
         {
@@ -63,5 +67,6 @@ namespace Code.Scripts.Level
             foreach (ParticleDensityController particleDensityController in particleDensityControllers)
                 particleDensityController.UpdateSettings();
         }
+#endif
     }
 }
