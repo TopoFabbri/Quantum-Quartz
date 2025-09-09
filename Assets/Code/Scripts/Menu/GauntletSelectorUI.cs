@@ -13,9 +13,9 @@ public class GauntletSelectorUI : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private Button backButton;
 
-    [Header("Popup Confirmación")]
+    [Header("Popup Confirmation")]
     [SerializeField] private GameObject confirmPopup;
-    [SerializeField] private TextMeshProUGUI confirmText;
+    [SerializeField] private GauntletPurchasePopup gauntletPurchasePopup;
     [SerializeField] private Button confirmYesButton;
     [SerializeField] private Button confirmNoButton;
 
@@ -40,19 +40,19 @@ public class GauntletSelectorUI : MonoBehaviour
             if (buttonText != null)
             {
                 buttonText.text = gauntlet.gauntletName + 
-                    (gauntlet.isUnlocked ? "" : $" (Costo: {gauntlet.costInKeys} llaves)");
+                    (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
             }
 
             if (gauntlet.isUnlocked)
             {
-                // Ya comprado → permite jugar
-                newButton.onClick.AddListener(() => SceneManager.LoadScene(gauntlet.sceneName));
+                // Ya comprado
+                newButton.onClick.AddListener(() => SceneManager.LoadScene(gauntlet.sceneReference.BuildIndex));
             }
             else
             {
-                // No comprado → abre popup
+                // No comprado
                 newButton.onClick.AddListener(() => TryPurchase(gauntlet));
-                newButton.interactable = true; // visible pero va a abrir compra
+                newButton.interactable = true; 
             }
 
             generatedButtons.Add(newButton);
@@ -62,8 +62,7 @@ public class GauntletSelectorUI : MonoBehaviour
     private void TryPurchase(GauntletsList.GauntletData gauntlet)
     {
         gauntletToBuy = gauntlet;
-        confirmPopup.SetActive(true);
-        confirmText.text = $"¿Comprar {gauntlet.gauntletName} por {gauntlet.costInKeys} llaves?";
+        gauntletPurchasePopup.Open(gauntletToBuy, this);
     }
 
     private void SetupPopup()
