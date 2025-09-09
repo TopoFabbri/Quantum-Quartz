@@ -51,6 +51,11 @@ namespace Code.Scripts.Menu
         private GameObject levelSelectorPanel;
 
         [SerializeField] private Button levelSelectorFirstButton;
+        
+        [HeaderPlus("Gauntlet Selector")] [SerializeField]
+        private GameObject gauntletSelectorPanel;
+
+        [SerializeField] private Button gauntletSelectorFirstButton;
 
         [HeaderPlus("Credits")] [SerializeField]
         private GameObject creditsPanel;
@@ -184,6 +189,13 @@ namespace Code.Scripts.Menu
             levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
             (levelSelectorPanel.activeSelf ? levelSelectorFirstButton : mainMenuButton).Select();
             if (levelSelectorPanel.activeSelf) levelSelectorFirstButton.Select();
+        }
+        
+        public void TurnGauntletsSelector()
+        {
+            gauntletSelectorPanel.SetActive(!gauntletSelectorPanel.activeSelf);
+            (gauntletSelectorPanel.activeSelf ? gauntletSelectorFirstButton : mainMenuButton).Select();
+            if (gauntletSelectorPanel.activeSelf) gauntletSelectorFirstButton.Select();
         }
 
         public void TurnControls()

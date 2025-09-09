@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class GauntletPurchasePopup : MonoBehaviour
 {
     [SerializeField] private GameObject popupPanel;
-    [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
 
@@ -24,7 +23,6 @@ public class GauntletPurchasePopup : MonoBehaviour
         pendingGauntlet = gauntlet;
         selector = selectorRef;
 
-        messageText.text = $"Comprar {gauntlet.gauntletName} por {gauntlet.costInKeys} 🔑 ?";
         popupPanel.SetActive(true);
         confirmButton.Select();
     }
