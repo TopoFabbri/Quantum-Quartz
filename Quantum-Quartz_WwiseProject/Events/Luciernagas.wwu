@@ -9,6 +9,11 @@
 							<PropertyList>
 								<Property Name="FadeInCurve" Type="int16" Value="6"/>
 								<Property Name="FadeTime" Type="Real64" Value="1"/>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
@@ -26,6 +31,11 @@
 						<Action Name="" ID="{4F3C42AD-86D9-4449-86BB-63BF8A3CDC21}" ShortID="1022877246">
 							<PropertyList>
 								<Property Name="ActionType" Type="int16" Value="36"/>
+								<Property Name="Inclusion" Type="bool">
+									<ValueList>
+										<Value>False</Value>
+									</ValueList>
+								</Property>
 								<Property Name="SeekPercent" Type="Real64" Value="50">
 									<ModifierList>
 										<ModifierInfo>
