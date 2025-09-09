@@ -53,14 +53,14 @@ namespace Code.Scripts.States
 
         public override void SpawnDust()
         {
-            Vector2 position = sharedContext.Transform.position;
             Vector2 direction = sharedContext.facingRight ? Vector2.left : Vector2.right;
+            Vector2 position = sharedContext.Transform.position;
             
-            RaycastHit2D hit = Physics2D.Raycast(position, direction, sharedContext.GlobalSettings.wallCheckDis, sharedContext.SolidFilter.layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(position, direction, sharedContext.GlobalSettings.wallCheckDis * 4f, sharedContext.SolidFilter.layerMask);
             
-            Debug.DrawLine(position, position + direction * sharedContext.GlobalSettings.wallCheckDis, Color.red, 0.1f);
+            Debug.DrawLine(position, position + direction * sharedContext.GlobalSettings.wallCheckDis, Color.yellow, 0.5f);
             
-            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
+            if (!hit.collider || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
             
             Transform parent = hit.collider.transform;

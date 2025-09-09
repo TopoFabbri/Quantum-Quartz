@@ -73,7 +73,7 @@ namespace Code.Scripts.States
             Vector2 position = (Vector2)sharedContext.Transform.position + sharedContext.GlobalSettings.groundCheckOffset;
             RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, sharedContext.GlobalSettings.groundCheckDistance, sharedContext.SolidFilter.layerMask);
             
-            if (hit.collider == null || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
+            if (!hit.collider || (!hit.collider.CompareTag("Floor") && !hit.collider.CompareTag("Platform")))
                 return;
             
             Transform parent = hit.collider.transform;

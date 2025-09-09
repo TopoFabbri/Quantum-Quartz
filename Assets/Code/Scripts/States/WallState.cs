@@ -15,6 +15,7 @@ namespace Code.Scripts.States
         protected readonly WallSettings wallSettings;
 
         private float savedGravityScale;
+        private bool exited;
 
         public WallState(T id, WallSettings stateSettings, SharedContext sharedContext) : base(id, stateSettings.fallSettings, sharedContext)
         {
@@ -46,6 +47,8 @@ namespace Code.Scripts.States
 
             PositionPlayer();
 
+            exited = false;
+            
             sharedContext.MonoBehaviour.StartCoroutine(SpawnDusts());
         }
 
@@ -53,6 +56,7 @@ namespace Code.Scripts.States
         {
             base.OnExit();
 
+            exited = true;
             sharedContext.Transform.parent = null;
             sharedContext.Rigidbody.gravityScale = savedGravityScale;
             sharedContext.jumpFallTime = 0;
@@ -138,8 +142,7 @@ namespace Code.Scripts.States
                 sharedContext.Transform.position = newPos;
             }
         }
-
-
+        
         private bool IsWall(Transform t)
         {
             return t && (t.CompareTag("Wall") || t.CompareTag("Floor") || (t.CompareTag("Platform") && !t.TryGetComponent(out PlatformEffector2D _)));
@@ -163,14 +166,17 @@ namespace Code.Scripts.States
         /// </summary>
         private void SpawnDust()
         {
+            if (exited)
+                return;
+            
             Vector2 facingDir = sharedContext.facingRight ? Vector3.right : Vector3.left;
-            RaycastHit2D hit = Physics2D.Raycast((Vector2)sharedContext.Transform.position + facingDir, -facingDir, wallSettings.wallDis, sharedContext.SolidFilter.layerMask);
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)sharedContext.Transform.position - facingDir, facingDir, wallSettings.wallDis, sharedContext.SolidFilter.layerMask);
 
             if (!hit.collider)
                 return;
 
-            Vector2 position = (Vector2)sharedContext.Transform.position + facingDir * wallSettings.wallDis + Vector2.down * wallSettings.dustOffset;
-            Quaternion rotation = Quaternion.Euler(0f, 0f, sharedContext.facingRight ? 90f : -90f);
+            Vector2 position = (Vector2)sharedContext.Transform.position - facingDir * wallSettings.wallDis + Vector2.down * wallSettings.dustOffset;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, sharedContext.facingRight ? -90f : 90f);
 
             Object.Instantiate(wallSettings.dust, position, rotation);
         }
