@@ -15,7 +15,6 @@ namespace Code.Scripts.States
         protected readonly SpawnSettings spawnSettings;
         
         private readonly SharedContext sharedContext;
-        private readonly UnityEngine.Camera camera;
 
         public bool Ended { get; private set; }
         
@@ -23,7 +22,6 @@ namespace Code.Scripts.States
         {
             this.spawnSettings = stateSettings;
             this.sharedContext = sharedContext;
-            camera = UnityEngine.Camera.main;
         }
         
         public override void OnEnter()
@@ -35,8 +33,6 @@ namespace Code.Scripts.States
             sharedContext.Rigidbody.isKinematic = true;
             sharedContext.spring = null;
             sharedContext.SetFalling(false);
-            
-            Reposition();
 
             sharedContext.Collider.enabled = true;
             Ended = false;
@@ -50,10 +46,11 @@ namespace Code.Scripts.States
             sharedContext.Rigidbody.isKinematic = false;
         }
 
-        public override void OnUpdate()
+        public override void OnFixedUpdate()
         {
-            base.OnUpdate();
-            
+            base.OnFixedUpdate();
+
+            Reposition();
             sharedContext.GearFX.position = sharedContext.Transform.position + Vector3.up;
         }
 

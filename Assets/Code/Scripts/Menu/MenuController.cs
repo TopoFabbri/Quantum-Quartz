@@ -34,15 +34,11 @@ namespace Code.Scripts.Menu
             {
                 versionText.text = $"v.{Application.version}";
             }
-            
+
             //Cambiar texto según el flag de Stats
-            if (Stats.GetLastLevelName() != null)
+            if (playButtonText)
             {
-                playButtonText.text = "CONTINUE";
-            }
-            else
-            {
-                playButtonText.text = "PLAY";
+                playButtonText.text = Stats.GetLastLevelName() != null ? "CONTINUE" : "PLAY";
             }
         }
 
