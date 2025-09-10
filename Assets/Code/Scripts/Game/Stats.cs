@@ -2,6 +2,7 @@ using Code.Scripts.Level;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Code.Scripts.Colors;
 
 namespace Code.Scripts.Game
 {
@@ -28,6 +29,7 @@ namespace Code.Scripts.Game
             public abstract int CurDeaths { get; }
             public abstract Timer CurTimer { get; }
             public abstract Vector2 CurCheckpoint { get; }
+            public abstract IReadOnlyCollection<ColorSwitcher.QColor> CurColors { get; }
         }
 
         private class TotalSlotStats : ReadOnlyTotalSlotStats
@@ -78,6 +80,7 @@ namespace Code.Scripts.Game
             public int curDeaths;
             public Timer curTimer;
             public Vector2 curCheckpoint;
+            public List<ColorSwitcher.QColor> curColors;
 
             public override int TotalDeaths => totalDeaths;
             public override Timer TotalTimer => totalTimer;
@@ -86,6 +89,7 @@ namespace Code.Scripts.Game
             public override int CurDeaths => curDeaths;
             public override Timer CurTimer => curTimer;
             public override Vector2 CurCheckpoint => curCheckpoint;
+            public override IReadOnlyCollection<ColorSwitcher.QColor> CurColors => curColors;
 
             public LevelStats(int slot, int level)
             {
@@ -113,6 +117,16 @@ namespace Code.Scripts.Game
                     PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CurCheckpointX", float.NegativeInfinity),
                     PlayerPrefs.GetFloat($"Slot{slot}_Level{level}CurCheckpointY", float.NegativeInfinity)
                 );
+
+                curColors = new List<ColorSwitcher.QColor>();
+                flags = PlayerPrefs.GetInt($"Slot{slot}_Level{level}CurColors");
+                foreach (ColorSwitcher.QColor value in (ColorSwitcher.QColor[])System.Enum.GetValues(typeof(ColorSwitcher.QColor)))
+                {
+                    if ((flags & (int)value) > 0)
+                    {
+                        curColors.Add(value);
+                    }
+                }
             }
 
             public void ResetCurrent()
@@ -124,22 +138,29 @@ namespace Code.Scripts.Game
 
             public void Save()
             {
-                PlayerPrefs.SetInt($"Slot{slot}_Level{level}TotalDeaths", totalDeaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}TotalTime", totalTimer.time);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}RecordTime", recordTimer.time);
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}TotalDeaths", TotalDeaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}TotalTime", TotalTimer.time);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}RecordTime", RecordTimer.time);
 
                 //Makes an int32 out of ids, instead of 32 individual bools
                 int flags = 0;
-                foreach (int id in collectibles)
+                foreach (int id in Collectibles)
                 {
                     flags += 1 << id;
                 }
                 PlayerPrefs.SetInt($"Slot{slot}_Level{level}Collectibles", flags);
 
-                PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurDeaths", curDeaths);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurTime", curTimer.time);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointX", curCheckpoint.x);
-                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointY", curCheckpoint.y);
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurDeaths", CurDeaths);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurTime", CurTimer.time);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointX", CurCheckpoint.x);
+                PlayerPrefs.SetFloat($"Slot{slot}_Level{level}CurCheckpointY", CurCheckpoint.y);
+
+                flags = 0;
+                foreach (ColorSwitcher.QColor value in CurColors)
+                {
+                    flags |= (int)value;
+                }
+                PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurColors", flags);
             }
 
             public static void Clear(int slot, int level)
@@ -152,6 +173,7 @@ namespace Code.Scripts.Game
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurTime");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointX");
                 PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurCheckpointY");
+                PlayerPrefs.DeleteKey($"Slot{slot}_Level{level}CurColors");
             }
         }
         #endregion
@@ -284,6 +306,13 @@ namespace Code.Scripts.Game
         public static bool HasCollectible(int id)
         {
             return Instance.levelStats.collectibles.Contains(id);
+        }
+
+        // ---------- Colors ----------
+        public static void PickUpColor(ColorSwitcher.QColor color)
+        {
+            Instance.levelStats.curColors.Add(color);
+            SaveStats();
         }
     }
 }

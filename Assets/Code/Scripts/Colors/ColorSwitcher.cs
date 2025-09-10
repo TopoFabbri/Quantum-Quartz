@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using UnityEngine;
@@ -19,11 +20,11 @@ namespace Code.Scripts.Colors
 
         public enum QColor
         {
-            None,
-            Red,
-            Blue,
-            Green,
-            Yellow
+            None = 0,
+            Red = 1 << 0,
+            Blue = 1 << 1,
+            Green = 1 << 2,
+            Yellow = 1 << 3
         }
 
         public QColor CurrentColor { get; private set; }
@@ -167,32 +168,29 @@ namespace Code.Scripts.Colors
             }
         }
 
-        public void EnableColor(QColor colour)
+        public void EnableColor(QColor color)
         {
-            switch (colour)
+            switch (color)
             {
                 case QColor.None:
                     break;
-                
+                case QColor.Blue:
+                    blue = true;
+                    break;
                 case QColor.Red:
                     red = true;
                     break;
-                
-                case QColor.Blue:
-                    blue  = true;
-                    break;
-                
                 case QColor.Green:
                     green  = true;
                     break;
-                
                 case QColor.Yellow:
                     yellow  = true;
                     break;
-                
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(colour), colour, null);
+                    throw new ArgumentOutOfRangeException(nameof(color), color, null);
             }
+            Stats.PickUpColor(color);
+            UpdateEnabledColors();
         }
     }
 }

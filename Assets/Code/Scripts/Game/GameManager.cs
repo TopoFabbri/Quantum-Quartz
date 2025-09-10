@@ -1,8 +1,11 @@
 using AK.Wwise;
+using Code.Scripts.Colors;
 using Code.Scripts.Input;
 using Code.Scripts.Level;
 using Code.Scripts.Player;
 using Code.Scripts.Tools;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -46,6 +49,14 @@ namespace Code.Scripts.Game
             else
             {
                 player.SpawnAt(player.transform.position);
+            }
+
+            foreach (ColorSwitcher.QColor color in new List<ColorSwitcher.QColor>(levelStats.CurColors))
+            {
+                if (!ColorSwitcher.Instance.EnabledColors.Contains(color))
+                {
+                    ColorSwitcher.Instance.EnableColor(color);
+                }
             }
 
             timerTxt?.gameObject.SetActive(Settings.ShowGameTimer);

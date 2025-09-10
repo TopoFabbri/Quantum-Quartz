@@ -187,6 +187,8 @@ namespace Code.Scripts.Input
 
         public void SwitchGameMap(string mapName)
         {
+            if (!Input) return;
+
             InputActionMap map = Input.actions.FindActionMap(mapName, false);
             if (map == null)
             {

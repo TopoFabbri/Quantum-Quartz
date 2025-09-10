@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Code.Scripts.Cutscene
 {
-    public class ColourUnlockTrigger : MonoBehaviour
+    public class ColorUnlockTrigger : MonoBehaviour
     {
-        [SerializeField] private List<ColorSwitcher.QColor> coloursToUnlock;
+        [SerializeField] private List<ColorSwitcher.QColor> colorsToUnlock;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            foreach (ColorSwitcher.QColor qColor in coloursToUnlock)
+            foreach (ColorSwitcher.QColor qColor in colorsToUnlock)
                 ColorSwitcher.Instance.EnableColor(qColor);
         }
     }

@@ -81,12 +81,18 @@ namespace Code.Scripts.Menu
 
         private void OnEnable()
         {
-            gameHUD?.SetActive(false);
+            if (gameHUD)
+            {
+                gameHUD.SetActive(false);
+            }
         }
 
         private void OnDisable()
         {
-            gameHUD?.SetActive(true);
+            if (gameHUD)
+            {
+                gameHUD.SetActive(true);
+            }
         }
 
         private void OnDestroy()
@@ -141,10 +147,14 @@ namespace Code.Scripts.Menu
         {
             string controlsMapping = controlsDropdown.options[controlsDropdown.value].text;
             PlayerPrefs.SetString("ControlsMapping", controlsMapping);
-            InputManager.Instance.SwitchGameMap(controlsMapping);
+            if (InputManager.HasInstance)
+            {
+                InputManager.Instance.SwitchGameMap(controlsMapping);
+            }
 
             if (controlMappingImages.TryGetValue(controlsMapping, out var mappingImages))
             {
+                controlsImage.color = Color.white;
                 switch (InputManager.GetControlScheme())
                 {
                     case InputManager.ControlScheme.Gamepad:
@@ -160,7 +170,8 @@ namespace Code.Scripts.Menu
             }
             else
             {
-                // controlsImage.sprite = null;
+                controlsImage.color = Color.clear;
+                controlsImage.sprite = null;
             }
         }
 
