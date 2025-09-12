@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Scripts.Colors;
+using Code.Scripts.Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,19 +9,24 @@ namespace Code.Scripts.Platforms
 {
     public class ColorObjectController : MonoBehaviour
     {
+        public event Action<bool> Toggled;
+
         [FormerlySerializedAs("qColour")] [SerializeField] private ColorSwitcher.QColor qColor;
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
         [SerializeField] private List<Behaviour> objectsToToggle = new();
-        
-        public event Action<bool> Toggled;
+
+        private static ContactFilter2D playerFilter;
+        private Collider2D col;
 
         private void Start()
         {
+            playerFilter = new ContactFilter2D { layerMask = LayerMask.GetMask("Player") };
             if (qColor != ColorSwitcher.QColor.None && ColorSwitcher.Instance.CurrentColor != qColor)
             {
                 Deactivate();
             }
+            col = GetComponent<Collider2D>();
         }
 
         private void OnEnable()
@@ -40,9 +46,13 @@ namespace Code.Scripts.Platforms
         private void ToggleColor(ColorSwitcher.QColor color)
         {
             if (color == qColor || qColor == ColorSwitcher.QColor.None)
+            {
                 Activate();
+            }
             else
+            {
                 Deactivate();
+            }
         }
 
         /// <summary>
@@ -52,6 +62,23 @@ namespace Code.Scripts.Platforms
         {
             animator.SetBool(animatorOnParameterName, true);
             Toggled?.Invoke(true);
+
+            List<Collider2D> hits = new List<Collider2D>();
+            bool temp = col.enabled;
+            col.enabled = true;
+            if (col.OverlapCollider(playerFilter, hits) > 0)
+            {
+                foreach (Collider2D hit in hits)
+                {
+                    if (!hit.isTrigger && hit.gameObject.CompareTag("Player") && hit.TryGetComponent(out PlayerController _))
+                    {
+                        col.isTrigger = true;
+                        Debug.Log("INSIDE");
+                        break;
+                    }
+                }
+            }
+            col.enabled = temp;
         }
 
         /// <summary>
@@ -70,7 +97,18 @@ namespace Code.Scripts.Platforms
         public void ToggleObjects()
         {
             foreach (Behaviour component in objectsToToggle)
+            {
                 component.enabled = !component.enabled;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController _))
+            {
+                col.isTrigger = false;
+                Debug.Log("EXITED");
+            }
         }
     }
 }

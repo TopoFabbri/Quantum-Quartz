@@ -27,7 +27,7 @@ namespace Code.Scripts.Player
         public Type PreviousStateType => stateMachine.PreviousState?.GetType();
         public Type CurrentStateType => stateMachine.CurrentState?.GetType();
 
-        private ContactFilter2D _solidFilter = new ContactFilter2D { layerMask = LayerMask.GetMask("Default", "SolidTiles") };
+        private static readonly ContactFilter2D _solidFilter = new ContactFilter2D { layerMask = LayerMask.GetMask("Default", "SolidTiles") };
         public ContactFilter2D SolidFilter => _solidFilter;
 
         private float _input = 0;
@@ -174,8 +174,7 @@ namespace Code.Scripts.Player
                         tempHitDist = GetEdge(false);
                         grounded |= tempHitDist > 0;
                         hitDist = Mathf.Max(tempHitDist, hitDist);
-                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <=
-                                    GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
+                        grounded &= Mathf.Abs(Rigidbody.velocity.y) <= GlobalSettings.neutralSpeed; //If GlobalSettings.shouldDraw forced execution to reach this far, enforce velocity requirement
                     }
                 }
             }
@@ -207,7 +206,7 @@ namespace Code.Scripts.Player
             float backupDist = float.NegativeInfinity;
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider != null && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
+                if (hit.collider != null && !hit.collider.isTrigger && (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Platform")))
                 {
                     if (hit.distance > 0)
                     {

@@ -122,7 +122,7 @@ namespace Code.Scripts.Game
                 flags = PlayerPrefs.GetInt($"Slot{slot}_Level{level}CurColors");
                 foreach (ColorSwitcher.QColor value in (ColorSwitcher.QColor[])System.Enum.GetValues(typeof(ColorSwitcher.QColor)))
                 {
-                    if ((flags & (int)value) > 0)
+                    if ((flags & (1 << (int)value)) > 0)
                     {
                         curColors.Add(value);
                     }
@@ -158,7 +158,7 @@ namespace Code.Scripts.Game
                 flags = 0;
                 foreach (ColorSwitcher.QColor value in CurColors)
                 {
-                    flags |= (int)value;
+                    flags |= 1 << (int)value;
                 }
                 PlayerPrefs.SetInt($"Slot{slot}_Level{level}CurColors", flags);
             }

@@ -21,7 +21,7 @@ namespace Code.Scripts.Level
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out PlayerController playerController))
+            if (!other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController playerController))
             {
                 playerController.SaveCheckpoint(spawnPoint.position);
             }

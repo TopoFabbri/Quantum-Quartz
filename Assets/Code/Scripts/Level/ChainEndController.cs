@@ -22,10 +22,11 @@ namespace Code.Scripts.Level
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.TryGetComponent(out PlayerController player)) return;
-            
-            hitChainsEvent?.Post(gameObject);
-            rb.AddForce(player.GetSpeed() * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
+            if (!other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController player))
+            {
+                hitChainsEvent?.Post(gameObject);
+                rb.AddForce(player.GetSpeed() * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
+            }
         }
     }
 }

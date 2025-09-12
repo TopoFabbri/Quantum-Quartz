@@ -20,11 +20,11 @@ namespace Code.Scripts.Colors
 
         public enum QColor
         {
-            None = 0,
-            Red = 1 << 0,
-            Blue = 1 << 1,
-            Green = 1 << 2,
-            Yellow = 1 << 3
+            None,
+            Red,
+            Blue,
+            Green,
+            Yellow
         }
 
         public QColor CurrentColor { get; private set; }
@@ -170,10 +170,10 @@ namespace Code.Scripts.Colors
 
         public void EnableColor(QColor color)
         {
+            if (color == QColor.None) return;
+
             switch (color)
             {
-                case QColor.None:
-                    break;
                 case QColor.Blue:
                     blue = true;
                     break;

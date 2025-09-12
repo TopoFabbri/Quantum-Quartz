@@ -44,9 +44,13 @@ namespace Code.Scripts.Platforms
             if (Application.isPlaying)
             {
                 if (psOn)
+                {
                     ConfigureParticleSystem(psOn, 1);
+                }
                 if (psOff)
+                {
                     ConfigureParticleSystem(psOff, OffMultiplier);
+                }
             }
         }
 
