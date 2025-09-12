@@ -73,7 +73,6 @@ namespace Code.Scripts.Platforms
                     if (!hit.isTrigger && hit.gameObject.CompareTag("Player") && hit.TryGetComponent(out PlayerController _))
                     {
                         col.isTrigger = true;
-                        Debug.Log("INSIDE");
                         break;
                     }
                 }
@@ -107,7 +106,6 @@ namespace Code.Scripts.Platforms
             if (!other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController _))
             {
                 col.isTrigger = false;
-                Debug.Log("EXITED");
             }
         }
     }
