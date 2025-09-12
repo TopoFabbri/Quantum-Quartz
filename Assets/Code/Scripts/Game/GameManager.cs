@@ -95,7 +95,10 @@ namespace Code.Scripts.Game
         private void Update()
         {
             TimeCounter.Update(Time.deltaTime);
-            timerTxt.text = TimeCounter.Time.ToStr;
+            if (timerTxt)
+            {
+                timerTxt.text = TimeCounter.Time.ToStr;
+            }
         }
 
         private void OnDevModeHandler()

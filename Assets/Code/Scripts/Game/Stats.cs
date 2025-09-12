@@ -251,6 +251,10 @@ namespace Code.Scripts.Game
 
         public static void SaveStats()
         {
+            if (Instance.saveSlot == -1)
+            {
+                SelectSaveSlot(1);
+            }
             Instance.totalSlotStats.Save();
             if (Instance.levelStats != null)
             {

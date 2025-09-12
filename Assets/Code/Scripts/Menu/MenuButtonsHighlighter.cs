@@ -13,7 +13,7 @@ public class MenuButtonsHighlighter : MonoBehaviour
 
     void Update()
     {
-        GameObject current = EventSystem.current.currentSelectedGameObject;
+        GameObject current = EventSystem.current?.currentSelectedGameObject;
 
         if (current != lastSelected)
         {

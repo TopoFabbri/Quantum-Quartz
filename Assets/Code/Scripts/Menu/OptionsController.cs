@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -22,47 +24,42 @@ namespace Code.Scripts.Menu
 
         public static OptionsController Instance { get; private set; }
 
-        [HeaderPlus("Main")] [SerializeField] private GameObject optionsPanel;
+        [HeaderPlus("Main")]
+        [SerializeField] private InputActionReference cancelAction;
+        [SerializeField] private GameObject optionsPanel;
         [SerializeField] private Button optionsFirstButton;
         [SerializeField] private Button mainMenuButton;
 
-        [HeaderPlus("In Game")] [SerializeField]
-        private GameObject gameHUD;
-
-        [HeaderPlus("Controls")] [SerializeField]
-        private GameObject controlsPanel;
-
+        [HeaderPlus("Controls")]
+        [SerializeField] private GameObject controlsPanel;
         [SerializeField] private Button controlsButton;
         [SerializeField] private TMP_Dropdown controlsDropdown;
         [SerializeField] private Image controlsImage;
         [SerializeField] private SerializedDictionary<string, MappingImages> controlMappingImages;
 
-        [HeaderPlus("Video")] [SerializeField] private GameObject videoPanel;
+        [HeaderPlus("Video")]
+        [SerializeField] private GameObject videoPanel;
         [SerializeField] private Button videoButton;
         [SerializeField] private Toggle fullScreenToggle;
         [SerializeField] private Toggle timerToggle;
 
-        [HeaderPlus("Audio")] [SerializeField] private GameObject audioPanel;
+        [HeaderPlus("Audio")]
+        [SerializeField] private GameObject audioPanel;
         [SerializeField] private Button audioButton;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
 
-        [HeaderPlus("Level Selector")] [SerializeField]
-        private GameObject levelSelectorPanel;
-
+        [HeaderPlus("Level Selector")]
+        [SerializeField] private GameObject levelSelectorPanel;
         [SerializeField] private Button levelSelectorFirstButton;
         
-        [HeaderPlus("Gauntlet Selector")] [SerializeField]
-        private GameObject gauntletSelectorPanel;
-
+        [HeaderPlus("Gauntlet Selector")]
+        [SerializeField] private GameObject gauntletSelectorPanel;
         [SerializeField] private Button gauntletSelectorFirstButton;
 
-        [HeaderPlus("Credits")] [SerializeField]
-        private GameObject creditsPanel;
-
+        [HeaderPlus("Credits")]
+        [SerializeField] private GameObject creditsPanel;
         [SerializeField] private Button creditsButton;
-
-        [SerializeField] private MenuController menuController;
 
         private void Start()
         {
@@ -71,34 +68,50 @@ namespace Code.Scripts.Menu
             InitializeControlsDropdown();
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
-            {
-                OnUIBack();
-            }
-        }
-
         private void OnEnable()
         {
-            if (gameHUD)
-            {
-                gameHUD.SetActive(false);
-            }
+            cancelAction.action.performed += OnCancel;
         }
 
         private void OnDisable()
         {
-            if (gameHUD)
-            {
-                gameHUD.SetActive(true);
-            }
+            cancelAction.action.performed -= OnCancel;
         }
 
         private void OnDestroy()
         {
             musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
             sfxSlider.onValueChanged.RemoveListener(SetSfxVolume);
+        }
+
+        private static readonly Type[] nonCancelConsumers = { typeof(TMP_Dropdown) };
+        void OnCancel(InputAction.CallbackContext context)
+        {
+            GameObject selected = EventSystem.current?.currentSelectedGameObject;
+            BaseEventData data = new BaseEventData(EventSystem.current);
+            if (selected != null)
+            {
+                bool consumed = false;
+                ExecuteEvents.Execute<ICancelHandler>(selected, data, (h, e) => {
+                    h.OnCancel(e);
+                    if (!nonCancelConsumers.Contains(h.GetType()))
+                    {
+                        consumed = true;
+                    }
+                });
+
+                if (consumed && !data.used)
+                {
+                    data.Use();
+                }
+            }
+
+            if (!data.used)
+            {
+                ExecuteEvents.Execute<ICancelHandler>(gameObject, data, (h, e) => {
+                    h.OnCancel(e);
+                });
+            }
         }
 
         private void InitializeTimerToggle()
@@ -199,14 +212,12 @@ namespace Code.Scripts.Menu
         {
             levelSelectorPanel.SetActive(!levelSelectorPanel.activeSelf);
             (levelSelectorPanel.activeSelf ? levelSelectorFirstButton : mainMenuButton).Select();
-            if (levelSelectorPanel.activeSelf) levelSelectorFirstButton.Select();
         }
         
         public void TurnGauntletsSelector()
         {
             gauntletSelectorPanel.SetActive(!gauntletSelectorPanel.activeSelf);
             (gauntletSelectorPanel.activeSelf ? gauntletSelectorFirstButton : mainMenuButton).Select();
-            if (gauntletSelectorPanel.activeSelf) gauntletSelectorFirstButton.Select();
         }
 
         public void TurnControls()
@@ -236,34 +247,31 @@ namespace Code.Scripts.Menu
             audioButton.Select();
         }
 
-        private void OnUIBack()
+        public void OnUIBack()
         {
             if (optionsPanel != null && optionsPanel.activeSelf)
             {
-                optionsPanel.SetActive(false);
-                mainMenuButton.Select();
+                TurnOptions();
                 return;
             }
 
             if (levelSelectorPanel != null && levelSelectorPanel.activeSelf)
             {
-                levelSelectorPanel.SetActive(false);
-                mainMenuButton.Select();
+                TurnLevelSelector();
                 return;
             }
 
             if (creditsPanel != null && creditsPanel.activeSelf)
             {
-                creditsPanel.SetActive(false);
-                mainMenuButton.Select();
+                TurnCredits();
                 return;
             }
 
-            if (menuController != null)
+            if (gauntletSelectorPanel != null && gauntletSelectorPanel.activeSelf)
             {
-                menuController.GoFileSaves();
+                TurnGauntletsSelector();
+                return;
             }
-            
         }
 
         public void ResetSaveData()

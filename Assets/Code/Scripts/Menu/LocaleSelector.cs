@@ -7,29 +7,37 @@ using UnityEngine.Localization.Settings;
 
 public class LocaleSelector : MonoBehaviour
 {
-   private bool active = false;
+    private Coroutine coroutine = null;
 
-   private void Start()
-   {
-      int id= PlayerPrefs.GetInt("LocaleKey", 0);
-      ChangeLocale(id);
-   }
+    private void Start()
+    {
+        string localeName = PlayerPrefs.GetString("LocaleKey", null);
+        ChangeLocale(localeName);
+    }
 
-   public void ChangeLocale(int localeId)
-   {
-      if (active)
-         return;
+    public void ChangeLocale(string localeName)
+    {
+        if (string.IsNullOrWhiteSpace(localeName)) return;
 
-      StartCoroutine(SetLocale(localeId));
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
 
-   }
-   
-   IEnumerator SetLocale(int localeId)
-   {
-      active=true;
-      yield return LocalizationSettings.InitializationOperation;
-      LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeId];
-      PlayerPrefs.SetInt("LocaleKey", localeId);
-      active = false;
-   }
+        coroutine = StartCoroutine(SetLocale(localeName));
+    }
+
+    IEnumerator SetLocale(string localeName)
+    {
+        yield return LocalizationSettings.InitializationOperation;
+        for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
+        {
+            if (LocalizationSettings.AvailableLocales.Locales[i].LocaleName.Contains(localeName))
+            {
+                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[i];
+                PlayerPrefs.SetString("LocaleKey", localeName);
+                break;
+            }
+        }
+    }
 }
