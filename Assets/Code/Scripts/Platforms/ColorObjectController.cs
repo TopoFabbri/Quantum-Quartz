@@ -11,7 +11,8 @@ namespace Code.Scripts.Platforms
     {
         public event Action<bool> Toggled;
 
-        [FormerlySerializedAs("qColour")] [SerializeField] private ColorSwitcher.QColor qColor;
+        [FormerlySerializedAs("qColour"), SerializeField] private ColorSwitcher.QColor qColor;
+        [SerializeField] private bool hasActivationCollision = true;
         [SerializeField] private Animator animator;
         [SerializeField] private string animatorOnParameterName = "On";
         [SerializeField] private List<Behaviour> objectsToToggle = new();
@@ -63,21 +64,24 @@ namespace Code.Scripts.Platforms
             animator.SetBool(animatorOnParameterName, true);
             Toggled?.Invoke(true);
 
-            List<Collider2D> hits = new List<Collider2D>();
-            bool temp = col.enabled;
-            col.enabled = true;
-            if (col.OverlapCollider(playerFilter, hits) > 0)
+            if (!hasActivationCollision)
             {
-                foreach (Collider2D hit in hits)
+                List<Collider2D> hits = new List<Collider2D>();
+                bool temp = col.enabled;
+                col.enabled = true;
+                if (col.OverlapCollider(playerFilter, hits) > 0)
                 {
-                    if (!hit.isTrigger && hit.gameObject.CompareTag("Player") && hit.TryGetComponent(out PlayerController _))
+                    foreach (Collider2D hit in hits)
                     {
-                        col.isTrigger = true;
-                        break;
+                        if (!hit.isTrigger && hit.gameObject.CompareTag("Player") && hit.TryGetComponent(out PlayerController _))
+                        {
+                            col.isTrigger = true;
+                            break;
+                        }
                     }
                 }
+                col.enabled = temp;
             }
-            col.enabled = temp;
         }
 
         /// <summary>
@@ -103,7 +107,7 @@ namespace Code.Scripts.Platforms
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (!other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController _))
+            if (!hasActivationCollision && !other.isTrigger && other.gameObject.CompareTag("Player") && other.TryGetComponent(out PlayerController _))
             {
                 col.isTrigger = false;
             }
