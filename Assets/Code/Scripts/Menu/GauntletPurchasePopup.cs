@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GauntletPurchasePopup : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class GauntletPurchasePopup : MonoBehaviour
 
     private GauntletsList.GauntletData pendingGauntlet;
     private GauntletSelectorUI selector;
+    private Button previousSelected;
 
     private void Awake()
     {
@@ -18,10 +19,11 @@ public class GauntletPurchasePopup : MonoBehaviour
         cancelButton.onClick.AddListener(OnCancel);
     }
 
-    public void Open(GauntletsList.GauntletData gauntlet, GauntletSelectorUI selectorRef)
+    public void Open(GauntletsList.GauntletData gauntlet, GauntletSelectorUI selectorRef, Button sourceButton)
     {
         pendingGauntlet = gauntlet;
         selector = selectorRef;
+        previousSelected = sourceButton;
 
         popupPanel.SetActive(true);
         confirmButton.Select();
@@ -29,13 +31,38 @@ public class GauntletPurchasePopup : MonoBehaviour
 
     private void OnConfirm()
     {
-        //Restar llaves del jugador si tiene las necesarias
+        // TODO: Chequear llaves del jugador
+        pendingGauntlet.isUnlocked = true;
+
+        // Guardar índice del botón previo antes de refrescar
+        int previousIndex = -1;
+        if (previousSelected != null && previousSelected.transform.parent == selector.transform)
+        {
+            previousIndex = previousSelected.transform.GetSiblingIndex();
+        }
 
         popupPanel.SetActive(false);
+
+        selector.RefreshUI();
+
+        var newButtons = selector.GetButtons(); 
+        if (newButtons.Count > 0)
+        {
+            int indexToSelect = Mathf.Clamp(previousIndex, 0, newButtons.Count - 1);
+            newButtons[indexToSelect].Select();
+        }
     }
+
 
     private void OnCancel()
     {
         popupPanel.SetActive(false);
+        RestoreFocus();
+    }
+
+    private void RestoreFocus()
+    {
+        if (previousSelected != null)
+            previousSelected.Select();
     }
 }
