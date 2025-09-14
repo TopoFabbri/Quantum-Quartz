@@ -1,3 +1,4 @@
+using Code.Scripts.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -31,27 +32,34 @@ public class GauntletPurchasePopup : MonoBehaviour
 
     private void OnConfirm()
     {
-        // TODO: Chequear llaves del jugador
-        pendingGauntlet.isUnlocked = true;
+        int price = pendingGauntlet.costInKeys;
 
-        // Guardar índice del botón previo antes de refrescar
-        int previousIndex = -1;
-        if (previousSelected != null && previousSelected.transform.parent == selector.transform)
+        if (Stats.SpendCollectibles(price))
         {
-            previousIndex = previousSelected.transform.GetSiblingIndex();
+            pendingGauntlet.isUnlocked = true;
+
+            int previousIndex = -1;
+            if (previousSelected != null && previousSelected.transform.parent == selector.transform)
+            {
+                previousIndex = previousSelected.transform.GetSiblingIndex();
+            }
+
+            popupPanel.SetActive(false);
+            selector.RefreshUI();
+
+            var newButtons = selector.GetButtons(); 
+            if (newButtons.Count > 0)
+            {
+                int indexToSelect = Mathf.Clamp(previousIndex, 0, newButtons.Count - 1);
+                newButtons[indexToSelect].Select();
+            }
         }
-
-        popupPanel.SetActive(false);
-
-        selector.RefreshUI();
-
-        var newButtons = selector.GetButtons(); 
-        if (newButtons.Count > 0)
+        else
         {
-            int indexToSelect = Mathf.Clamp(previousIndex, 0, newButtons.Count - 1);
-            newButtons[indexToSelect].Select();
+            Debug.Log("Not enough collectibles!");
         }
     }
+
 
 
     private void OnCancel()
