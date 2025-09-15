@@ -142,7 +142,7 @@ namespace Code.Scripts.Player
             // ||          Create States          ||
             // =====================================
             IdleState     <string> idle = new("Idle"                                                                                       );
-            TpState       <string> tlpt = new("TP",     sharedContext                                                                      );
+            TpState       <string> tlpt = new("TP",     settings["TP"] as TpSettings,     sharedContext                                );
             PauseState    <string> paus = new("Pause",  sharedContext                                                                      );
             ExitTpState   <string> extp = new("ExitTP", settings["ExitTP"] as SpawnSettings,  sharedContext                                );
             MoveState     <string> move = new("Move",   settings["Move"]   as MoveSettings,   sharedContext                                );
