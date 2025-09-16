@@ -1,5 +1,5 @@
-using System;
 using Code.Scripts.Tools;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -9,12 +9,14 @@ namespace Code.Scripts.Player
         [HeaderPlus("Settings")] [SerializeField]
         private float width = .5f;
 
-        [HeaderPlus("Variables")] [SerializeField]
-        private float top = 1f;
-        [SerializeField] private float upMid = 1f / 1.5f;
-        [SerializeField] private float midLow = 1f / 3f;
-        [SerializeField] private float low = 0f;
-
+        [HeaderPlus("Variables")]
+        [SerializeField] private float topPosition = 1.5f;
+        [SerializeField] private float topSize = .6f;
+        [SerializeField] private float midPosition = 1f;
+        [SerializeField] private float midSize = .6f;
+        [SerializeField] private float lowPos = .5f;
+        [SerializeField] private float lowSize = .6f;
+        
         [HeaderPlus("Debugging")] [SerializeField]
         private bool draw;
         [SerializeField] private Color drawColour = Color.green;
@@ -38,23 +40,23 @@ namespace Code.Scripts.Player
             if (LowCollider)
                 DestroyImmediate(LowCollider);
             
-            UpCollider = CreateCollider(top, upMid);
-            MidCollider = CreateCollider(upMid, midLow);
-            LowCollider = CreateCollider(midLow, low);
-            UnityEditor.EditorUtility.SetDirty(gameObject);
+            UpCollider = CreateCollider(topPosition, topSize);
+            MidCollider = CreateCollider(midPosition, midSize);
+            LowCollider = CreateCollider(lowPos, lowSize);
+            EditorUtility.SetDirty(gameObject);
         }
 #endif
 
-        private BoxCollider2D CreateCollider(float upper, float lower)
+        private BoxCollider2D CreateCollider(float pos, float size)
         {
             // The offset should be the center of the box.
-            Vector2 offset = new(0, (upper + lower) / 2f);
-            Vector2 size = new(width, upper - lower);
+            Vector2 offset = new(0, pos);
+            Vector2 colliderSize = new(width, size);
             
             BoxCollider2D tmpCollider = gameObject.AddComponent<BoxCollider2D>();
             
             tmpCollider.offset = offset;
-            tmpCollider.size = size;
+            tmpCollider.size = colliderSize;
             tmpCollider.enabled = false;
 
             return tmpCollider;
@@ -64,18 +66,18 @@ namespace Code.Scripts.Player
         {
             if (!draw) return;
 
-            DrawBox(top, upMid);
-            DrawBox(upMid, midLow);
-            DrawBox(midLow, low);
+            DrawBox(topPosition, topSize);
+            DrawBox(midPosition, midSize);
+            DrawBox(lowPos, lowSize);
         }
 
-        private void DrawBox(float upper, float lower)
+        private void DrawBox(float position, float size)
         {
-            Vector2 position = (Vector2)transform.position + drawOffset;
+            Vector2 drawPosition = (Vector2)transform.position + drawOffset + Vector2.up * position;
+            Vector2 drawSize = new(width, size);
             Gizmos.color = drawColour;
-            Vector2 center = position + new Vector2(0, (upper + lower) / 2f);
-            Vector2 size = new(width, upper - lower);
-            Gizmos.DrawWireCube(center, size);
+            
+            Gizmos.DrawWireCube(drawPosition, drawSize);
         }
     }
 }

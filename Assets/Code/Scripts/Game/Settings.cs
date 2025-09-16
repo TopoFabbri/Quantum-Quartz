@@ -12,7 +12,15 @@ namespace Code.Scripts.Game
         private float sfxVol = 100f;
         private bool showGameTimer = false;
 
-        public static Settings Instance => _instance != null ? _instance : new Settings();
+        public static Settings Instance
+        {
+            get
+            {
+                _instance ??= new Settings();
+
+                return _instance;
+            }
+        }
 
         public Settings()
         {

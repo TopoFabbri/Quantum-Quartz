@@ -35688,9 +35688,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1140646578094404282}
   - component: {fileID: 5692647691975451363}
-  - component: {fileID: 8296630759357691702}
-  - component: {fileID: 4512319018930944616}
-  - component: {fileID: 7187552015189502655}
+  - component: {fileID: 3475696846803477251}
+  - component: {fileID: 7880021002263779118}
+  - component: {fileID: 2836991708607285694}
   m_Layer: 6
   m_Name: WallStateColliders
   m_TagString: Untagged
@@ -35726,17 +35726,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 0.5
-  top: 2
-  upMid: 1.3333334
-  midLow: 0.6666667
-  low: 0
+  topPosition: 1.77
+  topSize: 0.65
+  midPosition: 1.15
+  midSize: 0.09
+  lowPos: 0.5
+  lowSize: 0.09
   draw: 1
   drawColour: {r: 0, g: 0, b: 1, a: 1}
-  drawOffset: {x: 0.52, y: 0}
-  <UpCollider>k__BackingField: {fileID: 8296630759357691702}
-  <MidCollider>k__BackingField: {fileID: 4512319018930944616}
-  <LowCollider>k__BackingField: {fileID: 7187552015189502655}
---- !u!61 &8296630759357691702
+  drawOffset: {x: 0.1, y: 0}
+  <UpCollider>k__BackingField: {fileID: 3475696846803477251}
+  <MidCollider>k__BackingField: {fileID: 7880021002263779118}
+  <LowCollider>k__BackingField: {fileID: 2836991708607285694}
+--- !u!61 &3475696846803477251
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35768,7 +35770,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.6666667}
+  m_Offset: {x: 0, y: 1.77}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -35779,9 +35781,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.6666666}
+  m_Size: {x: 0.5, y: 0.65}
   m_EdgeRadius: 0
---- !u!61 &4512319018930944616
+--- !u!61 &7880021002263779118
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35813,7 +35815,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1}
+  m_Offset: {x: 0, y: 1.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -35824,9 +35826,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.6666667}
+  m_Size: {x: 0.5, y: 0.09}
   m_EdgeRadius: 0
---- !u!61 &7187552015189502655
+--- !u!61 &2836991708607285694
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35858,7 +35860,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.33333334}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -35869,7 +35871,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.6666667}
+  m_Size: {x: 0.5, y: 0.09}
   m_EdgeRadius: 0
 --- !u!1 &8189369519322750262
 GameObject:
