@@ -311,6 +311,37 @@ namespace Code.Scripts.Game
         {
             return Instance.levelStats.collectibles.Contains(id);
         }
+        
+        public static int GetCollectiblesCount()
+        {
+            return Instance.levelStats.collectibles.Count;
+        }
+
+        public static bool SpendCollectibles(int amount)
+        {
+            if (Instance.levelStats.collectibles.Count >= amount)
+            {
+                int removed = 0;
+                var toRemove = new List<int>();
+
+                foreach (var id in Instance.levelStats.collectibles)
+                {
+                    toRemove.Add(id);
+                    removed++;
+                    if (removed >= amount)
+                        break;
+                }
+
+                foreach (var id in toRemove)
+                {
+                    Instance.levelStats.collectibles.Remove(id);
+                }
+
+                SaveStats();
+                return true;
+            }
+            return false;
+        }
 
         // ---------- Colors ----------
         public static void PickUpColor(ColorSwitcher.QColor color)

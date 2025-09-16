@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Code.Scripts.Game;
 using Code.Scripts.Level;
 using UnityEngine.SceneManagement;
 
@@ -14,23 +13,20 @@ public class GauntletSelectorUI : MonoBehaviour
     [SerializeField] private Button backButton;
 
     [Header("Popup Confirmation")]
-    [SerializeField] private GameObject confirmPopup;
     [SerializeField] private GauntletPurchasePopup gauntletPurchasePopup;
-    [SerializeField] private Button confirmYesButton;
-    [SerializeField] private Button confirmNoButton;
 
     private List<Button> generatedButtons = new List<Button>();
-    private GauntletsList.GauntletData gauntletToBuy;
 
-    void Start()
+    private void Start()
     {
-        GenerateButtons();
-        ConfigureNavigation();
-        SetupPopup();
+        RefreshUI();
     }
 
-    private void GenerateButtons()
+    public void RefreshUI()
     {
+        foreach (Transform child in buttonContainer) Destroy(child.gameObject);
+        generatedButtons.Clear();
+
         foreach (GauntletsList.GauntletData gauntlet in gauntletList.gauntlets)
         {
             GameObject newButtonObj = Instantiate(buttonPrefab, buttonContainer);
@@ -39,60 +35,29 @@ public class GauntletSelectorUI : MonoBehaviour
 
             if (buttonText != null)
             {
-                buttonText.text = gauntlet.gauntletName + 
+                buttonText.text = gauntlet.gauntletName +
                     (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
             }
 
             if (gauntlet.isUnlocked)
             {
-                // Ya comprado
+                // Ya comprado → carga escena
                 newButton.onClick.AddListener(() => SceneManager.LoadScene(gauntlet.sceneReference.BuildIndex));
             }
             else
             {
-                // No comprado
-                newButton.onClick.AddListener(() => TryPurchase(gauntlet));
-                newButton.interactable = true; 
+                // No comprado → abre popup
+                newButton.onClick.AddListener(() => gauntletPurchasePopup.Open(gauntlet, this, newButton));
             }
 
             generatedButtons.Add(newButton);
         }
-    }
 
-    private void TryPurchase(GauntletsList.GauntletData gauntlet)
-    {
-        gauntletToBuy = gauntlet;
-        gauntletPurchasePopup.Open(gauntletToBuy, this);
-    }
+        ConfigureNavigation();
 
-    private void SetupPopup()
-    {
-        confirmPopup.SetActive(false);
-
-        confirmYesButton.onClick.AddListener(() =>
-        {
-            if (gauntletToBuy != null)
-            {
-                // int playerKeys = Stats.CurrentKeys; // 🔑 aquí usás tu sistema real
-                // if (playerKeys >= gauntletToBuy.costInKeys)
-                // {
-                //     Stats.CurrentKeys -= gauntletToBuy.costInKeys;
-                //     gauntletToBuy.isUnlocked = true;
-                
-                    // Refrescar UI
-                    foreach (Transform child in buttonContainer) Destroy(child.gameObject);
-                    generatedButtons.Clear();
-                    GenerateButtons();
-                    ConfigureNavigation();
-              
-            }
-            confirmPopup.SetActive(false);
-        });
-
-        confirmNoButton.onClick.AddListener(() =>
-        {
-            confirmPopup.SetActive(false);
-        });
+        // Seleccionar primer botón por defecto
+        if (generatedButtons.Count > 0)
+            generatedButtons[0].Select();
     }
 
     private void ConfigureNavigation()
@@ -121,4 +86,10 @@ public class GauntletSelectorUI : MonoBehaviour
             backButton.navigation = backNav;
         }
     }
+    
+    public List<Button> GetButtons()
+    {
+        return generatedButtons;
+    }
+
 }

@@ -1,6 +1,7 @@
-using TMPro;
+using Code.Scripts.Game;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GauntletPurchasePopup : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GauntletPurchasePopup : MonoBehaviour
 
     private GauntletsList.GauntletData pendingGauntlet;
     private GauntletSelectorUI selector;
+    private Button previousSelected;
 
     private void Awake()
     {
@@ -18,10 +20,11 @@ public class GauntletPurchasePopup : MonoBehaviour
         cancelButton.onClick.AddListener(OnCancel);
     }
 
-    public void Open(GauntletsList.GauntletData gauntlet, GauntletSelectorUI selectorRef)
+    public void Open(GauntletsList.GauntletData gauntlet, GauntletSelectorUI selectorRef, Button sourceButton)
     {
         pendingGauntlet = gauntlet;
         selector = selectorRef;
+        previousSelected = sourceButton;
 
         popupPanel.SetActive(true);
         confirmButton.Select();
@@ -29,13 +32,45 @@ public class GauntletPurchasePopup : MonoBehaviour
 
     private void OnConfirm()
     {
-        //Restar llaves del jugador si tiene las necesarias
+        int price = pendingGauntlet.costInKeys;
 
-        popupPanel.SetActive(false);
+        if (Stats.SpendCollectibles(price))
+        {
+            pendingGauntlet.isUnlocked = true;
+
+            int previousIndex = -1;
+            if (previousSelected != null && previousSelected.transform.parent == selector.transform)
+            {
+                previousIndex = previousSelected.transform.GetSiblingIndex();
+            }
+
+            popupPanel.SetActive(false);
+            selector.RefreshUI();
+
+            var newButtons = selector.GetButtons(); 
+            if (newButtons.Count > 0)
+            {
+                int indexToSelect = Mathf.Clamp(previousIndex, 0, newButtons.Count - 1);
+                newButtons[indexToSelect].Select();
+            }
+        }
+        else
+        {
+            Debug.Log("Not enough collectibles!");
+        }
     }
+
+
 
     private void OnCancel()
     {
         popupPanel.SetActive(false);
+        RestoreFocus();
+    }
+
+    private void RestoreFocus()
+    {
+        if (previousSelected != null)
+            previousSelected.Select();
     }
 }
