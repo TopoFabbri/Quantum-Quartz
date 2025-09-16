@@ -383,7 +383,7 @@ namespace Code.Scripts.Input
             {
                 HandleAbility(value, prevValues.GetValueOrDefault("ColorGreen", 0));
             }
-            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreen", 0) < value))
+            else if (Mathf.Approximately(value, 1f) || (value > analogCutoff && prevValues.GetValueOrDefault("ColorGreen", 0) < value))
             {
                 ColorGreen?.Invoke();
             }
@@ -414,7 +414,7 @@ namespace Code.Scripts.Input
             {
                 HandleAbility(value, prevValues.GetValueOrDefault("ColorYellow", 0));
             }
-            else if (value == 1 || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellow", 0) < value))
+            else if (Mathf.Approximately(value, 1f) || (value > analogCutoff && prevValues.GetValueOrDefault("ColorYellow", 0) < value))
             {
                 ColorYellow?.Invoke();
             }

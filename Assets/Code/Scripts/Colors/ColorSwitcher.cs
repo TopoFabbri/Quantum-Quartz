@@ -110,7 +110,7 @@ namespace Code.Scripts.Colors
             {
                 SetColor(QColor.Green);
             }
-            else
+            else if (CurrentColor != QColor.Green)
             {
                 SfxController.BlockedCrystal(gameObject);
             }
@@ -125,7 +125,7 @@ namespace Code.Scripts.Colors
             {
                 SetColor(QColor.Yellow);
             }
-            else
+            else if (CurrentColor != QColor.Yellow)
             {
                 SfxController.BlockedCrystal(gameObject);
             }
