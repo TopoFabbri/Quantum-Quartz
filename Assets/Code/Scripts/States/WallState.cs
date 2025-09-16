@@ -89,7 +89,7 @@ namespace Code.Scripts.States
             List<RaycastHit2D> hits = new();
 
             collider.enabled = true;
-            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? sharedContext.GlobalSettings.wallCheckDis : -sharedContext.GlobalSettings.wallCheckDis), true);
+            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? 1 : -1) * (sharedContext.GlobalSettings.wallCheckDis + sharedContext.Collider.bounds.extents.x), true);
             collider.enabled = false;
 
             foreach (RaycastHit2D hit in hits)
