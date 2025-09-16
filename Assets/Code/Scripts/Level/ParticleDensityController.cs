@@ -37,6 +37,7 @@ namespace Code.Scripts.Level
             mainModule.maxParticles = Mathf.RoundToInt(density * tileQty);
             emission.rateOverTime = perTileEmission * tileQty;
             shapeModule.scale = new Vector3(spriteRenderer.size.x + scalingOffset.x, spriteRenderer.size.y + scalingOffset.y, 1);
+            EditorUtility.SetDirty(gameObject);
         }
 
         private void Update()
