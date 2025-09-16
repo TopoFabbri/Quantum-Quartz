@@ -134,6 +134,7 @@ namespace Code.Scripts.Game
                 curDeaths = 0;
                 curTimer.time = 0;
                 curCheckpoint = Vector2.negativeInfinity;
+                curColors = new List<ColorSwitcher.QColor>();
             }
 
             public void Save()
