@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using Code.Scripts.Game;
 using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using Code.Scripts.UI;
@@ -34,8 +35,6 @@ namespace Code.Scripts.Dialogue
         [SerializeField] private Button dialogueButton;
         [SerializeField] private RectTransform textBox;
         [SerializeField] private PauseController pauseController;
-        [SerializeField] private Event pauseEvent;
-        [SerializeField] private Event unPauseEvent;
         [SerializeField] private SerializedDictionary<Conversation.PortraitAnimation, Conversation.PortraitAlignment> portraitAlignments;
         [SerializeField] private List<KeywordMapping> keywordMappings;
 
@@ -79,7 +78,7 @@ namespace Code.Scripts.Dialogue
             InputManager.Instance.EnableUIMap();
             dialoguePanelAnim.gameObject.SetActive(true);
             dialogueButton.Select();
-            pauseEvent.Post(gameObject);
+            GameManager.Instance.SetMusicFaded(true);
 
             foreach (Conversation.TextBox textBox in conversation.textBoxes)
             {
@@ -149,7 +148,7 @@ namespace Code.Scripts.Dialogue
                 pauseController.ExitDialogue();
                 InputManager.Instance.EnableGameMap();
                 dialoguePanelAnim.gameObject.SetActive(false);
-                unPauseEvent.Post(gameObject);
+                GameManager.Instance.SetMusicFaded(false);
             }
             dialogueText.text = "";
             dialoguePanelAnim.SetInteger("Portrait", (int)Conversation.PortraitAnimation.None);

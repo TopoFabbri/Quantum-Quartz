@@ -103,6 +103,11 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         InputManager.Instance.enabled = enable == Boolean.True;
     }
 
+    public void EnablePauseMusic(Boolean enable)
+    {
+        GameManager.Instance.SetMusicFaded(enable == Boolean.True);
+    }
+
     public void SetGameSpeed(float speed)
     {
         Time.timeScale = speed;

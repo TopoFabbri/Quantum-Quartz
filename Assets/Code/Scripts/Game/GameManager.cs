@@ -113,5 +113,10 @@ namespace Code.Scripts.Game
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        public void SetMusicFaded(bool faded)
+        {
+            SfxController.SetMusicFaded(faded, gameObject);
+        }
     }
 }

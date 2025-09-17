@@ -21,6 +21,9 @@ namespace Code.Scripts.Tools
         private const string YellowEvent = "Play_Change_Quartz_Y";
         private const string GreenEvent = "Play_Change_Quartz_G";
 
+        private const string IngameMusicEvent = "Set_State_Music_Ingame";
+        private const string FadedMusicEvent = "Set_State_Music_Pause";
+
         public static GameObject musicObject;
         public static event Action<string> MusicCue;
 
@@ -35,8 +38,8 @@ namespace Code.Scripts.Tools
         {
             if (on)
             {
-                _musicEventId = musicEvent.Post(gameObject, (uint)(AkCallbackType.AK_MusicSyncBar | AkCallbackType.AK_MusicSyncBeat | AkCallbackType.AK_MusicSyncUserCue),
-                    MusicCallbackFunction);
+                AkCallbackType musicSync = AkCallbackType.AK_MusicSyncBar | AkCallbackType.AK_MusicSyncBeat | AkCallbackType.AK_MusicSyncUserCue;
+                _musicEventId = musicEvent.Post(gameObject, (uint)musicSync, MusicCallbackFunction);
                 musicObject = gameObject;
             }
             else
@@ -44,6 +47,11 @@ namespace Code.Scripts.Tools
                 AkSoundEngine.PostEvent(StopMusicEvent, gameObject);
                 musicObject = null;
             }
+        }
+
+        public static void SetMusicFaded(bool faded, GameObject gameObject)
+        {
+            AkSoundEngine.PostEvent(faded ? FadedMusicEvent : IngameMusicEvent, gameObject);
         }
 
         public static void SetMusicState(Switch stateEvent, GameObject gameObject)
