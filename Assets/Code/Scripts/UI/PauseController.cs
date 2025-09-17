@@ -20,8 +20,6 @@ namespace Code.Scripts.UI
         [SerializeField] private GameObject optionsCanvas;
 
         [SerializeField] private InputManager inputManager;
-        [SerializeField] private Event pauseEvent;
-        [SerializeField] private Event unPauseEvent;
 
         private bool isPaused = false;
         private bool inCoroutine = false;
@@ -58,7 +56,7 @@ namespace Code.Scripts.UI
 
                 pauseCanvas.SetActive(true);
                 pauseResumeButton.Select();
-                pauseEvent.Post(gameObject);
+                GameManager.Instance.SetMusicFaded(true);
 
                 Time.timeScale = 0;
             }
@@ -67,7 +65,7 @@ namespace Code.Scripts.UI
                 Time.timeScale = 1;
                 pauseCanvas.SetActive(false);
                 optionsCanvas.SetActive(false);
-                unPauseEvent.Post(gameObject);
+                GameManager.Instance.SetMusicFaded(false);
                 gameHUD.SetActive(true);
                 gameTimerText.gameObject.SetActive(Settings.ShowGameTimer);
 
@@ -77,7 +75,7 @@ namespace Code.Scripts.UI
 
         private void OnDestroy()
         {
-            unPauseEvent.Post(gameObject);
+            GameManager.Instance.SetMusicFaded(false);
         }
         
         private void OnUIBack()
