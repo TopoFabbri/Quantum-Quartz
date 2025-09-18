@@ -50,7 +50,9 @@ namespace Code.Scripts.States
         {
             base.OnFixedUpdate();
 
-            if (!HasJumped || (sharedContext.Rigidbody.velocity.y != 0 && sharedContext.jumpFallTime < verticalVelocityCurve.Duration))
+            bool lowSpeed = Mathf.Abs(sharedContext.Rigidbody.velocity.y) < sharedContext.GlobalSettings.neutralSpeed;
+            bool intendedLowSpeed = Mathf.Abs(lastVel) < sharedContext.GlobalSettings.neutralSpeed;
+            if (!HasJumped || (sharedContext.jumpFallTime < verticalVelocityCurve.Duration) && (!lowSpeed || intendedLowSpeed))
             {
                 HasJumped = true;
                 sharedContext.jumpFallTime += Time.fixedDeltaTime;
