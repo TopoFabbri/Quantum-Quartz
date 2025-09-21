@@ -1,16 +1,9 @@
-// Revision history
-// Rev 1 16/MAY/2021 initial
-// Rev 2 23/AUG/2021 add support for array property path
-// Rev 3 23/AUG/2021 cache using type+path (s_PathHashVsType)
-// Rev 4 23/AUG/2021 properly handling array and list by stealing code from Unity CS reference
-
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 
-namespace dninosores.UnityEditorAttributes
+namespace Code.Scripts.Tools.Editor
 {
     /// <summary>
     /// Finds custom property drawer for a given type.

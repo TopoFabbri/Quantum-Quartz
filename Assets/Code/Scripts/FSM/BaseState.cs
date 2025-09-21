@@ -1,5 +1,4 @@
 using System;
-using Patterns.FSM;
 
 namespace Code.Scripts.FSM
 {
@@ -20,15 +19,9 @@ namespace Code.Scripts.FSM
             onEnter?.Invoke();
         }
 
-        public virtual void OnUpdate()
-        {
+        public virtual void OnUpdate() { }
 
-        }
-
-        public virtual void OnFixedUpdate()
-        {
-
-        }
+        public virtual void OnFixedUpdate() { }
 
         public virtual void OnExit()
         {

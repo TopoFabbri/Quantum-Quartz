@@ -1,8 +1,8 @@
+using Code.Scripts.Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Code.Scripts.Player;
 
 #if UNITY_EDITOR
 using UnityEditor;

@@ -1,13 +1,16 @@
 using Code.Scripts.Tools;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Code.Scripts.Player
 {
     public class WallStateColliders : MonoBehaviour
     {
-        [HeaderPlus("Settings")] [SerializeField]
-        private float width = .5f;
+        [HeaderPlus("Settings")]
+        [SerializeField] private float width = .5f;
 
         [HeaderPlus("Variables")]
         [SerializeField] private float topPosition = 1.5f;
@@ -17,8 +20,8 @@ namespace Code.Scripts.Player
         [SerializeField] private float lowPos = .5f;
         [SerializeField] private float lowSize = .6f;
         
-        [HeaderPlus("Debugging")] [SerializeField]
-        private bool draw;
+        [HeaderPlus("Debugging")]
+        [SerializeField] private bool draw;
         [SerializeField] private Color drawColour = Color.green;
         [SerializeField] private Vector2 drawOffset = Vector2.zero;
         

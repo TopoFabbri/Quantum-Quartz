@@ -1,12 +1,12 @@
+using Code.Scripts.FSM;
+using Code.Scripts.Game;
+using Code.Scripts.Game.Behaviour;
+using Code.Scripts.Game.Interfaces;
+using Code.Scripts.Input;
+using Code.Scripts.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Code.Scripts.Input;
-using Code.Scripts.Interfaces;
-using Code.Scripts.Level;
-using Code.Scripts.Platforms;
-using Code.Scripts.States;
-using Code.Scripts.Tools;
 using UnityEngine;
 
 namespace Code.Scripts.Player
