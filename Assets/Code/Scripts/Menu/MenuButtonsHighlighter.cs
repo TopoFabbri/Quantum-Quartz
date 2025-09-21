@@ -1,37 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuButtonsHighlighter : MonoBehaviour
+namespace Code.Scripts.Menu
 {
-    [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color selectedColor = Color.yellow;
-
-    private GameObject lastSelected;
-
-    void Update()
+    public class MenuButtonsHighlighter : MonoBehaviour
     {
-        GameObject current = EventSystem.current?.currentSelectedGameObject;
+        [SerializeField] private Color normalColor = Color.white;
+        [SerializeField] private Color selectedColor = Color.yellow;
 
-        if (current != lastSelected)
+        private GameObject lastSelected;
+
+        void Update()
         {
-            if (lastSelected != null)
-            {
-                TextMeshProUGUI lastText = lastSelected.GetComponentInChildren<TextMeshProUGUI>();
-                if (lastText != null)
-                    lastText.color = normalColor;
-            }
+            GameObject current = EventSystem.current?.currentSelectedGameObject;
 
-            if (current != null)
+            if (current != lastSelected)
             {
-                TextMeshProUGUI currentText = current.GetComponentInChildren<TextMeshProUGUI>();
-                if (currentText != null)
-                    currentText.color = selectedColor;
-            }
+                if (lastSelected != null)
+                {
+                    TextMeshProUGUI lastText = lastSelected.GetComponentInChildren<TextMeshProUGUI>();
+                    if (lastText != null)
+                        lastText.color = normalColor;
+                }
 
-            lastSelected = current;
+                if (current != null)
+                {
+                    TextMeshProUGUI currentText = current.GetComponentInChildren<TextMeshProUGUI>();
+                    if (currentText != null)
+                        currentText.color = selectedColor;
+                }
+
+                lastSelected = current;
+            }
         }
     }
 }

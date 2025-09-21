@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Scripts.Platforms;
+﻿using Code.Scripts.Game.Obstacles;
 using UnityEngine;
 using Event = AK.Wwise.Event;
 
@@ -116,9 +115,13 @@ namespace Code.Scripts.Player
             GameObject other = hit.collider.gameObject;
 
             if (other.TryGetComponent(out PlatformController plat))
+            {
                 plat.matSoundEvent.Post(gameObject);
+            }
             else
+            {
                 floorSwitchEvent.Post(gameObject);
+            }
         }
     }
 }

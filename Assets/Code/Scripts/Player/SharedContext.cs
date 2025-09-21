@@ -1,9 +1,9 @@
-using Code.Scripts.Camera;
 using Code.Scripts.FSM;
 using Code.Scripts.Game;
+using Code.Scripts.Game.Interfaces;
+using Code.Scripts.Game.Managers;
 using Code.Scripts.Input;
-using Code.Scripts.Interfaces;
-using Code.Scripts.StateSettings;
+using Code.Scripts.States.Settings;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -122,9 +122,9 @@ namespace Code.Scripts.Player
 
             InputManager.Move += OnMoveHandler;
 
-            if (UnityEngine.Camera.main?.transform.parent != null)
+            if (Camera.main?.transform.parent != null)
             {
-                UnityEngine.Camera.main.transform.parent.TryGetComponent(out CameraController camController);
+                Camera.main.transform.parent.TryGetComponent(out CameraController camController);
                 CamController = camController;
             }
         }

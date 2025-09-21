@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
@@ -6,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Scripts.Tools.Editor
 {
-    class DrawPropertyFieldReflection
+    public class DrawPropertyFieldReflection
     {
         static DrawPropertyFieldReflection _instance;
         public static DrawPropertyFieldReflection Instance
