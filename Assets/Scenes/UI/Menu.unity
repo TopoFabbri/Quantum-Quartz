@@ -1943,7 +1943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 738.99994, y: -79.69998}
+  m_AnchoredPosition: {x: 738.9999, y: -79.69998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &479643554
@@ -2319,6 +2319,7 @@ MonoBehaviour:
   buttonContainer: {fileID: 1482610947}
   buttonPrefab: {fileID: 1336924309671622621, guid: dac27f50f8edaea42b7f6a1c21a05098, type: 3}
   backButton: {fileID: 1476414732}
+  keysText: {fileID: 1743192727}
   gauntletPurchasePopup: {fileID: 627098886}
 --- !u!114 &627098886
 MonoBehaviour:
@@ -3262,7 +3263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 420, y: -123.70001}
+  m_AnchoredPosition: {x: 420.00003, y: -123.70001}
   m_SizeDelta: {x: 39.5, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &909682371
@@ -5019,7 +5020,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -1060}
+  m_SizeDelta: {x: 0, y: -1059.7949}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482610948
 MonoBehaviour:
@@ -6124,10 +6125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1743192723}
   - component: {fileID: 1743192726}
-  - component: {fileID: 1743192725}
-  - component: {fileID: 1743192724}
+  - component: {fileID: 1743192727}
   m_Layer: 5
-  m_Name: Confirmation TMP (1)
+  m_Name: Keys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6152,47 +6152,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 375.29, y: 79.9}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &1743192724
-MonoBehaviour:
+--- !u!222 &1743192726
+CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743192722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:3f60322f9bd4293409a9f273a7bca6af
-    m_TableEntryReference:
-      m_KeyId: 35433867212984320
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1743192725}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &1743192725
+  m_CullTransparentMesh: 1
+--- !u!114 &1743192727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6212,7 +6180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Keys: '
+  m_text: $
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8eeeb3395a0f0645a3064b794f9e509, type: 2}
   m_sharedMaterial: {fileID: 7134152872919422168, guid: b8eeeb3395a0f0645a3064b794f9e509, type: 2}
@@ -6281,14 +6249,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1743192726
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743192722}
-  m_CullTransparentMesh: 1
 --- !u!1 &1780832740
 GameObject:
   m_ObjectHideFlags: 0
@@ -7236,7 +7196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
