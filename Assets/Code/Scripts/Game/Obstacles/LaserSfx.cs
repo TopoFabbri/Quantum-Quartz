@@ -15,6 +15,7 @@ namespace Code.Scripts.Game.Obstacles
         private bool isActive;
 
         private static readonly List<LaserSfx> LasersPlaying = new();
+        private static GameObject _soundPoster;
 
         /// <summary>
         /// Call turn off laser event
@@ -65,7 +66,10 @@ namespace Code.Scripts.Game.Obstacles
         private void AddToPlaying()
         {
             if (LasersPlaying.Count <= 0)
+            {
                 laserLoopEvent.Post(gameObject);
+                _soundPoster = gameObject;
+            }
             
             if (LasersPlaying.Contains(this)) return;
             
@@ -79,7 +83,7 @@ namespace Code.Scripts.Game.Obstacles
             LasersPlaying.Remove(this);
             
             if (LasersPlaying.Count <= 0)
-                laserLoopEvent.Stop(gameObject);
+                laserLoopEvent.Stop(_soundPoster);
         }
 
         public override void OnActivate()
