@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.Scripts.Game.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,9 +13,11 @@ namespace Code.Scripts.Menu
         [SerializeField] private Transform buttonContainer;
         [SerializeField] private GameObject buttonPrefab;
         [SerializeField] private Button backButton;
+        [SerializeField] private TextMeshProUGUI keysText;
 
-        [Header("Popup Confirmation")]
-        [SerializeField] private GauntletPurchasePopup gauntletPurchasePopup;
+
+        [Header("Popup Confirmation")] [SerializeField]
+        private GauntletPurchasePopup gauntletPurchasePopup;
 
         private List<Button> generatedButtons = new List<Button>();
 
@@ -37,7 +40,7 @@ namespace Code.Scripts.Menu
                 if (buttonText != null)
                 {
                     buttonText.text = gauntlet.gauntletName +
-                        (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
+                                      (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
                 }
 
                 if (gauntlet.isUnlocked)
@@ -59,6 +62,8 @@ namespace Code.Scripts.Menu
             // Seleccionar primer botón por defecto
             if (generatedButtons.Count > 0)
                 generatedButtons[0].Select();
+
+            RefreshKeysUI();
         }
 
         private void ConfigureNavigation()
@@ -78,19 +83,35 @@ namespace Code.Scripts.Menu
 
             if (backButton != null && generatedButtons.Count > 0)
             {
+                var lastButton = generatedButtons[generatedButtons.Count - 1];
+                var lastNav = lastButton.navigation;
+                lastNav.selectOnDown = backButton;
+                lastButton.navigation = lastNav;
+
                 var backNav = new Navigation
                 {
                     mode = Navigation.Mode.Explicit,
-                    selectOnLeft = generatedButtons[generatedButtons.Count - 1]
+                    selectOnLeft = lastButton,
+                    selectOnUp = lastButton
                 };
-
                 backButton.navigation = backNav;
             }
         }
 
+
         public List<Button> GetButtons()
         {
             return generatedButtons;
+        }
+
+
+
+        public void RefreshKeysUI()
+        {
+            if (keysText != null)
+            {
+                keysText.text = $"$ {Stats.GetCollectiblesCount()}";
+            }
         }
 
     }

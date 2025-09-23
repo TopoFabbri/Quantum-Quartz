@@ -58,14 +58,21 @@ namespace Code.Scripts.Menu
 
             if (backButton != null && generatedButtons.Count > 0)
             {
+                var lastButton = generatedButtons[generatedButtons.Count - 1];
+                var lastNav = lastButton.navigation;
+                lastNav.selectOnDown = backButton;
+                lastButton.navigation = lastNav;
+
                 var backNav = new Navigation
                 {
                     mode = Navigation.Mode.Explicit,
-                    selectOnLeft = generatedButtons[generatedButtons.Count - 1]
+                    selectOnLeft = lastButton,
+                    selectOnUp = lastButton
                 };
 
                 backButton.navigation = backNav;
             }
         }
+
     }
 }
