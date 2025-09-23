@@ -8,7 +8,6 @@ namespace Code.Scripts.Menu
 {
     public class LevelSelectorUI : MonoBehaviour
     {
-        [SerializeField] private LevelList levelList;
         [SerializeField] private Transform buttonContainer;
         [SerializeField] private GameObject buttonPrefab;
         [SerializeField] private Button backButton;
@@ -17,7 +16,7 @@ namespace Code.Scripts.Menu
 
         void Start()
         {
-            foreach (LevelList.LevelData level in levelList.levels)
+            foreach (LevelList.LevelData level in LevelChanger.Instance.LevelList.levels)
             {
                 GameObject newButtonObj = Instantiate(buttonPrefab, buttonContainer);
                 Button newButton = newButtonObj.GetComponent<Button>();

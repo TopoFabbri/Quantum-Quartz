@@ -18,6 +18,7 @@ namespace Code.Scripts.Game.Managers
             public abstract int TotalDeaths { get; }
             public abstract Timer TotalTimer { get; }
             public abstract string CurLevelName { get; }
+            public abstract int CollectiblesSpent { get; }
         }
 
         public abstract class ReadOnlyLevelStats
@@ -39,10 +40,12 @@ namespace Code.Scripts.Game.Managers
             public int totalDeaths;
             public Timer totalTimer;
             public string curLevelName;
+            public int collectiblesSpent;
 
             public override int TotalDeaths => totalDeaths;
             public override Timer TotalTimer => totalTimer;
             public override string CurLevelName => curLevelName;
+            public override int CollectiblesSpent => collectiblesSpent;
 
             public TotalSlotStats(int slot)
             {
@@ -51,6 +54,7 @@ namespace Code.Scripts.Game.Managers
                 totalDeaths = PlayerPrefs.GetInt($"Slot{slot}_TotalDeaths", 0);
                 totalTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_TotalTimer", 0));
                 curLevelName = PlayerPrefs.GetString($"Slot{slot}_LevelName", "");
+                collectiblesSpent = PlayerPrefs.GetInt($"Slot{slot}_CollectiblesSpent", 0);
             }
 
             public void Save()
@@ -58,6 +62,7 @@ namespace Code.Scripts.Game.Managers
                 PlayerPrefs.SetInt($"Slot{slot}_TotalDeaths", totalDeaths);
                 PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", totalTimer.time);
                 PlayerPrefs.SetString($"Slot{slot}_LevelName", curLevelName);
+                PlayerPrefs.SetInt($"Slot{slot}_CollectiblesSpent", collectiblesSpent);
             }
 
             public static void Clear(int slot)
@@ -65,6 +70,7 @@ namespace Code.Scripts.Game.Managers
                 PlayerPrefs.DeleteKey($"Slot{slot}_TotalDeaths");
                 PlayerPrefs.DeleteKey($"Slot{slot}_TotalTimer");
                 PlayerPrefs.DeleteKey($"Slot{slot}_LevelName");
+                PlayerPrefs.DeleteKey($"Slot{slot}_CollectiblesSpent");
             }
         }
 
@@ -313,30 +319,22 @@ namespace Code.Scripts.Game.Managers
             return Instance.levelStats.collectibles.Contains(id);
         }
         
-        public static int GetCollectiblesCount()
+        public static int GetCollectiblesCount(LevelList levelList)
         {
-            return Instance.levelStats.collectibles.Count;
+            int count = 0;
+            for (int i = 0; i < levelList.levels.Count; i++)
+            {
+                LevelStats stats = new LevelStats(Instance.saveSlot, i);
+                count = stats.collectibles.Count;
+            }
+            return count - Instance.totalSlotStats.collectiblesSpent;
         }
 
-        public static bool SpendCollectibles(int amount)
+        public static bool SpendCollectibles(LevelList levelList, int amount)
         {
-            if (Instance.levelStats.collectibles.Count >= amount)
+            if (GetCollectiblesCount(levelList) >= amount)
             {
-                int removed = 0;
-                var toRemove = new List<int>();
-
-                foreach (var id in Instance.levelStats.collectibles)
-                {
-                    toRemove.Add(id);
-                    removed++;
-                    if (removed >= amount)
-                        break;
-                }
-
-                foreach (var id in toRemove)
-                {
-                    Instance.levelStats.collectibles.Remove(id);
-                }
+                Instance.totalSlotStats.collectiblesSpent += amount;
 
                 SaveStats();
                 return true;

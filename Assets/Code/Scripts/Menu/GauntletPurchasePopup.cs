@@ -1,4 +1,5 @@
 using Code.Scripts.Game.Managers;
+using Code.Scripts.Game.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,7 @@ namespace Code.Scripts.Menu
         {
             int price = pendingGauntlet.costInKeys;
 
-            if (Stats.SpendCollectibles(price))
+            if (Stats.SpendCollectibles(LevelChanger.Instance.LevelList, price))
             {
                 pendingGauntlet.isUnlocked = true;
 
