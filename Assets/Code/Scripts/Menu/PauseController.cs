@@ -74,7 +74,10 @@ namespace Code.Scripts.Menu
 
         private void OnDestroy()
         {
-            GameManager.Instance.SetMusicFaded(false);
+            if (GameManager.HasInstance)
+            {
+                GameManager.Instance.SetMusicFaded(false);
+            }
         }
         
         private void OnUIBack()
