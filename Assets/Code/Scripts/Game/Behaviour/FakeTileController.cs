@@ -17,15 +17,15 @@ namespace Code.Scripts.Game.Behaviour
         private Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)> tileGroups = new Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)>();
         private Coroutine coroutine = null;
         private List<Vector2Int> searchAttemptOffsets = new List<Vector2Int> {
-        Vector2Int.zero, // None
-        Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left, // Cardinal directions
-        Vector2Int.up + Vector2Int.left, Vector2Int.up + Vector2Int.right, Vector2Int.down + Vector2Int.left, Vector2Int.down + Vector2Int.right // Diagonals
-    };
+            Vector2Int.zero, // None
+            Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left, // Cardinal directions
+            Vector2Int.up + Vector2Int.left, Vector2Int.up + Vector2Int.right, Vector2Int.down + Vector2Int.left, Vector2Int.down + Vector2Int.right // Diagonals
+        };
 
         private void Start()
         {
             tilemap = gameObject.GetComponent<Tilemap>();
-            col = gameObject.GetComponent<Collider2D>();
+            col = gameObject.GetComponent<CompositeCollider2D>();
         }
 
         private void OnDestroy()
@@ -38,8 +38,9 @@ namespace Code.Scripts.Game.Behaviour
 
         protected override void OnInteracted()
         {
-            Transform player = GameManager.Instance.Player.transform;
-            Vector3Int tilePos = tilemap.WorldToCell(col.ClosestPoint(player.position));
+            Collider2D playerCol = GameManager.Instance.Player.GetComponent<Collider2D>();
+            var dist = Physics2D.Distance(playerCol, col);
+            Vector3Int tilePos = tilemap.WorldToCell(col.ClosestPoint(dist.pointA));
             HashSet<Vector3Int> tilePositions = new HashSet<Vector3Int>();
             Vector3Int minTile = new Vector3Int(int.MaxValue, int.MaxValue, 0);
 
@@ -105,8 +106,9 @@ namespace Code.Scripts.Game.Behaviour
 
         protected override void OnStopInteraction()
         {
-            Transform player = GameManager.Instance.Player.transform;
-            Vector3Int tilePos = tilemap.WorldToCell(col.ClosestPoint(player.position));
+            Collider2D playerCol = GameManager.Instance.Player.GetComponent<Collider2D>();
+            var dist = Physics2D.Distance(playerCol, col);
+            Vector3Int tilePos = tilemap.WorldToCell(col.ClosestPoint(dist.pointA));
 
             // Find triggered tile
             foreach (Vector2Int offset in searchAttemptOffsets)
