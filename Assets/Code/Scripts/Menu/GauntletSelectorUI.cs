@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Code.Scripts.Game.Managers;
+using Code.Scripts.Game.Triggers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,9 +16,8 @@ namespace Code.Scripts.Menu
         [SerializeField] private Button backButton;
         [SerializeField] private TextMeshProUGUI keysText;
 
-
-        [Header("Popup Confirmation")] [SerializeField]
-        private GauntletPurchasePopup gauntletPurchasePopup;
+        [Header("Popup Confirmation")]
+        [SerializeField] private GauntletPurchasePopup gauntletPurchasePopup;
 
         private List<Button> generatedButtons = new List<Button>();
 
@@ -39,18 +39,17 @@ namespace Code.Scripts.Menu
 
                 if (buttonText != null)
                 {
-                    buttonText.text = gauntlet.gauntletName +
-                                      (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
+                    buttonText.text = gauntlet.gauntletName + (gauntlet.isUnlocked ? "" : $": {gauntlet.costInKeys}");
                 }
 
                 if (gauntlet.isUnlocked)
                 {
-                    // Ya comprado → carga escena
+                    // Ya comprado -> carga escena
                     newButton.onClick.AddListener(() => SceneManager.LoadScene(gauntlet.sceneReference.BuildIndex));
                 }
                 else
                 {
-                    // No comprado → abre popup
+                    // No comprado -> abre popup
                     newButton.onClick.AddListener(() => gauntletPurchasePopup.Open(gauntlet, this, newButton));
                 }
 
@@ -98,21 +97,17 @@ namespace Code.Scripts.Menu
             }
         }
 
-
         public List<Button> GetButtons()
         {
             return generatedButtons;
         }
 
-
-
         public void RefreshKeysUI()
         {
             if (keysText != null)
             {
-                keysText.text = $"$ {Stats.GetCollectiblesCount()}";
+                keysText.text = $"$ {Stats.GetCollectiblesCount(LevelChanger.Instance.LevelList)}";
             }
         }
-
     }
 }
