@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Code.Scripts.FSM;
-using UnityEngine;
 
-namespace Patterns.FSM
+namespace Code.Scripts.FSM
 {
     public class Transition<T>
     {

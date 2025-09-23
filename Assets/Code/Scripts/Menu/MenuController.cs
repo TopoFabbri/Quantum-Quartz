@@ -1,5 +1,5 @@
-using Code.Scripts.Game;
-using Code.Scripts.Level;
+using Code.Scripts.Game.Managers;
+using Code.Scripts.Game.Triggers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;

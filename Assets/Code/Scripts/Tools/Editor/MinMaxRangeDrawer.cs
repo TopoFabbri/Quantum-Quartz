@@ -1,13 +1,12 @@
-// https://github.com/matheusamazonas/min_max_range_attribute
-
 using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace Code.Scripts.Tools.Editor
 {
+    // https://github.com/matheusamazonas/min_max_range_attribute
     [CustomPropertyDrawer(typeof(MinMaxRangeAttribute))]
-    internal class MinMaxRangeDrawer : PropertyDrawer
+    public class MinMaxRangeDrawer : PropertyDrawer
     {
         [System.Serializable]
         public struct MinMax

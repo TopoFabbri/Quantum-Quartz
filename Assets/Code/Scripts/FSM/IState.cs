@@ -6,6 +6,5 @@ namespace Code.Scripts.FSM
         public void OnUpdate();
         public void OnFixedUpdate();
         public void OnExit();
-
     }
 }

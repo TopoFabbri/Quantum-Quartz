@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public static class FullScreenManager
+namespace Code.Scripts.Menu
 {
-    public static void InitializeFullScreen()
+    public static class FullScreenManager
     {
-        
-        if (!PlayerPrefs.HasKey("HasLaunchedBefore"))
+        public static void InitializeFullScreen()
         {
-            SetFullScreen(true);
-            PlayerPrefs.SetInt("HasLaunchedBefore", 1);
+
+            if (!PlayerPrefs.HasKey("HasLaunchedBefore"))
+            {
+                SetFullScreen(true);
+                PlayerPrefs.SetInt("HasLaunchedBefore", 1);
+                PlayerPrefs.Save();
+            }
+            else
+            {
+                bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
+                SetFullScreen(isFullScreen);
+            }
+        }
+
+        public static void SetFullScreen(bool isFullScreen)
+        {
+            Screen.fullScreen = isFullScreen;
+            PlayerPrefs.SetInt("FullScreen", isFullScreen ? 1 : 0);
             PlayerPrefs.Save();
         }
-        else
+
+        public static void ToggleFullScreen()
         {
-            bool isFullScreen = PlayerPrefs.GetInt("FullScreen", 1) == 1;
+            bool isFullScreen = !Screen.fullScreen;
             SetFullScreen(isFullScreen);
         }
-    }
-    
-    public static void SetFullScreen(bool isFullScreen)
-    {
-        Screen.fullScreen = isFullScreen;
-        PlayerPrefs.SetInt("FullScreen", isFullScreen ? 1 : 0);
-        PlayerPrefs.Save();
-    }
-    
-    public static void ToggleFullScreen()
-    {
-        bool isFullScreen = !Screen.fullScreen;
-        SetFullScreen(isFullScreen);
     }
 }

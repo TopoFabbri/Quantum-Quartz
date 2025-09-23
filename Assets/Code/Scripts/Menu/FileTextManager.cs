@@ -1,8 +1,6 @@
-using System;
-using Code.Scripts.Game;
+using Code.Scripts.Game.Managers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Scripts.Menu
 {

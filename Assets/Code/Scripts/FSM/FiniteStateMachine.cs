@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Patterns.FSM;
 
 namespace Code.Scripts.FSM
 {

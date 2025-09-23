@@ -1,19 +1,22 @@
+using Eflatun.SceneReference;
 using System;
 using System.Collections.Generic;
-using Eflatun.SceneReference;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GauntletList", menuName = "Assets/Code/Settings/GauntletList")]
-public class GauntletsList : ScriptableObject
+namespace Code.Scripts.Menu
 {
-    [Serializable]
-    public class GauntletData
+    [CreateAssetMenu(fileName = "GauntletList", menuName = "Assets/Code/Settings/GauntletList")]
+    public class GauntletsList : ScriptableObject
     {
-        public string gauntletName;
-        public SceneReference sceneReference;
-        public int costInKeys;
-        public bool isUnlocked; 
-    }
+        [Serializable]
+        public class GauntletData
+        {
+            public string gauntletName;
+            public SceneReference sceneReference;
+            public int costInKeys;
+            public bool isUnlocked;
+        }
 
-    public List<GauntletData> gauntlets = new List<GauntletData>();
+        public List<GauntletData> gauntlets = new List<GauntletData>();
+    }
 }

@@ -1,18 +1,21 @@
-using System.Collections.Generic;
 using Eflatun.SceneReference;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelList", menuName = "Custom/Level List")]
-public class LevelList : ScriptableObject
+namespace Code.Scripts.Menu
 {
-    [System.Serializable]
-    public class LevelData
+    [CreateAssetMenu(fileName = "LevelList", menuName = "Custom/Level List")]
+    public class LevelList : ScriptableObject
     {
-        public string levelName; 
-        [SerializeField] private SceneReference sceneReference;
+        [System.Serializable]
+        public class LevelData
+        {
+            public string levelName;
+            [SerializeField] private SceneReference sceneReference;
 
-        public string SceneName => sceneReference.Name;
+            public string SceneName => sceneReference.Name;
+        }
+
+        public List<LevelData> levels = new List<LevelData>();
     }
-
-    public List<LevelData> levels = new List<LevelData>();
 }
