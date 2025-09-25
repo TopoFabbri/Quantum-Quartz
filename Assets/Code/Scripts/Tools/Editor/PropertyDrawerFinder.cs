@@ -67,14 +67,16 @@ namespace Code.Scripts.Tools.Editor
                     {
                         drawers.Add(temp);
                     }
-                    else if ((temp = FindDrawerForType(attr.GetType())) != null)
+                    else
                     {
+                        temp = FindDrawerForType(attr.GetType());
                         drawers.Add(temp);
                         s_TypeVsDrawerCache.Add(attr.GetType(), temp);
                     }
                 }
             }
 
+            drawers.RemoveAll(item => item == null);
             return drawers;
         }
 
