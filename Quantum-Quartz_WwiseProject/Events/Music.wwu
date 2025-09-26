@@ -176,6 +176,27 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_MX_Menu" ID="{D83DE589-B9CD-41B9-A9E4-8045A6A31407}">
+					<ChildrenList>
+						<Action Name="" ID="{E36A1995-9005-4ADA-94B1-02F4DF1443BB}" ShortID="870079032">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Music" ID="{A2D45AA4-4D50-4F77-98A0-01D7D04941A0}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{D25D394F-C7DD-4134-A53E-F6524398B0D7}" ShortID="591203029">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="23"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Menu" ID="{8072033B-4FC3-4E24-97D4-7C89DF0375B3}" WorkUnitID="{0A3BFF18-80A4-462C-BEED-FCB0E1AFE9EA}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
