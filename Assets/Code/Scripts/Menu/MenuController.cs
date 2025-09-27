@@ -1,5 +1,6 @@
-using Code.Scripts.Game;
-using Code.Scripts.Level;
+using Code.Scripts.Game.Managers;
+using Code.Scripts.Game.Triggers;
+using Eflatun.SceneReference;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,9 +10,8 @@ namespace Code.Scripts.Menu
     public class MenuController : MonoBehaviour
     {
         [Header("Scene Names")]
-        [SerializeField] private string levelSelectorScene;
-        [SerializeField] private string mainMenuSceneName;
-        [SerializeField] private string fileSaveSceneName;
+        [SerializeField] private SceneReference mainMenu;
+        [SerializeField] private SceneReference saveFiles;
 
         [Header("UI Elements")]
         [SerializeField] private GameObject fadeOut;
@@ -47,25 +47,14 @@ namespace Code.Scripts.Menu
             LevelChanger.Instance.LoadLastLevel();
         }
 
-        private void LoadScene(string sceneName)
-        {
-            Stats.SaveStats();
-            SceneManager.LoadScene(sceneName);
-        }
-
         public void GoMainMenu()
         {
-            LoadScene(mainMenuSceneName);
+            LevelChanger.Instance.LoadScene(mainMenu);
         }
 
         public void GoFileSaves()
         {
-            LoadScene(fileSaveSceneName);
-        }
-
-        public void GoMainMenuAndTurnOptions()
-        {
-            LoadScene(mainMenuSceneName);
+            LevelChanger.Instance.LoadScene(saveFiles);
         }
 
         public void QuitGame()
@@ -76,13 +65,13 @@ namespace Code.Scripts.Menu
 
         public void OnControllerSelection()
         {
-            fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
+            fadeOut.GetComponent<Animation>().Play("Fade-out");
             Invoke(nameof(GoFileSaves), 2);
         }
 
         public void OnFileSelection(int saveSlot)
         {
-            fadeOut.GetComponent<UnityEngine.Animation>().Play("Fade-out");
+            fadeOut.GetComponent<Animation>().Play("Fade-out");
             Stats.SelectSaveSlot(saveSlot);
             Invoke(nameof(GoMainMenu), 2);
         }

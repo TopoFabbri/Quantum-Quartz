@@ -1,42 +1,43 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.Localization.Settings;
 
-public class LocaleSelector : MonoBehaviour
+namespace Code.Scripts.Menu
 {
-    private Coroutine coroutine = null;
-
-    private void Start()
+    public class LocaleSelector : MonoBehaviour
     {
-        string localeName = PlayerPrefs.GetString("LocaleKey", null);
-        ChangeLocale(localeName);
-    }
+        private Coroutine coroutine = null;
 
-    public void ChangeLocale(string localeName)
-    {
-        if (string.IsNullOrWhiteSpace(localeName)) return;
-
-        if (coroutine != null)
+        private void Start()
         {
-            StopCoroutine(coroutine);
+            string localeName = PlayerPrefs.GetString("LocaleKey", null);
+            ChangeLocale(localeName);
         }
 
-        coroutine = StartCoroutine(SetLocale(localeName));
-    }
-
-    IEnumerator SetLocale(string localeName)
-    {
-        yield return LocalizationSettings.InitializationOperation;
-        for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
+        public void ChangeLocale(string localeName)
         {
-            if (LocalizationSettings.AvailableLocales.Locales[i].LocaleName.Contains(localeName))
+            if (string.IsNullOrWhiteSpace(localeName)) return;
+
+            if (coroutine != null)
             {
-                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[i];
-                PlayerPrefs.SetString("LocaleKey", localeName);
-                break;
+                StopCoroutine(coroutine);
+            }
+
+            coroutine = StartCoroutine(SetLocale(localeName));
+        }
+
+        IEnumerator SetLocale(string localeName)
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
+            {
+                if (LocalizationSettings.AvailableLocales.Locales[i].LocaleName.Contains(localeName))
+                {
+                    LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[i];
+                    PlayerPrefs.SetString("LocaleKey", localeName);
+                    break;
+                }
             }
         }
     }

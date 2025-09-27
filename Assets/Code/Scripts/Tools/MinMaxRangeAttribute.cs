@@ -1,5 +1,4 @@
 // https://github.com/matheusamazonas/min_max_range_attribute
-
 using System;
 using UnityEngine;
 

@@ -1,68 +1,77 @@
+using Code.Scripts.Game.Triggers;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using Code.Scripts.Level;
 
-public class LevelSelectorUI : MonoBehaviour
+namespace Code.Scripts.Menu
 {
-    [SerializeField] private LevelList levelList;
-    [SerializeField] private Transform buttonContainer;
-    [SerializeField] private GameObject buttonPrefab;
-    [SerializeField] private Button backButton;
-
-    private List<Button> generatedButtons = new List<Button>();
-
-    void Start()
+    public class LevelSelectorUI : MonoBehaviour
     {
-        foreach (LevelList.LevelData level in levelList.levels)
-        {
-            GameObject newButtonObj = Instantiate(buttonPrefab, buttonContainer);
-            Button newButton = newButtonObj.GetComponent<Button>();
-            TextMeshProUGUI buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
+        [SerializeField] private Transform buttonContainer;
+        [SerializeField] private GameObject buttonPrefab;
+        [SerializeField] private Button backButton;
 
-            if (buttonText != null)
+        private List<Button> generatedButtons = new List<Button>();
+
+        void Start()
+        {
+            foreach (LevelList.LevelData level in LevelChanger.Instance.LevelList.levels)
             {
-                buttonText.text = level.SceneName;
+                GameObject newButtonObj = Instantiate(buttonPrefab, buttonContainer);
+                Button newButton = newButtonObj.GetComponent<Button>();
+                TextMeshProUGUI buttonText = newButtonObj.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (buttonText != null)
+                {
+                    buttonText.text = level.SceneName;
+                }
+
+                newButton.onClick.AddListener(() => LevelChanger.Instance.LoadLevel(level));
+
+                generatedButtons.Add(newButton);
+
+                if (generatedButtons.Count == 1)
+                {
+                    newButton.Select();
+                }
             }
 
-            newButton.onClick.AddListener(() => LevelChanger.Instance.LoadLevel(level));
+            ConfigureNavigation();
+        }
 
-            generatedButtons.Add(newButton);
-
-            if (generatedButtons.Count == 1)
+        private void ConfigureNavigation()
+        {
+            for (int i = 0; i < generatedButtons.Count; i++)
             {
-                newButton.Select();
+                var nav = new Navigation
+                {
+                    mode = Navigation.Mode.Explicit,
+                    selectOnUp = (i > 0) ? generatedButtons[i - 1] : null,
+                    selectOnDown = (i < generatedButtons.Count - 1) ? generatedButtons[i + 1] : null,
+                    selectOnRight = backButton != null ? backButton : null
+                };
+
+                generatedButtons[i].navigation = nav;
+            }
+
+            if (backButton != null && generatedButtons.Count > 0)
+            {
+                var lastButton = generatedButtons[generatedButtons.Count - 1];
+                var lastNav = lastButton.navigation;
+                lastNav.selectOnDown = backButton;
+                lastButton.navigation = lastNav;
+
+                var backNav = new Navigation
+                {
+                    mode = Navigation.Mode.Explicit,
+                    selectOnLeft = lastButton,
+                    selectOnUp = lastButton
+                };
+
+                backButton.navigation = backNav;
             }
         }
 
-        ConfigureNavigation();
-    }
-
-    private void ConfigureNavigation()
-    {
-        for (int i = 0; i < generatedButtons.Count; i++)
-        {
-            var nav = new Navigation
-            {
-                mode = Navigation.Mode.Explicit,
-                selectOnUp = (i > 0) ? generatedButtons[i - 1] : null,
-                selectOnDown = (i < generatedButtons.Count - 1) ? generatedButtons[i + 1] : null,
-                selectOnRight = backButton != null ? backButton : null
-            };
-
-            generatedButtons[i].navigation = nav;
-        }
-
-        if (backButton != null && generatedButtons.Count > 0)
-        {
-            var backNav = new Navigation
-            {
-                mode = Navigation.Mode.Explicit,
-                selectOnLeft = generatedButtons[generatedButtons.Count - 1]
-            };
-
-            backButton.navigation = backNav;
-        }
     }
 }

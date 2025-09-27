@@ -22,8 +22,16 @@
 							<Position X="1" Y="1"/>
 						</Module>
 						<Module>
-							<ObjectRef Name="Stop_Steampunk_Music" ID="{A0F915D4-00FC-46E5-B6AD-3457E6AD9422}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
+							<ObjectRef Name="Music" ID="{A2D45AA4-4D50-4F77-98A0-01D7D04941A0}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
+							<Position X="2" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="MX_Menu" ID="{FCA3654A-3260-4D37-8D3E-C58B7A71618B}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
 							<Position X="2" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Stop_Steampunk_Music" ID="{A0F915D4-00FC-46E5-B6AD-3457E6AD9422}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
+							<Position X="2" Y="2"/>
 						</Module>
 						<Module>
 							<ObjectRef Name="Play_Footsteps" ID="{9C889416-9D01-48E4-91DB-3416B850975D}" WorkUnitID="{DB926AFD-AFEC-4614-96EF-ADF952847EF7}"/>
@@ -36,6 +44,10 @@
 						<Module>
 							<ObjectRef Name="Stop_Luciernagas" ID="{08A26E70-DE45-4839-A45E-D81BF83B445F}" WorkUnitID="{AE2096F8-821D-42DF-9332-38ACBC3C685C}"/>
 							<Position X="3" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Play_MX_Menu" ID="{D83DE589-B9CD-41B9-A9E4-8045A6A31407}" WorkUnitID="{3FFB5386-DEDC-46BF-8E10-A87C3F255F65}"/>
+							<Position X="4" Y="0"/>
 						</Module>
 					</ModuleList>
 					<RTPCValueList ShowAll="true">
@@ -62,7 +74,7 @@
 					</RTPCValueList>
 					<CurrentStateList ShowAll="true">
 						<CurrentStateRef Name="Off" ID="{D87F5CA9-28A2-4AC2-869B-82ECB708C05F}"/>
-						<CurrentStateRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
+						<CurrentStateRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
 						<CurrentStateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
 					</CurrentStateList>
 					<CurrentSwitchList ShowAll="true">

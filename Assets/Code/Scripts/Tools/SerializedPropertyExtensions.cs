@@ -1,5 +1,4 @@
 //https://gist.github.com/monry/9de7009689cbc5050c652bcaaaa11daa
-
 using System.Linq;
 using System.Text.RegularExpressions;
 

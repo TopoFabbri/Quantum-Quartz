@@ -1,11 +1,10 @@
 using AYellowpaper.SerializedCollections;
-using Code.Scripts.Animation;
-using Code.Scripts.Colors;
 using Code.Scripts.FSM;
+using Code.Scripts.Game.Managers;
+using Code.Scripts.Game.Triggers;
 using Code.Scripts.Input;
-using Code.Scripts.Level;
 using Code.Scripts.States;
-using Code.Scripts.StateSettings;
+using Code.Scripts.States.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +35,7 @@ namespace Code.Scripts.Player
         [SerializeField] private RectTransform gearFX;
         [SerializeField] private WallStateColliders wallStateColliders;
         
-        [SerializeField] private SerializedDictionary<string, StateSettings.StateSettings> settings;
+        [SerializeField] private SerializedDictionary<string, StateSettings> settings;
         
         private readonly FiniteStateMachine<string> stateMachine = new FiniteStateMachine<string>(2);
 #pragma warning disable IDE1006 // Naming Styles
@@ -88,11 +87,6 @@ namespace Code.Scripts.Player
         private void Update()
         {
             stateMachine.Update();
-
-            WallState<string> wallState = (WallState<string>)stateMachine.GetState("Wall");
-            
-            if (wallState != null)
-                animController.SetHanging(wallState.GetHanging(!sharedContext.facingRight));
             
             if (stateDebugText)
             {
@@ -142,7 +136,7 @@ namespace Code.Scripts.Player
             // ||          Create States          ||
             // =====================================
             IdleState     <string> idle = new("Idle"                                                                                       );
-            TpState       <string> tlpt = new("TP",     settings["TP"] as TpSettings,     sharedContext                                );
+            TpState       <string> tlpt = new("TP",     settings["TP"] as TpSettings,     sharedContext                                    );
             PauseState    <string> paus = new("Pause",  sharedContext                                                                      );
             ExitTpState   <string> extp = new("ExitTP", settings["ExitTP"] as SpawnSettings,  sharedContext                                );
             MoveState     <string> move = new("Move",   settings["Move"]   as MoveSettings,   sharedContext                                );
@@ -153,10 +147,10 @@ namespace Code.Scripts.Player
             SpawnState    <string> spwn = new("Spawn",  settings["Spawn"]  as SpawnSettings,  sharedContext                                );
             WallJumpState <string> wjmp = new("Wjmp",   settings["Wjmp"]   as WjmpSettings,   sharedContext                                );
             FallState     <string> fall = new("Fall",   settings["Fall"]   as FallSettings,   sharedContext                                );
-            WallState     <string> wall = new("Wall",   settings["Wall"]   as WallSettings,   sharedContext                                );
+            WallState     <string> wall = new("Wall",   settings["Wall"]   as WallSettings,   sharedContext, animController                );
             DashState     <string> dash = new("Dash",   settings["Dash"]   as DashSettings,   sharedContext, staminaBar,      dashPs       );
             GlideState    <string> glde = new("Glide",  settings["Glide"]  as GlideSettings,  sharedContext, staminaBar,      gldePs       );
-            GrabState     <string> grab = new("Grab",   settings["Grab"]   as GrabSettings,   sharedContext, staminaBar                    );
+            GrabState     <string> grab = new("Grab",   settings["Grab"]   as GrabSettings,   sharedContext, animController, staminaBar    );
             EdgeState     <string> edge = new("Edge",   settings["Edge"]   as EdgeSettings,   sharedContext, animController                );
 
             List<State> states = new List<State>
