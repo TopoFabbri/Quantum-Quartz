@@ -34,6 +34,7 @@ namespace AK
         static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
         static const AkUniqueID PLAY_LUCIERNAGAS = 3912385716U;
+        static const AkUniqueID PLAY_MX_MENU = 1022453873U;
         static const AkUniqueID PLAY_MX_SWITCH = 2855120456U;
         static const AkUniqueID PLAY_SECRETWALLS = 17527661U;
         static const AkUniqueID PLAY_SFX_STARTANIMATION = 751341016U;
@@ -122,6 +123,7 @@ namespace AK
                 static const AkUniqueID AQUATIC = 3653896563U;
                 static const AkUniqueID GHOST = 4023194814U;
                 static const AkUniqueID MAINTHEME = 824317709U;
+                static const AkUniqueID MENU = 2607556080U;
                 static const AkUniqueID NOMX = 732117587U;
             } // namespace SWITCH
         } // namespace MUSICSWITCH

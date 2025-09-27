@@ -73,6 +73,7 @@
 					<Switches>
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="2607556080" Name="Menu"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
 						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
@@ -87,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{6FFD8029-F55E-E396-BF0A-063C42749E74}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{933C08B4-4242-FA11-83F9-899B6070EE48}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -299,6 +300,12 @@
 					<ShortName>Cristal_Platform_FS-010.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-010_2B62F72B.wem</CachePath>
 				</File>
+				<File Id="255770230" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>QQ_Menu_MainLP.wav</ShortName>
+					<Path>Media/255770230.wem</Path>
+					<CachePath>SFX/QQ_Menu_MainLP_686156BF.wem</CachePath>
+					<PrefetchSize>4348</PrefetchSize>
+				</File>
 				<File Id="268259119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_17.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_17_4D3BBC73.wem</CachePath>
@@ -480,6 +487,12 @@
 				<File Id="531548991" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-005.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-005_13358D60.wem</CachePath>
+				</File>
+				<File Id="537670429" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>QQ_Menu_Intro_Short.wav</ShortName>
+					<Path>Media/537670429.wem</Path>
+					<CachePath>SFX/QQ_Menu_Intro_Short_686156BF.wem</CachePath>
+					<PrefetchSize>2202</PrefetchSize>
 				</File>
 				<File Id="539506131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_In_5.wav</ShortName>
@@ -1341,6 +1354,105 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="1022453873" Name="Play_MX_Menu" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="2607556080" Name="Menu"/>
+					</ActionSetSwitch>
+				</Event>
 				<Event Id="2855120456" Name="Play_MX_Switch" DurationType="Infinite">
 					<SwitchContainers>
 						<SwitchContainer>
@@ -1383,6 +1495,13 @@
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
 								<MediaRef Id="26893415"/>
@@ -1419,6 +1538,13 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
 							<MediaRefs>
 								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1570,6 +1696,13 @@
 								<MediaRef Id="865916349"/>
 							</MediaRefs>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 				<Event Id="2505006364" Name="Stop_Steampunk_Music" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
@@ -1614,6 +1747,7 @@
 					<Switches>
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="2607556080" Name="Menu"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
 						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
@@ -1629,5 +1763,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{F7977631-D230-648D-3866-486AA8DB07DB}</FileHash>
+	<FileHash>{BD0FFB5C-FBB5-59C7-4F30-A7DC4A8301D6}</FileHash>
 </SoundBanksInfo>

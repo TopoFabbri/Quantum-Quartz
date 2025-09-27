@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{145074C4-74F8-7D1C-EAFB-5100645997C7}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{C48C4376-79E8-2C61-3B9B-E6A8B4F4A0E6}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -73,6 +73,7 @@
 					<Switches>
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="2607556080" Name="Menu"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
 						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
@@ -87,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{AB858051-ED32-4923-01BF-539E078E75BB}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{25488FFD-3CDB-2954-077F-7E332D4456F8}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -118,12 +119,6 @@
 				<File Id="17443080" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-009.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-009_320802A8.wem</CachePath>
-				</File>
-				<File Id="26893415" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>QQ_Adventurer_Puzzle_Intro.wav</ShortName>
-					<Path>Media/26893415.wem</Path>
-					<CachePath>SFX/QQ_Adventurer_Puzzle_Intro_686156BF.wem</CachePath>
-					<PrefetchSize>2036</PrefetchSize>
 				</File>
 				<File Id="28636868" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-006.wav</ShortName>
@@ -169,6 +164,10 @@
 					<ShortName>Buzz_Saw_Layer-002.wav</ShortName>
 					<CachePath>SFX/Buzz_Saw_Layer-002_282108B1.wem</CachePath>
 				</File>
+				<File Id="116959583" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_2.wav</ShortName>
+					<CachePath>SFX/DX_Standard_2_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="119363177" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_8.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_8_4D3BBC73.wem</CachePath>
@@ -201,11 +200,9 @@
 					<ShortName>LAB_Landing-002.wav</ShortName>
 					<CachePath>SFX/LAB_Landing-002_B05C803D.wem</CachePath>
 				</File>
-				<File Id="171091106" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>QQ_Adventurer_Puzzle_End.wav</ShortName>
-					<Path>Media/171091106.wem</Path>
-					<CachePath>SFX/QQ_Adventurer_Puzzle_End_686156BF.wem</CachePath>
-					<PrefetchSize>2579</PrefetchSize>
+				<File Id="159343493" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_18.wav</ShortName>
+					<CachePath>SFX/DX_Standard_18_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="173228913" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_5.wav</ShortName>
@@ -227,6 +224,10 @@
 					<ShortName>Concrete_Footstep-018.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-018_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="194766348" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_1.wav</ShortName>
+					<CachePath>SFX/DX_Standard_1_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="199247493" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_In_1.wav</ShortName>
 					<CachePath>SFX/Fireflies_In_1_4D3BBC73.wem</CachePath>
@@ -242,6 +243,14 @@
 				<File Id="218353409" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Buzz_Saw_Layer-003.wav</ShortName>
 					<CachePath>SFX/Buzz_Saw_Layer-003_282108B1.wem</CachePath>
+				</File>
+				<File Id="224493757" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_13.wav</ShortName>
+					<CachePath>SFX/DX_Standard_13_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="229192018" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_4.wav</ShortName>
+					<CachePath>SFX/DX_Standard_4_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="229211874" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-009.wav</ShortName>
@@ -263,6 +272,10 @@
 					<ShortName>STEAM.wav</ShortName>
 					<CachePath>SFX/STEAM_282108B1.wem</CachePath>
 				</File>
+				<File Id="243617291" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_5.wav</ShortName>
+					<CachePath>SFX/DX_Standard_5_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="243878753" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_35.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_35_4D3BBC73.wem</CachePath>
@@ -274,6 +287,12 @@
 				<File Id="252607925" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-010.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-010_2B62F72B.wem</CachePath>
+				</File>
+				<File Id="255770230" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>QQ_Menu_MainLP.wav</ShortName>
+					<Path>Media/255770230.wem</Path>
+					<CachePath>SFX/QQ_Menu_MainLP_686156BF.wem</CachePath>
+					<PrefetchSize>4348</PrefetchSize>
 				</File>
 				<File Id="268259119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_17.wav</ShortName>
@@ -323,6 +342,10 @@
 					<ShortName>Lab_Footstep_18.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_18_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="323714221" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_8.wav</ShortName>
+					<CachePath>SFX/DX_Standard_8_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="354437593" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-002.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-002_107F6FDE.wem</CachePath>
@@ -331,9 +354,17 @@
 					<ShortName>Lab_Footstep_28.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_28_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="370388390" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_17.wav</ShortName>
+					<CachePath>SFX/DX_Standard_17_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="372306415" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_36.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_36_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="379737394" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_16.wav</ShortName>
+					<CachePath>SFX/DX_Standard_16_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="381624687" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-003.wav</ShortName>
@@ -351,15 +382,13 @@
 					<ShortName>Concrete_Footstep-033.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-033_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="398790291" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_19.wav</ShortName>
+					<CachePath>SFX/DX_Standard_19_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="399637785" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Death_Revive_Electrical.wav</ShortName>
 					<CachePath>SFX/Death_Revive_Electrical_4D3BBC73.wem</CachePath>
-				</File>
-				<File Id="400230657" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>Adventurer - Loop.wav</ShortName>
-					<Path>Media/400230657.wem</Path>
-					<CachePath>SFX/Adventurer - Loop_686156BF.wem</CachePath>
-					<PrefetchSize>3401</PrefetchSize>
 				</File>
 				<File Id="403912503" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Charge_Shoot_Laser.wav</ShortName>
@@ -372,6 +401,10 @@
 				<File Id="414913162" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-011.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-011_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="441455668" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_15.wav</ShortName>
+					<CachePath>SFX/DX_Standard_15_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="446586235" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-030.wav</ShortName>
@@ -409,6 +442,10 @@
 					<ShortName>Fireflies_Out_5.wav</ShortName>
 					<CachePath>SFX/Fireflies_Out_5_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="498058925" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_12.wav</ShortName>
+					<CachePath>SFX/DX_Standard_12_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="502274449" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_Out_2.wav</ShortName>
 					<CachePath>SFX/Fireflies_Out_2_4D3BBC73.wem</CachePath>
@@ -416,6 +453,10 @@
 				<File Id="503771883" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-034.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-034_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="511700326" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_3.wav</ShortName>
+					<CachePath>SFX/DX_Standard_3_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="519779318" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_R.wav</ShortName>
@@ -428,6 +469,12 @@
 				<File Id="531548991" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-005.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-005_13358D60.wem</CachePath>
+				</File>
+				<File Id="537670429" Language="SFX" Streaming="true" Location="Memory">
+					<ShortName>QQ_Menu_Intro_Short.wav</ShortName>
+					<Path>Media/537670429.wem</Path>
+					<CachePath>SFX/QQ_Menu_Intro_Short_686156BF.wem</CachePath>
+					<PrefetchSize>2202</PrefetchSize>
 				</File>
 				<File Id="539506131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_In_5.wav</ShortName>
@@ -453,12 +500,6 @@
 					<ShortName>Buzz_Saw_Layer-004.wav</ShortName>
 					<CachePath>SFX/Buzz_Saw_Layer-004_282108B1.wem</CachePath>
 				</File>
-				<File Id="585198590" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>Adventurer - LoopEND.wav</ShortName>
-					<Path>Media/585198590.wem</Path>
-					<CachePath>SFX/Adventurer - LoopEND_686156BF.wem</CachePath>
-					<PrefetchSize>2220</PrefetchSize>
-				</File>
 				<File Id="595934151" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-017.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-017_4D3BBC73.wem</CachePath>
@@ -466,6 +507,10 @@
 				<File Id="600393049" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-028.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-028_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="602115315" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_11.wav</ShortName>
+					<CachePath>SFX/DX_Standard_11_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="615289234" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_34.wav</ShortName>
@@ -537,6 +582,14 @@
 					<ShortName>QQ_SFX_Startanimation.wav</ShortName>
 					<CachePath>SFX/QQ_SFX_Startanimation_4DA1AA71.wem</CachePath>
 				</File>
+				<File Id="730040943" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_7.wav</ShortName>
+					<CachePath>SFX/DX_Standard_7_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="733558835" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_6.wav</ShortName>
+					<CachePath>SFX/DX_Standard_6_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="735533881" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Landings-002.wav</ShortName>
 					<CachePath>SFX/Concrete_Landings-002_4D3BBC73.wem</CachePath>
@@ -565,9 +618,17 @@
 					<ShortName>QQ_Luciernagas.wav</ShortName>
 					<CachePath>SFX/QQ_Luciernagas_1737BAAC.wem</CachePath>
 				</File>
+				<File Id="769265346" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_9.wav</ShortName>
+					<CachePath>SFX/DX_Standard_9_4D3BBC73.wem</CachePath>
+				</File>
 				<File Id="777340066" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-008.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-008_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="780541218" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_10.wav</ShortName>
+					<CachePath>SFX/DX_Standard_10_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="783385467" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_33.wav</ShortName>
@@ -597,12 +658,6 @@
 					<ShortName>Lab_Footstep_15.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_15_4D3BBC73.wem</CachePath>
 				</File>
-				<File Id="812185611" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>QQ_Adventurer_Puzzle_Loop.wav</ShortName>
-					<Path>Media/812185611.wem</Path>
-					<CachePath>SFX/QQ_Adventurer_Puzzle_Loop_686156BF.wem</CachePath>
-					<PrefetchSize>5150</PrefetchSize>
-				</File>
 				<File Id="820823285" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-001.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-001_2346CC2F.wem</CachePath>
@@ -618,6 +673,10 @@
 				<File Id="847615794" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_3.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_3_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="853841648" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_14.wav</ShortName>
+					<CachePath>SFX/DX_Standard_14_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="854077163" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-007.wav</ShortName>
@@ -651,9 +710,17 @@
 					<ShortName>Concrete_Footstep-010.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-010_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="886521257" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SecretWall.wav</ShortName>
+					<CachePath>SFX/SecretWall_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="886791020" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SpringDesinflada.wav</ShortName>
 					<CachePath>SFX/SpringDesinflada_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="893436308" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DX_Standard_20.wav</ShortName>
+					<CachePath>SFX/DX_Standard_20_4D3BBC73.wem</CachePath>
 				</File>
 				<File Id="899581131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_Out_3.wav</ShortName>
@@ -838,6 +905,30 @@
 				<Event Id="1172822028" Name="Play_Death" DurationType="OneShot" DurationMin="1.5868334" DurationMax="1.5868334">
 					<MediaRefs>
 						<MediaRef Id="399637785"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3684740494" Name="Play_DX_Molly_Standard" DurationType="OneShot" DurationMin="0.02156259" DurationMax="0.024201892">
+					<MediaRefs>
+						<MediaRef Id="116959583"/>
+						<MediaRef Id="159343493"/>
+						<MediaRef Id="194766348"/>
+						<MediaRef Id="224493757"/>
+						<MediaRef Id="229192018"/>
+						<MediaRef Id="243617291"/>
+						<MediaRef Id="323714221"/>
+						<MediaRef Id="370388390"/>
+						<MediaRef Id="379737394"/>
+						<MediaRef Id="398790291"/>
+						<MediaRef Id="441455668"/>
+						<MediaRef Id="498058925"/>
+						<MediaRef Id="511700326"/>
+						<MediaRef Id="602115315"/>
+						<MediaRef Id="730040943"/>
+						<MediaRef Id="733558835"/>
+						<MediaRef Id="769265346"/>
+						<MediaRef Id="780541218"/>
+						<MediaRef Id="853841648"/>
+						<MediaRef Id="893436308"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="3854155799" Name="Play_Footsteps" DurationType="OneShot" DurationMin="0.03426674" DurationMax="0.54836726">
@@ -1221,29 +1312,118 @@
 						<MediaRef Id="151863213"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="3912385716" Name="Play_Luciernagas" DurationType="Infinite">
+				<Event Id="3912385716" Name="Play_Luciernagas" DurationType="OneShot" DurationMin="0.8771826" DurationMax="0.9846042">
 					<MediaRefs>
 						<MediaRef Id="189149142"/>
 						<MediaRef Id="199247493"/>
 						<MediaRef Id="306093489"/>
 						<MediaRef Id="539506131"/>
 						<MediaRef Id="763148105"/>
-						<MediaRef Id="766339141"/>
 					</MediaRefs>
 					<ActionSetState>
 						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
 					</ActionSetState>
+				</Event>
+				<Event Id="1022453873" Name="Play_MX_Menu" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+					<ActionSetSwitch>
+						<ActionSetSwitchEntry GroupId="1445037870" Id="2607556080" Name="Menu"/>
+					</ActionSetSwitch>
 				</Event>
 				<Event Id="2855120456" Name="Play_MX_Switch" DurationType="Infinite">
 					<SwitchContainers>
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
-								<MediaRef Id="26893415"/>
-								<MediaRef Id="171091106"/>
-								<MediaRef Id="400230657"/>
-								<MediaRef Id="585198590"/>
-								<MediaRef Id="812185611"/>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1273,16 +1453,20 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
 							<MediaRefs>
 								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
-								<MediaRef Id="26893415"/>
-								<MediaRef Id="171091106"/>
-								<MediaRef Id="400230657"/>
-								<MediaRef Id="585198590"/>
-								<MediaRef Id="812185611"/>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1312,12 +1496,24 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
 							<MediaRefs>
 								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
 					<ActionSetSwitch>
 						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
 					</ActionSetSwitch>
+				</Event>
+				<Event Id="17527661" Name="Play_SecretWalls" DurationType="OneShot" DurationMin="3.1610832" DurationMax="3.1610832">
+					<MediaRefs>
+						<MediaRef Id="886521257"/>
+					</MediaRefs>
 				</Event>
 				<Event Id="751341016" Name="Play_SFX_StartAnimation" DurationType="OneShot" DurationMin="3.9192708" DurationMax="3.9192708">
 					<MediaRefs>
@@ -1422,11 +1618,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
 							<MediaRefs>
-								<MediaRef Id="26893415"/>
-								<MediaRef Id="171091106"/>
-								<MediaRef Id="400230657"/>
-								<MediaRef Id="585198590"/>
-								<MediaRef Id="812185611"/>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1456,6 +1649,13 @@
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
 							<MediaRefs>
 								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="255770230"/>
+								<MediaRef Id="537670429"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1502,6 +1702,7 @@
 					<Switches>
 						<Switch Id="732117587" Name="NoMX"/>
 						<Switch Id="824317709" Name="MainTheme"/>
+						<Switch Id="2607556080" Name="Menu"/>
 						<Switch Id="3247222823" Name="Adventurer"/>
 						<Switch Id="3653896563" Name="Aquatic"/>
 						<Switch Id="4023194814" Name="Ghost"/>
@@ -1517,5 +1718,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{75301D91-AF77-5518-9744-1F32E5F31F59}</FileHash>
+	<FileHash>{59F93ED6-0A66-D45D-34EE-9010E022F3EC}</FileHash>
 </SoundBanksInfo>

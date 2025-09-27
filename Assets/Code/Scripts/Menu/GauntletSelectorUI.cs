@@ -45,7 +45,7 @@ namespace Code.Scripts.Menu
                 if (gauntlet.isUnlocked)
                 {
                     // Ya comprado -> carga escena
-                    newButton.onClick.AddListener(() => SceneManager.LoadScene(gauntlet.sceneReference.BuildIndex));
+                    newButton.onClick.AddListener(() => LevelChanger.Instance.LoadScene(gauntlet.sceneReference));
                 }
                 else
                 {
