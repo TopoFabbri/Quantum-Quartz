@@ -16,6 +16,11 @@ namespace Code.Scripts.FSM
         
         private readonly Dictionary<string, int> animIdsByName = new();
 
+        private void Start()
+        {
+            animator.keepAnimatorStateOnDisable = true;
+        }
+
         /// <summary>
         /// Add animation id by name
         /// </summary>
