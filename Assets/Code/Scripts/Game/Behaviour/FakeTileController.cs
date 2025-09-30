@@ -9,8 +9,9 @@ namespace Code.Scripts.Game.Behaviour
     [RequireComponent(typeof(Tilemap), typeof(Collider2D))]
     public class FakeTileController : InteractableComponent
     {
-        [SerializeField] float fadeDuration = 0.2f;
-        [SerializeField] float fadeAlpha = 0.2f;
+        [SerializeField] private float fadeDuration = 0.2f;
+        [SerializeField] private float fadeAlpha = 0.2f;
+        [SerializeField] private float alphaSoundRange = .5f;
         [SerializeField] private WwiseEvent soundEvent;
         
         private Tilemap tilemap;
