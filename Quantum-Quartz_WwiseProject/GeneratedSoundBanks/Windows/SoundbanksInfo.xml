@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{933C08B4-4242-FA11-83F9-899B6070EE48}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DFE53B35-69B0-3EE7-9315-7713BA2CDC96}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -300,12 +300,6 @@
 					<ShortName>Cristal_Platform_FS-010.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-010_2B62F72B.wem</CachePath>
 				</File>
-				<File Id="255770230" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>QQ_Menu_MainLP.wav</ShortName>
-					<Path>Media/255770230.wem</Path>
-					<CachePath>SFX/QQ_Menu_MainLP_686156BF.wem</CachePath>
-					<PrefetchSize>4348</PrefetchSize>
-				</File>
 				<File Id="268259119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_17.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_17_4D3BBC73.wem</CachePath>
@@ -488,12 +482,6 @@
 					<ShortName>Cristal_Platform_Landings-005.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-005_13358D60.wem</CachePath>
 				</File>
-				<File Id="537670429" Language="SFX" Streaming="true" Location="Memory">
-					<ShortName>QQ_Menu_Intro_Short.wav</ShortName>
-					<Path>Media/537670429.wem</Path>
-					<CachePath>SFX/QQ_Menu_Intro_Short_686156BF.wem</CachePath>
-					<PrefetchSize>2202</PrefetchSize>
-				</File>
 				<File Id="539506131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_In_5.wav</ShortName>
 					<CachePath>SFX/Fireflies_In_5_4D3BBC73.wem</CachePath>
@@ -547,6 +535,10 @@
 				<File Id="624876094" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Dash_L.wav</ShortName>
 					<CachePath>SFX/Dash_L_D9640285.wem</CachePath>
+				</File>
+				<File Id="630461703" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Menu_MainLP_v2.wav</ShortName>
+					<CachePath>SFX/QQ_Menu_MainLP_v2_686156BF.wem</CachePath>
 				</File>
 				<File Id="634500121" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>QQ_Ghost_IntroGlitches3_80bpm_Charm_4-4_L12M.wav</ShortName>
@@ -833,6 +825,10 @@
 				<File Id="1017393183" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Change_Quartz-001.wav</ShortName>
 					<CachePath>SFX/Change_Quartz-001_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="1017739607" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Menu_Intro_v2.wav</ShortName>
+					<CachePath>SFX/QQ_Menu_Intro_v2_686156BF.wem</CachePath>
 				</File>
 				<File Id="1018597292" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-016.wav</ShortName>
@@ -1398,8 +1394,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
 							<MediaRefs>
-								<MediaRef Id="255770230"/>
-								<MediaRef Id="537670429"/>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1444,8 +1440,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
 							<MediaRefs>
-								<MediaRef Id="255770230"/>
-								<MediaRef Id="537670429"/>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1497,8 +1493,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
 							<MediaRefs>
-								<MediaRef Id="255770230"/>
-								<MediaRef Id="537670429"/>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -1543,8 +1539,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
 							<MediaRefs>
-								<MediaRef Id="255770230"/>
-								<MediaRef Id="537670429"/>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1699,8 +1695,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
 							<MediaRefs>
-								<MediaRef Id="255770230"/>
-								<MediaRef Id="537670429"/>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
@@ -1763,5 +1759,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{BD0FFB5C-FBB5-59C7-4F30-A7DC4A8301D6}</FileHash>
+	<FileHash>{3FD07D82-FA03-C07C-FE7A-D25DEE19DA2F}</FileHash>
 </SoundBanksInfo>
