@@ -192,6 +192,7 @@ namespace Code.Scripts.Game.Behaviour
                         if (!group.hasPlayedAudio && progress < alphaSoundRange)
                         {
                             group.hasPlayedAudio = true;
+                            soundEvent.SetOn(gameObject);
                             tileGroups[key] = group;
                         }
                         float newAlpha = Mathf.Max(0, (progress - timeStep)) * (1f - fadeAlpha) + fadeAlpha;
