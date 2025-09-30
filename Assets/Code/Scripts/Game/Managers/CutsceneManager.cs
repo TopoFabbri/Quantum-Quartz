@@ -17,6 +17,7 @@ namespace Code.Scripts.Game.Managers
         }
 
         [SerializeField] Transform playerDestinationX;
+        [SerializeField] Transform fakePlayer;
 
         Animator anim;
 
@@ -91,6 +92,23 @@ namespace Code.Scripts.Game.Managers
             }
         }
 
+        public void UpdateFakePlayerPosition()
+        {
+            if (!fakePlayer)
+            {
+                Debug.LogError("Error: No fake player provided");
+                return;
+            }
+            var player = GameManager.Instance.Player;
+            fakePlayer.position = player.transform.position;
+            fakePlayer.rotation = player.IsFacingRight ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
+        }
+
+        public void FacePlayerRight(Boolean right)
+        {
+            GameManager.Instance.Player.FaceRight(right == Boolean.True);
+        }
+
         public void EnablePlayer(Boolean enable)
         {
             GameManager.Instance.Player.gameObject.SetActive(enable == Boolean.True);
@@ -99,6 +117,10 @@ namespace Code.Scripts.Game.Managers
         public void EnableInputs(Boolean enable)
         {
             InputManager.Instance.enabled = enable == Boolean.True;
+            if (enable == Boolean.False)
+            {
+                InputManager.Instance.CutsceneMoveX(0);
+            }
         }
 
         public void EnablePauseMusic(Boolean enable)

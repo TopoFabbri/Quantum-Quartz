@@ -208,5 +208,14 @@ namespace Code.Scripts.Player
         {
             interactables.Remove(component);
         }
+
+        public bool IsFacingRight => playerState.sharedContext.facingRight;
+        public void FaceRight(bool right)
+        {
+            if (IsFacingRight != right)
+            {
+                playerState.Flip();
+            }
+        }
     }
 }

@@ -110,7 +110,7 @@ namespace Code.Scripts.Game.Managers
 
         private static void OnRestartHandler()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            LevelChanger.Instance.ReloadLevel();
         }
 
         public void SetMusicFaded(bool faded)

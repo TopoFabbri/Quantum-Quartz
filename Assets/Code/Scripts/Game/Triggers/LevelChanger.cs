@@ -2,6 +2,7 @@ using Code.Scripts.Game.Managers;
 using Code.Scripts.Input;
 using Code.Scripts.Menu;
 using Code.Scripts.Tools;
+using Eflatun.SceneReference;
 using System;
 using System.Collections;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace Code.Scripts.Game.Triggers
             if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
             {
                 string nextSceneName = levelList.levels[currentIndex + 1].SceneName;
-                SceneManager.LoadScene(nextSceneName);
+                LoadScene(nextSceneName);
             }
             else
             {
@@ -94,7 +95,7 @@ namespace Code.Scripts.Game.Triggers
                 {
                     sceneName = levelList.levels[0].SceneName;
                 }
-                SceneManager.LoadScene(sceneName);
+                LoadScene(sceneName);
             }
             else
             {
@@ -105,7 +106,7 @@ namespace Code.Scripts.Game.Triggers
         public void ReloadLevel()
         {
             Stats.SetContinueMode(false);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().path);
+            LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void LoadLevel(int levelNumber)
@@ -122,10 +123,17 @@ namespace Code.Scripts.Game.Triggers
             }
         }
 
-        public void LoadLevel(LevelList.LevelData level)
+        public void LoadLevel(LevelList.LevelData level, bool continueMode = false)
         {
-            Stats.SetContinueMode(false);
+            Stats.SetContinueMode(continueMode);
             string sceneName = level.SceneName;
+            LoadScene(sceneName);
+        }
+
+        public void LoadScene(SceneReference scene) => LoadScene(scene.Name);
+        public void LoadScene(string sceneName)
+        {
+            Stats.SaveStats();
             SceneManager.LoadScene(sceneName);
         }
     }
