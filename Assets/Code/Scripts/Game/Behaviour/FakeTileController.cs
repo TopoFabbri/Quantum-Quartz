@@ -9,15 +9,17 @@ namespace Code.Scripts.Game.Behaviour
     [RequireComponent(typeof(Tilemap), typeof(Collider2D))]
     public class FakeTileController : InteractableComponent
     {
-        struct TileGroup
+        private struct TileGroup
         {
             public bool isHiding;
             public bool hasPlayedAudio;
             public HashSet<Vector3Int> tiles;
         }
 
-        [SerializeField] float fadeDuration = 0.2f;
-        [SerializeField] float fadeAlpha = 0.2f;
+        [SerializeField] private float fadeDuration = 0.2f;
+        [SerializeField] private float fadeAlpha = 0.2f;
+        [SerializeField] private float alphaSoundRange = 0.5f;
+        [SerializeField] private WwiseEvent soundEvent;
 
         private Tilemap tilemap;
         private Collider2D col;
@@ -187,9 +189,10 @@ namespace Code.Scripts.Game.Behaviour
 
                     if (progress >= 0 && !group.isHiding)
                     {
-                        if (!group.hasPlayedAudio && progress < 0.8)
+                        if (!group.hasPlayedAudio && progress < alphaSoundRange)
                         {
                             group.hasPlayedAudio = true;
+                            soundEvent.SetOn(gameObject);
                             tileGroups[key] = group;
                         }
                         float newAlpha = Mathf.Max(0, (progress - timeStep)) * (1f - fadeAlpha) + fadeAlpha;
