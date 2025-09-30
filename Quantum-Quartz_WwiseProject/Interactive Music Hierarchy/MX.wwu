@@ -11,11 +11,6 @@
 								<Value>1</Value>
 							</ValueList>
 						</Property>
-						<Property Name="UseMaxSoundPerInstance" Type="bool">
-							<ValueList>
-								<Value>True</Value>
-							</ValueList>
-						</Property>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
@@ -28,7 +23,6 @@
 					<ChildrenList>
 						<MusicPlaylistContainer Name="MX_Adventurer" ID="{66C1FF63-F6BD-4541-88BF-48C979F6A24D}" ShortID="953696919">
 							<PropertyList>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -38,11 +32,6 @@
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="OverrideEffect" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="145"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-6</Value>
@@ -62,7 +51,6 @@
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="19862.0833333333"/>
 										<Property Name="GridOffsetPreset" Type="int16" Value="1"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -355,7 +343,6 @@
 								<MusicSegment Name="Adventurer_MainLP" ID="{8865135D-92D6-4CBE-B8B8-4BF7598D4C54}" ShortID="655845405">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="244965.517241379"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -733,7 +720,6 @@
 											</ValueList>
 										</Property>
 										<Property Name="EndPosition" Type="Real64" Value="13241.3969078316"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -1183,7 +1169,6 @@
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="MX_Main_Theme" ID="{07A0BF79-5B8F-41BF-903F-32D8E1486ECA}" ShortID="923261839">
 							<PropertyList>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -1192,11 +1177,6 @@
 								</Property>
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="130"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-6</Value>
@@ -1215,7 +1195,6 @@
 								<MusicSegment Name="Steampunk_Default_Intro" ID="{F011D083-495C-473F-A5A6-A277E28807D9}" ShortID="945094142">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="33230.7692307694"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -1386,7 +1365,6 @@
 								<MusicSegment Name="Steampunk_Default_MainLP" ID="{94E3EBC2-90C9-439D-A2F8-FA2AE284EFB9}" ShortID="839031548">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="118153.854166667"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -1499,7 +1477,6 @@
 								<MusicSegment Name="Steampunk_Default_End" ID="{6BDB030D-A643-47ED-9B50-3357E5828A64}" ShortID="610854493">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="11076.9262820521"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
 												<Value>1</Value>
@@ -1737,7 +1714,6 @@
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="MX_Ghost" ID="{FD02652C-850A-42AB-9831-37CC00E55AA2}" ShortID="138945012">
 							<PropertyList>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -1745,12 +1721,12 @@
 									</ValueList>
 								</Property>
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
-								<Property Name="Tempo" Type="Real64" Value="80"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
+								<Property Name="PlaybackSpeed" Type="Real64">
 									<ValueList>
-										<Value>True</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
+								<Property Name="Tempo" Type="Real64" Value="80"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -2066,6 +2042,7 @@
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
+													<ReferenceList/>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
@@ -2380,16 +2357,10 @@
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="NoMX" ID="{86077815-7CD6-43A7-94A1-E5767AD46DEC}" ShortID="505801938">
 							<PropertyList>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
 										<Value>1</Value>
-									</ValueList>
-								</Property>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -2519,7 +2490,6 @@
 						<MusicPlaylistContainer Name="MX_Aquatic" ID="{AFE4E11C-A965-4255-BEB0-E24DD68FF658}" ShortID="854917652">
 							<PropertyList>
 								<Property Name="GridFrequencyPreset" Type="int16" Value="53"/>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -2529,11 +2499,6 @@
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="OverrideEffect" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="75"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -2548,7 +2513,6 @@
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="48000"/>
 										<Property Name="GridOffsetPreset" Type="int16" Value="1"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -2558,7 +2522,7 @@
 										<Property Name="Tempo" Type="Real64" Value="145"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-6</Value>
+												<Value>-3</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2885,7 +2849,6 @@
 								<MusicSegment Name="Aquatic_MainLP" ID="{B7AD3DCB-A12F-4A59-80EB-4E8FC3E21F84}" ShortID="913215130">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="117332.9461585"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -2895,7 +2858,7 @@
 										<Property Name="Tempo" Type="Real64" Value="145"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-6</Value>
+												<Value>-3</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -3758,7 +3721,6 @@
 											</ValueList>
 										</Property>
 										<Property Name="EndPosition" Type="Real64" Value="192000"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -3768,7 +3730,7 @@
 										<Property Name="Tempo" Type="Real64" Value="145"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-6</Value>
+												<Value>-3</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -4049,7 +4011,6 @@
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="MX_Menu" ID="{FCA3654A-3260-4D37-8D3E-C58B7A71618B}" ShortID="314611790">
 							<PropertyList>
-								<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="MaxSoundPerInstance" Type="int16">
 									<ValueList>
@@ -4059,11 +4020,6 @@
 								<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 								<Property Name="OverrideEffect" Type="bool" Value="True"/>
 								<Property Name="Tempo" Type="Real64" Value="90"/>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -4078,7 +4034,6 @@
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="237976.144259284"/>
 										<Property Name="GridOffsetPreset" Type="int16" Value="1"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
@@ -4134,7 +4089,6 @@
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
-													<ReferenceList/>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
@@ -4189,7 +4143,6 @@
 								<MusicSegment Name="Menu_MainLP" ID="{5A5C48C8-85E2-4B5C-A2E2-84249F3391B0}" ShortID="849831751">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="240000"/>
-										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
 											<ValueList>
