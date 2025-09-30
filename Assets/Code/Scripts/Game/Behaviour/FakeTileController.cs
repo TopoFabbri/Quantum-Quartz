@@ -11,7 +11,8 @@ namespace Code.Scripts.Game.Behaviour
     {
         [SerializeField] float fadeDuration = 0.2f;
         [SerializeField] float fadeAlpha = 0.2f;
-
+        [SerializeField] private WwiseEvent soundEvent;
+        
         private Tilemap tilemap;
         private Collider2D col;
         private Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)> tileGroups = new Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)>();
