@@ -15,7 +15,7 @@ namespace Code.Scripts.Game
 
         public void SetOff(GameObject gameObject)
         {
-            if (stop != null)
+            if (stop.Id != 0)
             {
                 stop.Post(gameObject);
             }
