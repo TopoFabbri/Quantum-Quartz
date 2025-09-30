@@ -4076,7 +4076,7 @@
 							<ChildrenList>
 								<MusicSegment Name="Menu_Intro" ID="{DD34CCCB-AFCA-4CEE-B963-8B7B51B94B30}" ShortID="436537135">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="21333.3333333333"/>
+										<Property Name="EndPosition" Type="Real64" Value="237976.144259284"/>
 										<Property Name="GridOffsetPreset" Type="int16" Value="1"/>
 										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
@@ -4104,16 +4104,6 @@
 										<MusicTrack Name="Intro" ID="{E0D8778E-FAD4-42DE-8462-9FD1461AFA25}" ShortID="25815674">
 											<PropertyList>
 												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
-												<Property Name="IsStreamingEnabled" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-												<Property Name="IsZeroLatency" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
 														<Value>1</Value>
@@ -4131,11 +4121,11 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="QQ_Menu_Intro_Short" ID="{E891B58E-8A85-4102-A2A8-7585588D5AF4}">
+												<AudioFileSource Name="QQ_Menu_Intro_v2" ID="{E43DDB80-4008-4B04-896C-DE658CFCC37E}">
 													<Language>SFX</Language>
-													<AudioFile>QQ_Menu_Intro_Short.wav</AudioFile>
+													<AudioFile>QQ_Menu_Intro_v2.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="537670429"/>
+														<MediaID ID="1017739607"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
@@ -4144,6 +4134,7 @@
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
+													<ReferenceList/>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
@@ -4156,13 +4147,13 @@
 																	<ObjectList Name="Clips">
 																		<Reference>
 																			<Local>
-																				<MusicClip Name="QQ_Menu_Intro_Short" ID="{8E707D82-1B6B-4C4C-AB2A-E8955821A832}">
+																				<MusicClip Name="QQ_Menu_Intro_v2" ID="{14D5044D-AA81-4A2D-8A00-D7C16987CDC6}">
 																					<PropertyList>
 																						<Property Name="EndTrimOffset" Type="Real64" Value="21333.3333333333"/>
 																						<Property Name="FadeInMode" Type="int16" Value="0"/>
 																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
-																					<AudioSourceRef Name="QQ_Menu_Intro_Short" ID="{E891B58E-8A85-4102-A2A8-7585588D5AF4}"/>
+																					<AudioSourceRef Name="QQ_Menu_Intro_v2" ID="{E43DDB80-4008-4B04-896C-DE658CFCC37E}"/>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -4197,7 +4188,7 @@
 								</MusicSegment>
 								<MusicSegment Name="Menu_MainLP" ID="{5A5C48C8-85E2-4B5C-A2E2-84249F3391B0}" ShortID="849831751">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="175782.059861159"/>
+										<Property Name="EndPosition" Type="Real64" Value="240000"/>
 										<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
 										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
@@ -4221,82 +4212,26 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<MusicTrack Name="Main_Loop" ID="{C2C25DDD-4053-41B3-95FB-455F1B537C0A}" ShortID="788604742">
-											<PropertyList>
-												<Property Name="IsStreamingEnabled" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-												<Property Name="IsZeroLatency" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-												<Property Name="MaxSoundPerInstance" Type="int16">
-													<ValueList>
-														<Value>1</Value>
-													</ValueList>
-												</Property>
-												<Property Name="UseMaxSoundPerInstance" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
+										<MusicTrack Name="QQ_Menu_MainLP_v2" ID="{13E50978-A013-4B83-9E92-41191A5234E9}" ShortID="714646656">
 											<ReferenceList>
-												<Reference Name="DefaultSwitchOrState">
-													<ObjectRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}" WorkUnitID="{17136963-C7F9-44FD-B4BE-493C2858F205}"/>
-												</Reference>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
 												</Reference>
-												<Reference Name="SwitchGroupOrStateGroup">
-													<ObjectRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}" WorkUnitID="{17136963-C7F9-44FD-B4BE-493C2858F205}"/>
-												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="QQ_Menu_MainLP" ID="{326501FB-7C04-467B-A0B8-2F7747D30B6E}">
+												<AudioFileSource Name="QQ_Menu_MainLP_v2" ID="{E653F1FB-F47B-4D88-B96A-19CCFE3E0C76}">
 													<Language>SFX</Language>
-													<AudioFile>QQ_Menu_MainLP.wav</AudioFile>
+													<AudioFile>QQ_Menu_MainLP_v2.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="255770230"/>
+														<MediaID ID="630461703"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
-											<StateInfo>
-												<StateGroupList>
-													<StateGroupInfo>
-														<StateGroupRef Name="MusicPuzzleState" ID="{A6A10413-4B8A-43F5-8437-13CE860DB31F}"/>
-													</StateGroupInfo>
-												</StateGroupList>
-												<CustomStateList>
-													<CustomState>
-														<StateRef Name="On" ID="{B4C39E1C-C269-428F-AED3-FEFF6493A313}"/>
-														<CustomState Name="" ID="{7837B45B-E444-4A9D-8FEB-B001D76B01E4}" ShortID="1065025320">
-															<PropertyList>
-																<Property Name="Volume" Type="Real64" Value="-108"/>
-															</PropertyList>
-														</CustomState>
-													</CustomState>
-													<CustomState>
-														<StateRef Name="Off" ID="{59A3B1BA-87A8-430F-87F9-70B5D6519D6B}"/>
-														<CustomState Name="" ID="{F5CCBDBE-711B-4B0B-94E4-8E69D2BFD3FA}" ShortID="253843133"/>
-													</CustomState>
-												</CustomStateList>
-											</StateInfo>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{3C18A800-0F6C-4E84-A96B-EFCECF5A63D8}">
+												<MusicTransition Name="Root" ID="{E5128B34-9060-489A-BCFD-8706435D1905}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
-													<ReferenceList/>
-													<ChildrenList>
-														<MusicTransition Name="Transition" ID="{AE12BFDC-8C0F-41B1-B3BB-DF095FF809A9}">
-															<ReferenceList/>
-															<TransitionInfo/>
-														</MusicTransition>
-													</ChildrenList>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
@@ -4304,77 +4239,18 @@
 												<ObjectList Name="Sequences">
 													<Reference>
 														<Local>
-															<MusicTrackSequence Name="" ID="{6F30E305-D8A7-4E71-A5B4-D801D4759F8E}">
+															<MusicTrackSequence Name="" ID="{18CC3790-1DD9-41BD-A24B-136EF08110A0}">
 																<ObjectLists>
 																	<ObjectList Name="Clips">
 																		<Reference>
 																			<Local>
-																				<MusicClip Name="QQ_Menu_MainLP" ID="{2A7993D1-0BD2-44F0-B22D-DE02AEBA403E}">
+																				<MusicClip Name="QQ_Menu_MainLP_v2" ID="{7C4ED789-288E-4F98-9830-DBAB8B046B1C}">
 																					<PropertyList>
-																						<Property Name="EndTrimOffset" Type="Real64" Value="170666.666666667"/>
+																						<Property Name="EndTrimOffset" Type="Real64" Value="176000"/>
 																						<Property Name="FadeInMode" Type="int16" Value="0"/>
 																						<Property Name="FadeOutMode" Type="int16" Value="0"/>
 																					</PropertyList>
-																					<AudioSourceRef Name="QQ_Menu_MainLP" ID="{326501FB-7C04-467B-A0B8-2F7747D30B6E}"/>
-																					<PropertyCurveList>
-																						<PropertyCurve PropertyName="Highpass">
-																							<Curve Name="" ID="{08AE7135-9AB0-4180-9F5A-7389AD6A272D}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="1"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>0</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>170.66667</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																						<PropertyCurve PropertyName="Lowpass">
-																							<Curve Name="" ID="{2866263E-B6BD-4223-B439-08EF6F02C3E6}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="1"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>0</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>170.66667</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																						<PropertyCurve PropertyName="Volume">
-																							<Curve Name="" ID="{BD5E0FDB-1E5E-4A64-BD63-4EA6F7F8FAF9}">
-																								<PropertyList>
-																									<Property Name="Flags" Type="int32" Value="3"/>
-																								</PropertyList>
-																								<PointList>
-																									<Point>
-																										<XPos>0</XPos>
-																										<YPos>0</YPos>
-																										<Flags>5</Flags>
-																									</Point>
-																									<Point>
-																										<XPos>170.66667</XPos>
-																										<YPos>0</YPos>
-																										<Flags>37</Flags>
-																									</Point>
-																								</PointList>
-																							</Curve>
-																						</PropertyCurve>
-																					</PropertyCurveList>
+																					<AudioSourceRef Name="QQ_Menu_MainLP_v2" ID="{E653F1FB-F47B-4D88-B96A-19CCFE3E0C76}"/>
 																				</MusicClip>
 																			</Local>
 																		</Reference>
@@ -4391,7 +4267,11 @@
 										<ObjectList Name="Cues">
 											<Reference>
 												<Local>
-													<MusicCue Name="Entry Cue" ID="{1D73CB59-C478-4B29-A9BE-A3AB8C1C1CDD}"/>
+													<MusicCue Name="Entry Cue" ID="{1D73CB59-C478-4B29-A9BE-A3AB8C1C1CDD}">
+														<PropertyList>
+															<Property Name="TimeMs" Type="Real64" Value="2666.66666666667"/>
+														</PropertyList>
+													</MusicCue>
 												</Local>
 											</Reference>
 											<Reference>
@@ -4399,7 +4279,7 @@
 													<MusicCue Name="Exit Cue" ID="{D0EF4DAC-A79C-48AF-9540-E2654F72CD71}">
 														<PropertyList>
 															<Property Name="CueType" Type="int16" Value="1"/>
-															<Property Name="TimeMs" Type="Real64" Value="170666.666666667"/>
+															<Property Name="TimeMs" Type="Real64" Value="173333.333333333"/>
 														</PropertyList>
 													</MusicCue>
 												</Local>
@@ -4487,7 +4367,7 @@
 										<Property Name="LoopCount" Type="int16" Value="0"/>
 									</PropertyList>
 									<ChildrenList>
-										<MusicPlaylistItem Name="" ID="{934E8157-FCD9-4005-AEF0-DD93B0EFAF30}" ShortID="589751404">
+										<MusicPlaylistItem Name="" ID="{B519C400-20D5-4312-AC86-3BB78758A3F3}" ShortID="306052493">
 											<PropertyList>
 												<Property Name="PlaylistItemType" Type="int16" Value="1"/>
 											</PropertyList>
