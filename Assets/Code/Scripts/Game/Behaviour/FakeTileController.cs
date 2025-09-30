@@ -9,14 +9,21 @@ namespace Code.Scripts.Game.Behaviour
     [RequireComponent(typeof(Tilemap), typeof(Collider2D))]
     public class FakeTileController : InteractableComponent
     {
+        private struct TileGroup
+        {
+            public bool isHiding;
+            public bool hasPlayedAudio;
+            public HashSet<Vector3Int> tiles;
+        }
+
         [SerializeField] private float fadeDuration = 0.2f;
         [SerializeField] private float fadeAlpha = 0.2f;
-        [SerializeField] private float alphaSoundRange = .5f;
+        [SerializeField] private float alphaSoundRange = 0.5f;
         [SerializeField] private WwiseEvent soundEvent;
-        
+
         private Tilemap tilemap;
         private Collider2D col;
-        private Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)> tileGroups = new Dictionary<Vector3Int, (bool, HashSet<Vector3Int>)>();
+        private Dictionary<Vector3Int, TileGroup> tileGroups = new Dictionary<Vector3Int, TileGroup>();
         private Coroutine coroutine = null;
         private List<Vector2Int> searchAttemptOffsets = new List<Vector2Int> {
             Vector2Int.zero, // None
@@ -65,11 +72,17 @@ namespace Code.Scripts.Game.Behaviour
             // Identify if triggered tile is already part of a fake wall that's being processed
             foreach (Vector3Int key in tileGroups.Keys)
             {
-                if (tileGroups[key].Item2.Contains(tilePos))
+                TileGroup group = tileGroups[key];
+                if (group.tiles.Contains(tilePos))
                 {
-                    if (tileGroups[key].Item1)
+                    if (group.isHiding)
                     {
-                        tileGroups[key] = (false, tileGroups[key].Item2);
+                        tileGroups[key] = new TileGroup
+                        {
+                            isHiding = false,
+                            hasPlayedAudio = group.hasPlayedAudio,
+                            tiles = group.tiles
+                        };
                         if (coroutine == null)
                         {
                             StartCoroutine(Processing());
@@ -99,7 +112,12 @@ namespace Code.Scripts.Game.Behaviour
 
             AddTile(tilePos);
 
-            tileGroups.Add(minTile, (false, tilePositions));
+            tileGroups.Add(minTile, new TileGroup
+            {
+                isHiding = false,
+                hasPlayedAudio = false,
+                tiles = tilePositions
+            });
             if (coroutine == null)
             {
                 StartCoroutine(Processing());
@@ -126,11 +144,17 @@ namespace Code.Scripts.Game.Behaviour
             // Identify if triggered tile is already part of a fake wall that's being processed
             foreach (Vector3Int key in tileGroups.Keys)
             {
-                if (tileGroups[key].Item2.Contains(tilePos))
+                TileGroup group = tileGroups[key];
+                if (group.tiles.Contains(tilePos))
                 {
-                    if (!tileGroups[key].Item1)
+                    if (!group.isHiding)
                     {
-                        tileGroups[key] = (true, tileGroups[key].Item2);
+                        tileGroups[key] = new TileGroup
+                        {
+                            isHiding = true,
+                            hasPlayedAudio = group.hasPlayedAudio,
+                            tiles = group.tiles
+                        };
                     }
                     return;
                 }
@@ -141,7 +165,7 @@ namespace Code.Scripts.Game.Behaviour
         {
             Color color = tilemap.color;
             color.a = alpha;
-            foreach (Vector3Int tile in tileGroups[key].Item2)
+            foreach (Vector3Int tile in tileGroups[key].tiles)
             {
                 tilemap.SetColor(tile, color);
             }
@@ -155,24 +179,30 @@ namespace Code.Scripts.Game.Behaviour
                 float progressScale = 1 / (1f - fadeAlpha);
                 float timeStep = Time.deltaTime / fadeDuration;
 
-                foreach (Vector3Int key in tileGroups.Keys)
+                List<Vector3Int> keyset = new List<Vector3Int>(tileGroups.Keys);
+                foreach (Vector3Int key in keyset)
                 {
+                    TileGroup group = tileGroups[key];
                     float alpha = tilemap.GetColor(key).a;
                     // 1 = 1 (Opaque) | 0 = fadeAlpha
                     float progress = (alpha - fadeAlpha) * progressScale;
 
-                    if (progress >= 0 && !tileGroups[key].Item1)
+                    if (progress >= 0 && !group.isHiding)
                     {
+                        if (!group.hasPlayedAudio && progress < alphaSoundRange)
+                        {
+                            group.hasPlayedAudio = true;
+                            tileGroups[key] = group;
+                        }
                         float newAlpha = Mathf.Max(0, (progress - timeStep)) * (1f - fadeAlpha) + fadeAlpha;
-
                         ApplyAlpha(key, newAlpha);
                     }
-                    else if (progress < 1 && tileGroups[key].Item1)
+                    else if (progress < 1 && group.isHiding)
                     {
                         float newAlpha = Mathf.Min(1, (progress + timeStep)) * (1f - fadeAlpha) + fadeAlpha;
                         ApplyAlpha(key, newAlpha);
                     }
-                    else if (progress >= 1 && tileGroups[key].Item1)
+                    else if (progress >= 1 && group.isHiding)
                     {
                         deleteKeys.Add(key);
                     }
