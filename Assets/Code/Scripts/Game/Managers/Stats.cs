@@ -325,7 +325,7 @@ namespace Code.Scripts.Game.Managers
             for (int i = 0; i < levelList.levels.Count; i++)
             {
                 LevelStats stats = new LevelStats(Instance.saveSlot, i);
-                count = stats.collectibles.Count;
+                count += stats.collectibles.Count;
             }
             return count - Instance.totalSlotStats.collectiblesSpent;
         }
