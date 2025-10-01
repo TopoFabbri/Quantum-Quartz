@@ -18204,6 +18204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2362648945020051555}
+  playGearEvent: {fileID: 11400000, guid: d80c9e817548d5e4fae8cbf8bcc47131, type: 2}
 --- !u!95 &2362648945020051555
 Animator:
   serializedVersion: 5
@@ -36001,9 +36002,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1140646578094404282}
   - component: {fileID: 5692647691975451363}
-  - component: {fileID: 8464078167031629058}
-  - component: {fileID: 7291186765750835434}
-  - component: {fileID: 7870849778483367900}
+  - component: {fileID: 1336291844453852811}
+  - component: {fileID: 2797012367889187708}
+  - component: {fileID: 2708986700060926731}
   m_Layer: 6
   m_Name: WallStateColliders
   m_TagString: Untagged
@@ -36040,7 +36041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 0.1
   topPosition: 1.77
-  topSize: 0.65
+  topSize: 0.51
   midPosition: 1.15
   midSize: 0.09
   lowPos: 0.5
@@ -36048,10 +36049,10 @@ MonoBehaviour:
   draw: 1
   drawColour: {r: 0, g: 0, b: 1, a: 1}
   drawOffset: {x: 0.1, y: 0}
-  <UpCollider>k__BackingField: {fileID: 8464078167031629058}
-  <MidCollider>k__BackingField: {fileID: 7291186765750835434}
-  <LowCollider>k__BackingField: {fileID: 7870849778483367900}
---- !u!61 &8464078167031629058
+  <UpCollider>k__BackingField: {fileID: 1336291844453852811}
+  <MidCollider>k__BackingField: {fileID: 2797012367889187708}
+  <LowCollider>k__BackingField: {fileID: 2708986700060926731}
+--- !u!61 &1336291844453852811
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36094,9 +36095,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.65}
+  m_Size: {x: 0.1, y: 0.51}
   m_EdgeRadius: 0
---- !u!61 &7291186765750835434
+--- !u!61 &2797012367889187708
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36141,7 +36142,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.09}
   m_EdgeRadius: 0
---- !u!61 &7870849778483367900
+--- !u!61 &2708986700060926731
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37138,6 +37139,10 @@ PrefabInstance:
       propertyPath: gameHUD
       value: 
       objectReference: {fileID: 2905914280326646664}
+    - target: {fileID: 204335274912147665, guid: 12c141dc28bd553449a0180a2bb473f4, type: 3}
+      propertyPath: mainMenuButton
+      value: 
+      objectReference: {fileID: 4685169324718393196}
     - target: {fileID: 1065303188672216370, guid: 12c141dc28bd553449a0180a2bb473f4, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 

@@ -10,7 +10,8 @@ namespace Code.Scripts.Game.Visuals
     public class ScreenFXController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-
+        [SerializeField] private WwiseEvent playGearEvent;
+        
         private static readonly int Ended = Animator.StringToHash("Ended");
         private static readonly int SwitchedColor = Animator.StringToHash("SwitchedColor");
 
@@ -57,6 +58,11 @@ namespace Code.Scripts.Game.Visuals
         private void OnSwitchColorHandler(ColorSwitcher.QColor colour)
         {
             animator.SetBool(SwitchedColor, true);
+        }
+
+        public void PlayGearSound()
+        {
+            playGearEvent.SetOn(gameObject);
         }
     }
 }
