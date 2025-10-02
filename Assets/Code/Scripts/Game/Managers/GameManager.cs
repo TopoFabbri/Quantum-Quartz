@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Game.Managers
@@ -21,7 +21,9 @@ namespace Code.Scripts.Game.Managers
         [SerializeField] private PlayerController player;
         [SerializeField] private Switch musicState;
         [SerializeField] private Event musicEvent;
-        
+
+        bool framerateInputs = false;
+
         public DroneController Drone => drone;
         public PlayerController Player => player;
 
@@ -97,6 +99,17 @@ namespace Code.Scripts.Game.Managers
             if (timerTxt)
             {
                 timerTxt.text = TimeCounter.Time.ToStr;
+            }
+
+            if (!framerateInputs && (Time.timeScale == 0 || Time.timeScale / Time.fixedDeltaTime < 60))
+            {
+                InputSystem.settings.updateMode = InputSettings.UpdateMode.ProcessEventsInDynamicUpdate;
+                framerateInputs = true;
+            }
+            else if (framerateInputs && Time.timeScale > 0 && Time.timeScale / Time.fixedDeltaTime > 60)
+            {
+                InputSystem.settings.updateMode = InputSettings.UpdateMode.ProcessEventsInFixedUpdate;
+                framerateInputs = false;
             }
         }
 
