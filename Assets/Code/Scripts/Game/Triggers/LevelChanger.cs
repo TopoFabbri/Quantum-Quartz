@@ -55,8 +55,6 @@ namespace Code.Scripts.Game.Triggers
                 nextSceneName = levelList.levels[currentIndex + 1].SceneName;
             }
             Stats.FinishLevel(nextSceneName);
-            
-            EndLevel();
 
             yield return new WaitForSeconds(time);
 
@@ -66,8 +64,9 @@ namespace Code.Scripts.Game.Triggers
             endLevelFirstSelectedButton.Select();
         }
 
-        public static void EndLevel()
+        public void EndLevel()
         {
+            endLevelCanvas.gameObject.SetActive(false);
             LevelEnd?.Invoke();
         }
 
