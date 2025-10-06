@@ -1925,6 +1925,11 @@
 								<MusicSegment Name="QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M" ID="{F2DB45C1-BA27-4152-80A5-FCE6A31D8E48}" ShortID="874634543">
 									<PropertyList>
 										<Property Name="EndPosition" Type="Real64" Value="219000"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -1988,11 +1993,6 @@
 										<MusicTrack Name="Glitches" ID="{7863AC53-81B0-44FF-B905-958D65EE4CD2}" ShortID="570340113">
 											<PropertyList>
 												<Property Name="MusicTrackType" Type="int16" Value="1"/>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>-3</Value>
-													</ValueList>
-												</Property>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
@@ -2027,7 +2027,6 @@
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
-													<ReferenceList/>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>

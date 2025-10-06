@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{862BB4C8-AED1-A82E-6F7C-5560B9CEEBCE}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{2D544D05-5FF4-CFFC-CA86-F89E00849F98}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -99,6 +99,10 @@
 				<File Id="5402978" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-014.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-014_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="6800037" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Ghost_Thunder_3.wav</ShortName>
+					<CachePath>SFX/Ghost_Thunder_3_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="10060735" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Yellow_Quartz_Wind_LP.wav</ShortName>
@@ -154,9 +158,17 @@
 					<ShortName>Concrete_Footstep-024.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-024_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="56386635" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>GhostRain_LP_1.wav</ShortName>
+					<CachePath>SFX/GhostRain_LP_1_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="67995237" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_Landings-001.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-001_5131782E.wem</CachePath>
+				</File>
+				<File Id="84645550" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Ghost_Thunder_4.wav</ShortName>
+					<CachePath>SFX/Ghost_Thunder_4_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="86503014" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>QQ_Ghost_MainLoop_80bpm_Charm_4-4_L73M.wav</ShortName>
@@ -197,6 +209,10 @@
 				<File Id="139537908" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Second_Jump.wav</ShortName>
 					<CachePath>SFX/Second_Jump_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="140191729" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Ghost_Thunder_1.wav</ShortName>
+					<CachePath>SFX/Ghost_Thunder_1_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="151863213" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Laser_LP.wav</ShortName>
@@ -299,6 +315,10 @@
 				<File Id="252607925" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-010.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-010_2B62F72B.wem</CachePath>
+				</File>
+				<File Id="263909549" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Ghost_Thunder_2.wav</ShortName>
+					<CachePath>SFX/Ghost_Thunder_2_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="268259119" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_17.wav</ShortName>
@@ -568,6 +588,10 @@
 					<ShortName>Cristal_Platform_Landings-006.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_Landings-006_96CA6C14.wem</CachePath>
 				</File>
+				<File Id="693564942" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Silence.wav</ShortName>
+					<CachePath>SFX/Silence_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="695130860" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-011.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-011_C8993BAF.wem</CachePath>
@@ -669,6 +693,10 @@
 				<File Id="807661749" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-004.wav</ShortName>
 					<CachePath>SFX/Concrete_Footstep-004_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="809207315" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Ghost_Thunder_5.wav</ShortName>
+					<CachePath>SFX/Ghost_Thunder_5_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="809838471" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_15.wav</ShortName>
@@ -1212,6 +1240,17 @@
 							</Children>
 						</SwitchContainer>
 					</SwitchContainers>
+				</Event>
+				<Event Id="3910609366" Name="Play_GhostAmbiences" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="6800037"/>
+						<MediaRef Id="56386635"/>
+						<MediaRef Id="84645550"/>
+						<MediaRef Id="140191729"/>
+						<MediaRef Id="263909549"/>
+						<MediaRef Id="693564942"/>
+						<MediaRef Id="809207315"/>
+					</MediaRefs>
 				</Event>
 				<Event Id="2170076162" Name="Play_Hit_Chains" DurationType="OneShot" DurationMin="0.24434546" DurationMax="0.86661875">
 					<MediaRefs>
@@ -1759,5 +1798,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{3D1554E7-1F59-EC3E-56C5-F8C0F09A773C}</FileHash>
+	<FileHash>{318D641C-2795-DA25-B3FC-5AEF8E863E3D}</FileHash>
 </SoundBanksInfo>
