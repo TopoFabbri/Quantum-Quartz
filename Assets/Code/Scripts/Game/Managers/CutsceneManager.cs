@@ -36,9 +36,19 @@ namespace Code.Scripts.Game.Managers
             anim.SetTrigger(triggerName);
         }
 
+        public void TriggerSound(string triggerName)
+        {
+            AkSoundEngine.PostEvent(triggerName, gameObject);
+        }
+
         public void UnlockColor(ColorSwitcher.QColor color)
         {
             ColorSwitcher.Instance.EnableColor(color);
+        }
+
+        public void SwapColor(ColorSwitcher.QColor color)
+        {
+            ColorSwitcher.Instance.SwapColor(color);
         }
 
         public void MovePlayerToDestinationX(string chainTriggerName)
