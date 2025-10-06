@@ -17313,7 +17313,6 @@ GameObject:
   - component: {fileID: 5336747697084548560}
   - component: {fileID: 1836373101099275539}
   - component: {fileID: 8552471897275700223}
-  - component: {fileID: 1171006249397760591}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -17643,20 +17642,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &1171006249397760591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
 --- !u!1 &3639020788704489740
 GameObject:
   m_ObjectHideFlags: 0
@@ -17670,7 +17655,6 @@ GameObject:
   - component: {fileID: 8986428873177077125}
   - component: {fileID: 491598208999347411}
   - component: {fileID: 8728506922580264406}
-  - component: {fileID: 6352162767042017302}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -17825,20 +17809,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &6352162767042017302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3639020788704489740}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
 --- !u!1 &3896040965464230995
 GameObject:
   m_ObjectHideFlags: 0
@@ -18166,6 +18136,7 @@ GameObject:
   - component: {fileID: 6493428234592232561}
   - component: {fileID: 8294158003857029488}
   - component: {fileID: 2796919814721336226}
+  - component: {fileID: 7243814776117111847}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -18287,6 +18258,20 @@ MonoBehaviour:
   groupIdInternal: 0
   valueGuidInternal: 
   groupGuidInternal: 
+--- !u!114 &7243814776117111847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390105856678637630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
 --- !u!1 &4403212847613788199
 GameObject:
   m_ObjectHideFlags: 0
