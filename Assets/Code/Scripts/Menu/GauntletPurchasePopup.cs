@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Code.Scripts.Game.Managers;
 using Code.Scripts.Game.Triggers;
 using UnityEngine;
@@ -29,8 +31,15 @@ namespace Code.Scripts.Menu
             previousSelected = sourceButton;
 
             popupPanel.SetActive(true);
+            StartCoroutine(SelectNextFrame());
+        }
+
+        private IEnumerator SelectNextFrame()
+        {
+            yield return null; 
             confirmButton.Select();
         }
+
 
         private void OnConfirm()
         {
