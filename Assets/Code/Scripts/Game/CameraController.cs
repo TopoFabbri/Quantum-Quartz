@@ -27,6 +27,8 @@ namespace Code.Scripts.Game
         private Vector3 originalPos;
         private Vector3 targetPos;
 
+        private Room oldRoom;
+        
         public event Action MoveCam;
         public event Action StopCam;
 
@@ -38,17 +40,22 @@ namespace Code.Scripts.Game
         {
             originalPos = cam.transform.localPosition;
             positioned = false;
+            
+            Room.Changed += OnRoomChanged;
+        }
+
+        private void OnRoomChanged(Room oldRoom, Room newRoom)
+        {
+            this.oldRoom = oldRoom;
+            newRoom.OnActivate();
+            
+            Center = newRoom.transform.position;
+            MoveRange = newRoom.MoveRange;
+            FollowOffset = newRoom.FollowOffset;
         }
 
         private void LateUpdate()
         {
-            if (Room.Active)
-            {
-                Center = Room.Active.transform.position;
-                MoveRange = Room.Active.MoveRange;
-                FollowOffset = Room.Active.FollowOffset;
-            }
-            
             CalculateTargetPos();
             
             if (Room.Active && !positioned)
@@ -99,7 +106,10 @@ namespace Code.Scripts.Game
                 MoveCam?.Invoke();
 
             if (!inRoom && newInRoom)
+            {
                 StopCam?.Invoke();
+                if (oldRoom) oldRoom.OnDeactivate();
+            }
 
             inRoom = newInRoom;
             return inRoom;
