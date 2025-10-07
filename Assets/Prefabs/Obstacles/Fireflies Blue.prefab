@@ -53,7 +53,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 2
   m_FalloffIntensity: 0.65
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.75
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e293e6562a6d65e429ed83482ab3584e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  density: 5
-  perTileEmission: 10
+  density: 1
+  perTileEmission: 1
   scalingOffset: {x: 0, y: 0}
   particleSystem: {fileID: 4149555058612546180}
   spriteRenderer: {fileID: 363281744436723426}
@@ -710,7 +710,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 1
-    maxNumParticles: 45
+    maxNumParticles: 9
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -976,7 +976,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 90
+      scalar: 9
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2131,7 +2131,7 @@ ParticleSystem:
     speedModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4907,7 +4907,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9764,7 +9764,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: -2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9943,7 +9943,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93962
+  m_InstanceId: 112932
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -10058,7 +10058,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93922
+  m_InstanceId: 112892
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -10338,7 +10338,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93920
+  m_InstanceId: 112890
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
@@ -10453,7 +10453,7 @@ MonoBehaviour:
   - {x: 0.03125, y: -0.03125, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93960
+  m_InstanceId: 112930
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.03125, y: 0.03125, z: 0}
