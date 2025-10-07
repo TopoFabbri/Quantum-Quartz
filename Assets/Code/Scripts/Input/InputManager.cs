@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 namespace Code.Scripts.Input
 {
@@ -73,7 +74,7 @@ namespace Code.Scripts.Input
 
         [SerializeField] private float moveDeadzone = 0.5f;
         [SerializeField] private float analogCutoff = 0.5f;
-        [SerializeField] private GameObject eventSystem;
+        [SerializeField] private InputSystemUIInputModule eventSystem;
 
         public static PlayerInput Input { get; private set; }
         public static ReadOnlyInputMap activeMap;
@@ -169,13 +170,13 @@ namespace Code.Scripts.Input
 
         public void EnableGameMap()
         {
-            eventSystem.SetActive(false);
+            eventSystem?.actionsAsset?.FindActionMap(uiMap)?.Disable();
             SwitchCurrentActionMap(gameMap, true);
         }
 
         public void EnableUIMap()
         {
-            eventSystem.SetActive(true);
+            eventSystem?.actionsAsset?.FindActionMap(uiMap)?.Enable();
             SwitchCurrentActionMap(uiMap, false);
         }
 
