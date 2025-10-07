@@ -20,7 +20,10 @@ namespace Code.Scripts.Game.Triggers
             {
                 sprite.enabled = false;
             }
-            targetHighlight.SetActive(false);
+            if (targetHighlight)
+            {
+                targetHighlight.SetActive(false);
+            }
         }
 
         protected override void OnInteracted()
@@ -32,7 +35,10 @@ namespace Code.Scripts.Game.Triggers
         protected override void OnAwaitingInteraction(bool awaitingInteraction)
         {
             base.OnAwaitingInteraction(awaitingInteraction);
-            targetHighlight.SetActive(awaitingInteraction);
+            if (targetHighlight)
+            {
+                targetHighlight.SetActive(awaitingInteraction);
+            }
         }
 
         private void OnConversationEnd()

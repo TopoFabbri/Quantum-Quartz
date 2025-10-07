@@ -11812,7 +11812,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7c1534f9e3c4afb4d8b464161b7602a2, type: 2}
-  m_sharedMaterial: {fileID: -7325359020216985775, guid: 9c1d98d8c1e562c41bbd6a68d7a21b6b, type: 2}
+  m_sharedMaterial: {fileID: 7246051965056727065, guid: 7c1534f9e3c4afb4d8b464161b7602a2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11837,7 +11837,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 30
-  m_fontSizeBase: 25
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11875,7 +11875,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2778914427442999991
@@ -17313,7 +17313,6 @@ GameObject:
   - component: {fileID: 5336747697084548560}
   - component: {fileID: 1836373101099275539}
   - component: {fileID: 8552471897275700223}
-  - component: {fileID: 1171006249397760591}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -17643,20 +17642,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &1171006249397760591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3237457409041573795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
 --- !u!1 &3639020788704489740
 GameObject:
   m_ObjectHideFlags: 0
@@ -17670,7 +17655,6 @@ GameObject:
   - component: {fileID: 8986428873177077125}
   - component: {fileID: 491598208999347411}
   - component: {fileID: 8728506922580264406}
-  - component: {fileID: 6352162767042017302}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -17825,20 +17809,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!114 &6352162767042017302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3639020788704489740}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDefaultListener: 1
-  listenerId: 0
 --- !u!1 &3896040965464230995
 GameObject:
   m_ObjectHideFlags: 0
@@ -18166,6 +18136,7 @@ GameObject:
   - component: {fileID: 6493428234592232561}
   - component: {fileID: 8294158003857029488}
   - component: {fileID: 2796919814721336226}
+  - component: {fileID: 7243814776117111847}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -18287,6 +18258,20 @@ MonoBehaviour:
   groupIdInternal: 0
   valueGuidInternal: 
   groupGuidInternal: 
+--- !u!114 &7243814776117111847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390105856678637630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23e3041b70e5cc44983eac3c15eec8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
 --- !u!1 &4403212847613788199
 GameObject:
   m_ObjectHideFlags: 0
@@ -20132,7 +20117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.85205173, y: 0.7323793}
   m_AnchorMax: {x: 0.9771768, y: 0.8325609}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2222890803202650574
@@ -20681,14 +20666,14 @@ MonoBehaviour:
   m_PointAction: {fileID: 0}
   m_MoveAction: {fileID: 86639821960138017, guid: a9a55a96d293f654b82242bf2e7c8bd8, type: 3}
   m_SubmitAction: {fileID: -7727799876531668859, guid: a9a55a96d293f654b82242bf2e7c8bd8, type: 3}
-  m_CancelAction: {fileID: 0}
+  m_CancelAction: {fileID: -2886365582864707235, guid: a9a55a96d293f654b82242bf2e7c8bd8, type: 3}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
   m_ScrollWheelAction: {fileID: 0}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6

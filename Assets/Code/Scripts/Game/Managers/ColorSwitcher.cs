@@ -130,6 +130,14 @@ namespace Code.Scripts.Game.Managers
             }
         }
 
+        public void SwapColor(QColor color)
+        {
+            if (EnabledColors.Contains(color))
+            {
+                SetColor(color);
+            }
+        }
+
         /// <summary>
         /// Change to new color
         /// </summary>
