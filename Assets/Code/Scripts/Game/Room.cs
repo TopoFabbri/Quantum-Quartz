@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace Code.Scripts.Game
         private static Camera _cam;
         private static Room _activeRoom;
 
+        public static event Action<Room, Room> Changed;
+
         private static Camera Cam
         {
             get
@@ -41,11 +44,9 @@ namespace Code.Scripts.Game
                 if (_activeRoom == value)
                     return;
 
-                _activeRoom?.OnDeactivate();
-
+                Changed?.Invoke(_activeRoom, value);
+                
                 _activeRoom = value;
-
-                _activeRoom?.OnActivate();
             }
         }
 
@@ -97,7 +98,7 @@ namespace Code.Scripts.Game
             Gizmos.DrawWireCube(transform.position, camRange * 2f);
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.isTrigger || !other.CompareTag("Player"))
                 return;
@@ -157,13 +158,13 @@ namespace Code.Scripts.Game
 #endif
         }
 
-        private void OnDeactivate()
+        public void OnDeactivate()
         {
             foreach (RoomComponent roomComponent in roomComponents)
                 roomComponent.OnDeactivate();
         }
 
-        private void OnActivate()
+        public void OnActivate()
         {
             foreach (RoomComponent roomComponent in roomComponents)
                 roomComponent.OnActivate();
