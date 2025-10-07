@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{27E08F94-D4BA-47DF-82D1-C15C8EE90898}" SchemaVersion="110">
+	<AudioObjects>
+		<WorkUnit Name="Toasty" ID="{27E08F94-D4BA-47DF-82D1-C15C8EE90898}" PersistMode="Standalone">
+			<ChildrenList>
+				<ActorMixer Name="Toast" ID="{3EC96C33-767E-4AEF-8745-11A25DAB9139}" ShortID="690717500">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="SFX's" ID="{AB4FA5EA-2224-479F-AE93-ECC886F2758C}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<RandomSequenceContainer Name="Toast_Hit" ID="{A50AF9FD-A62A-4997-9E5A-07FA5C6A6D75}" ShortID="156341872">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>28</Value>
+									</ValueList>
+								</Property>
+								<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{7ABC98C7-DDCA-4487-855C-41C717BB2715}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="250"/>
+													<Property Name="Min" Type="Real64" Value="-250"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="9"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-22</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Toast_Hit_1_2" ID="{9C9F5AD4-CC5D-46F5-9F7F-BC76FF7677DA}" ShortID="837612557">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_1_2" ID="{488F4B12-30E4-4A5C-9C44-681BAAEB857E}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.530908759124088"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.576262773722628"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_1_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="611967339"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_1_2" ID="{488F4B12-30E4-4A5C-9C44-681BAAEB857E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_2_2" ID="{32BB4AC7-75A9-4DF3-BD69-F1551C3208E6}" ShortID="161623587">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_2_2" ID="{8CC6FF25-3AE2-44A4-9C12-7ABE61DA0F63}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.389776752767528"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.520601476014761"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_2_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1044187187"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_2_2" ID="{8CC6FF25-3AE2-44A4-9C12-7ABE61DA0F63}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_3_2" ID="{3DC5C626-E81D-4AF2-8FA6-B9F9A6AF7331}" ShortID="926663937">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_3_2" ID="{D7A100E3-017E-40CE-BD40-DB6FDBB69BB9}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.0337177121771218"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.226583025830258"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.0917121771217713"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.613662361623617"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_3_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="457912772"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_3_2" ID="{D7A100E3-017E-40CE-BD40-DB6FDBB69BB9}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_4_2" ID="{B7DD8A97-31F0-4BC8-816A-96485E23693A}" ShortID="915595946">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_4_2" ID="{3DAA7698-D5E9-422A-950B-90674381AC40}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0795738007380074"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.612313653136531"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_4_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="989065070"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_4_2" ID="{3DAA7698-D5E9-422A-950B-90674381AC40}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_5_2" ID="{D1C94FCD-E68D-4760-BA93-B861B83117B1}" ShortID="224212719">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_5_2" ID="{1D4FCCF3-F1C5-45CB-8027-69C442045EC4}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0822712177121771"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.577247232472325"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_5_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="276317190"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_5_2" ID="{1D4FCCF3-F1C5-45CB-8027-69C442045EC4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_6_2" ID="{E1BB0C9C-6C1F-43F7-B1F5-98451123BF16}" ShortID="320153825">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_6_2" ID="{8512AF9C-2E59-4B4F-88C5-F347867D06F0}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0998044280442804"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.569154981549815"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_6_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="999738268"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_6_2" ID="{8512AF9C-2E59-4B4F-88C5-F347867D06F0}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_8_2" ID="{475924F6-93BB-4B09-992A-E190BDEE77CD}" ShortID="985754736">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_8_2" ID="{89E9B2AE-1CDA-4544-977B-CA97C71C8104}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.072830258302583"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.62310332103321"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_8_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="367990937"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_8_2" ID="{89E9B2AE-1CDA-4544-977B-CA97C71C8104}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_9_2" ID="{1883E348-99A5-4D64-9972-27C2B8D3E330}" ShortID="694204275">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_9_2" ID="{FC27F74B-DB67-4998-90EA-71DE089CE37F}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0499022140221402"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.609616236162362"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_9_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="772312981"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_9_2" ID="{FC27F74B-DB67-4998-90EA-71DE089CE37F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Toast_Hit_11_2" ID="{E450356A-114B-4AB7-BBD5-74D096E7947C}" ShortID="82239641">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Toast_Hit_11_2" ID="{3C950239-788F-44D0-8C23-61FE17A25985}">
+											<PropertyList>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.0633892988929889"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimEnd" Type="Real64" Value="0.601523985239852"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Toast_Hit_11_2.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="265942362"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Toast_Hit_11_2" ID="{3C950239-788F-44D0-8C23-61FE17A25985}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
