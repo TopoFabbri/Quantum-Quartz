@@ -279,6 +279,7 @@ namespace Code.Scripts.Menu
             Stats.ClearSaveSlot(1, null);
             Stats.ClearSaveSlot(2, null);
             Stats.ClearSaveSlot(3, null);
+            GameObject.FindObjectOfType<MenuController>()?.GoFileSaves();
         }
     }
 }
