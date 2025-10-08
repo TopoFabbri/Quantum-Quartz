@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1464309109995120402}
   - component: {fileID: 6296228543037376329}
   - component: {fileID: 3093065567863233728}
+  - component: {fileID: 1663908375543308904}
   m_Layer: 7
   m_Name: LampChainEnd 2
   m_TagString: Untagged
@@ -138,10 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 1
   maxForce: 2
-  hitChainsEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5d07c5ed4b7b8a54a8d78345fc3b6bc7, type: 2}
+  hitChainsEvent: {fileID: 11400000, guid: 78b767b4febed294083a618a11e544d2, type: 2}
 --- !u!114 &6296228543037376329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +207,33 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!50 &1663908375543308904
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2941693258020507125}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3762439550136454685
 GameObject:
   m_ObjectHideFlags: 0

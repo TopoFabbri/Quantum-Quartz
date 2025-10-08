@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6809783340077175741}
   - component: {fileID: 5361213800094217990}
   - component: {fileID: -2248364219829116062}
+  - component: {fileID: 862506472911977844}
   m_Layer: 7
   m_Name: PlantChainEnd
   m_TagString: Untagged
@@ -4961,7 +4962,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minForce: 1
   maxForce: 2
-  hitChainsEvent:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 5d07c5ed4b7b8a54a8d78345fc3b6bc7, type: 2}
+  hitChainsEvent: {fileID: 11400000, guid: 78b767b4febed294083a618a11e544d2, type: 2}
+--- !u!50 &862506472911977844
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033716902708828428}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
