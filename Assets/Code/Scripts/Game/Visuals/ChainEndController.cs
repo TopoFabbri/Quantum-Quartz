@@ -1,6 +1,5 @@
 ﻿using Code.Scripts.Game.Managers;
 using UnityEngine;
-using Event = AK.Wwise.Event;
 
 namespace Code.Scripts.Game.Visuals
 {
@@ -9,7 +8,7 @@ namespace Code.Scripts.Game.Visuals
     {
         [SerializeField] private float minForce = 2f;
         [SerializeField] private float maxForce = 3f;
-        [SerializeField] private Event hitChainsEvent;
+        [SerializeField] private WwiseEvent hitChainsEvent;
         
         private Rigidbody2D rb;
 
@@ -20,7 +19,7 @@ namespace Code.Scripts.Game.Visuals
 
         protected override void OnInteracted()
         {
-            hitChainsEvent?.Post(gameObject);
+            hitChainsEvent.SetOn(gameObject);
             rb.AddForce(GameManager.Instance.Player.GetSpeed() * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
         }
     }

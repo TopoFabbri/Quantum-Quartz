@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -35,8 +36,11 @@ namespace Code.Scripts.Game.Visuals
         private static readonly int LookingUp = Animator.StringToHash("LookingUp");
         private static readonly int Colour = Animator.StringToHash("Colour");
 
-        private void OnDrawGizmosSelected()
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
+            
             if (!spriteRenderer)
                 spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -45,6 +49,8 @@ namespace Code.Scripts.Game.Visuals
             
             foreach (Light2D light2D in lights)
                 light2D.color = lightColours[(int)colour];
+            
+            Sprite prevSprite = spriteRenderer.sprite;
             
             spriteRenderer.sprite = (lookDirection, color: colour) switch
             {
@@ -56,7 +62,11 @@ namespace Code.Scripts.Game.Visuals
                 (LookDirection.Up, LightColour.Pink) => sprites[5],
                 _ => spriteRenderer.sprite
             };
+            
+            if (spriteRenderer.sprite != prevSprite)
+                EditorUtility.SetDirty(gameObject);
         }
+#endif
 
         private void Start()
         {

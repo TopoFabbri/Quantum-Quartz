@@ -88,6 +88,7 @@ namespace Code.Scripts.Game.Visuals
             {
                 GenerateEnd();
             }
+            EditorUtility.SetDirty(gameObject);
         }
 
         [MenuItem("Tools/Custom/Generate All Chains")]
