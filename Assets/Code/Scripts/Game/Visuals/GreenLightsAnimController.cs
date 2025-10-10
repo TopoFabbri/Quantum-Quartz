@@ -48,7 +48,12 @@ namespace Code.Scripts.Game.Visuals
                 lights.AddRange(GetComponentsInChildren<Light2D>());
             
             foreach (Light2D light2D in lights)
+            {
+                if (light2D.color == lightColours[(int)colour]) continue;
+                
                 light2D.color = lightColours[(int)colour];
+                EditorUtility.SetDirty(light2D);
+            }
             
             Sprite prevSprite = spriteRenderer.sprite;
             
