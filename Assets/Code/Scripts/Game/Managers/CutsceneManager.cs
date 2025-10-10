@@ -18,6 +18,7 @@ namespace Code.Scripts.Game.Managers
 
         [SerializeField] Transform playerDestinationX;
         [SerializeField] Transform fakePlayer;
+        [SerializeField] float screenshakeStrength = 0.3f;
 
         Animator anim;
 
@@ -39,6 +40,18 @@ namespace Code.Scripts.Game.Managers
         public void TriggerSound(string triggerName)
         {
             AkSoundEngine.PostEvent(triggerName, gameObject);
+        }
+
+        public void TriggerScreenshake(float duration)
+        {
+            CameraController camController;
+            if (Camera.main?.transform.parent == null || !Camera.main.transform.parent.TryGetComponent(out camController))
+            {
+                Debug.LogError("Error: No CameraController available");
+                return;
+            }
+
+            camController.Shake(duration, screenshakeStrength);
         }
 
         public void UnlockColor(ColorSwitcher.QColor color)
