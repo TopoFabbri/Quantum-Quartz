@@ -846,39 +846,39 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: SetGameSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0.2
+    intParameter: 0
+    messageOptions: 0
+  - time: 0
     functionName: QueueChainTrigger_WaitForInput
     data: DJmpSlowmo_End
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0
-    functionName: SetGameSpeed
+  - time: 0.016666668
+    functionName: EnablePauseMusic
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0.05
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0
+  - time: 0.16666667
     functionName: EnableInputs
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.033333335
+  - time: 0.16666667
     functionName: WaitForInput
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 3
-    messageOptions: 0
-  - time: 0.083333336
-    functionName: EnablePauseMusic
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
     messageOptions: 0
   - time: 1
     functionName: SetGameSpeed
