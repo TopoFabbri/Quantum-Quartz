@@ -18,9 +18,18 @@ namespace Code.Scripts.Game.Triggers
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
         [SerializeField] private GameObject playerGO;
+        [SerializeField] private SceneReference menuScene;
+
+        [Header("Level Options")]
+        [Tooltip("Si es verdadero, este nivel es un Gauntlet y volverá al menú al terminar.")]
+        [SerializeField] private bool isGauntletLevel = false;
 
         private int _currentLevel = -1;
-        public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
+        public int CurrentLevel => _currentLevel >= 0
+            ? _currentLevel
+            : (_currentLevel = levelList.levels.FindIndex(level =>
+                level.SceneName == SceneManager.GetActiveScene().name));
+
         public LevelList LevelList => levelList;
 
         public static event Action LevelEnd;
@@ -29,9 +38,7 @@ namespace Code.Scripts.Game.Triggers
         private void Start()
         {
             if (endLevelCanvas)
-            {
                 endLevelCanvas.gameObject.SetActive(false);
-            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -39,7 +46,6 @@ namespace Code.Scripts.Game.Triggers
             if (!other.isTrigger && other.CompareTag("Player"))
             {
                 PlayerTp?.Invoke();
-
                 StartCoroutine(ShowEndLevelScreen(2));
             }
         }
@@ -50,12 +56,13 @@ namespace Code.Scripts.Game.Triggers
 
             string nextSceneName = "";
             int currentIndex = CurrentLevel;
-            if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
+
+            if (!isGauntletLevel && currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
             {
                 nextSceneName = levelList.levels[currentIndex + 1].SceneName;
             }
-            Stats.FinishLevel(nextSceneName);
 
+            Stats.FinishLevel(nextSceneName);
             yield return new WaitForSeconds(time);
 
             InputManager.Instance.EnableUIMap();
@@ -72,6 +79,14 @@ namespace Code.Scripts.Game.Triggers
 
         public void LoadNextLevel()
         {
+            // Si el nivel es un Gauntlet, saltamos directamente al menú.
+            if (isGauntletLevel)
+            {
+                Debug.Log("Nivel Gauntlet completado. Volviendo al menú principal.");
+                LoadMenu();
+                return;
+            }
+
             int currentIndex = CurrentLevel;
             if (currentIndex != -1 && currentIndex + 1 < levelList.levels.Count)
             {
@@ -80,7 +95,8 @@ namespace Code.Scripts.Game.Triggers
             }
             else
             {
-                Debug.LogWarning("No hay siguiente nivel o el nivel actual no está en la lista.");
+                Debug.Log("No hay más niveles, volviendo al menú principal.");
+                LoadMenu();
             }
         }
 
@@ -90,10 +106,13 @@ namespace Code.Scripts.Game.Triggers
             {
                 Stats.SetContinueMode(true);
                 string sceneName = Stats.GetLastLevelName();
-                if (string.IsNullOrWhiteSpace(sceneName) || !levelList.levels.Any((level) => sceneName.Equals(level.SceneName, StringComparison.OrdinalIgnoreCase)))
+
+                if (string.IsNullOrWhiteSpace(sceneName) ||
+                    !levelList.levels.Any(level => sceneName.Equals(level.SceneName, StringComparison.OrdinalIgnoreCase)))
                 {
                     sceneName = levelList.levels[0].SceneName;
                 }
+
                 LoadScene(sceneName);
             }
             else
@@ -130,10 +149,23 @@ namespace Code.Scripts.Game.Triggers
         }
 
         public void LoadScene(SceneReference scene) => LoadScene(scene.Name);
+
         public void LoadScene(string sceneName)
         {
             Stats.SaveStats();
             SceneManager.LoadScene(sceneName);
+        }
+
+        private void LoadMenu()
+        {
+            if (menuScene != null && !string.IsNullOrEmpty(menuScene.Name))
+            {
+                LoadScene(menuScene.Name);
+            }
+            else
+            {
+                Debug.LogError("No se asignó la escena del menú en el LevelChanger.");
+            }
         }
     }
 }
