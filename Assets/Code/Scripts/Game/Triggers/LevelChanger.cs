@@ -18,6 +18,8 @@ namespace Code.Scripts.Game.Triggers
         [SerializeField] private Canvas endLevelCanvas;
         [SerializeField] private Button endLevelFirstSelectedButton;
         [SerializeField] private GameObject playerGO;
+        [SerializeField] private SceneReference menuScene;
+
 
         private int _currentLevel = -1;
         public int CurrentLevel => _currentLevel >= 0 ? _currentLevel : (_currentLevel = levelList.levels.FindIndex(level => level.SceneName == SceneManager.GetActiveScene().name));
@@ -80,9 +82,18 @@ namespace Code.Scripts.Game.Triggers
             }
             else
             {
-                Debug.LogWarning("No hay siguiente nivel o el nivel actual no está en la lista.");
+                Debug.Log("No hay más niveles, volviendo al menú principal.");
+                if (menuScene != null && !string.IsNullOrEmpty(menuScene.Name))
+                {
+                    LoadScene(menuScene.Name);
+                }
+                else
+                {
+                    Debug.LogError("La escena de menú no está asignada en el LevelChanger.");
+                }
             }
         }
+
 
         public void LoadLastLevel()
         {
