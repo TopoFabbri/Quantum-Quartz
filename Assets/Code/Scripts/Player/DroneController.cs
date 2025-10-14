@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Code.Scripts.Game;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -21,7 +22,8 @@ namespace Code.Scripts.Player
         [SerializeField] private Transform spotlight;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Animator animator;
-
+        [SerializeField] private WwiseEvent collisionEvent;
+        
         private bool colliding;
         private int defLayer;
         private int collisionLayer;
@@ -85,6 +87,8 @@ namespace Code.Scripts.Player
 
         private void OnCollisionEnter2D(Collision2D other)
         {
+            collisionEvent.SetOn(gameObject);
+            
             if (!other.gameObject.CompareTag("Player"))
                 return;
 
