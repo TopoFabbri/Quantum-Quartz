@@ -23,12 +23,26 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
+            foreach (string unlockedGauntletName in Stats.GetUnlockedGauntlets())
+            {
+                foreach (GauntletsList.GauntletData gauntlet in gauntletList.gauntlets)
+                {
+                    if (gauntlet.gauntletName.Equals(unlockedGauntletName, System.StringComparison.OrdinalIgnoreCase)) {
+                        gauntlet.isUnlocked = true;
+                        break;
+                    }
+                }
+            }
+            
             RefreshUI();
         }
 
         public void RefreshUI()
         {
-            foreach (Transform child in buttonContainer) Destroy(child.gameObject);
+            foreach (Transform child in buttonContainer)
+            {
+                Destroy(child.gameObject);
+            }
             generatedButtons.Clear();
 
             foreach (GauntletsList.GauntletData gauntlet in gauntletList.gauntlets)
