@@ -1,6 +1,7 @@
 ﻿using Code.Scripts.Input;
 using Code.Scripts.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,8 +31,11 @@ namespace Code.Scripts.Game.Managers
         public IReadOnlyList<QColor> EnabledColors { get; private set; }
 
         public static event Action<QColor> ColorChanged;
+        public static event Action<bool> ColorFreeze;
 
         private QColor? preLockedColor = null;
+        private Coroutine colorFreezeCoroutine = null;
+        private float preColorFreezeTimeScale = 1;
 
         private void Start()
         {
@@ -151,6 +155,15 @@ namespace Code.Scripts.Game.Managers
                 CurrentColor = color;
 
                 SfxController.ChangeToCrystal(gameObject, color);
+                if (Settings.ColorFreeze)
+                {
+                    if (colorFreezeCoroutine != null)
+                    {
+                        StopCoroutine(colorFreezeCoroutine);
+                        OnEndColorFreeze();
+                    }
+                    colorFreezeCoroutine = StartCoroutine(DoColorFreeze());
+                }
             }
         }
 
@@ -198,6 +211,22 @@ namespace Code.Scripts.Game.Managers
             }
             Stats.PickUpColor(color);
             UpdateEnabledColors();
+        }
+
+        private IEnumerator DoColorFreeze()
+        {
+            ColorFreeze?.Invoke(true);
+            yield return new WaitForEndOfFrame();
+            preColorFreezeTimeScale = Time.timeScale;
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(0.1f);
+            OnEndColorFreeze();
+        }
+
+        private void OnEndColorFreeze()
+        {
+            Time.timeScale = preColorFreezeTimeScale;
+            ColorFreeze?.Invoke(false);
         }
     }
 }
