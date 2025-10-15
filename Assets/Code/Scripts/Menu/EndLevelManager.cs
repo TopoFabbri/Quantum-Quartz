@@ -13,11 +13,13 @@ namespace Code.Scripts.Menu
         [SerializeField] private TextMeshProUGUI timeTxt;
         [SerializeField] private TextMeshProUGUI collectiblesTxt;
         [SerializeField] private TextMeshProUGUI deathsTxt;
-
+        [SerializeField] private LevelList levelList;
+        
         private void OnEnable()
         {
             timeTxt.text = TimeCounter.Time.ToStr;
-            deathsTxt.text = Stats.GetDeaths().ToString();
+            deathsTxt.text = "Deaths: " + Stats.GetDeaths();
+            collectiblesTxt.text = "Keys: " + Stats.GetCollectiblesCount(levelList);
         }
     }
 }

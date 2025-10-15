@@ -17,13 +17,13 @@ namespace Code.Scripts.Game.Visuals
 
         private void OnEnable()
         {
-            LevelChanger.LevelEnd += End;
+            LevelChanger.PlayerTp += End;
             ColorSwitcher.ColorChanged += OnSwitchColorHandler;
         }
 
         private void OnDisable()
         {
-            LevelChanger.LevelEnd -= End;
+            LevelChanger.PlayerTp -= End;
             ColorSwitcher.ColorChanged -= OnSwitchColorHandler;
         }
 

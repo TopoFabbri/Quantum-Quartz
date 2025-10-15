@@ -46,7 +46,7 @@ namespace Code.Scripts.Game.Triggers
             if (!other.isTrigger && other.CompareTag("Player"))
             {
                 PlayerTp?.Invoke();
-                StartCoroutine(ShowEndLevelScreen(2));
+                StartCoroutine(ShowEndLevelScreen(2.16f));
             }
         }
 
