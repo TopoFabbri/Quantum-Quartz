@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Code.Scripts.Player;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -111,8 +112,13 @@ namespace Code.Scripts.Game
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (_activeRoom == this)
+            if (other.isTrigger || !other.CompareTag("Player") || _activeRoom != this)
+                return;
+
+            if (other.TryGetComponent(out PlayerController player) && !player.IsDead)
+            {
                 _activeRoom = null;
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)
