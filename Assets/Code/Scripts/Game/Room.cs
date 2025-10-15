@@ -109,6 +109,20 @@ namespace Code.Scripts.Game
             Active = this;
         }
 
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (_activeRoom == this)
+                _activeRoom = null;
+        }
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!Active)
+            {
+                OnTriggerEnter2D(other);
+            }
+        }
+
         private void Update()
         {
             if (Active != this)
