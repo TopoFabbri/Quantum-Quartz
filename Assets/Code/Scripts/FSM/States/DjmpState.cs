@@ -1,5 +1,7 @@
-﻿using Code.Scripts.Player;
+﻿using Code.Scripts.Game;
+using Code.Scripts.Player;
 using Code.Scripts.States.Settings;
+using Code.Scripts.Tools.EventSystem;
 using UnityEngine;
 
 namespace Code.Scripts.States
@@ -19,7 +21,7 @@ namespace Code.Scripts.States
             this.djmpSettings = stateSettings;
             this.djmpParticleSystem = djmpParticleSystem;
             this.djmpParticleSystem2 = djmpParticleSystem2;
-            sharedContext.djmpAvailable = true;
+            sharedContext.DjmpAvailable = true;
         }
 
         public override void OnEnter()
@@ -29,7 +31,7 @@ namespace Code.Scripts.States
             djmpParticleSystem.Play();
             djmpParticleSystem2.Play();
 
-            sharedContext.djmpAvailable = false;
+            sharedContext.DjmpAvailable = false;
             sharedContext.Rigidbody.velocity = Vector2.zero;
             
             sharedContext.CamController?.Shake(djmpSettings.shakeDur, djmpSettings.shakeMag);

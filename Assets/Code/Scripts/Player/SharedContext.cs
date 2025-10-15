@@ -6,6 +6,7 @@ using Code.Scripts.Input;
 using Code.Scripts.States.Settings;
 using System;
 using System.Collections;
+using Code.Scripts.Tools.EventSystem;
 using UnityEngine;
 
 namespace Code.Scripts.Player
@@ -97,7 +98,7 @@ namespace Code.Scripts.Player
         public bool facingRight = false;
         public bool died = false;
         public bool canCoyoteJump = false;
-        public bool djmpAvailable = false;
+        public bool canDoubleJump = false;
         public bool inWallCooldown = false;
         public float jumpFallTime = 0;
         public Vector2 previousSpeed = Vector2.zero;
@@ -106,6 +107,20 @@ namespace Code.Scripts.Player
         private readonly FiniteStateMachine<string> stateMachine;
         private double curSpeedTimestamp;
         private Coroutine wallCooldownCoroutine;
+        
+        public bool DjmpAvailable
+        {
+            get => canDoubleJump;
+            set
+            {
+                if (value)
+                    EventSystem.Raise<DjmpAvailable>();
+                else
+                    EventSystem.Raise<DjmpUsed>();
+                
+                canDoubleJump = value;
+            }
+        }
 
         public SharedContext(Rigidbody2D rb, Collider2D col, Transform transform, MonoBehaviour mb, PlayerSfx playerSfx, GlobalSettings globalSettings,
             FiniteStateMachine<string> stateMachine, RectTransform gearFX, WallStateColliders wallStateColliders)

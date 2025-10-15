@@ -101,7 +101,7 @@ namespace Code.Scripts.Player
 
             if (sharedContext.RecalculateIsGrounded())
             {
-                sharedContext.djmpAvailable = true;
+                sharedContext.DjmpAvailable = true;
             }
         }
 
@@ -522,7 +522,7 @@ namespace Code.Scripts.Player
                     OnAbilityReleaseHandler(true);
                 }
             }
-            else if (isPressed && (contextualColor || !sharedContext.djmpAvailable || sharedContext.IsGrounded || sharedContext.canCoyoteJump || typeof(WallState<string>).IsAssignableFrom(sharedContext.CurrentStateType) || !InputManager.Instance.DoContextualBlue()))
+            else if (isPressed && (contextualColor || !sharedContext.DjmpAvailable || sharedContext.IsGrounded || sharedContext.canCoyoteJump || typeof(WallState<string>).IsAssignableFrom(sharedContext.CurrentStateType) || !InputManager.Instance.DoContextualBlue()))
             {
                 jumpPressed = true;
                 StartCoroutine(EndJumpBufferTime(globalSettings.jumpBufferTime));
@@ -571,7 +571,7 @@ namespace Code.Scripts.Player
                     }
                     break;
                 case ColorSwitcher.QColor.Blue:
-                    if (sharedContext.djmpAvailable)
+                    if (sharedContext.DjmpAvailable)
                     {
                         djmpPressed = true;
                     }

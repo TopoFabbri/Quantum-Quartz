@@ -186,7 +186,7 @@ namespace Code.Scripts.Player
             
             yield return new WaitForFixedUpdate();
 
-            playerState.sharedContext.djmpAvailable = true;
+            playerState.sharedContext.DjmpAvailable = true;
         }
 
         public Rigidbody2D GetFollowObject(Rigidbody2D rb)
