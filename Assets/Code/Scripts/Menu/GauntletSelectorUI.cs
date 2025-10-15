@@ -106,7 +106,7 @@ namespace Code.Scripts.Menu
         {
             if (keysText != null)
             {
-                keysText.text = $"$ {Stats.GetCollectiblesCount(LevelChanger.Instance.LevelList)}";
+                keysText.text = $"Keys: {Stats.GetCollectiblesCount(LevelChanger.Instance.LevelList)}";
             }
         }
     }
