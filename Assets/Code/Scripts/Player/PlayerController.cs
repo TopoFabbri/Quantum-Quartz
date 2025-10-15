@@ -32,6 +32,8 @@ namespace Code.Scripts.Player
         bool inUnsafeState = false;
         private List<InteractableComponent> interactables = new List<InteractableComponent>();
 
+        public bool IsDead => playerState.sharedContext.died;
+
         private void OnEnable()
         {
             PlayerState.OnFlip += OnFlipHandler;
