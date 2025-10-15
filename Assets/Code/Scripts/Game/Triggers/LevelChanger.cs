@@ -67,6 +67,7 @@ namespace Code.Scripts.Game.Triggers
 
             InputManager.Instance.EnableUIMap();
             playerGO.SetActive(false);
+            GameManager.Instance.SetMusicFaded(true);
             endLevelCanvas.gameObject.SetActive(true);
             endLevelFirstSelectedButton.Select();
         }

@@ -41,6 +41,8 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject videoPanel;
         [SerializeField] private Button videoButton;
         [SerializeField] private Toggle fullScreenToggle;
+        [SerializeField] private Toggle contextualBlueToggle;
+        [SerializeField] private Toggle colorFreezeToggle;
         [SerializeField] private Toggle timerToggle;
 
         [HeaderPlus("Audio")]
@@ -63,7 +65,7 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
-            InitializeTimerToggle();
+            InitializeVideoToggles();
             InitializeAudioSliders();
             InitializeControlsDropdown();
         }
@@ -114,12 +116,22 @@ namespace Code.Scripts.Menu
             }
         }
 
-        private void InitializeTimerToggle()
+        private void InitializeVideoToggles()
         {
-            if (!timerToggle) return;
+            if (contextualBlueToggle)
+            {
+                contextualBlueToggle.isOn = Settings.ContextualBlue;
+            }
 
-            bool isTimerOn = Settings.ShowGameTimer;
-            timerToggle.isOn = isTimerOn;
+            if (colorFreezeToggle)
+            {
+                colorFreezeToggle.isOn = Settings.ColorFreeze;
+            }
+
+            if (timerToggle)
+            {
+                timerToggle.isOn = Settings.ShowGameTimer;
+            }
         }
 
         private void InitializeAudioSliders()
@@ -188,11 +200,20 @@ namespace Code.Scripts.Menu
             }
         }
 
+        public void ToggleContextualBlue()
+        {
+            Settings.ContextualBlue = contextualBlueToggle.isOn;
+        }
+
+        public void ToggleColorFreeze()
+        {
+            Settings.ColorFreeze = colorFreezeToggle.isOn;
+        }
+
         //Método que se llama desde el Toggle en UI
         public void ToggleTimer()
         {
-            bool isTimerOn = timerToggle.isOn;
-            Settings.ShowGameTimer = isTimerOn;
+            Settings.ShowGameTimer = timerToggle.isOn;
         }
 
         //Métodos para abrir/cerrar paneles

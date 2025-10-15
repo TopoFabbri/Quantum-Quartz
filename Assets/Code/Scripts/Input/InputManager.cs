@@ -3,6 +3,7 @@ using Code.Scripts.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -299,6 +300,27 @@ namespace Code.Scripts.Input
 #if INPUT_LAG
             });
 #endif
+        }
+
+        public bool DoContextualBlue()
+        {
+            if (Settings.ContextualBlue && activeMap.GetContextualBYPower() && ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Blue))
+            {
+                int value = 1;
+                inputActionCallbacks.GetValueOrDefault(InputAction.ColorBlue, null)?.Invoke();
+
+                if (ignoreInput || !this.enabled) return true;
+
+                ColorBlue?.Invoke();
+                if (ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue)
+                {
+                    HandleAbility(value, prevValues.GetValueOrDefault("ColorBlueAbility", 0));
+                }
+                prevValues["ColorBlueAbility"] = value;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

@@ -508,7 +508,7 @@ namespace Code.Scripts.Player
 
         public void OnJump(bool isPressed)
         {
-            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow;
+            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue;
             bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
             if (doContextual && (!isPressed || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
             {
@@ -522,7 +522,7 @@ namespace Code.Scripts.Player
                     OnAbilityReleaseHandler(true);
                 }
             }
-            else if (isPressed)
+            else if (isPressed && (contextualColor || !sharedContext.djmpAvailable || sharedContext.IsGrounded || sharedContext.canCoyoteJump || typeof(WallState<string>).IsAssignableFrom(sharedContext.CurrentStateType) || !InputManager.Instance.DoContextualBlue()))
             {
                 jumpPressed = true;
                 StartCoroutine(EndJumpBufferTime(globalSettings.jumpBufferTime));
