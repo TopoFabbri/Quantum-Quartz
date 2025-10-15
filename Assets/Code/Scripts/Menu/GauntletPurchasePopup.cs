@@ -40,15 +40,10 @@ namespace Code.Scripts.Menu
             confirmButton.Select();
         }
 
-
         private void OnConfirm()
         {
-            int price = pendingGauntlet.costInKeys;
-
-            if (Stats.SpendCollectibles(LevelChanger.Instance.LevelList, price))
+            if (Stats.UnlockGauntlet(LevelChanger.Instance.LevelList, pendingGauntlet))
             {
-                pendingGauntlet.isUnlocked = true;
-
                 int previousIndex = -1;
                 if (previousSelected != null && previousSelected.transform.parent == selector.transform)
                 {
@@ -70,8 +65,6 @@ namespace Code.Scripts.Menu
                 Debug.Log("Not enough collectibles!");
             }
         }
-
-
 
         private void OnCancel()
         {

@@ -22,10 +22,7 @@ namespace Code.Scripts.Menu
 
         private void Start()
         {
-            if (SceneManager.GetActiveScene().name == "SelectControllerMenu")
-            {
-                FullScreenManager.InitializeFullScreen();
-            }
+            Stats.DefaultSaveSlot();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

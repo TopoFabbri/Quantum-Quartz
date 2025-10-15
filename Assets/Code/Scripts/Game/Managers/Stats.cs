@@ -19,6 +19,7 @@ namespace Code.Scripts.Game.Managers
             public abstract Timer TotalTimer { get; }
             public abstract string CurLevelName { get; }
             public abstract int CollectiblesSpent { get; }
+            public abstract IReadOnlyCollection<string> UnlockedGauntlets { get; }
         }
 
         public abstract class ReadOnlyLevelStats
@@ -41,11 +42,13 @@ namespace Code.Scripts.Game.Managers
             public Timer totalTimer;
             public string curLevelName;
             public int collectiblesSpent;
+            public HashSet<string> unlockedGauntlets;
 
             public override int TotalDeaths => totalDeaths;
             public override Timer TotalTimer => totalTimer;
             public override string CurLevelName => curLevelName;
             public override int CollectiblesSpent => collectiblesSpent;
+            public override IReadOnlyCollection<string> UnlockedGauntlets => unlockedGauntlets;
 
             public TotalSlotStats(int slot)
             {
@@ -55,6 +58,13 @@ namespace Code.Scripts.Game.Managers
                 totalTimer = new Timer(PlayerPrefs.GetFloat($"Slot{slot}_TotalTimer", 0));
                 curLevelName = PlayerPrefs.GetString($"Slot{slot}_LevelName", "");
                 collectiblesSpent = PlayerPrefs.GetInt($"Slot{slot}_CollectiblesSpent", 0);
+
+                unlockedGauntlets = new HashSet<string>();
+                string temp = PlayerPrefs.GetString($"Slot{slot}_UnlockedGauntlets", "");
+                foreach (string unlockedGauntlet in temp.Split(';', System.StringSplitOptions.RemoveEmptyEntries))
+                {
+                    unlockedGauntlets.Add(unlockedGauntlet);
+                }
             }
 
             public void Save()
@@ -63,6 +73,7 @@ namespace Code.Scripts.Game.Managers
                 PlayerPrefs.SetFloat($"Slot{slot}_TotalTimer", totalTimer.time);
                 PlayerPrefs.SetString($"Slot{slot}_LevelName", curLevelName);
                 PlayerPrefs.SetInt($"Slot{slot}_CollectiblesSpent", collectiblesSpent);
+                PlayerPrefs.SetString($"Slot{slot}_UnlockedGauntlets", string.Join(';', unlockedGauntlets));
             }
 
             public static void Clear(int slot)
@@ -71,6 +82,7 @@ namespace Code.Scripts.Game.Managers
                 PlayerPrefs.DeleteKey($"Slot{slot}_TotalTimer");
                 PlayerPrefs.DeleteKey($"Slot{slot}_LevelName");
                 PlayerPrefs.DeleteKey($"Slot{slot}_CollectiblesSpent");
+                PlayerPrefs.DeleteKey($"Slot{slot}_UnlockedGauntlets");
             }
         }
 
@@ -232,6 +244,22 @@ namespace Code.Scripts.Game.Managers
             }
         }
 
+        private static void TotalSlotStatsCheck()
+        {
+            if (Instance.totalSlotStats == null)
+            {
+                Debug.LogError("No total slot stats loaded");
+            }
+        }
+
+        private static void LevelStatsCheck()
+        {
+            if (Instance.levelStats == null)
+            {
+                Debug.LogError("No level stats loaded");
+            }
+        }
+
         // ---------- Save & Load ----------
         public static void SelectSaveSlot(int slot)
         {
@@ -239,12 +267,17 @@ namespace Code.Scripts.Game.Managers
             Instance.totalSlotStats = new TotalSlotStats(slot);
         }
 
-        public static ReadOnlyLevelStats LoadLevelStats(int level)
+        public static void DefaultSaveSlot()
         {
             if (Instance.saveSlot == -1)
             {
                 SelectSaveSlot(1);
             }
+        }
+
+        public static ReadOnlyLevelStats LoadLevelStats(int level)
+        {
+            DefaultSaveSlot();
 
             Instance.levelStats = new LevelStats(Instance.saveSlot, level);
 
@@ -276,11 +309,15 @@ namespace Code.Scripts.Game.Managers
         // ---------- Deaths ----------
         public static int GetDeaths()
         {
+            LevelStatsCheck();
             return Instance.levelStats.curDeaths;
         }
 
         public static void AddDeath()
         {
+            TotalSlotStatsCheck();
+            LevelStatsCheck();
+
             Instance.totalSlotStats.totalDeaths++;
             Instance.levelStats.totalDeaths++;
             Instance.levelStats.curDeaths++;
@@ -290,6 +327,9 @@ namespace Code.Scripts.Game.Managers
         // ---------- Checkpoints ----------
         public static void SaveCheckpoint(Vector2 pos)
         {
+            TotalSlotStatsCheck();
+            LevelStatsCheck();
+
             Instance.totalSlotStats.curLevelName = SceneManager.GetActiveScene().name;
             Instance.levelStats.curCheckpoint = pos;
             SaveStats();
@@ -297,6 +337,9 @@ namespace Code.Scripts.Game.Managers
 
         public static void FinishLevel(string nextLevelName)
         {
+            TotalSlotStatsCheck();
+            LevelStatsCheck();
+
             Instance.totalSlotStats.curLevelName = nextLevelName;
             Instance.levelStats.curCheckpoint = Vector2.negativeInfinity;
 
@@ -310,17 +353,23 @@ namespace Code.Scripts.Game.Managers
         // ---------- Collectibles ----------
         public static void PickUpCollectible(int id)
         {
+            LevelStatsCheck();
+
             Instance.levelStats.collectibles.Add(id);
             SaveStats();
         }
 
         public static bool HasCollectible(int id)
         {
+            LevelStatsCheck();
+
             return Instance.levelStats.collectibles.Contains(id);
         }
         
         public static int GetCollectiblesCount(LevelList levelList)
         {
+            TotalSlotStatsCheck();
+
             int count = 0;
             for (int i = 0; i < levelList.levels.Count; i++)
             {
@@ -330,10 +379,17 @@ namespace Code.Scripts.Game.Managers
             return count - Instance.totalSlotStats.collectiblesSpent;
         }
 
-        public static bool SpendCollectibles(LevelList levelList, int amount)
+        public static bool UnlockGauntlet(LevelList levelList, GauntletsList.GauntletData gauntlet)
         {
+            TotalSlotStatsCheck();
+
+            if (gauntlet.isUnlocked) return true;
+
+            int amount = gauntlet.costInKeys;
             if (GetCollectiblesCount(levelList) >= amount)
             {
+                gauntlet.isUnlocked = true;
+                Instance.totalSlotStats.unlockedGauntlets.Add(gauntlet.gauntletName);
                 Instance.totalSlotStats.collectiblesSpent += amount;
 
                 SaveStats();
@@ -342,9 +398,18 @@ namespace Code.Scripts.Game.Managers
             return false;
         }
 
+        public static IReadOnlyCollection<string> GetUnlockedGauntlets()
+        {
+            TotalSlotStatsCheck();
+
+            return Instance.totalSlotStats.UnlockedGauntlets;
+        }
+
         // ---------- Colors ----------
         public static void PickUpColor(ColorSwitcher.QColor color)
         {
+            LevelStatsCheck();
+
             Instance.levelStats.curColors.Add(color);
             SaveStats();
         }
