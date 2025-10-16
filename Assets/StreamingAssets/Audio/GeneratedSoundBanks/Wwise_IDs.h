@@ -43,6 +43,7 @@ namespace AK
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
         static const AkUniqueID PLAY_STEAM_SPRING = 358772238U;
         static const AkUniqueID PLAY_TOAST_HIT = 537136529U;
+        static const AkUniqueID PLAY_TUTORIAL_LIGHTSON = 2975407143U;
         static const AkUniqueID PLAY_YELLOW_QUARTZ = 2438634884U;
         static const AkUniqueID SET_MXSWITCH_ADVENTURER = 1662526074U;
         static const AkUniqueID SET_MXSWITCH_GHOST = 2922058705U;
