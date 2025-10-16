@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{42B369D6-A826-7796-A6E6-9DF4C9E4E577}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{DA1EA49C-A64B-CC2B-9020-94DD6F1FE74D}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -521,6 +521,10 @@
 				<File Id="539506131" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_In_5.wav</ShortName>
 					<CachePath>SFX/Fireflies_In_5_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="549021685" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_Cutscenes_LightsOn.wav</ShortName>
+					<CachePath>SFX/QQ_Cutscenes_LightsOn_94D019DD.wem</CachePath>
 				</File>
 				<File Id="549926341" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_24.wav</ShortName>
@@ -1715,6 +1719,11 @@
 						<MediaRef Id="1044187187"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="2975407143" Name="Play_Tutorial_LightsOn" DurationType="OneShot" DurationMin="3.4005" DurationMax="3.4005">
+					<MediaRefs>
+						<MediaRef Id="549021685"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="2438634884" Name="Play_Yellow_Quartz" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="10060735"/>
@@ -1905,5 +1914,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0A25AA2A-563B-8E82-D3DF-BE0A4AD3CAF0}</FileHash>
+	<FileHash>{C015521D-23D8-70C8-8C0C-391B3E085643}</FileHash>
 </SoundBanksInfo>
