@@ -9,8 +9,6 @@ namespace Code.Scripts.Game.Managers
         public bool devMode;
         private float musicVol = 100f;
         private float sfxVol = 100f;
-        private bool contextualBlue = false;
-        private bool colorFreeze = false;
         private bool showGameTimer = false;
 
         public static Settings Instance
@@ -27,8 +25,6 @@ namespace Code.Scripts.Game.Managers
         {
             musicVol = PlayerPrefs.GetFloat("MusicVolume", musicVol);
             sfxVol = PlayerPrefs.GetFloat("SfxVolume", sfxVol);
-            contextualBlue = PlayerPrefs.GetInt("ContextualBlue", contextualBlue ? 1 : 0) == 1;
-            colorFreeze = PlayerPrefs.GetInt("ColorFreeze", colorFreeze ? 1 : 0) == 1;
             showGameTimer = PlayerPrefs.GetInt("Timer", showGameTimer ? 1 : 0) == 1;
             AkSoundEngine.SetRTPCValue("RTPC_MusicVolume", musicVol);
             AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", sfxVol);
@@ -54,28 +50,6 @@ namespace Code.Scripts.Game.Managers
                 Instance.sfxVol = value;
                 AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", value);
                 PlayerPrefs.SetFloat("SfxVolume", value);
-                PlayerPrefs.Save();
-            }
-        }
-
-        public static bool ContextualBlue
-        {
-            get => Instance.contextualBlue;
-            set
-            {
-                Instance.contextualBlue = value;
-                PlayerPrefs.SetInt("ContextualBlue", value ? 1 : 0);
-                PlayerPrefs.Save();
-            }
-        }
-
-        public static bool ColorFreeze
-        {
-            get => Instance.colorFreeze;
-            set
-            {
-                Instance.colorFreeze = value;
-                PlayerPrefs.SetInt("ColorFreeze", value ? 1 : 0);
                 PlayerPrefs.Save();
             }
         }
