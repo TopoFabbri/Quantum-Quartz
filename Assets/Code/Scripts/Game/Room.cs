@@ -117,6 +117,7 @@ namespace Code.Scripts.Game
 
             if (other.TryGetComponent(out PlayerController player) && !player.IsDead)
             {
+                OnDeactivate();
                 _activeRoom = null;
             }
         }
