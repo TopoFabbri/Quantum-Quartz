@@ -169,6 +169,45 @@
 						</Event>
 					</ChildrenList>
 				</Folder>
+				<Folder Name="Cutscense" ID="{59189AAB-D3D0-434E-AE75-69ABF9C8705A}" ShortID="473856118">
+					<ChildrenList>
+						<Event Name="Play_MX_TutorialCrystal" ID="{6FC6D7B9-4093-46C7-9BF7-9A8729B48EC0}">
+							<ChildrenList>
+								<Action Name="" ID="{23F6C8FA-A962-4FF9-B99F-1E3DC7AEDC72}" ShortID="656248061">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="12"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Music" ID="{A2D45AA4-4D50-4F77-98A0-01D7D04941A0}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{0B64CACA-11BF-42CA-AEC9-3797C3D4E38C}" ShortID="355348076">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MX_TutorialCrystal" ID="{4BBE38EC-48D2-44D2-8FBD-C425BD622A45}" WorkUnitID="{9C9A694C-94E8-44C1-8EC9-67612027988B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{CB1A3C92-DF2D-4E96-BB61-4FD85D647DB9}" ShortID="649828522">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="12"/>
+										<Property Name="Delay" Type="Real64" Value="5"/>
+										<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Music" ID="{A2D45AA4-4D50-4F77-98A0-01D7D04941A0}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

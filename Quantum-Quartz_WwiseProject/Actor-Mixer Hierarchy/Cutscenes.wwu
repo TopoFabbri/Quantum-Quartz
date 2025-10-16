@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9C9A694C-94E8-44C1-8EC9-67612027988B}" SchemaVersion="110" RootDocumentID="{7643D708-64DE-4121-8949-67C1F8F1C05A}" ParentDocumentID="{7643D708-64DE-4121-8949-67C1F8F1C05A}">
+	<AudioObjects>
+		<WorkUnit Name="Cutscenes" ID="{9C9A694C-94E8-44C1-8EC9-67612027988B}" OwnerID="{7643D708-64DE-4121-8949-67C1F8F1C05A}" PersistMode="Nested">
+			<ChildrenList>
+				<BlendContainer Name="MX_TutorialCrystal" ID="{4BBE38EC-48D2-44D2-8FBD-C425BD622A45}" ShortID="823844280">
+					<PropertyList>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-5</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="QQ_MX_TutorialCutscene_Crystal" ID="{0B00ADF1-7997-4DC1-9418-5EAB2576BE1D}" ShortID="796001805">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{7DAEE2FF-3CCA-4C02-A4C3-07515223D50D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8025873C-5D44-44B1-ADA0-646F4C726BB3}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="QQ_MX_TutorialCutscene_Crystal" ID="{2FCB54E5-37B0-4E25-8A16-B819DA15BF1A}">
+									<Language>SFX</Language>
+									<AudioFile>QQ_MX_TutorialCutscene_Crystal.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1017271790"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="QQ_MX_TutorialCutscene_Crystal" ID="{2FCB54E5-37B0-4E25-8A16-B819DA15BF1A}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</BlendContainer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
