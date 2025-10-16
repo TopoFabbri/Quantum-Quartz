@@ -44,6 +44,7 @@ namespace Code.Scripts.Input
             public abstract string GetMapName();
             public abstract bool GetContextualPower();
             public abstract bool GetContextualBYPower();
+            public abstract bool GetContextualBlue();
             public abstract bool GetDoubleClickPower();
         }
 
@@ -53,10 +54,12 @@ namespace Code.Scripts.Input
             public string mapName;
             public bool contextualPower;
             public bool contextualBYPower;
+            public bool contextualBlue;
             public bool doubleClickPower;
             public override string GetMapName() => mapName;
             public override bool GetContextualPower() => contextualPower;
             public override bool GetContextualBYPower() => contextualBYPower;
+            public override bool GetContextualBlue() => contextualBlue;
             public override bool GetDoubleClickPower() => doubleClickPower;
         }
 
@@ -292,7 +295,7 @@ namespace Code.Scripts.Input
             {
                 Jump?.Invoke(1);
             }
-            else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower())
+            else if (activeMap.GetContextualPower() || activeMap.GetContextualBYPower() || activeMap.GetContextualBlue())
             {
                 Jump?.Invoke(0);
             }
@@ -304,7 +307,7 @@ namespace Code.Scripts.Input
 
         public bool DoContextualBlue()
         {
-            if (Settings.ContextualBlue && activeMap.GetContextualBYPower() && ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Blue))
+            if (activeMap.GetContextualBlue() && ColorSwitcher.Instance.EnabledColors.Contains(ColorSwitcher.QColor.Blue))
             {
                 int value = 1;
                 inputActionCallbacks.GetValueOrDefault(InputAction.ColorBlue, null)?.Invoke();

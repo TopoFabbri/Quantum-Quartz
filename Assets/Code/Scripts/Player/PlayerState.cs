@@ -508,8 +508,8 @@ namespace Code.Scripts.Player
 
         public void OnJump(bool isPressed)
         {
-            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue;
-            bool doContextual = (contextualColor && InputManager.activeMap.GetContextualBYPower()) || InputManager.activeMap.GetContextualPower();
+            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || (InputManager.activeMap.GetContextualBlue() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
+            bool doContextual = (contextualColor && (InputManager.activeMap.GetContextualBYPower() || InputManager.activeMap.GetContextualBlue())) || InputManager.activeMap.GetContextualPower();
             if (doContextual && (!isPressed || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
             {
                 // If in air with a contextual power mapping, use ability

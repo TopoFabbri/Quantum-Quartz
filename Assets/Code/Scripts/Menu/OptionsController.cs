@@ -41,8 +41,6 @@ namespace Code.Scripts.Menu
         [SerializeField] private GameObject videoPanel;
         [SerializeField] private Button videoButton;
         [SerializeField] private Toggle fullScreenToggle;
-        [SerializeField] private Toggle contextualBlueToggle;
-        [SerializeField] private Toggle colorFreezeToggle;
         [SerializeField] private Toggle timerToggle;
 
         [HeaderPlus("Audio")]
@@ -118,16 +116,6 @@ namespace Code.Scripts.Menu
 
         private void InitializeVideoToggles()
         {
-            if (contextualBlueToggle)
-            {
-                contextualBlueToggle.isOn = Settings.ContextualBlue;
-            }
-
-            if (colorFreezeToggle)
-            {
-                colorFreezeToggle.isOn = Settings.ColorFreeze;
-            }
-
             if (timerToggle)
             {
                 timerToggle.isOn = Settings.ShowGameTimer;
@@ -198,16 +186,6 @@ namespace Code.Scripts.Menu
                 controlsImage.color = Color.clear;
                 controlsImage.sprite = null;
             }
-        }
-
-        public void ToggleContextualBlue()
-        {
-            Settings.ContextualBlue = contextualBlueToggle.isOn;
-        }
-
-        public void ToggleColorFreeze()
-        {
-            Settings.ColorFreeze = colorFreezeToggle.isOn;
         }
 
         //Método que se llama desde el Toggle en UI
