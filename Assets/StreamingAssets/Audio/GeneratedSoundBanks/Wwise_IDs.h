@@ -54,6 +54,7 @@ namespace AK
         static const AkUniqueID SET_SWITCH_CONCRETE = 3543386712U;
         static const AkUniqueID SET_SWITCH_CRISTAL_PLATFORMS = 4131070040U;
         static const AkUniqueID SET_SWITCH_METAL = 708957530U;
+        static const AkUniqueID STOP_GHOSTAMBIENCES = 1744030208U;
         static const AkUniqueID STOP_LASER_LP = 1386925776U;
         static const AkUniqueID STOP_LUCIERNAGAS = 119388346U;
         static const AkUniqueID STOP_MX_SWITCH = 3636185906U;

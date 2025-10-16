@@ -14,6 +14,20 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Stop_GhostAmbiences" ID="{69D3A358-F5C5-4762-B50F-F3F069967108}">
+					<ChildrenList>
+						<Action Name="" ID="{8C8BFDC2-618A-49FE-92E1-D38148B0C8AA}" ShortID="831896315">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="GhostAmbiences" ID="{239CC0F1-3733-4374-B3BF-67AA93817D39}" WorkUnitID="{034021EE-2980-4E18-8197-ADCB81A7AD3B}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
