@@ -34,6 +34,7 @@ namespace AK
         static const AkUniqueID PLAY_HIT_CHAINS = 2170076162U;
         static const AkUniqueID PLAY_LANDINGS = 1019246482U;
         static const AkUniqueID PLAY_LASER_LP = 718252718U;
+        static const AkUniqueID PLAY_LEVELFINISHED = 1564011270U;
         static const AkUniqueID PLAY_LUCIERNAGAS = 3912385716U;
         static const AkUniqueID PLAY_MX_MENU = 1022453873U;
         static const AkUniqueID PLAY_MX_SWITCH = 2855120456U;
