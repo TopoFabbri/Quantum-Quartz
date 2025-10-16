@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B70BB9D2-3F5F-A4D7-E87E-7F2014EC50D5}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{85960032-C9B1-D846-429C-CECB5C76B165}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -882,6 +882,10 @@
 					<ShortName>Change_Quartz-002.wav</ShortName>
 					<CachePath>SFX/Change_Quartz-002_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="1017271790" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_MX_TutorialCutscene_Crystal.wav</ShortName>
+					<CachePath>SFX/QQ_MX_TutorialCutscene_Crystal_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="1017393183" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Change_Quartz-001.wav</ShortName>
 					<CachePath>SFX/Change_Quartz-001_4D3BBC73.wem</CachePath>
@@ -1623,6 +1627,59 @@
 						<ActionSetSwitchEntry GroupId="1445037870" Id="732117587" Name="NoMX"/>
 					</ActionSetSwitch>
 				</Event>
+				<Event Id="1254717544" Name="Play_MX_TutorialCrystal" DurationType="OneShot" DurationMin="5.351125" DurationMax="5.351125">
+					<MediaRefs>
+						<MediaRef Id="1017271790"/>
+					</MediaRefs>
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3247222823"/>
+							<MediaRefs>
+								<MediaRef Id="26893415"/>
+								<MediaRef Id="171091106"/>
+								<MediaRef Id="400230657"/>
+								<MediaRef Id="585198590"/>
+								<MediaRef Id="812185611"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="4023194814"/>
+							<MediaRefs>
+								<MediaRef Id="86503014"/>
+								<MediaRef Id="573631382"/>
+								<MediaRef Id="634500121"/>
+								<MediaRef Id="958601783"/>
+								<MediaRef Id="1034746756"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="824317709"/>
+							<MediaRefs>
+								<MediaRef Id="717978069"/>
+								<MediaRef Id="958719904"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="732117587"/>
+							<MediaRefs>
+								<MediaRef Id="866517727"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="3653896563"/>
+							<MediaRefs>
+								<MediaRef Id="865916349"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="1445037870" Id="2607556080"/>
+							<MediaRefs>
+								<MediaRef Id="630461703"/>
+								<MediaRef Id="1017739607"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
 				<Event Id="17527661" Name="Play_SecretWalls" DurationType="OneShot" DurationMin="3.1610832" DurationMax="3.1610832">
 					<MediaRefs>
 						<MediaRef Id="886521257"/>
@@ -1848,5 +1905,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{95F27150-E68A-3BF2-8131-4DE2E10E70D4}</FileHash>
+	<FileHash>{7030ADF6-5D37-5797-098A-64A254511099}</FileHash>
 </SoundBanksInfo>
