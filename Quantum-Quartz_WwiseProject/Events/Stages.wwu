@@ -169,7 +169,7 @@
 						</Event>
 					</ChildrenList>
 				</Folder>
-				<Folder Name="Cutscense" ID="{59189AAB-D3D0-434E-AE75-69ABF9C8705A}" ShortID="473856118">
+				<Folder Name="Cutscenses" ID="{59189AAB-D3D0-434E-AE75-69ABF9C8705A}" ShortID="473856118">
 					<ChildrenList>
 						<Event Name="Play_MX_TutorialCrystal" ID="{6FC6D7B9-4093-46C7-9BF7-9A8729B48EC0}">
 							<ChildrenList>
@@ -203,6 +203,28 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="Music" ID="{A2D45AA4-4D50-4F77-98A0-01D7D04941A0}" WorkUnitID="{311C7EF4-AD80-4FDC-9F1D-DC308479C2B4}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Tutorial_LightsOn" ID="{7B2AFFD1-B068-443F-A959-1F3554B4B11C}">
+							<ChildrenList>
+								<Action Name="" ID="{4691252E-FE44-4B87-ADEF-D3012BB0BE6E}" ShortID="628495975">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Tutorial_LightsOn" ID="{E0B45808-94F1-4BE7-86B9-75BE70BAFD80}" WorkUnitID="{9C9A694C-94E8-44C1-8EC9-67612027988B}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LevelFinished" ID="{A0A56885-96B9-4D73-98F9-EF7DE83DD26A}">
+							<ChildrenList>
+								<Action Name="" ID="{B0F5F7C3-02CA-497E-8E8D-52259726E2F7}" ShortID="936978271">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LevelFinished" ID="{89C05E13-B8F2-442B-B276-7F642B248594}" WorkUnitID="{64F6236D-430F-481B-8F9B-D0684B5F269B}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
