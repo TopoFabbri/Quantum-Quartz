@@ -81,6 +81,8 @@ namespace Code.Scripts.Game
         {
             if (_activeRoom == this)
                 _activeRoom = null;
+            
+            OnDeactivate();
         }
 
         private void OnDestroyedRoomComponent(RoomComponent obj)
