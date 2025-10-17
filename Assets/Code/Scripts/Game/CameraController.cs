@@ -46,12 +46,18 @@ namespace Code.Scripts.Game
 
         private void OnRoomChanged(Room oldRoom, Room newRoom)
         {
-            this.oldRoom = oldRoom;
-            newRoom.OnActivate();
-            
-            Center = newRoom.transform.position;
-            MoveRange = newRoom.MoveRange;
-            FollowOffset = newRoom.FollowOffset;
+            if (oldRoom)
+            {
+                this.oldRoom = oldRoom;
+            }
+            if (newRoom)
+            {
+                newRoom.OnActivate();
+
+                Center = newRoom.transform.position;
+                MoveRange = newRoom.MoveRange;
+                FollowOffset = newRoom.FollowOffset;
+            }
         }
 
         private void LateUpdate()
@@ -65,9 +71,13 @@ namespace Code.Scripts.Game
             }
             
             if (IsCamInRoom())
+            {
                 Follow();
+            }
             else
+            {
                 SwitchRoom();
+            }
         }
 
         /// <summary>
@@ -75,7 +85,6 @@ namespace Code.Scripts.Game
         /// </summary>
         private void SwitchRoom()
         {
-            
             transform.position = Vector3.MoveTowards(transform.position, targetPos, changeRoomSpeed * Time.deltaTime);
         }
 
@@ -108,7 +117,11 @@ namespace Code.Scripts.Game
             if (!inRoom && newInRoom)
             {
                 StopCam?.Invoke();
-                if (oldRoom) oldRoom.OnDeactivate();
+                if (oldRoom)
+                {
+                    oldRoom.OnDeactivate();
+                    oldRoom = null;
+                }
             }
 
             inRoom = newInRoom;
