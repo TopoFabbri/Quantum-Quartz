@@ -71,6 +71,7 @@ namespace Code.Scripts.Game.Obstacles
                             childTransform.localPosition = new Vector3(childTransform.localPosition.x + offset, childTransform.localPosition.y, childTransform.localPosition.z);
                             childTransform.localScale = new Vector3(childTransform.localScale.x * (size.y / prevSize.y), childTransform.localScale.y, childTransform.localScale.z);
                         }
+                        EditorUtility.SetDirty(childTransform);
                     }
 
                     prevSize = size;
