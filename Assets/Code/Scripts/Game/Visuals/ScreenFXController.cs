@@ -11,7 +11,7 @@ namespace Code.Scripts.Game.Visuals
     {
         [SerializeField] private Animator animator;
         [SerializeField] private WwiseEvent playGearEvent;
-        [SerializeField] private WwiseEvent playLevelFinishedEvent;
+        [SerializeField] private AK.Wwise.Event playLevelFinishedEvent;
 
         private static readonly int Ended = Animator.StringToHash("Ended");
         private static readonly int SwitchedColor = Animator.StringToHash("SwitchedColor");
@@ -33,7 +33,7 @@ namespace Code.Scripts.Game.Visuals
         /// </summary>
         private void End()
         {
-            playLevelFinishedEvent.SetOn(gameObject);
+            playLevelFinishedEvent.Post(gameObject);
             animator.SetBool(Ended, true);
         }
 
