@@ -16,6 +16,7 @@ namespace Code.Scripts.Game
         protected virtual void OnDestroy()
         {
             Destroyed?.Invoke(this);
+            OnDeactivate();
         }
     }
 }
