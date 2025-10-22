@@ -250,7 +250,7 @@ namespace Code.Scripts.Player
             context.AddCondition("VisuallyOnEdge", edge.IsVisuallyOnEdge);
             context.AddCondition("HasInput", () => sharedContext.Input != 0);
             context.AddCondition("NoWall", () => !move.WallCheck());
-            context.AddCondition("CanEnterWall", wall.CanEnterWall);
+            context.AddCondition("CanEnterWall", () => wall.CanEnterWall());
             context.AddCondition("Spring", () => sharedContext.spring.HasValue);
             context.AddCondition("CanCoyoteJump", () => sharedContext.canCoyoteJump);
             context.AddCondition("NeutralVelocity", () => Mathf.Abs(rb.velocity.y) < sharedContext.GlobalSettings.neutralSpeed);
@@ -276,6 +276,9 @@ namespace Code.Scripts.Player
             context.AddCondition("GlidePressed", () => glidePressed || (contextualPressed && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow));
             context.AddCondition("Died", () => sharedContext.died);
             context.AddCondition("Teleport", () => shouldTp);
+
+            // Context variables for use in code outside of transitions (Prefixed by "_")
+            context.AddCondition("_CanEnterWall_Future", () => wall.CanEnterWall());
 
             // ====================================
             // ||       Create Transitions       ||
@@ -508,9 +511,11 @@ namespace Code.Scripts.Player
 
         public void OnJump(bool isPressed)
         {
-            bool contextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || (InputManager.activeMap.GetContextualBlue() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
-            bool doContextual = (contextualColor && (InputManager.activeMap.GetContextualBYPower() || InputManager.activeMap.GetContextualBlue())) || InputManager.activeMap.GetContextualPower();
-            if (doContextual && (!isPressed || (!sharedContext.canCoyoteJump && !sharedContext.IsGrounded)))
+            bool inContextualColor = ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Blue || (InputManager.activeMap.GetContextualBYPower() && ColorSwitcher.Instance.CurrentColor == ColorSwitcher.QColor.Yellow);
+            bool doContextual = InputManager.activeMap.GetContextualPower() || (inContextualColor && (InputManager.activeMap.GetContextualBYPower() || InputManager.activeMap.GetContextualBlue()));
+            bool canDjmp = sharedContext.DjmpAvailable && !sharedContext.IsGrounded && !sharedContext.canCoyoteJump && !typeof(WallState<string>).IsAssignableFrom(sharedContext.CurrentStateType);
+
+            if (doContextual && (!isPressed || canDjmp))
             {
                 // If in air with a contextual power mapping, use ability
                 if (isPressed)
@@ -522,7 +527,7 @@ namespace Code.Scripts.Player
                     OnAbilityReleaseHandler(true);
                 }
             }
-            else if (isPressed && (contextualColor || !sharedContext.DjmpAvailable || sharedContext.IsGrounded || sharedContext.canCoyoteJump || typeof(WallState<string>).IsAssignableFrom(sharedContext.CurrentStateType) || !InputManager.Instance.DoContextualBlue()))
+            else if (isPressed && (inContextualColor || !canDjmp || stateMachine.Context.IsTrue("_CanEnterWall_Future") || !InputManager.Instance.DoContextualBlue()))
             {
                 jumpPressed = true;
                 StartCoroutine(EndJumpBufferTime(globalSettings.jumpBufferTime));

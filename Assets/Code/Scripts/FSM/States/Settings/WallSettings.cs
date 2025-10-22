@@ -19,5 +19,6 @@ namespace Code.Scripts.States.Settings
         public float dustOffset = 0.3f;
         public int dustQty = 4;
         public GameObject dust;
+        public float contextOverrideDist = 0.1f;
     }
 }
