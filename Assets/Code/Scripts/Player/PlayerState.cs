@@ -278,7 +278,7 @@ namespace Code.Scripts.Player
             context.AddCondition("Teleport", () => shouldTp);
 
             // Context variables for use in code outside of transitions (Prefixed by "_")
-            context.AddCondition("_CanEnterWall_Future", () => wall.CanEnterWall());
+            context.AddCondition("_CanEnterWall_Future", () => wall.CanEnterWall_Future());
 
             // ====================================
             // ||       Create Transitions       ||
