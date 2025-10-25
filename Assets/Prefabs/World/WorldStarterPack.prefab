@@ -18086,6 +18086,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2362648945020051555}
   playGearEvent: {fileID: 11400000, guid: d80c9e817548d5e4fae8cbf8bcc47131, type: 2}
+  playLevelFinishedEvent:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
 --- !u!95 &2362648945020051555
 Animator:
   serializedVersion: 5
@@ -19274,7 +19278,7 @@ MonoBehaviour:
       Value: 2
     - Key: 4
       Value: 1
-  keywordMappings:
+  buttonMappings:
   - keyword: <button=jump>
     mappings:
       _serializedList:
@@ -19320,6 +19324,12 @@ MonoBehaviour:
         Value: <sprite tint=1 name=Controls_XboxLT>
       - Key: 2
         Value: <sprite tint=1 name=Controls_PlayStationL2>
+  specialMappings:
+  - keyword: pause
+    mappings:
+      _serializedList:
+      - Key: 0
+        Value: delay
 --- !u!1 &5673422579309379825
 GameObject:
   m_ObjectHideFlags: 0
