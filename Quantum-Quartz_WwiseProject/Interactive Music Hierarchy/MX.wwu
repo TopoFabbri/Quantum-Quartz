@@ -2317,6 +2317,27 @@
 									</ObjectLists>
 								</MusicSegment>
 							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
+										<CustomState Name="" ID="{C96A3228-9E44-4A72-A2A6-058BEEE8891C}" ShortID="822583861">
+											<PropertyList>
+												<Property Name="Lowpass" Type="int16" Value="60"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
+										<CustomState Name="" ID="{98D69FCD-7C90-4A18-98A9-FE6A6D22E4F1}" ShortID="476059914"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
 							<TransitionList>
 								<MusicTransition Name="Root" ID="{6C29F6CD-5687-4809-A670-EA9D894147F7}">
 									<PropertyList>
@@ -4229,27 +4250,6 @@
 									</ObjectLists>
 								</MusicSegment>
 							</ChildrenList>
-							<StateInfo>
-								<StateGroupList>
-									<StateGroupInfo>
-										<StateGroupRef Name="MusicState" ID="{945A69EF-A8E6-43DE-8417-AEACA589A4D6}"/>
-									</StateGroupInfo>
-								</StateGroupList>
-								<CustomStateList>
-									<CustomState>
-										<StateRef Name="Pause" ID="{308E89F2-C349-4091-BF8F-C11A5F530CD5}"/>
-										<CustomState Name="" ID="{0E621F7F-3A69-404E-B326-9B6ED1325E0D}" ShortID="715257476">
-											<PropertyList>
-												<Property Name="Lowpass" Type="int16" Value="60"/>
-											</PropertyList>
-										</CustomState>
-									</CustomState>
-									<CustomState>
-										<StateRef Name="Ingame" ID="{73D58D61-D7FF-4FE7-B313-B2233CD53010}"/>
-										<CustomState Name="" ID="{F53FF015-DD20-480D-8081-361F34E42177}" ShortID="689139038"/>
-									</CustomState>
-								</CustomStateList>
-							</StateInfo>
 							<TransitionList>
 								<MusicTransition Name="Root" ID="{D20A77A4-933E-4899-8BDF-66A6AAAEA1F1}">
 									<PropertyList>
