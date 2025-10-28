@@ -72,29 +72,35 @@ namespace Code.Scripts.States
         /// Check if player is touching a wall
         /// </summary>
         /// <returns>True if touching a wall</returns>
-        public bool CanEnterWall()
+        public bool CanEnterWall(float? dist = null)
         {
             if (ColorSwitcher.Instance.CurrentColor != ColorSwitcher.QColor.Green || sharedContext.inWallCooldown)
                 return false;
 
-            return IsTouchingWall(sharedContext.facingRight);
+            return IsTouchingWall(sharedContext.facingRight, dist);
+        }
+
+        public bool CanEnterWall_Future()
+        {
+            return CanEnterWall(wallSettings.contextOverrideDist);
         }
 
         /// <summary>
         /// Check if player is touching a wall
         /// </summary>
         /// <returns> True if touching a wall</returns>
-        public bool IsTouchingWall(bool checkRight)
+        public bool IsTouchingWall(bool checkRight, float? dist = null)
         {
-            return CastCollider(sharedContext.WallStateColliders.UpCollider, checkRight);
+            return CastCollider(sharedContext.WallStateColliders.UpCollider, checkRight, dist);
         }
 
-        private bool CastCollider(Collider2D collider, bool checkRight)
+        private bool CastCollider(Collider2D collider, bool checkRight, float? dist)
         {
             List<RaycastHit2D> hits = new();
+            dist = dist ?? sharedContext.GlobalSettings.wallCheckDis;
 
             collider.enabled = true;
-            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? 1 : -1) * (sharedContext.GlobalSettings.wallCheckDis + sharedContext.Collider.bounds.extents.x), true);
+            collider.Cast(Vector2.right, sharedContext.SolidFilter, hits, (checkRight ? 1 : -1) * (dist.Value + sharedContext.Collider.bounds.extents.x), true);
             collider.enabled = false;
 
             foreach (RaycastHit2D hit in hits)
@@ -108,10 +114,10 @@ namespace Code.Scripts.States
             return false;
         }
 
-        public bool GetHanging(bool checkRight)
+        public bool GetHanging(bool checkRight, float? dist = null)
         {
-            bool midTouching = CastCollider(sharedContext.WallStateColliders.MidCollider, checkRight);
-            bool lowTouching = CastCollider(sharedContext.WallStateColliders.LowCollider, checkRight);
+            bool midTouching = CastCollider(sharedContext.WallStateColliders.MidCollider, checkRight, dist);
+            bool lowTouching = CastCollider(sharedContext.WallStateColliders.LowCollider, checkRight, dist);
 
             if (!lowTouching)
                 return true;
