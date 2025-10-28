@@ -40,6 +40,8 @@ namespace AK
         static const AkUniqueID PLAY_MX_MENU = 1022453873U;
         static const AkUniqueID PLAY_MX_SWITCH = 2855120456U;
         static const AkUniqueID PLAY_MX_TUTORIALCRYSTAL = 1254717544U;
+        static const AkUniqueID PLAY_QQ_MENUUI_OPTIONS_IN = 1677808811U;
+        static const AkUniqueID PLAY_QQ_MENUUI_OPTIONS_OUT = 571034790U;
         static const AkUniqueID PLAY_SECRETWALLS = 17527661U;
         static const AkUniqueID PLAY_SFX_STARTANIMATION = 751341016U;
         static const AkUniqueID PLAY_SP_AMB_STEAM = 3893832595U;
