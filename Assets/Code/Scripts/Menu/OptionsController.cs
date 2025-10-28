@@ -42,6 +42,7 @@ namespace Code.Scripts.Menu
         [SerializeField] private Button videoButton;
         [SerializeField] private Toggle fullScreenToggle;
         [SerializeField] private Toggle timerToggle;
+        [SerializeField] private Toggle contextualInputsToggle;
 
         [HeaderPlus("Audio")]
         [SerializeField] private GameObject audioPanel;
@@ -120,6 +121,11 @@ namespace Code.Scripts.Menu
             {
                 timerToggle.isOn = Settings.ShowGameTimer;
             }
+
+            if (contextualInputsToggle)
+            {
+                contextualInputsToggle.isOn = Settings.ContextualInputs;
+            }
         }
 
         private void InitializeAudioSliders()
@@ -188,13 +194,16 @@ namespace Code.Scripts.Menu
             }
         }
 
-        //Método que se llama desde el Toggle en UI
         public void ToggleTimer()
         {
             Settings.ShowGameTimer = timerToggle.isOn;
         }
 
-        //Métodos para abrir/cerrar paneles
+        public void ToggleContextualInputs()
+        {
+            Settings.ContextualInputs = contextualInputsToggle.isOn;
+        }
+
         public void TurnCredits()
         {
             creditsPanel.SetActive(!creditsPanel.activeSelf);

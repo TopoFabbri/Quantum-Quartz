@@ -10,6 +10,7 @@ namespace Code.Scripts.Game.Managers
         private float musicVol = 100f;
         private float sfxVol = 100f;
         private bool showGameTimer = false;
+        private bool contextualInputs = true;
 
         public static Settings Instance
         {
@@ -26,6 +27,7 @@ namespace Code.Scripts.Game.Managers
             musicVol = PlayerPrefs.GetFloat("MusicVolume", musicVol);
             sfxVol = PlayerPrefs.GetFloat("SfxVolume", sfxVol);
             showGameTimer = PlayerPrefs.GetInt("Timer", showGameTimer ? 1 : 0) == 1;
+            contextualInputs = PlayerPrefs.GetInt("ContextualInputs", contextualInputs ? 1 : 0) == 1;
             AkSoundEngine.SetRTPCValue("RTPC_MusicVolume", musicVol);
             AkSoundEngine.SetRTPCValue("RTPC_SfxVolume", sfxVol);
         }
@@ -60,6 +62,17 @@ namespace Code.Scripts.Game.Managers
             set
             {
                 Instance.showGameTimer = value;
+                PlayerPrefs.SetInt("Timer", value ? 1 : 0);
+                PlayerPrefs.Save();
+            }
+        }
+
+        public static bool ContextualInputs
+        {
+            get => Instance.contextualInputs;
+            set
+            {
+                Instance.contextualInputs = value;
                 PlayerPrefs.SetInt("Timer", value ? 1 : 0);
                 PlayerPrefs.Save();
             }

@@ -57,9 +57,9 @@ namespace Code.Scripts.Input
             public bool contextualBlue;
             public bool doubleClickPower;
             public override string GetMapName() => mapName;
-            public override bool GetContextualPower() => contextualPower;
-            public override bool GetContextualBYPower() => contextualBYPower;
-            public override bool GetContextualBlue() => contextualBlue;
+            public override bool GetContextualPower() => Settings.ContextualInputs && contextualPower;
+            public override bool GetContextualBYPower() => Settings.ContextualInputs && contextualBYPower;
+            public override bool GetContextualBlue() => Settings.ContextualInputs && contextualBlue;
             public override bool GetDoubleClickPower() => doubleClickPower;
         }
 
