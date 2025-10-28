@@ -1,24 +1,32 @@
 using Code.Scripts.Game.Managers;
 using Code.Scripts.Game.Triggers;
+using Code.Scripts.Tools;
 using Eflatun.SceneReference;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Code.Scripts.Menu
 {
     public class MenuController : MonoBehaviour
     {
-        [Header("Scene Names")]
+        [HeaderPlus("Scene Names")]
         [SerializeField] private SceneReference mainMenu;
         [SerializeField] private SceneReference saveFiles;
 
-        [Header("UI Elements")]
+        [HeaderPlus("UI Elements")]
         [SerializeField] private GameObject fadeOut;
         [SerializeField] private TextMeshProUGUI versionText;
         
-        [Header("Buttons")]
+        [HeaderPlus("Buttons")]
         [SerializeField] private TextMeshProUGUI playButtonText;
+
+#if UNITY_EDITOR
+        [HeaderPlus("Editor Actions"), InspectorButton("Wipe All Save Data")]
+        private void WipeSave()
+        {
+            PlayerPrefs.DeleteAll();
+        }
+#endif
 
         private void Start()
         {
