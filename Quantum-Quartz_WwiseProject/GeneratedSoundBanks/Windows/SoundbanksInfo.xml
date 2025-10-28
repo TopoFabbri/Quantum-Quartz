@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{F4917A12-4122-2F2E-2A2E-2024F109A3D9}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{AF086699-BA4F-3F71-E7A8-C0CAF37D9F14}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -197,6 +197,10 @@
 				<File Id="121997892" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Lab_Footstep_13.wav</ShortName>
 					<CachePath>SFX/Lab_Footstep_13_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="123134545" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_MenuUI_Focus_1.wav</ShortName>
+					<CachePath>SFX/QQ_MenuUI_Focus_1_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="124247045" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Concrete_Footstep-029.wav</ShortName>
@@ -832,6 +836,10 @@
 					<ShortName>QQ_SFX_Abduction.wav</ShortName>
 					<CachePath>SFX/QQ_SFX_Abduction_4D3BBC73.wem</CachePath>
 				</File>
+				<File Id="937585776" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_MenuUI_Options_Out.wav</ShortName>
+					<CachePath>SFX/QQ_MenuUI_Options_Out_4DA1AA71.wem</CachePath>
+				</File>
 				<File Id="942246627" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Fireflies_Out_4.wav</ShortName>
 					<CachePath>SFX/Fireflies_Out_4_4D3BBC73.wem</CachePath>
@@ -925,6 +933,10 @@
 				<File Id="1051899157" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SpringPitch.wav</ShortName>
 					<CachePath>SFX/SpringPitch_4D3BBC73.wem</CachePath>
+				</File>
+				<File Id="1055975881" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_MenuUI_Options_In.wav</ShortName>
+					<CachePath>SFX/QQ_MenuUI_Options_In_4DA1AA71.wem</CachePath>
 				</File>
 			</Media>
 			<Plugins>
@@ -1442,6 +1454,11 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="1444197280" Name="Play_MenuUI_Focus" DurationType="OneShot" DurationMin="0.033145834" DurationMax="0.033145834">
+					<MediaRefs>
+						<MediaRef Id="123134545"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1022453873" Name="Play_MX_Menu" DurationType="Infinite">
 					<SwitchContainers>
 						<SwitchContainer>
@@ -1693,6 +1710,16 @@
 						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
+				<Event Id="1677808811" Name="Play_QQ_MenuUI_Options_In" DurationType="OneShot" DurationMin="0.33858332" DurationMax="0.33858332">
+					<MediaRefs>
+						<MediaRef Id="1055975881"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="571034790" Name="Play_QQ_MenuUI_Options_Out" DurationType="OneShot" DurationMin="0.33858332" DurationMax="0.33858332">
+					<MediaRefs>
+						<MediaRef Id="937585776"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="17527661" Name="Play_SecretWalls" DurationType="OneShot" DurationMin="3.1610832" DurationMax="3.1610832">
 					<MediaRefs>
 						<MediaRef Id="886521257"/>
@@ -1923,5 +1950,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{EBE384F6-DA7B-3166-0324-FF56613A6DBB}</FileHash>
+	<FileHash>{2A5E0871-0ABA-B01C-663E-16F81EB7A63A}</FileHash>
 </SoundBanksInfo>
