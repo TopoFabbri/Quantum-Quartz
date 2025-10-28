@@ -88,7 +88,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B7636EA4-A1AF-6D72-D84F-4B32298DEE3D}">
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{B6451C01-12B7-164A-1BEA-41FF4CF9BAAB}">
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
@@ -739,6 +739,10 @@
 				<File Id="820823285" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Cristal_Platform_FS-001.wav</ShortName>
 					<CachePath>SFX/Cristal_Platform_FS-001_2346CC2F.wem</CachePath>
+				</File>
+				<File Id="834451912" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>QQ_MenuUI_Focus.wav</ShortName>
+					<CachePath>SFX/QQ_MenuUI_Focus_4DA1AA71.wem</CachePath>
 				</File>
 				<File Id="834497291" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Chain-003.wav</ShortName>
@@ -1442,6 +1446,11 @@
 						<ActionSetStateEntry GroupId="2466252489" Id="1651971902" Name="On"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="1444197280" Name="Play_MenuUI_Focus" DurationType="OneShot" DurationMin="0.010747572" DurationMax="0.011386656">
+					<MediaRefs>
+						<MediaRef Id="834451912"/>
+					</MediaRefs>
+				</Event>
 				<Event Id="1022453873" Name="Play_MX_Menu" DurationType="Infinite">
 					<SwitchContainers>
 						<SwitchContainer>
@@ -1923,5 +1932,5 @@
 			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{DFF2C097-36CC-BE6D-2B9D-D159951CAFE3}</FileHash>
+	<FileHash>{5B8B385C-520B-EC4E-8267-E83EFC92420F}</FileHash>
 </SoundBanksInfo>
