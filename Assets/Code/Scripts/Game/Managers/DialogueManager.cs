@@ -108,102 +108,17 @@ namespace Code.Scripts.Game.Managers
                 float wait = 0;
                 for (int i = 1; i < textBox.Text.Length; i++)
                 {
-                    // If empty char, skip
-                    if (!string.IsNullOrWhiteSpace(textBox.Text[i].ToString()))
+                    string text = ProcessText(textBox.Text, ref i, ref wait);
+                    if (text != null)
                     {
-                        // Since '\' can be used to escape '>' and '<' symbols, have to skip over the invisible '\'
-                        if (textBox.Text[i - 1] == '\\' && (textBox.Text[i] == '<' || textBox.Text[i] == '>'))
+                        dialogueText.text = text;
+                        wait += advanceText ? FAST_CHAR_DELAY : CHAR_DELAY;
+
+                        if (wait >= Time.deltaTime)
                         {
-                            i++;
-                        }
-
-                        // If just processed a '<', skip ahead to next '>'
-                        if (textBox.Text[i - 1] == '<')
-                        {
-                            int startBracket = i - 1;
-                            // Advance until exceeding text length, or finding a '>' that isn't preceded by a '\'
-                            while (i < textBox.Text.Length && textBox.Text[i] != '>' && textBox.Text[i - 1] != '\\')
-                            {
-                                i++;
-                            }
-
-                            // Custom tag handling for "special" tags
-                            string tagContent = textBox.Text.Substring(startBracket + 1, i - startBracket - 1).Trim();
-                            if (tagContent.StartsWith("special", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                // Split the tag's contents into attributes
-                                Dictionary<string, string> attributeDict = new Dictionary<string, string>();
-                                foreach (string attr in TAG_ATTR_SEPARATION.Split(WHITESPACE.Replace(tagContent, " ")).Where(str => !string.IsNullOrWhiteSpace(str)).ToArray())
-                                {
-                                    string[] attrParts = attr.Split(new[] { '=' }, 2);
-                                    if (attrParts.Length == 2)
-                                    {
-                                        attributeDict.Add(attrParts[0].Trim(), attrParts[1].Trim());
-                                    }
-                                }
-
-                                // Find the entry in specialMappings and apply its effects
-                                bool found = false;
-                                foreach (SpecialMapping specialMapping in specialMappings)
-                                {
-                                    if (attributeDict.TryGetValue("special", out string keyword) && specialMapping.Keyword.Equals(keyword, StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        // Found the entry in specialMappings
-                                        found = true;
-                                        foreach (SpecialMapping.SpecialEffects attr in specialMapping.Mappings.Keys)
-                                        {
-                                            if (attributeDict.TryGetValue(specialMapping.Mappings[attr], out string value))
-                                            {
-                                                // Found the effect's attribute on the tag
-                                                switch (attr)
-                                                {
-                                                    case SpecialMapping.SpecialEffects.Delay:
-                                                        if (float.TryParse(value, out float floatValue))
-                                                        {
-                                                            wait += advanceText ? 0 : floatValue;
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.LogError(
-                                                                "Error with tag: '" + tagContent + "'"
-                                                                + " | " + specialMapping.Mappings[attr] + " is not a float (" + value + ")"
-                                                                + " | The '" + attr + "' effect in Special Mappings requires the attribute value to be a valid float"
-                                                            );
-                                                        }
-                                                        break;
-                                                    default:
-                                                        break;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Debug.LogError(
-                                                    "Error with tag: '" + tagContent + "'"
-                                                    + " | " + specialMapping.Mappings[attr] + " is missing"
-                                                    + " | The '" + attr + "' effect of '" + keyword + "' in Special Mappings uses the '" + specialMapping.Mappings[attr] + "' attribute"
-                                                );
-                                            }
-                                        }
-                                        break;
-                                    }
-                                }
-
-                                if (!found)
-                                {
-                                    Debug.LogError("Error with tag: '" + tagContent + "' | Unable to find corresponding entry in Special Mappings for '" + attributeDict.GetValueOrDefault("special", null) + "'");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            dialogueText.text = ApplyKeywordMappings((textBox.Text.Substring(0, i) + WrapTextInTag(textBox.Text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<"));
-                            wait += advanceText ? FAST_CHAR_DELAY : CHAR_DELAY;
-                            if (wait >= Time.deltaTime)
-                            {
-                                AkSoundEngine.PostEvent("Play_DX_Molly_Standard", gameObject);
-                                yield return new WaitForSecondsRealtime(wait);
-                                wait = 0;
-                            }
+                            AkSoundEngine.PostEvent("Play_DX_Molly_Standard", gameObject);
+                            yield return new WaitForSecondsRealtime(wait);
+                            wait = 0;
                         }
                     }
                 }
@@ -319,6 +234,115 @@ namespace Code.Scripts.Game.Managers
                 output = matchRegex.Replace(output, "");
             }
             return output;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="i"></param>
+        /// <param name="wait"></param>
+        /// <returns></returns>
+        public string ProcessText(string text, ref int i, ref float wait)
+        {
+            if (i >= text.Length)
+            {
+                return ApplyKeywordMappings(text.Replace("\\>", ">").Replace("\\<", "<"));
+            }
+
+            // If empty char, skip
+            if (!string.IsNullOrWhiteSpace(text[i].ToString()))
+            {
+                // Since '\' can be used to escape '>' and '<' symbols, have to skip over the invisible '\'
+                if (text[i - 1] == '\\' && (text[i] == '<' || text[i] == '>'))
+                {
+                    i++;
+                }
+
+                // If just processed a '<', skip ahead to next '>'
+                if (text[i - 1] == '<')
+                {
+                    int startBracket = i - 1;
+                    // Advance until exceeding text length, or finding a '>' that isn't preceded by a '\'
+                    while (i < text.Length && text[i] != '>' && text[i - 1] != '\\')
+                    {
+                        i++;
+                    }
+
+                    // Custom tag handling for "special" tags
+                    string tagContent = text.Substring(startBracket + 1, i - startBracket - 1).Trim();
+                    if (tagContent.StartsWith("special", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        // Split the tag's contents into attributes
+                        Dictionary<string, string> attributeDict = new Dictionary<string, string>();
+                        foreach (string attr in TAG_ATTR_SEPARATION.Split(WHITESPACE.Replace(tagContent, " ")).Where(str => !string.IsNullOrWhiteSpace(str)).ToArray())
+                        {
+                            string[] attrParts = attr.Split(new[] { '=' }, 2);
+                            if (attrParts.Length == 2)
+                            {
+                                attributeDict.Add(attrParts[0].Trim(), attrParts[1].Trim());
+                            }
+                        }
+
+                        // Find the entry in specialMappings and apply its effects
+                        bool found = false;
+                        foreach (SpecialMapping specialMapping in specialMappings)
+                        {
+                            if (attributeDict.TryGetValue("special", out string keyword) && specialMapping.Keyword.Equals(keyword, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                // Found the entry in specialMappings
+                                found = true;
+                                foreach (SpecialMapping.SpecialEffects attr in specialMapping.Mappings.Keys)
+                                {
+                                    if (attributeDict.TryGetValue(specialMapping.Mappings[attr], out string value))
+                                    {
+                                        // Found the effect's attribute on the tag
+                                        switch (attr)
+                                        {
+                                            case SpecialMapping.SpecialEffects.Delay:
+                                                if (float.TryParse(value, out float floatValue))
+                                                {
+                                                    wait += advanceText ? 0 : floatValue;
+                                                }
+                                                else
+                                                {
+                                                    Debug.LogError(
+                                                        "Error with tag: '" + tagContent + "'"
+                                                        + " | " + specialMapping.Mappings[attr] + " is not a float (" + value + ")"
+                                                        + " | The '" + attr + "' effect in Special Mappings requires the attribute value to be a valid float"
+                                                    );
+                                                }
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError(
+                                            "Error with tag: '" + tagContent + "'"
+                                            + " | " + specialMapping.Mappings[attr] + " is missing"
+                                            + " | The '" + attr + "' effect of '" + keyword + "' in Special Mappings uses the '" + specialMapping.Mappings[attr] + "' attribute"
+                                        );
+                                    }
+                                }
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            Debug.LogError("Error with tag: '" + tagContent + "' | Unable to find corresponding entry in Special Mappings for '" + attributeDict.GetValueOrDefault("special", null) + "'");
+                        }
+                    }
+                }
+                else
+                {
+                    return ApplyKeywordMappings((text.Substring(0, i) + WrapTextInTag(text.Substring(i), "<color=#00000000>", "</color>")).Replace("\\>", ">").Replace("\\<", "<"));
+                }
+            }
+
+            return null;
         }
     }
 }
