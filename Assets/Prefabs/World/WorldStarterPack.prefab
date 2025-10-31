@@ -19255,11 +19255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3caded36b7e1837459e4fed2d98c6a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portraitOffset: 400
-  dialoguePanelAnim: {fileID: 7564189695534363732}
-  dialogueText: {fileID: 8318584474567297306}
-  dialogueButton: {fileID: 7176004618007853602}
-  textBox: {fileID: 1127656697205107032}
+  dialoguePanel: {fileID: 2452311676081972945}
   pauseController: {fileID: 8747336614088454484}
   portraitAlignments:
     _serializedList:
@@ -36255,6 +36251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8828069729074212385}
   - component: {fileID: 1697012700637373869}
+  - component: {fileID: 2452311676081972945}
   - component: {fileID: 459874726130651819}
   - component: {fileID: 7564189695534363732}
   m_Layer: 5
@@ -36293,6 +36290,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8253706700449506511}
   m_CullTransparentMesh: 1
+--- !u!114 &2452311676081972945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253706700449506511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5095bb3b427aae14182f2dbbdf1cc1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portraitOffset: 352
+  dialoguePanelAnim: {fileID: 7564189695534363732}
+  dialogueText: {fileID: 8318584474567297306}
+  dialogueButton: {fileID: 7176004618007853602}
+  textBox: {fileID: 1127656697205107032}
 --- !u!114 &459874726130651819
 MonoBehaviour:
   m_ObjectHideFlags: 0

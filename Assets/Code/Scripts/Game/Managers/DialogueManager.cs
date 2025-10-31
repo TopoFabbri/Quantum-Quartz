@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using Code.Scripts.Game.Visuals;
 using Code.Scripts.Input;
 using Code.Scripts.Menu;
 using Code.Scripts.Tools;
@@ -43,11 +44,7 @@ namespace Code.Scripts.Game.Managers
             public IReadOnlyDictionary<SpecialEffects, string> Mappings => mappings;
         }
 
-        [SerializeField] private float portraitOffset = 352;
-        [SerializeField] private Animator dialoguePanelAnim;
-        [SerializeField] private TextMeshProUGUI dialogueText;
-        [SerializeField] private Button dialogueButton;
-        [SerializeField] private RectTransform textBox;
+        [SerializeField] private DialoguePanelController dialoguePanel;
         [SerializeField] private PauseController pauseController;
         [SerializeField] private SerializedDictionary<Conversation.PortraitAnimation, Conversation.PortraitAlignment> portraitAlignments;
         [SerializeField] private List<ButtonMapping> buttonMappings;
@@ -56,7 +53,6 @@ namespace Code.Scripts.Game.Managers
         private bool advanceText = false;
         private Coroutine curDialogue = null;
         private Action onCurDialogueEnd = null;
-        private Rect defaultTextBoxRect;
 
         private void Reset()
         {
@@ -64,15 +60,6 @@ namespace Code.Scripts.Game.Managers
             {
                 portraitAlignments.Add(anims, Conversation.PortraitAlignment.Left);
             }
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            defaultTextBoxRect = new Rect();
-            defaultTextBoxRect.min = textBox.offsetMin;
-            defaultTextBoxRect.max = textBox.offsetMax;
         }
 
         public void StartDialogue(Conversation conversation, Action onConversationEnd = null)
@@ -93,17 +80,12 @@ namespace Code.Scripts.Game.Managers
         {
             pauseController.EnterDialogue();
             InputManager.Instance.EnableUIMap();
-            dialoguePanelAnim.gameObject.SetActive(true);
-            dialogueButton.Select();
             GameManager.Instance.SetMusicFaded(true);
+            yield return dialoguePanel.Show();
 
             foreach (Conversation.TextBox textBox in conversation.textBoxes)
             {
-                dialoguePanelAnim.speed = 1;
-                Conversation.PortraitAlignment alignment = portraitAlignments.GetValueOrDefault(textBox.portrait, Conversation.PortraitAlignment.None);
-                this.textBox.offsetMin = defaultTextBoxRect.min + Vector2.right * (alignment.HasFlag(Conversation.PortraitAlignment.Left) ? portraitOffset : 0);
-                this.textBox.offsetMax = defaultTextBoxRect.max + Vector2.left * (alignment.HasFlag(Conversation.PortraitAlignment.Right) ? portraitOffset : 0);
-                dialoguePanelAnim.SetInteger("Portrait", (int)textBox.portrait);
+                dialoguePanel.SetPortrait(textBox.portrait, portraitAlignments.GetValueOrDefault(textBox.portrait, Conversation.PortraitAlignment.None));
 
                 float wait = 0;
                 for (int i = 1; i < textBox.Text.Length; i++)
@@ -111,7 +93,7 @@ namespace Code.Scripts.Game.Managers
                     string text = ProcessText(textBox.Text, ref i, ref wait);
                     if (text != null)
                     {
-                        dialogueText.text = text;
+                        dialoguePanel.SetText(text);
                         wait += advanceText ? FAST_CHAR_DELAY : CHAR_DELAY;
 
                         if (wait >= Time.deltaTime)
@@ -124,16 +106,13 @@ namespace Code.Scripts.Game.Managers
                 }
 
                 advanceText = false;
-                dialoguePanelAnim.speed = 0;
-                for (int i = 0; i < dialoguePanelAnim.layerCount; i++)
-                {
-                    dialoguePanelAnim.Play(dialoguePanelAnim.GetCurrentAnimatorStateInfo(i).shortNameHash, i, 0);
-                }
-                dialogueText.text = ApplyKeywordMappings(textBox.Text.Replace("\\>", ">").Replace("\\<", "<"));
+                dialoguePanel.FreezePortrait();
+                dialoguePanel.SetText(ApplyKeywordMappings(textBox.Text.Replace("\\>", ">").Replace("\\<", "<")));
                 yield return new WaitUntil(() => advanceText);
                 advanceText = false;
             }
 
+            yield return dialoguePanel.Hide();
             EndDialogue(false);
         }
 
@@ -143,11 +122,8 @@ namespace Code.Scripts.Game.Managers
             {
                 pauseController.ExitDialogue();
                 InputManager.Instance.EnableGameMap();
-                dialoguePanelAnim.gameObject.SetActive(false);
                 GameManager.Instance.SetMusicFaded(false);
             }
-            dialogueText.text = "";
-            dialoguePanelAnim.SetInteger("Portrait", (int)Conversation.PortraitAnimation.None);
 
             onCurDialogueEnd?.Invoke();
             curDialogue = null;
